@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from warp_api._types import Base64FileInput, omit, not_given
-from warp_api._utils import (
+from warp_sdk._types import Base64FileInput, omit, not_given
+from warp_sdk._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from warp_api._compat import PYDANTIC_V1
-from warp_api._models import BaseModel
+from warp_sdk._compat import PYDANTIC_V1
+from warp_sdk._models import BaseModel
 
 _T = TypeVar("_T")
 

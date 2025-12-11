@@ -7,10 +7,10 @@ from typing import Any, cast
 
 import pytest
 
-from warp_api import WarpAPI, AsyncWarpAPI
+from warp_sdk import WarpAPI, AsyncWarpAPI
 from tests.utils import assert_matches_type
-from warp_api._utils import parse_datetime
-from warp_api.types.agent import TaskItem, TaskListResponse
+from warp_sdk._utils import parse_datetime
+from warp_sdk.types.agent import TaskItem, TaskListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

@@ -350,7 +350,7 @@ class TestWarpAPI:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(WarpAPIError):
-            with update_env(**{"WARP_API_API_KEY": Omit()}):
+            with update_env(**{"WARP_API_KEY": Omit()}):
                 client2 = WarpAPI(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 
@@ -1173,7 +1173,7 @@ class TestAsyncWarpAPI:
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with pytest.raises(WarpAPIError):
-            with update_env(**{"WARP_API_API_KEY": Omit()}):
+            with update_env(**{"WARP_API_KEY": Omit()}):
                 client2 = AsyncWarpAPI(base_url=base_url, api_key=None, _strict_response_validation=True)
             _ = client2
 

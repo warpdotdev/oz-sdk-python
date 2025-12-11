@@ -32,7 +32,7 @@ import os
 from warp_sdk import WarpAPI
 
 client = WarpAPI(
-    api_key=os.environ.get("WARP_API_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
 )
 
 response = client.agent.run(
@@ -43,7 +43,7 @@ print(response.task_id)
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `WARP_API_API_KEY="My API Key"` to your `.env` file
+to add `WARP_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
@@ -56,7 +56,7 @@ import asyncio
 from warp_sdk import AsyncWarpAPI
 
 client = AsyncWarpAPI(
-    api_key=os.environ.get("WARP_API_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
 )
 
 
@@ -94,7 +94,7 @@ from warp_sdk import AsyncWarpAPI
 
 async def main() -> None:
     async with AsyncWarpAPI(
-        api_key=os.environ.get("WARP_API_API_KEY"),  # This is the default and can be omitted
+        api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         response = await client.agent.run(

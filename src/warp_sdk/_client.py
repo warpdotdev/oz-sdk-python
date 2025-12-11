@@ -66,13 +66,13 @@ class WarpAPI(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous WarpAPI client instance.
 
-        This automatically infers the `api_key` argument from the `WARP_API_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WARP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("WARP_API_API_KEY")
+            api_key = os.environ.get("WARP_API_KEY")
         if api_key is None:
             raise WarpAPIError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
             )
         self.api_key = api_key
 
@@ -234,13 +234,13 @@ class AsyncWarpAPI(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncWarpAPI client instance.
 
-        This automatically infers the `api_key` argument from the `WARP_API_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `WARP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("WARP_API_API_KEY")
+            api_key = os.environ.get("WARP_API_KEY")
         if api_key is None:
             raise WarpAPIError(
-                "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_API_KEY environment variable"
+                "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
             )
         self.api_key = api_key
 

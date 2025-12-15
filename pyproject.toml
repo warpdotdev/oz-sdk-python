@@ -1,5 +1,5 @@
 [project]
-name = "warp_sdk"
+name = "warp-sdk"
 version = "0.0.1"
 description = "The official Python library for the warp-api API"
 dynamic = ["readme"]

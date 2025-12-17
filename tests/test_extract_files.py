@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from warp_sdk._types import FileTypes
-from warp_sdk._utils import extract_files
+from warp_agent_sdk._types import FileTypes
+from warp_agent_sdk._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

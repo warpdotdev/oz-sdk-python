@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.0 (2025-12-17)
+
+Full Changelog: [v0.1.1...v0.2.0](https://github.com/warpdotdev/warp-sdk-python/compare/v0.1.1...v0.2.0)
+
+### Features
+
+* **api:** manual updates ([2fc23de](https://github.com/warpdotdev/warp-sdk-python/commit/2fc23de0e1d42443e691350804605243c5902026))
+
+
+### Chores
+
+* update SDK settings ([a94be20](https://github.com/warpdotdev/warp-sdk-python/commit/a94be20a45967c6ec5bd95dcc3ffcf457db84305))
+
 ## 0.1.1 (2025-12-17)
 
 Full Changelog: [v0.1.0...v0.1.1](https://github.com/warpdotdev/warp-sdk-python/compare/v0.1.0...v0.1.1)

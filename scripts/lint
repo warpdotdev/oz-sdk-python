@@ -14,4 +14,4 @@ echo "==> Running mypy"
 uv run mypy .
 
 echo "==> Making sure it imports"
-uv run python -c 'import warp_sdk'
+uv run python -c 'import warp_agent_sdk'

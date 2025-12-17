@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,6 +20,7 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import WarpAPIError, APIStatusError
@@ -28,16 +29,15 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.agent import agent
+
+if TYPE_CHECKING:
+    from .resources import agent
+    from .resources.agent.agent import AgentResource, AsyncAgentResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "WarpAPI", "AsyncWarpAPI", "Client", "AsyncClient"]
 
 
 class WarpAPI(SyncAPIClient):
-    agent: agent.AgentResource
-    with_raw_response: WarpAPIWithRawResponse
-    with_streaming_response: WarpAPIWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -92,9 +92,19 @@ class WarpAPI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.agent = agent.AgentResource(self)
-        self.with_raw_response = WarpAPIWithRawResponse(self)
-        self.with_streaming_response = WarpAPIWithStreamedResponse(self)
+    @cached_property
+    def agent(self) -> AgentResource:
+        from .resources.agent import AgentResource
+
+        return AgentResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> WarpAPIWithRawResponse:
+        return WarpAPIWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> WarpAPIWithStreamedResponse:
+        return WarpAPIWithStreamedResponse(self)
 
     @property
     @override
@@ -202,10 +212,6 @@ class WarpAPI(SyncAPIClient):
 
 
 class AsyncWarpAPI(AsyncAPIClient):
-    agent: agent.AsyncAgentResource
-    with_raw_response: AsyncWarpAPIWithRawResponse
-    with_streaming_response: AsyncWarpAPIWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -260,9 +266,19 @@ class AsyncWarpAPI(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.agent = agent.AsyncAgentResource(self)
-        self.with_raw_response = AsyncWarpAPIWithRawResponse(self)
-        self.with_streaming_response = AsyncWarpAPIWithStreamedResponse(self)
+    @cached_property
+    def agent(self) -> AsyncAgentResource:
+        from .resources.agent import AsyncAgentResource
+
+        return AsyncAgentResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncWarpAPIWithRawResponse:
+        return AsyncWarpAPIWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncWarpAPIWithStreamedResponse:
+        return AsyncWarpAPIWithStreamedResponse(self)
 
     @property
     @override
@@ -370,23 +386,55 @@ class AsyncWarpAPI(AsyncAPIClient):
 
 
 class WarpAPIWithRawResponse:
+    _client: WarpAPI
+
     def __init__(self, client: WarpAPI) -> None:
-        self.agent = agent.AgentResourceWithRawResponse(client.agent)
+        self._client = client
+
+    @cached_property
+    def agent(self) -> agent.AgentResourceWithRawResponse:
+        from .resources.agent import AgentResourceWithRawResponse
+
+        return AgentResourceWithRawResponse(self._client.agent)
 
 
 class AsyncWarpAPIWithRawResponse:
+    _client: AsyncWarpAPI
+
     def __init__(self, client: AsyncWarpAPI) -> None:
-        self.agent = agent.AsyncAgentResourceWithRawResponse(client.agent)
+        self._client = client
+
+    @cached_property
+    def agent(self) -> agent.AsyncAgentResourceWithRawResponse:
+        from .resources.agent import AsyncAgentResourceWithRawResponse
+
+        return AsyncAgentResourceWithRawResponse(self._client.agent)
 
 
 class WarpAPIWithStreamedResponse:
+    _client: WarpAPI
+
     def __init__(self, client: WarpAPI) -> None:
-        self.agent = agent.AgentResourceWithStreamingResponse(client.agent)
+        self._client = client
+
+    @cached_property
+    def agent(self) -> agent.AgentResourceWithStreamingResponse:
+        from .resources.agent import AgentResourceWithStreamingResponse
+
+        return AgentResourceWithStreamingResponse(self._client.agent)
 
 
 class AsyncWarpAPIWithStreamedResponse:
+    _client: AsyncWarpAPI
+
     def __init__(self, client: AsyncWarpAPI) -> None:
-        self.agent = agent.AsyncAgentResourceWithStreamingResponse(client.agent)
+        self._client = client
+
+    @cached_property
+    def agent(self) -> agent.AsyncAgentResourceWithStreamingResponse:
+        from .resources.agent import AsyncAgentResourceWithStreamingResponse
+
+        return AsyncAgentResourceWithStreamingResponse(self._client.agent)
 
 
 Client = WarpAPI

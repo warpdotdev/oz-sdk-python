@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.2.1 (2025-12-19)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/warpdotdev/warp-sdk-python/compare/v0.2.0...v0.2.1)
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([c02afdb](https://github.com/warpdotdev/warp-sdk-python/commit/c02afdbec958df84a3e1ec73e213e683c79b04e8))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([46a9b4b](https://github.com/warpdotdev/warp-sdk-python/commit/46a9b4bdceac62a8939f66b0227943d18db5393f))
+
 ## 0.2.0 (2025-12-17)
 
 Full Changelog: [v0.1.1...v0.2.0](https://github.com/warpdotdev/warp-sdk-python/compare/v0.1.1...v0.2.0)

@@ -67,10 +67,13 @@ class TaskItem(BaseModel):
     """Source that created the task:
 
     - LINEAR: Created from Linear integration
-    - API: Created via the public API
+    - API: Created via the Warp API
     - SLACK: Created from Slack integration
     - LOCAL: Created from local CLI/app
     - SCHEDULED_AGENT: Created by a scheduled agent
     """
+
+    started_at: Optional[datetime] = None
+    """Timestamp when the agent started working on the task (RFC3339)"""
 
     status_message: Optional[StatusMessage] = None

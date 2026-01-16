@@ -16,5 +16,8 @@ class AgentRunParams(TypedDict, total=False):
     config: AmbientAgentConfigParam
     """Configuration for an ambient agent task"""
 
+    team: bool
+    """Make the task visible to all team members, not only the calling user"""
+
     title: str
     """Custom title for the task (auto-generated if not provided)"""

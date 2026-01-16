@@ -41,13 +41,13 @@ class AmbientAgentConfig(BaseModel):
     """Custom base prompt for the agent"""
 
     environment_id: Optional[str] = None
-    """UID of a CloudEnvironment GSO to use"""
+    """UID of the environment to run the task in"""
 
     mcp_servers: Optional[Dict[str, McpServers]] = None
     """Map of MCP server configurations by name"""
 
     api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
-    """LLM model to use (uses workspace default if not specified)"""
+    """LLM model to use (uses team default if not specified)"""
 
     name: Optional[str] = None
     """Config name for searchability and traceability"""

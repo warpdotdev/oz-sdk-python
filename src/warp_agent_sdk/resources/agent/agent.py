@@ -59,6 +59,7 @@ class AgentResource(SyncAPIResource):
         *,
         prompt: str,
         config: AmbientAgentConfigParam | Omit = omit,
+        team: bool | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -77,6 +78,8 @@ class AgentResource(SyncAPIResource):
 
           config: Configuration for an ambient agent task
 
+          team: Make the task visible to all team members, not only the calling user
+
           title: Custom title for the task (auto-generated if not provided)
 
           extra_headers: Send extra headers
@@ -93,6 +96,7 @@ class AgentResource(SyncAPIResource):
                 {
                     "prompt": prompt,
                     "config": config,
+                    "team": team,
                     "title": title,
                 },
                 agent_run_params.AgentRunParams,
@@ -133,6 +137,7 @@ class AsyncAgentResource(AsyncAPIResource):
         *,
         prompt: str,
         config: AmbientAgentConfigParam | Omit = omit,
+        team: bool | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -151,6 +156,8 @@ class AsyncAgentResource(AsyncAPIResource):
 
           config: Configuration for an ambient agent task
 
+          team: Make the task visible to all team members, not only the calling user
+
           title: Custom title for the task (auto-generated if not provided)
 
           extra_headers: Send extra headers
@@ -167,6 +174,7 @@ class AsyncAgentResource(AsyncAPIResource):
                 {
                     "prompt": prompt,
                     "config": config,
+                    "team": team,
                     "title": title,
                 },
                 agent_run_params.AgentRunParams,

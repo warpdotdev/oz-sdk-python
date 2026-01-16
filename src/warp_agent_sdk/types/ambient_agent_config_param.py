@@ -42,13 +42,13 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     """Custom base prompt for the agent"""
 
     environment_id: str
-    """UID of a CloudEnvironment GSO to use"""
+    """UID of the environment to run the task in"""
 
     mcp_servers: Dict[str, McpServers]
     """Map of MCP server configurations by name"""
 
     model_id: str
-    """LLM model to use (uses workspace default if not specified)"""
+    """LLM model to use (uses team default if not specified)"""
 
     name: str
     """Config name for searchability and traceability"""

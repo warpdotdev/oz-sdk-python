@@ -46,6 +46,7 @@ class TestAgent:
                 "model_id": "model_id",
                 "name": "name",
             },
+            team=True,
             title="title",
         )
         assert_matches_type(AgentRunResponse, agent, path=["response"])
@@ -111,6 +112,7 @@ class TestAsyncAgent:
                 "model_id": "model_id",
                 "name": "name",
             },
+            team=True,
             title="title",
         )
         assert_matches_type(AgentRunResponse, agent, path=["response"])

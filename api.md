@@ -10,15 +10,15 @@ Methods:
 
 - <code title="post /agent/run">client.agent.<a href="./src/warp_agent_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/warp_agent_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/warp_agent_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
 
-## Tasks
+## Runs
 
 Types:
 
 ```python
-from warp_agent_sdk.types.agent import TaskItem, TaskSourceType, TaskState, TaskListResponse
+from warp_agent_sdk.types.agent import RunItem, RunSourceType, RunState, RunListResponse
 ```
 
 Methods:
 
-- <code title="get /agent/tasks/{taskId}">client.agent.tasks.<a href="./src/warp_agent_sdk/resources/agent/tasks.py">retrieve</a>(task_id) -> <a href="./src/warp_agent_sdk/types/agent/task_item.py">TaskItem</a></code>
-- <code title="get /agent/tasks">client.agent.tasks.<a href="./src/warp_agent_sdk/resources/agent/tasks.py">list</a>(\*\*<a href="src/warp_agent_sdk/types/agent/task_list_params.py">params</a>) -> <a href="./src/warp_agent_sdk/types/agent/task_list_response.py">TaskListResponse</a></code>
+- <code title="get /agent/runs/{runId}">client.agent.runs.<a href="./src/warp_agent_sdk/resources/agent/runs.py">retrieve</a>(run_id) -> <a href="./src/warp_agent_sdk/types/agent/run_item.py">RunItem</a></code>
+- <code title="get /agent/runs">client.agent.runs.<a href="./src/warp_agent_sdk/resources/agent/runs.py">list</a>(\*\*<a href="src/warp_agent_sdk/types/agent/run_list_params.py">params</a>) -> <a href="./src/warp_agent_sdk/types/agent/run_list_response.py">RunListResponse</a></code>

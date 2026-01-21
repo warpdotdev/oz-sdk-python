@@ -2,10 +2,10 @@
 
 from typing import List, Optional
 
+from .run_item import RunItem
 from ..._models import BaseModel
-from .task_item import TaskItem
 
-__all__ = ["TaskListResponse", "PageInfo"]
+__all__ = ["RunListResponse", "PageInfo"]
 
 
 class PageInfo(BaseModel):
@@ -16,7 +16,7 @@ class PageInfo(BaseModel):
     """Opaque cursor for fetching the next page"""
 
 
-class TaskListResponse(BaseModel):
+class RunListResponse(BaseModel):
     page_info: PageInfo
 
-    tasks: List[TaskItem]
+    runs: List[RunItem]

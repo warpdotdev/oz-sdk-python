@@ -7,21 +7,21 @@ from datetime import datetime
 from typing_extensions import Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-from .task_state import TaskState
-from .task_source_type import TaskSourceType
+from .run_state import RunState
+from .run_source_type import RunSourceType
 
-__all__ = ["TaskListParams"]
+__all__ = ["RunListParams"]
 
 
-class TaskListParams(TypedDict, total=False):
+class RunListParams(TypedDict, total=False):
     config_name: str
     """Filter by agent config name"""
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Filter tasks created after this timestamp (RFC3339 format)"""
+    """Filter runs created after this timestamp (RFC3339 format)"""
 
     created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Filter tasks created before this timestamp (RFC3339 format)"""
+    """Filter runs created before this timestamp (RFC3339 format)"""
 
     creator: str
     """Filter by creator UID (user or service account)"""
@@ -30,16 +30,16 @@ class TaskListParams(TypedDict, total=False):
     """Pagination cursor from previous response"""
 
     limit: int
-    """Maximum number of tasks to return"""
+    """Maximum number of runs to return"""
 
     model_id: str
     """Filter by model ID"""
 
-    source: TaskSourceType
-    """Filter by task source type"""
+    source: RunSourceType
+    """Filter by run source type"""
 
-    state: List[TaskState]
-    """Filter by task state.
+    state: List[RunState]
+    """Filter by run state.
 
     Can be specified multiple times to match any of the given states.
     """

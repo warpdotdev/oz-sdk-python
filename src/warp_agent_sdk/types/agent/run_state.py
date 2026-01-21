@@ -2,6 +2,6 @@
 
 from typing_extensions import Literal, TypeAlias
 
-__all__ = ["TaskSourceType"]
+__all__ = ["RunState"]
 
-TaskSourceType: TypeAlias = Literal["LINEAR", "API", "SLACK", "LOCAL", "SCHEDULED_AGENT"]
+RunState: TypeAlias = Literal["QUEUED", "PENDING", "CLAIMED", "INPROGRESS", "SUCCEEDED", "FAILED"]

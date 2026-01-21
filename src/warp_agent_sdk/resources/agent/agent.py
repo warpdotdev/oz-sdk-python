@@ -4,13 +4,13 @@ from __future__ import annotations
 
 import httpx
 
-from .tasks import (
-    TasksResource,
-    AsyncTasksResource,
-    TasksResourceWithRawResponse,
-    AsyncTasksResourceWithRawResponse,
-    TasksResourceWithStreamingResponse,
-    AsyncTasksResourceWithStreamingResponse,
+from .runs import (
+    RunsResource,
+    AsyncRunsResource,
+    RunsResourceWithRawResponse,
+    AsyncRunsResourceWithRawResponse,
+    RunsResourceWithStreamingResponse,
+    AsyncRunsResourceWithStreamingResponse,
 )
 from ...types import agent_run_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
@@ -32,8 +32,8 @@ __all__ = ["AgentResource", "AsyncAgentResource"]
 
 class AgentResource(SyncAPIResource):
     @cached_property
-    def tasks(self) -> TasksResource:
-        return TasksResource(self._client)
+    def runs(self) -> RunsResource:
+        return RunsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AgentResourceWithRawResponse:
@@ -71,16 +71,16 @@ class AgentResource(SyncAPIResource):
         """Spawn an ambient agent with a prompt and optional configuration.
 
         The agent will
-        be queued for execution and assigned a unique task ID.
+        be queued for execution and assigned a unique run ID.
 
         Args:
           prompt: The prompt/instruction for the agent to execute
 
-          config: Configuration for an ambient agent task
+          config: Configuration for an ambient agent run
 
-          team: Make the task visible to all team members, not only the calling user
+          team: Make the run visible to all team members, not only the calling user
 
-          title: Custom title for the task (auto-generated if not provided)
+          title: Custom title for the run (auto-generated if not provided)
 
           extra_headers: Send extra headers
 
@@ -110,8 +110,8 @@ class AgentResource(SyncAPIResource):
 
 class AsyncAgentResource(AsyncAPIResource):
     @cached_property
-    def tasks(self) -> AsyncTasksResource:
-        return AsyncTasksResource(self._client)
+    def runs(self) -> AsyncRunsResource:
+        return AsyncRunsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAgentResourceWithRawResponse:
@@ -149,16 +149,16 @@ class AsyncAgentResource(AsyncAPIResource):
         """Spawn an ambient agent with a prompt and optional configuration.
 
         The agent will
-        be queued for execution and assigned a unique task ID.
+        be queued for execution and assigned a unique run ID.
 
         Args:
           prompt: The prompt/instruction for the agent to execute
 
-          config: Configuration for an ambient agent task
+          config: Configuration for an ambient agent run
 
-          team: Make the task visible to all team members, not only the calling user
+          team: Make the run visible to all team members, not only the calling user
 
-          title: Custom title for the task (auto-generated if not provided)
+          title: Custom title for the run (auto-generated if not provided)
 
           extra_headers: Send extra headers
 
@@ -195,8 +195,8 @@ class AgentResourceWithRawResponse:
         )
 
     @cached_property
-    def tasks(self) -> TasksResourceWithRawResponse:
-        return TasksResourceWithRawResponse(self._agent.tasks)
+    def runs(self) -> RunsResourceWithRawResponse:
+        return RunsResourceWithRawResponse(self._agent.runs)
 
 
 class AsyncAgentResourceWithRawResponse:
@@ -208,8 +208,8 @@ class AsyncAgentResourceWithRawResponse:
         )
 
     @cached_property
-    def tasks(self) -> AsyncTasksResourceWithRawResponse:
-        return AsyncTasksResourceWithRawResponse(self._agent.tasks)
+    def runs(self) -> AsyncRunsResourceWithRawResponse:
+        return AsyncRunsResourceWithRawResponse(self._agent.runs)
 
 
 class AgentResourceWithStreamingResponse:
@@ -221,8 +221,8 @@ class AgentResourceWithStreamingResponse:
         )
 
     @cached_property
-    def tasks(self) -> TasksResourceWithStreamingResponse:
-        return TasksResourceWithStreamingResponse(self._agent.tasks)
+    def runs(self) -> RunsResourceWithStreamingResponse:
+        return RunsResourceWithStreamingResponse(self._agent.runs)
 
 
 class AsyncAgentResourceWithStreamingResponse:
@@ -234,5 +234,5 @@ class AsyncAgentResourceWithStreamingResponse:
         )
 
     @cached_property
-    def tasks(self) -> AsyncTasksResourceWithStreamingResponse:
-        return AsyncTasksResourceWithStreamingResponse(self._agent.tasks)
+    def runs(self) -> AsyncRunsResourceWithStreamingResponse:
+        return AsyncRunsResourceWithStreamingResponse(self._agent.runs)

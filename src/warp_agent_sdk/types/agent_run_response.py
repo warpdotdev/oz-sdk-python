@@ -1,22 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from .._models import BaseModel
-from .agent.task_state import TaskState
+from .agent.run_state import RunState
 
 __all__ = ["AgentRunResponse"]
 
 
 class AgentRunResponse(BaseModel):
-    state: TaskState
-    """Current state of the task:
+    run_id: str
+    """Unique identifier for the created run"""
 
-    - QUEUED: Task is waiting to be picked up
-    - PENDING: Task is being prepared
-    - CLAIMED: Task has been claimed by a worker
-    - INPROGRESS: Task is actively being executed
-    - SUCCEEDED: Task completed successfully
-    - FAILED: Task failed
+    state: RunState
+    """Current state of the run:
+
+    - QUEUED: Run is waiting to be picked up
+    - PENDING: Run is being prepared
+    - CLAIMED: Run has been claimed by a worker
+    - INPROGRESS: Run is actively being executed
+    - SUCCEEDED: Run completed successfully
+    - FAILED: Run failed
     """
-
-    task_id: str
-    """Unique identifier for the created task"""

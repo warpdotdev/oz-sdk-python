@@ -10,66 +10,66 @@ import pytest
 from tests.utils import assert_matches_type
 from warp_agent_sdk import WarpAPI, AsyncWarpAPI
 from warp_agent_sdk._utils import parse_datetime
-from warp_agent_sdk.types.agent import TaskItem, TaskListResponse
+from warp_agent_sdk.types.agent import RunItem, RunListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 
-class TestTasks:
+class TestRuns:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: WarpAPI) -> None:
-        task = client.agent.tasks.retrieve(
-            "taskId",
+        run = client.agent.runs.retrieve(
+            "runId",
         )
-        assert_matches_type(TaskItem, task, path=["response"])
+        assert_matches_type(RunItem, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: WarpAPI) -> None:
-        response = client.agent.tasks.with_raw_response.retrieve(
-            "taskId",
+        response = client.agent.runs.with_raw_response.retrieve(
+            "runId",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        task = response.parse()
-        assert_matches_type(TaskItem, task, path=["response"])
+        run = response.parse()
+        assert_matches_type(RunItem, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: WarpAPI) -> None:
-        with client.agent.tasks.with_streaming_response.retrieve(
-            "taskId",
+        with client.agent.runs.with_streaming_response.retrieve(
+            "runId",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            task = response.parse()
-            assert_matches_type(TaskItem, task, path=["response"])
+            run = response.parse()
+            assert_matches_type(RunItem, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: WarpAPI) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_id` but received ''"):
-            client.agent.tasks.with_raw_response.retrieve(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
+            client.agent.runs.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list(self, client: WarpAPI) -> None:
-        task = client.agent.tasks.list()
-        assert_matches_type(TaskListResponse, task, path=["response"])
+        run = client.agent.runs.list()
+        assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: WarpAPI) -> None:
-        task = client.agent.tasks.list(
+        run = client.agent.runs.list(
             config_name="config_name",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -80,32 +80,32 @@ class TestTasks:
             source="LINEAR",
             state=["QUEUED"],
         )
-        assert_matches_type(TaskListResponse, task, path=["response"])
+        assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: WarpAPI) -> None:
-        response = client.agent.tasks.with_raw_response.list()
+        response = client.agent.runs.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        task = response.parse()
-        assert_matches_type(TaskListResponse, task, path=["response"])
+        run = response.parse()
+        assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: WarpAPI) -> None:
-        with client.agent.tasks.with_streaming_response.list() as response:
+        with client.agent.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            task = response.parse()
-            assert_matches_type(TaskListResponse, task, path=["response"])
+            run = response.parse()
+            assert_matches_type(RunListResponse, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
 
-class TestAsyncTasks:
+class TestAsyncRuns:
     parametrize = pytest.mark.parametrize(
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
@@ -113,55 +113,55 @@ class TestAsyncTasks:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncWarpAPI) -> None:
-        task = await async_client.agent.tasks.retrieve(
-            "taskId",
+        run = await async_client.agent.runs.retrieve(
+            "runId",
         )
-        assert_matches_type(TaskItem, task, path=["response"])
+        assert_matches_type(RunItem, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncWarpAPI) -> None:
-        response = await async_client.agent.tasks.with_raw_response.retrieve(
-            "taskId",
+        response = await async_client.agent.runs.with_raw_response.retrieve(
+            "runId",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        task = await response.parse()
-        assert_matches_type(TaskItem, task, path=["response"])
+        run = await response.parse()
+        assert_matches_type(RunItem, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncWarpAPI) -> None:
-        async with async_client.agent.tasks.with_streaming_response.retrieve(
-            "taskId",
+        async with async_client.agent.runs.with_streaming_response.retrieve(
+            "runId",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            task = await response.parse()
-            assert_matches_type(TaskItem, task, path=["response"])
+            run = await response.parse()
+            assert_matches_type(RunItem, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncWarpAPI) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_id` but received ''"):
-            await async_client.agent.tasks.with_raw_response.retrieve(
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
+            await async_client.agent.runs.with_raw_response.retrieve(
                 "",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncWarpAPI) -> None:
-        task = await async_client.agent.tasks.list()
-        assert_matches_type(TaskListResponse, task, path=["response"])
+        run = await async_client.agent.runs.list()
+        assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWarpAPI) -> None:
-        task = await async_client.agent.tasks.list(
+        run = await async_client.agent.runs.list(
             config_name="config_name",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -172,26 +172,26 @@ class TestAsyncTasks:
             source="LINEAR",
             state=["QUEUED"],
         )
-        assert_matches_type(TaskListResponse, task, path=["response"])
+        assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncWarpAPI) -> None:
-        response = await async_client.agent.tasks.with_raw_response.list()
+        response = await async_client.agent.runs.with_raw_response.list()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        task = await response.parse()
-        assert_matches_type(TaskListResponse, task, path=["response"])
+        run = await response.parse()
+        assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncWarpAPI) -> None:
-        async with async_client.agent.tasks.with_streaming_response.list() as response:
+        async with async_client.agent.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            task = await response.parse()
-            assert_matches_type(TaskListResponse, task, path=["response"])
+            run = await response.parse()
+            assert_matches_type(RunListResponse, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -35,13 +35,13 @@ class McpServers(BaseModel):
 
 
 class AmbientAgentConfig(BaseModel):
-    """Configuration for an ambient agent task"""
+    """Configuration for an ambient agent run"""
 
     base_prompt: Optional[str] = None
     """Custom base prompt for the agent"""
 
     environment_id: Optional[str] = None
-    """UID of the environment to run the task in"""
+    """UID of the environment to run the agent in"""
 
     mcp_servers: Optional[Dict[str, McpServers]] = None
     """Map of MCP server configurations by name"""

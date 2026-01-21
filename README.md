@@ -35,7 +35,7 @@ client = WarpAPI(
 response = client.agent.run(
     prompt="Fix the bug in auth.go",
 )
-print(response.task_id)
+print(response.run_id)
 ```
 
 ### Using environments and configuration
@@ -119,7 +119,7 @@ async def main() -> None:
     response = await client.agent.run(
         prompt="Fix the bug in auth.go",
     )
-    print(response.task_id)
+    print(response.run_id)
 
 
 asyncio.run(main())
@@ -155,7 +155,7 @@ async def main() -> None:
         response = await client.agent.run(
             prompt="Fix the bug in auth.go",
         )
-        print(response.task_id)
+        print(response.run_id)
 
 
 asyncio.run(main())
@@ -321,7 +321,7 @@ response = client.agent.with_raw_response.run(
 print(response.headers.get('X-My-Header'))
 
 agent = response.parse()  # get the object that `agent.run()` would have returned
-print(agent.task_id)
+print(agent.run_id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/warpdotdev/warp-sdk-python/tree/main/src/warp_agent_sdk/_response.py) object.

@@ -17,39 +17,39 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.agent import TaskSourceType, task_list_params
+from ...types.agent import RunSourceType, run_list_params
 from ..._base_client import make_request_options
-from ...types.agent.task_item import TaskItem
-from ...types.agent.task_state import TaskState
-from ...types.agent.task_source_type import TaskSourceType
-from ...types.agent.task_list_response import TaskListResponse
+from ...types.agent.run_item import RunItem
+from ...types.agent.run_state import RunState
+from ...types.agent.run_source_type import RunSourceType
+from ...types.agent.run_list_response import RunListResponse
 
-__all__ = ["TasksResource", "AsyncTasksResource"]
+__all__ = ["RunsResource", "AsyncRunsResource"]
 
 
-class TasksResource(SyncAPIResource):
+class RunsResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> TasksResourceWithRawResponse:
+    def with_raw_response(self) -> RunsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/warpdotdev/warp-sdk-python#accessing-raw-response-data-eg-headers
         """
-        return TasksResourceWithRawResponse(self)
+        return RunsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> TasksResourceWithStreamingResponse:
+    def with_streaming_response(self) -> RunsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/warpdotdev/warp-sdk-python#with_streaming_response
         """
-        return TasksResourceWithStreamingResponse(self)
+        return RunsResourceWithStreamingResponse(self)
 
     def retrieve(
         self,
-        task_id: str,
+        run_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -57,9 +57,9 @@ class TasksResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskItem:
+    ) -> RunItem:
         """
-        Retrieve detailed information about a specific agent task, including the full
+        Retrieve detailed information about a specific agent run, including the full
         prompt, session link, and resolved configuration.
 
         Args:
@@ -71,14 +71,14 @@ class TasksResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not task_id:
-            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get(
-            f"/agent/tasks/{task_id}",
+            f"/agent/runs/{run_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TaskItem,
+            cast_to=RunItem,
         )
 
     def list(
@@ -91,16 +91,16 @@ class TasksResource(SyncAPIResource):
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
-        source: TaskSourceType | Omit = omit,
-        state: List[TaskState] | Omit = omit,
+        source: RunSourceType | Omit = omit,
+        state: List[RunState] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskListResponse:
-        """Retrieve a paginated list of agent tasks with optional filtering.
+    ) -> RunListResponse:
+        """Retrieve a paginated list of agent runs with optional filtering.
 
         Results are
         ordered by creation time (newest first).
@@ -108,21 +108,21 @@ class TasksResource(SyncAPIResource):
         Args:
           config_name: Filter by agent config name
 
-          created_after: Filter tasks created after this timestamp (RFC3339 format)
+          created_after: Filter runs created after this timestamp (RFC3339 format)
 
-          created_before: Filter tasks created before this timestamp (RFC3339 format)
+          created_before: Filter runs created before this timestamp (RFC3339 format)
 
           creator: Filter by creator UID (user or service account)
 
           cursor: Pagination cursor from previous response
 
-          limit: Maximum number of tasks to return
+          limit: Maximum number of runs to return
 
           model_id: Filter by model ID
 
-          source: Filter by task source type
+          source: Filter by run source type
 
-          state: Filter by task state. Can be specified multiple times to match any of the given
+          state: Filter by run state. Can be specified multiple times to match any of the given
               states.
 
           extra_headers: Send extra headers
@@ -134,7 +134,7 @@ class TasksResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
-            "/agent/tasks",
+            "/agent/runs",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -152,36 +152,36 @@ class TasksResource(SyncAPIResource):
                         "source": source,
                         "state": state,
                     },
-                    task_list_params.TaskListParams,
+                    run_list_params.RunListParams,
                 ),
             ),
-            cast_to=TaskListResponse,
+            cast_to=RunListResponse,
         )
 
 
-class AsyncTasksResource(AsyncAPIResource):
+class AsyncRunsResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncTasksResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncRunsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/warpdotdev/warp-sdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncTasksResourceWithRawResponse(self)
+        return AsyncRunsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncTasksResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncRunsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/warpdotdev/warp-sdk-python#with_streaming_response
         """
-        return AsyncTasksResourceWithStreamingResponse(self)
+        return AsyncRunsResourceWithStreamingResponse(self)
 
     async def retrieve(
         self,
-        task_id: str,
+        run_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -189,9 +189,9 @@ class AsyncTasksResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskItem:
+    ) -> RunItem:
         """
-        Retrieve detailed information about a specific agent task, including the full
+        Retrieve detailed information about a specific agent run, including the full
         prompt, session link, and resolved configuration.
 
         Args:
@@ -203,14 +203,14 @@ class AsyncTasksResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not task_id:
-            raise ValueError(f"Expected a non-empty value for `task_id` but received {task_id!r}")
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return await self._get(
-            f"/agent/tasks/{task_id}",
+            f"/agent/runs/{run_id}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=TaskItem,
+            cast_to=RunItem,
         )
 
     async def list(
@@ -223,16 +223,16 @@ class AsyncTasksResource(AsyncAPIResource):
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
-        source: TaskSourceType | Omit = omit,
-        state: List[TaskState] | Omit = omit,
+        source: RunSourceType | Omit = omit,
+        state: List[RunState] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> TaskListResponse:
-        """Retrieve a paginated list of agent tasks with optional filtering.
+    ) -> RunListResponse:
+        """Retrieve a paginated list of agent runs with optional filtering.
 
         Results are
         ordered by creation time (newest first).
@@ -240,21 +240,21 @@ class AsyncTasksResource(AsyncAPIResource):
         Args:
           config_name: Filter by agent config name
 
-          created_after: Filter tasks created after this timestamp (RFC3339 format)
+          created_after: Filter runs created after this timestamp (RFC3339 format)
 
-          created_before: Filter tasks created before this timestamp (RFC3339 format)
+          created_before: Filter runs created before this timestamp (RFC3339 format)
 
           creator: Filter by creator UID (user or service account)
 
           cursor: Pagination cursor from previous response
 
-          limit: Maximum number of tasks to return
+          limit: Maximum number of runs to return
 
           model_id: Filter by model ID
 
-          source: Filter by task source type
+          source: Filter by run source type
 
-          state: Filter by task state. Can be specified multiple times to match any of the given
+          state: Filter by run state. Can be specified multiple times to match any of the given
               states.
 
           extra_headers: Send extra headers
@@ -266,7 +266,7 @@ class AsyncTasksResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
-            "/agent/tasks",
+            "/agent/runs",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -284,56 +284,56 @@ class AsyncTasksResource(AsyncAPIResource):
                         "source": source,
                         "state": state,
                     },
-                    task_list_params.TaskListParams,
+                    run_list_params.RunListParams,
                 ),
             ),
-            cast_to=TaskListResponse,
+            cast_to=RunListResponse,
         )
 
 
-class TasksResourceWithRawResponse:
-    def __init__(self, tasks: TasksResource) -> None:
-        self._tasks = tasks
+class RunsResourceWithRawResponse:
+    def __init__(self, runs: RunsResource) -> None:
+        self._runs = runs
 
         self.retrieve = to_raw_response_wrapper(
-            tasks.retrieve,
+            runs.retrieve,
         )
         self.list = to_raw_response_wrapper(
-            tasks.list,
+            runs.list,
         )
 
 
-class AsyncTasksResourceWithRawResponse:
-    def __init__(self, tasks: AsyncTasksResource) -> None:
-        self._tasks = tasks
+class AsyncRunsResourceWithRawResponse:
+    def __init__(self, runs: AsyncRunsResource) -> None:
+        self._runs = runs
 
         self.retrieve = async_to_raw_response_wrapper(
-            tasks.retrieve,
+            runs.retrieve,
         )
         self.list = async_to_raw_response_wrapper(
-            tasks.list,
+            runs.list,
         )
 
 
-class TasksResourceWithStreamingResponse:
-    def __init__(self, tasks: TasksResource) -> None:
-        self._tasks = tasks
+class RunsResourceWithStreamingResponse:
+    def __init__(self, runs: RunsResource) -> None:
+        self._runs = runs
 
         self.retrieve = to_streamed_response_wrapper(
-            tasks.retrieve,
+            runs.retrieve,
         )
         self.list = to_streamed_response_wrapper(
-            tasks.list,
+            runs.list,
         )
 
 
-class AsyncTasksResourceWithStreamingResponse:
-    def __init__(self, tasks: AsyncTasksResource) -> None:
-        self._tasks = tasks
+class AsyncRunsResourceWithStreamingResponse:
+    def __init__(self, runs: AsyncRunsResource) -> None:
+        self._runs = runs
 
         self.retrieve = async_to_streamed_response_wrapper(
-            tasks.retrieve,
+            runs.retrieve,
         )
         self.list = async_to_streamed_response_wrapper(
-            tasks.list,
+            runs.list,
         )

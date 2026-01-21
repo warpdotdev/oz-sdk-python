@@ -36,13 +36,13 @@ class McpServers(TypedDict, total=False):
 
 
 class AmbientAgentConfigParam(TypedDict, total=False):
-    """Configuration for an ambient agent task"""
+    """Configuration for an ambient agent run"""
 
     base_prompt: str
     """Custom base prompt for the agent"""
 
     environment_id: str
-    """UID of the environment to run the task in"""
+    """UID of the environment to run the agent in"""
 
     mcp_servers: Dict[str, McpServers]
     """Map of MCP server configurations by name"""

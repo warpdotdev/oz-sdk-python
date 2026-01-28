@@ -89,6 +89,7 @@ class RunsResource(SyncAPIResource):
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,
         cursor: str | Omit = omit,
+        environment_id: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
         source: RunSourceType | Omit = omit,
@@ -115,6 +116,8 @@ class RunsResource(SyncAPIResource):
           creator: Filter by creator UID (user or service account)
 
           cursor: Pagination cursor from previous response
+
+          environment_id: Filter runs by environment ID
 
           limit: Maximum number of runs to return
 
@@ -147,6 +150,7 @@ class RunsResource(SyncAPIResource):
                         "created_before": created_before,
                         "creator": creator,
                         "cursor": cursor,
+                        "environment_id": environment_id,
                         "limit": limit,
                         "model_id": model_id,
                         "source": source,
@@ -221,6 +225,7 @@ class AsyncRunsResource(AsyncAPIResource):
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,
         cursor: str | Omit = omit,
+        environment_id: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
         source: RunSourceType | Omit = omit,
@@ -247,6 +252,8 @@ class AsyncRunsResource(AsyncAPIResource):
           creator: Filter by creator UID (user or service account)
 
           cursor: Pagination cursor from previous response
+
+          environment_id: Filter runs by environment ID
 
           limit: Maximum number of runs to return
 
@@ -279,6 +286,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "created_before": created_before,
                         "creator": creator,
                         "cursor": cursor,
+                        "environment_id": environment_id,
                         "limit": limit,
                         "model_id": model_id,
                         "source": source,

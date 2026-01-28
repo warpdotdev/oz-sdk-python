@@ -15,7 +15,13 @@ Methods:
 Types:
 
 ```python
-from warp_agent_sdk.types.agent import RunItem, RunSourceType, RunState, RunListResponse
+from warp_agent_sdk.types.agent import (
+    ArtifactItem,
+    RunItem,
+    RunSourceType,
+    RunState,
+    RunListResponse,
+)
 ```
 
 Methods:

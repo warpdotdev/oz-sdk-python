@@ -29,6 +29,9 @@ class RunListParams(TypedDict, total=False):
     cursor: str
     """Pagination cursor from previous response"""
 
+    environment_id: Annotated[str, PropertyInfo(alias="environmentId")]
+    """Filter runs by environment ID"""
+
     limit: int
     """Maximum number of runs to return"""
 

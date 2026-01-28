@@ -52,3 +52,9 @@ class AmbientAgentConfigParam(TypedDict, total=False):
 
     name: str
     """Config name for searchability and traceability"""
+
+    worker_host: str
+    """
+    Self-hosted worker ID that should execute this task. If not specified or set to
+    "warp", the task runs on Warp-hosted workers.
+    """

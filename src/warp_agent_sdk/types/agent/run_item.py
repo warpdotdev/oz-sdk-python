@@ -1,11 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .run_state import RunState
+from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
 from ..ambient_agent_config import AmbientAgentConfig
 
@@ -77,6 +78,9 @@ class RunItem(BaseModel):
     agent_config: Optional[AmbientAgentConfig] = None
     """Configuration for an ambient agent run"""
 
+    artifacts: Optional[List[ArtifactItem]] = None
+    """Artifacts created during the run (plans, pull requests, etc.)"""
+
     conversation_id: Optional[str] = None
     """UUID of the conversation associated with the run"""
 
@@ -102,6 +106,8 @@ class RunItem(BaseModel):
     - SLACK: Created from Slack integration
     - LOCAL: Created from local CLI/app
     - SCHEDULED_AGENT: Created by a scheduled agent
+    - WEB_APP: Created from the Warp web app
+    - GITHUB_ACTION: Created from a GitHub action
     """
 
     started_at: Optional[datetime] = None

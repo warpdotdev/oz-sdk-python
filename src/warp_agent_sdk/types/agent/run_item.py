@@ -2,29 +2,15 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .run_state import RunState
 from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
+from ..run_creator_info import RunCreatorInfo
 from ..ambient_agent_config import AmbientAgentConfig
 
-__all__ = ["RunItem", "Creator", "RequestUsage", "StatusMessage"]
-
-
-class Creator(BaseModel):
-    display_name: Optional[str] = None
-    """Display name of the creator"""
-
-    photo_url: Optional[str] = None
-    """URL to the creator's photo"""
-
-    type: Optional[Literal["user", "service_account"]] = None
-    """Type of the creator principal"""
-
-    uid: Optional[str] = None
-    """Unique identifier of the creator"""
+__all__ = ["RunItem", "RequestUsage", "StatusMessage"]
 
 
 class RequestUsage(BaseModel):
@@ -84,7 +70,7 @@ class RunItem(BaseModel):
     conversation_id: Optional[str] = None
     """UUID of the conversation associated with the run"""
 
-    creator: Optional[Creator] = None
+    creator: Optional[RunCreatorInfo] = None
 
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""

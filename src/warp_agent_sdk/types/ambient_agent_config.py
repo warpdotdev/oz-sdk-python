@@ -1,37 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .mcp_server_config import McpServerConfig
 
-__all__ = ["AmbientAgentConfig", "McpServers"]
-
-
-class McpServers(BaseModel):
-    """Configuration for an MCP server.
-
-    Must have exactly one of: warp_id, command, or url.
-    """
-
-    args: Optional[List[str]] = None
-    """Stdio transport - command arguments"""
-
-    command: Optional[str] = None
-    """Stdio transport - command to run"""
-
-    env: Optional[Dict[str, str]] = None
-    """Environment variables for the server"""
-
-    headers: Optional[Dict[str, str]] = None
-    """HTTP headers for SSE/HTTP transport"""
-
-    url: Optional[str] = None
-    """SSE/HTTP transport - server URL"""
-
-    warp_id: Optional[str] = None
-    """Reference to a Warp shared MCP server by UUID"""
+__all__ = ["AmbientAgentConfig"]
 
 
 class AmbientAgentConfig(BaseModel):
@@ -43,7 +19,7 @@ class AmbientAgentConfig(BaseModel):
     environment_id: Optional[str] = None
     """UID of the environment to run the agent in"""
 
-    mcp_servers: Optional[Dict[str, McpServers]] = None
+    mcp_servers: Optional[Dict[str, McpServerConfig]] = None
     """Map of MCP server configurations by name"""
 
     api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
@@ -51,6 +27,14 @@ class AmbientAgentConfig(BaseModel):
 
     name: Optional[str] = None
     """Config name for searchability and traceability"""
+
+    skill_spec: Optional[str] = None
+    """
+    Skill specification identifying which agent skill to use. Format:
+    "{owner}/{repo}:{skill_path}" Example:
+    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Use the list agents
+    endpoint to discover available skills.
+    """
 
     worker_host: Optional[str] = None
     """

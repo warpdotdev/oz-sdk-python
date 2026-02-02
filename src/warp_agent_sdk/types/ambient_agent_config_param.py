@@ -5,34 +5,9 @@ from __future__ import annotations
 from typing import Dict
 from typing_extensions import TypedDict
 
-from .._types import SequenceNotStr
+from .mcp_server_config_param import McpServerConfigParam
 
-__all__ = ["AmbientAgentConfigParam", "McpServers"]
-
-
-class McpServers(TypedDict, total=False):
-    """Configuration for an MCP server.
-
-    Must have exactly one of: warp_id, command, or url.
-    """
-
-    args: SequenceNotStr[str]
-    """Stdio transport - command arguments"""
-
-    command: str
-    """Stdio transport - command to run"""
-
-    env: Dict[str, str]
-    """Environment variables for the server"""
-
-    headers: Dict[str, str]
-    """HTTP headers for SSE/HTTP transport"""
-
-    url: str
-    """SSE/HTTP transport - server URL"""
-
-    warp_id: str
-    """Reference to a Warp shared MCP server by UUID"""
+__all__ = ["AmbientAgentConfigParam"]
 
 
 class AmbientAgentConfigParam(TypedDict, total=False):
@@ -44,7 +19,7 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     environment_id: str
     """UID of the environment to run the agent in"""
 
-    mcp_servers: Dict[str, McpServers]
+    mcp_servers: Dict[str, McpServerConfigParam]
     """Map of MCP server configurations by name"""
 
     model_id: str
@@ -52,6 +27,14 @@ class AmbientAgentConfigParam(TypedDict, total=False):
 
     name: str
     """Config name for searchability and traceability"""
+
+    skill_spec: str
+    """
+    Skill specification identifying which agent skill to use. Format:
+    "{owner}/{repo}:{skill_path}" Example:
+    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Use the list agents
+    endpoint to discover available skills.
+    """
 
     worker_host: str
     """

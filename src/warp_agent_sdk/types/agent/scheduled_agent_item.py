@@ -4,7 +4,7 @@ from typing import Optional
 from datetime import datetime
 
 from ..._models import BaseModel
-from ..run_creator_info import RunCreatorInfo
+from ..user_profile import UserProfile
 from ..ambient_agent_config import AmbientAgentConfig
 from ..cloud_environment_config import CloudEnvironmentConfig
 
@@ -49,7 +49,7 @@ class ScheduledAgentItem(BaseModel):
     agent_config: Optional[AmbientAgentConfig] = None
     """Configuration for an ambient agent run"""
 
-    created_by: Optional[RunCreatorInfo] = None
+    created_by: Optional[UserProfile] = None
 
     environment: Optional[CloudEnvironmentConfig] = None
     """Configuration for a cloud environment used by scheduled agents"""
@@ -60,4 +60,4 @@ class ScheduledAgentItem(BaseModel):
     last_spawn_error: Optional[str] = None
     """Error message from the last failed spawn attempt, if any"""
 
-    updated_by: Optional[RunCreatorInfo] = None
+    updated_by: Optional[UserProfile] = None

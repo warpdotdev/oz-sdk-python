@@ -5,10 +5,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["RunCreatorInfo"]
+__all__ = ["UserProfile"]
 
 
-class RunCreatorInfo(BaseModel):
+class UserProfile(BaseModel):
     display_name: Optional[str] = None
     """Display name of the creator"""
 

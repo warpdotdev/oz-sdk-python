@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from .agent_skill import AgentSkill as AgentSkill
+from .user_profile import UserProfile as UserProfile
 from .agent_run_params import AgentRunParams as AgentRunParams
-from .run_creator_info import RunCreatorInfo as RunCreatorInfo
 from .agent_list_params import AgentListParams as AgentListParams
 from .mcp_server_config import McpServerConfig as McpServerConfig
 from .agent_run_response import AgentRunResponse as AgentRunResponse

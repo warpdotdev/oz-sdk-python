@@ -4,10 +4,11 @@ Types:
 
 ```python
 from warp_agent_sdk.types import (
+    AgentSkill,
     AmbientAgentConfig,
     CloudEnvironmentConfig,
     McpServerConfig,
-    RunCreatorInfo,
+    UserProfile,
     AgentListResponse,
     AgentRunResponse,
 )

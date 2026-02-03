@@ -5,9 +5,9 @@ from datetime import datetime
 
 from ..._models import BaseModel
 from .run_state import RunState
+from ..user_profile import UserProfile
 from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
-from ..run_creator_info import RunCreatorInfo
 from ..ambient_agent_config import AmbientAgentConfig
 
 __all__ = ["RunItem", "RequestUsage", "StatusMessage"]
@@ -70,7 +70,7 @@ class RunItem(BaseModel):
     conversation_id: Optional[str] = None
     """UUID of the conversation associated with the run"""
 
-    creator: Optional[RunCreatorInfo] = None
+    creator: Optional[UserProfile] = None
 
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""

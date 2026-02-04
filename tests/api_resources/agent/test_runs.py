@@ -75,11 +75,14 @@ class TestRuns:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             creator="creator",
             cursor="cursor",
-            environment_id="environmentId",
+            environment_id="environment_id",
             limit=1,
             model_id="model_id",
+            schedule_id="schedule_id",
+            skill_spec="skill_spec",
             source="LINEAR",
             state=["QUEUED"],
+            updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(RunListResponse, run, path=["response"])
 
@@ -210,11 +213,14 @@ class TestAsyncRuns:
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             creator="creator",
             cursor="cursor",
-            environment_id="environmentId",
+            environment_id="environment_id",
             limit=1,
             model_id="model_id",
+            schedule_id="schedule_id",
+            skill_spec="skill_spec",
             source="LINEAR",
             state=["QUEUED"],
+            updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
         assert_matches_type(RunListResponse, run, path=["response"])
 

@@ -92,8 +92,11 @@ class RunsResource(SyncAPIResource):
         environment_id: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
+        schedule_id: str | Omit = omit,
+        skill_spec: str | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -123,10 +126,16 @@ class RunsResource(SyncAPIResource):
 
           model_id: Filter by model ID
 
+          schedule_id: Filter runs by the scheduled agent ID that created them
+
+          skill_spec: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
+
           source: Filter by run source type
 
           state: Filter by run state. Can be specified multiple times to match any of the given
               states.
+
+          updated_after: Filter runs updated after this timestamp (RFC3339 format)
 
           extra_headers: Send extra headers
 
@@ -153,8 +162,11 @@ class RunsResource(SyncAPIResource):
                         "environment_id": environment_id,
                         "limit": limit,
                         "model_id": model_id,
+                        "schedule_id": schedule_id,
+                        "skill_spec": skill_spec,
                         "source": source,
                         "state": state,
+                        "updated_after": updated_after,
                     },
                     run_list_params.RunListParams,
                 ),
@@ -263,8 +275,11 @@ class AsyncRunsResource(AsyncAPIResource):
         environment_id: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
+        schedule_id: str | Omit = omit,
+        skill_spec: str | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -294,10 +309,16 @@ class AsyncRunsResource(AsyncAPIResource):
 
           model_id: Filter by model ID
 
+          schedule_id: Filter runs by the scheduled agent ID that created them
+
+          skill_spec: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
+
           source: Filter by run source type
 
           state: Filter by run state. Can be specified multiple times to match any of the given
               states.
+
+          updated_after: Filter runs updated after this timestamp (RFC3339 format)
 
           extra_headers: Send extra headers
 
@@ -324,8 +345,11 @@ class AsyncRunsResource(AsyncAPIResource):
                         "environment_id": environment_id,
                         "limit": limit,
                         "model_id": model_id,
+                        "schedule_id": schedule_id,
+                        "skill_spec": skill_spec,
                         "source": source,
                         "state": state,
+                        "updated_after": updated_after,
                     },
                     run_list_params.RunListParams,
                 ),

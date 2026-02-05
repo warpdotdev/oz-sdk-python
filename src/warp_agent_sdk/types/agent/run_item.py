@@ -10,7 +10,7 @@ from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
 from ..ambient_agent_config import AmbientAgentConfig
 
-__all__ = ["RunItem", "RequestUsage", "StatusMessage"]
+__all__ = ["RunItem", "RequestUsage", "Schedule", "StatusMessage"]
 
 
 class RequestUsage(BaseModel):
@@ -21,6 +21,21 @@ class RequestUsage(BaseModel):
 
     inference_cost: Optional[float] = None
     """Cost of LLM inference for the run"""
+
+
+class Schedule(BaseModel):
+    """
+    Information about the schedule that triggered this run (only present for scheduled runs)
+    """
+
+    cron_schedule: str
+    """Cron expression at the time the run was created"""
+
+    schedule_id: str
+    """Unique identifier for the schedule"""
+
+    schedule_name: str
+    """Name of the schedule at the time the run was created"""
 
 
 class StatusMessage(BaseModel):
@@ -47,7 +62,6 @@ class RunItem(BaseModel):
     - INPROGRESS: Run is actively being executed
     - SUCCEEDED: Run completed successfully
     - FAILED: Run failed
-    - CANCELLED: Run was cancelled by user
     """
 
     task_id: str
@@ -78,6 +92,12 @@ class RunItem(BaseModel):
 
     request_usage: Optional[RequestUsage] = None
     """Resource usage information for the run"""
+
+    schedule: Optional[Schedule] = None
+    """
+    Information about the schedule that triggered this run (only present for
+    scheduled runs)
+    """
 
     session_id: Optional[str] = None
     """UUID of the shared session (if available)"""

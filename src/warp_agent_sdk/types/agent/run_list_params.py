@@ -29,7 +29,7 @@ class RunListParams(TypedDict, total=False):
     cursor: str
     """Pagination cursor from previous response"""
 
-    environment_id: str
+    environment_id: Annotated[str, PropertyInfo(alias="environmentId")]
     """Filter runs by environment ID"""
 
     limit: int
@@ -37,12 +37,6 @@ class RunListParams(TypedDict, total=False):
 
     model_id: str
     """Filter by model ID"""
-
-    schedule_id: str
-    """Filter runs by the scheduled agent ID that created them"""
-
-    skill_spec: str
-    """Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")"""
 
     source: RunSourceType
     """Filter by run source type"""
@@ -52,6 +46,3 @@ class RunListParams(TypedDict, total=False):
 
     Can be specified multiple times to match any of the given states.
     """
-
-    updated_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
-    """Filter runs updated after this timestamp (RFC3339 format)"""

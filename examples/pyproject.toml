@@ -1,0 +1,19 @@
+[project]
+name = "warp-agent-demo"
+version = "0.1.0"
+description = "A demo CLI application using the Warp Python SDK"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "warp-agent-sdk",
+]
+
+[project.scripts]
+warp-cli = "warp_cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = ["warp_cli.py"]

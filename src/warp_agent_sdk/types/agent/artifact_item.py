@@ -7,10 +7,10 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
 
-__all__ = ["ArtifactItem", "PlanArtifact", "PlanArtifactData", "PullRequestArtifact", "PullRequestArtifactData"]
+__all__ = ["ArtifactItem", "PlanArtifact", "PlanArtifactPlan", "PullRequestArtifact", "PullRequestArtifactPullRequest"]
 
 
-class PlanArtifactData(BaseModel):
+class PlanArtifactPlan(BaseModel):
     document_uid: str
     """Unique identifier for the plan document"""
 
@@ -22,16 +22,16 @@ class PlanArtifactData(BaseModel):
 
 
 class PlanArtifact(BaseModel):
-    artifact_type: Literal["PLAN"]
+    artifact_type: Literal["plan"]
     """Type of the artifact"""
 
     created_at: datetime
     """Timestamp when the artifact was created (RFC3339)"""
 
-    data: PlanArtifactData
+    plan: PlanArtifactPlan
 
 
-class PullRequestArtifactData(BaseModel):
+class PullRequestArtifactPullRequest(BaseModel):
     branch: str
     """Branch name for the pull request"""
 
@@ -40,13 +40,13 @@ class PullRequestArtifactData(BaseModel):
 
 
 class PullRequestArtifact(BaseModel):
-    artifact_type: Literal["PULL_REQUEST"]
+    artifact_type: Literal["pull_request"]
     """Type of the artifact"""
 
     created_at: datetime
     """Timestamp when the artifact was created (RFC3339)"""
 
-    data: PullRequestArtifactData
+    pull_request: PullRequestArtifactPullRequest
 
 
 ArtifactItem: TypeAlias = Annotated[

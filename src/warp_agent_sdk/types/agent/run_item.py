@@ -116,6 +116,8 @@ class RunItem(BaseModel):
     - SCHEDULED_AGENT: Created by a scheduled agent
     - WEB_APP: Created from the Warp web app
     - GITHUB_ACTION: Created from a GitHub action
+    - CLOUD_MODE: Created from a Cloud Mode
+    - CLI: Created from the CLI
     """
 
     started_at: Optional[datetime] = None

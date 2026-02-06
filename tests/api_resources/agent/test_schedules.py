@@ -40,6 +40,7 @@ class TestSchedules:
             prompt="Review open pull requests and provide feedback",
             agent_config={
                 "base_prompt": "base_prompt",
+                "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "mcp_servers": {
                     "foo": {
@@ -156,6 +157,7 @@ class TestSchedules:
             prompt="prompt",
             agent_config={
                 "base_prompt": "base_prompt",
+                "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "mcp_servers": {
                     "foo": {
@@ -400,6 +402,7 @@ class TestAsyncSchedules:
             prompt="Review open pull requests and provide feedback",
             agent_config={
                 "base_prompt": "base_prompt",
+                "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "mcp_servers": {
                     "foo": {
@@ -516,6 +519,7 @@ class TestAsyncSchedules:
             prompt="prompt",
             agent_config={
                 "base_prompt": "base_prompt",
+                "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "mcp_servers": {
                     "foo": {

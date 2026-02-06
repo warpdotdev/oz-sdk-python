@@ -71,6 +71,7 @@ class TestAgent:
             prompt="Fix the bug in auth.go",
             config={
                 "base_prompt": "base_prompt",
+                "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "mcp_servers": {
                     "foo": {
@@ -175,6 +176,7 @@ class TestAsyncAgent:
             prompt="Fix the bug in auth.go",
             config={
                 "base_prompt": "base_prompt",
+                "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "mcp_servers": {
                     "foo": {

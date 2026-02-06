@@ -16,6 +16,12 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     base_prompt: str
     """Custom base prompt for the agent"""
 
+    computer_use_enabled: bool
+    """
+    Controls whether computer use is enabled for this agent. If not set, defaults to
+    false.
+    """
+
     environment_id: str
     """UID of the environment to run the agent in"""
 

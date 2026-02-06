@@ -16,6 +16,12 @@ class AmbientAgentConfig(BaseModel):
     base_prompt: Optional[str] = None
     """Custom base prompt for the agent"""
 
+    computer_use_enabled: Optional[bool] = None
+    """
+    Controls whether computer use is enabled for this agent. If not set, defaults to
+    false.
+    """
+
     environment_id: Optional[str] = None
     """UID of the environment to run the agent in"""
 

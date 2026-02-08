@@ -23,7 +23,7 @@ class ScheduleCreateParams(TypedDict, total=False):
     """The prompt/instruction for the agent to execute"""
 
     agent_config: AmbientAgentConfigParam
-    """Configuration for an ambient agent run"""
+    """Configuration for an cloud agent run"""
 
     enabled: bool
     """Whether the schedule should be active immediately"""

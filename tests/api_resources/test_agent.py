@@ -30,7 +30,9 @@ class TestAgent:
     @parametrize
     def test_method_list_with_all_params(self, client: WarpAPI) -> None:
         agent = client.agent.list(
+            refresh=True,
             repo="repo",
+            sort_by="name",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -59,16 +61,13 @@ class TestAgent:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run(self, client: WarpAPI) -> None:
-        agent = client.agent.run(
-            prompt="Fix the bug in auth.go",
-        )
+        agent = client.agent.run()
         assert_matches_type(AgentRunResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_run_with_all_params(self, client: WarpAPI) -> None:
         agent = client.agent.run(
-            prompt="Fix the bug in auth.go",
             config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -88,6 +87,15 @@ class TestAgent:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            conversation_id="conversation_id",
+            images=[
+                {
+                    "data": "U3RhaW5sZXNzIHJvY2tz",
+                    "mime_type": "image/jpeg",
+                }
+            ],
+            prompt="Fix the bug in auth.go",
+            skill="skill",
             team=True,
             title="title",
         )
@@ -96,9 +104,7 @@ class TestAgent:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_run(self, client: WarpAPI) -> None:
-        response = client.agent.with_raw_response.run(
-            prompt="Fix the bug in auth.go",
-        )
+        response = client.agent.with_raw_response.run()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -108,9 +114,7 @@ class TestAgent:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_run(self, client: WarpAPI) -> None:
-        with client.agent.with_streaming_response.run(
-            prompt="Fix the bug in auth.go",
-        ) as response:
+        with client.agent.with_streaming_response.run() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -135,7 +139,9 @@ class TestAsyncAgent:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWarpAPI) -> None:
         agent = await async_client.agent.list(
+            refresh=True,
             repo="repo",
+            sort_by="name",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -164,16 +170,13 @@ class TestAsyncAgent:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run(self, async_client: AsyncWarpAPI) -> None:
-        agent = await async_client.agent.run(
-            prompt="Fix the bug in auth.go",
-        )
+        agent = await async_client.agent.run()
         assert_matches_type(AgentRunResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncWarpAPI) -> None:
         agent = await async_client.agent.run(
-            prompt="Fix the bug in auth.go",
             config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -193,6 +196,15 @@ class TestAsyncAgent:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            conversation_id="conversation_id",
+            images=[
+                {
+                    "data": "U3RhaW5sZXNzIHJvY2tz",
+                    "mime_type": "image/jpeg",
+                }
+            ],
+            prompt="Fix the bug in auth.go",
+            skill="skill",
             team=True,
             title="title",
         )
@@ -201,9 +213,7 @@ class TestAsyncAgent:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_run(self, async_client: AsyncWarpAPI) -> None:
-        response = await async_client.agent.with_raw_response.run(
-            prompt="Fix the bug in auth.go",
-        )
+        response = await async_client.agent.with_raw_response.run()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -213,9 +223,7 @@ class TestAsyncAgent:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_run(self, async_client: AsyncWarpAPI) -> None:
-        async with async_client.agent.with_streaming_response.run(
-            prompt="Fix the bug in auth.go",
-        ) as response:
+        async with async_client.agent.with_streaming_response.run() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

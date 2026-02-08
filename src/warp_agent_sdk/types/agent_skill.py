@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List
+from typing import List, Optional
+from datetime import datetime
 
 from .._models import BaseModel
 
@@ -43,6 +44,9 @@ class Variant(BaseModel):
     """Environments where this agent variant is available"""
 
     source: VariantSource
+
+    last_run_timestamp: Optional[datetime] = None
+    """Timestamp of the last time this skill was run (RFC3339)"""
 
 
 class AgentSkill(BaseModel):

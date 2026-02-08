@@ -23,4 +23,4 @@ class ScheduleUpdateParams(TypedDict, total=False):
     """The prompt/instruction for the agent to execute"""
 
     agent_config: AmbientAgentConfigParam
-    """Configuration for an ambient agent run"""
+    """Configuration for an cloud agent run"""

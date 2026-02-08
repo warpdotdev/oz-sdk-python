@@ -5,14 +5,14 @@ import typing as _t
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes, omit, not_given
 from ._utils import file_from_path
-from ._client import Client, Stream, Timeout, WarpAPI, Transport, AsyncClient, AsyncStream, AsyncWarpAPI, RequestOptions
+from ._client import OzAPI, Client, Stream, Timeout, Transport, AsyncOzAPI, AsyncClient, AsyncStream, RequestOptions
 from ._models import BaseModel
 from ._version import __title__, __version__
 from ._response import APIResponse as APIResponse, AsyncAPIResponse as AsyncAPIResponse
 from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION_LIMITS
 from ._exceptions import (
     APIError,
-    WarpAPIError,
+    OzAPIError,
     ConflictError,
     NotFoundError,
     APIStatusError,
@@ -41,7 +41,7 @@ __all__ = [
     "not_given",
     "Omit",
     "omit",
-    "WarpAPIError",
+    "OzAPIError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -61,8 +61,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "WarpAPI",
-    "AsyncWarpAPI",
+    "OzAPI",
+    "AsyncOzAPI",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",
@@ -81,12 +81,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# warp_agent_sdk._exceptions.NotFoundError -> warp_agent_sdk.NotFoundError
+# oz_agent_sdk._exceptions.NotFoundError -> oz_agent_sdk.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "warp_agent_sdk"
+            __locals[__name].__module__ = "oz_agent_sdk"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass

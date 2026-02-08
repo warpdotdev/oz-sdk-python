@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from warp_agent_sdk._utils import PropertyInfo
-from warp_agent_sdk._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
-from warp_agent_sdk._models import DISCRIMINATOR_CACHE, BaseModel, construct_type
+from oz_agent_sdk._utils import PropertyInfo
+from oz_agent_sdk._compat import PYDANTIC_V1, parse_obj, model_dump, model_json
+from oz_agent_sdk._models import DISCRIMINATOR_CACHE, BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

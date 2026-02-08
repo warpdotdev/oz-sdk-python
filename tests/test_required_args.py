@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from warp_agent_sdk._utils import required_args
+from oz_agent_sdk._utils import required_args
 
 
 def test_too_many_positional_params() -> None:

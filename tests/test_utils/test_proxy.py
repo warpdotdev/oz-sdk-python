@@ -2,7 +2,7 @@ import operator
 from typing import Any
 from typing_extensions import override
 
-from warp_agent_sdk._utils import LazyProxy
+from oz_agent_sdk._utils import LazyProxy
 
 
 class RecursiveLazyProxy(LazyProxy[Any]):

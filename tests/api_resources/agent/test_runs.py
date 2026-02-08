@@ -8,9 +8,9 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from warp_agent_sdk import WarpAPI, AsyncWarpAPI
-from warp_agent_sdk._utils import parse_datetime
-from warp_agent_sdk.types.agent import RunItem, RunListResponse
+from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk._utils import parse_datetime
+from oz_agent_sdk.types.agent import RunItem, RunListResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +20,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: WarpAPI) -> None:
+    def test_method_retrieve(self, client: OzAPI) -> None:
         run = client.agent.runs.retrieve(
             "runId",
         )
@@ -28,7 +28,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: WarpAPI) -> None:
+    def test_raw_response_retrieve(self, client: OzAPI) -> None:
         response = client.agent.runs.with_raw_response.retrieve(
             "runId",
         )
@@ -40,7 +40,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: WarpAPI) -> None:
+    def test_streaming_response_retrieve(self, client: OzAPI) -> None:
         with client.agent.runs.with_streaming_response.retrieve(
             "runId",
         ) as response:
@@ -54,7 +54,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: WarpAPI) -> None:
+    def test_path_params_retrieve(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.agent.runs.with_raw_response.retrieve(
                 "",
@@ -62,13 +62,13 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: WarpAPI) -> None:
+    def test_method_list(self, client: OzAPI) -> None:
         run = client.agent.runs.list()
         assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: WarpAPI) -> None:
+    def test_method_list_with_all_params(self, client: OzAPI) -> None:
         run = client.agent.runs.list(
             artifact_type="PLAN",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -91,7 +91,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: WarpAPI) -> None:
+    def test_raw_response_list(self, client: OzAPI) -> None:
         response = client.agent.runs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -101,7 +101,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: WarpAPI) -> None:
+    def test_streaming_response_list(self, client: OzAPI) -> None:
         with client.agent.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -113,7 +113,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_cancel(self, client: WarpAPI) -> None:
+    def test_method_cancel(self, client: OzAPI) -> None:
         run = client.agent.runs.cancel(
             "runId",
         )
@@ -121,7 +121,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_cancel(self, client: WarpAPI) -> None:
+    def test_raw_response_cancel(self, client: OzAPI) -> None:
         response = client.agent.runs.with_raw_response.cancel(
             "runId",
         )
@@ -133,7 +133,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_cancel(self, client: WarpAPI) -> None:
+    def test_streaming_response_cancel(self, client: OzAPI) -> None:
         with client.agent.runs.with_streaming_response.cancel(
             "runId",
         ) as response:
@@ -147,7 +147,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_cancel(self, client: WarpAPI) -> None:
+    def test_path_params_cancel(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.agent.runs.with_raw_response.cancel(
                 "",
@@ -161,7 +161,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.retrieve(
             "runId",
         )
@@ -169,7 +169,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncWarpAPI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.runs.with_raw_response.retrieve(
             "runId",
         )
@@ -181,7 +181,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncWarpAPI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.runs.with_streaming_response.retrieve(
             "runId",
         ) as response:
@@ -195,7 +195,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncWarpAPI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.retrieve(
                 "",
@@ -203,13 +203,13 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_list(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.list()
         assert_matches_type(RunListResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.list(
             artifact_type="PLAN",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -232,7 +232,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWarpAPI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.runs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -242,7 +242,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWarpAPI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -254,7 +254,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_cancel(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.cancel(
             "runId",
         )
@@ -262,7 +262,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncWarpAPI) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.runs.with_raw_response.cancel(
             "runId",
         )
@@ -274,7 +274,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncWarpAPI) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.runs.with_streaming_response.cancel(
             "runId",
         ) as response:
@@ -288,7 +288,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncWarpAPI) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.cancel(
                 "",

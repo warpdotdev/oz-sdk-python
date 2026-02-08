@@ -10,15 +10,15 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from warp_agent_sdk import WarpAPI, AsyncWarpAPI, DefaultAioHttpClient
-from warp_agent_sdk._utils import is_dict
+from oz_agent_sdk import OzAPI, AsyncOzAPI, DefaultAioHttpClient
+from oz_agent_sdk._utils import is_dict
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("warp_agent_sdk").setLevel(logging.DEBUG)
+logging.getLogger("oz_agent_sdk").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -49,17 +49,17 @@ api_key = "My API Key"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[WarpAPI]:
+def client(request: FixtureRequest) -> Iterator[OzAPI]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with WarpAPI(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    with OzAPI(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWarpAPI]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncOzAPI]:
     param = getattr(request, "param", True)
 
     # defaults
@@ -78,7 +78,7 @@ async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncWarpAPI]:
     else:
         raise TypeError(f"Unexpected fixture parameter type {type(param)}, expected bool or dict")
 
-    async with AsyncWarpAPI(
+    async with AsyncOzAPI(
         base_url=base_url, api_key=api_key, _strict_response_validation=strict, http_client=http_client
     ) as client:
         yield client

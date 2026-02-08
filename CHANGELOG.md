@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.5.0 (2026-02-08)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** modify openapi trigger ([db2d311](https://github.com/warpdotdev/oz-sdk-python/commit/db2d3116a353cc7a5b552e09769372264f6353b8))
+
+
+### Chores
+
+* update SDK settings ([f233ca0](https://github.com/warpdotdev/oz-sdk-python/commit/f233ca083a6cf8f49bb47f9fa348dcc3aa2b5f1c))
+* update SDK settings ([7857217](https://github.com/warpdotdev/oz-sdk-python/commit/78572179b9ad2c50849060db1d6d3981dd83297b))
+* update SDK settings ([181c928](https://github.com/warpdotdev/oz-sdk-python/commit/181c9281ec380c5aaa09de344584fe413b67728f))
+
 ## 0.4.0 (2026-02-06)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/warpdotdev/warp-sdk-python/compare/v0.3.0...v0.4.0)

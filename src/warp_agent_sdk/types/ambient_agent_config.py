@@ -11,7 +11,7 @@ __all__ = ["AmbientAgentConfig"]
 
 
 class AmbientAgentConfig(BaseModel):
-    """Configuration for an ambient agent run"""
+    """Configuration for an cloud agent run"""
 
     base_prompt: Optional[str] = None
     """Custom base prompt for the agent"""

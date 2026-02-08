@@ -122,7 +122,6 @@ from warp_agent_sdk import WarpAPI
 client = WarpAPI()
 
 response = client.agent.run(
-    prompt="Fix the bug in auth.go",
     config={},
 )
 print(response.config)

@@ -70,7 +70,7 @@ class TestRuns:
     @parametrize
     def test_method_list_with_all_params(self, client: WarpAPI) -> None:
         run = client.agent.runs.list(
-            config_name="config_name",
+            artifact_type="PLAN",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             creator="creator",
@@ -78,7 +78,10 @@ class TestRuns:
             environment_id="environment_id",
             limit=1,
             model_id="model_id",
+            name="name",
+            q="q",
             schedule_id="schedule_id",
+            skill="skill",
             skill_spec="skill_spec",
             source="LINEAR",
             state=["QUEUED"],
@@ -208,7 +211,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncWarpAPI) -> None:
         run = await async_client.agent.runs.list(
-            config_name="config_name",
+            artifact_type="PLAN",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             creator="creator",
@@ -216,7 +219,10 @@ class TestAsyncRuns:
             environment_id="environment_id",
             limit=1,
             model_id="model_id",
+            name="name",
+            q="q",
             schedule_id="schedule_id",
+            skill="skill",
             skill_spec="skill_spec",
             source="LINEAR",
             state=["QUEUED"],

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union
 from datetime import datetime
-from typing_extensions import Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
 from .run_state import RunState
@@ -14,8 +14,8 @@ __all__ = ["RunListParams"]
 
 
 class RunListParams(TypedDict, total=False):
-    config_name: str
-    """Filter by agent config name"""
+    artifact_type: Literal["PLAN", "PULL_REQUEST"]
+    """Filter runs by artifact type (PLAN or PULL_REQUEST)"""
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Filter runs created after this timestamp (RFC3339 format)"""
@@ -38,8 +38,20 @@ class RunListParams(TypedDict, total=False):
     model_id: str
     """Filter by model ID"""
 
+    name: str
+    """Filter by agent config name"""
+
+    q: str
+    """Fuzzy search query across run title, prompt, and skill_spec"""
+
     schedule_id: str
     """Filter runs by the scheduled agent ID that created them"""
+
+    skill: str
+    """
+    Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md"). Alias for
+    skill_spec.
+    """
 
     skill_spec: str
     """Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")"""

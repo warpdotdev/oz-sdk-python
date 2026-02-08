@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from .run_state import RunState
@@ -10,7 +11,26 @@ from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
 from ..ambient_agent_config import AmbientAgentConfig
 
-__all__ = ["RunItem", "RequestUsage", "Schedule", "StatusMessage"]
+__all__ = ["RunItem", "AgentSkill", "RequestUsage", "Schedule", "Scope", "StatusMessage"]
+
+
+class AgentSkill(BaseModel):
+    """
+    Information about the agent skill used for the run.
+    Either full_path or bundled_skill_id will be set, but not both.
+    """
+
+    bundled_skill_id: Optional[str] = None
+    """Unique identifier for bundled skills"""
+
+    description: Optional[str] = None
+    """Description of the skill"""
+
+    full_path: Optional[str] = None
+    """Path to the SKILL.md file (for file-based skills)"""
+
+    name: Optional[str] = None
+    """Human-readable name of the skill"""
 
 
 class RequestUsage(BaseModel):
@@ -36,6 +56,16 @@ class Schedule(BaseModel):
 
     schedule_name: str
     """Name of the schedule at the time the run was created"""
+
+
+class Scope(BaseModel):
+    """Ownership scope for a resource (team or personal)"""
+
+    type: Literal["User", "Team"]
+    """Type of ownership ("User" for personal, "Team" for team-owned)"""
+
+    uid: Optional[str] = None
+    """UID of the owning user or team"""
 
 
 class StatusMessage(BaseModel):
@@ -78,7 +108,13 @@ class RunItem(BaseModel):
     """Timestamp when the run was last updated (RFC3339)"""
 
     agent_config: Optional[AmbientAgentConfig] = None
-    """Configuration for an ambient agent run"""
+    """Configuration for an cloud agent run"""
+
+    agent_skill: Optional[AgentSkill] = None
+    """
+    Information about the agent skill used for the run. Either full_path or
+    bundled_skill_id will be set, but not both.
+    """
 
     artifacts: Optional[List[ArtifactItem]] = None
     """Artifacts created during the run (plans, pull requests, etc.)"""
@@ -99,6 +135,9 @@ class RunItem(BaseModel):
     Information about the schedule that triggered this run (only present for
     scheduled runs)
     """
+
+    scope: Optional[Scope] = None
+    """Ownership scope for a resource (team or personal)"""
 
     session_id: Optional[str] = None
     """UUID of the shared session (if available)"""

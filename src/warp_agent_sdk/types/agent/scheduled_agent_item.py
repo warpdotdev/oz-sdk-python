@@ -2,13 +2,14 @@
 
 from typing import Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 from ..user_profile import UserProfile
 from ..ambient_agent_config import AmbientAgentConfig
 from ..cloud_environment_config import CloudEnvironmentConfig
 
-__all__ = ["ScheduledAgentItem", "History"]
+__all__ = ["ScheduledAgentItem", "History", "Scope"]
 
 
 class History(BaseModel):
@@ -19,6 +20,16 @@ class History(BaseModel):
 
     next_run: Optional[datetime] = None
     """Timestamp of the next scheduled run (RFC3339)"""
+
+
+class Scope(BaseModel):
+    """Ownership scope for a resource (team or personal)"""
+
+    type: Literal["User", "Team"]
+    """Type of ownership ("User" for personal, "Team" for team-owned)"""
+
+    uid: Optional[str] = None
+    """UID of the owning user or team"""
 
 
 class ScheduledAgentItem(BaseModel):
@@ -47,7 +58,7 @@ class ScheduledAgentItem(BaseModel):
     """Timestamp when the schedule was last updated (RFC3339)"""
 
     agent_config: Optional[AmbientAgentConfig] = None
-    """Configuration for an ambient agent run"""
+    """Configuration for an cloud agent run"""
 
     created_by: Optional[UserProfile] = None
 
@@ -59,5 +70,8 @@ class ScheduledAgentItem(BaseModel):
 
     last_spawn_error: Optional[str] = None
     """Error message from the last failed spawn attempt, if any"""
+
+    scope: Optional[Scope] = None
+    """Ownership scope for a resource (team or personal)"""
 
     updated_by: Optional[UserProfile] = None

@@ -852,7 +852,7 @@ class TestWarpAPI:
         respx_mock.post("/agent/run").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.agent.with_streaming_response.run(prompt="Fix the bug in auth.go").__enter__()
+            client.agent.with_streaming_response.run().__enter__()
 
         assert _get_open_connections(client) == 0
 
@@ -862,7 +862,7 @@ class TestWarpAPI:
         respx_mock.post("/agent/run").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.agent.with_streaming_response.run(prompt="Fix the bug in auth.go").__enter__()
+            client.agent.with_streaming_response.run().__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -891,7 +891,7 @@ class TestWarpAPI:
 
         respx_mock.post("/agent/run").mock(side_effect=retry_handler)
 
-        response = client.agent.with_raw_response.run(prompt="Fix the bug in auth.go")
+        response = client.agent.with_raw_response.run()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -915,9 +915,7 @@ class TestWarpAPI:
 
         respx_mock.post("/agent/run").mock(side_effect=retry_handler)
 
-        response = client.agent.with_raw_response.run(
-            prompt="Fix the bug in auth.go", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -940,9 +938,7 @@ class TestWarpAPI:
 
         respx_mock.post("/agent/run").mock(side_effect=retry_handler)
 
-        response = client.agent.with_raw_response.run(
-            prompt="Fix the bug in auth.go", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1756,7 +1752,7 @@ class TestAsyncWarpAPI:
         respx_mock.post("/agent/run").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.agent.with_streaming_response.run(prompt="Fix the bug in auth.go").__aenter__()
+            await async_client.agent.with_streaming_response.run().__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
@@ -1766,7 +1762,7 @@ class TestAsyncWarpAPI:
         respx_mock.post("/agent/run").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.agent.with_streaming_response.run(prompt="Fix the bug in auth.go").__aenter__()
+            await async_client.agent.with_streaming_response.run().__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
@@ -1795,7 +1791,7 @@ class TestAsyncWarpAPI:
 
         respx_mock.post("/agent/run").mock(side_effect=retry_handler)
 
-        response = await client.agent.with_raw_response.run(prompt="Fix the bug in auth.go")
+        response = await client.agent.with_raw_response.run()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
@@ -1819,9 +1815,7 @@ class TestAsyncWarpAPI:
 
         respx_mock.post("/agent/run").mock(side_effect=retry_handler)
 
-        response = await client.agent.with_raw_response.run(
-            prompt="Fix the bug in auth.go", extra_headers={"x-stainless-retry-count": Omit()}
-        )
+        response = await client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
@@ -1844,9 +1838,7 @@ class TestAsyncWarpAPI:
 
         respx_mock.post("/agent/run").mock(side_effect=retry_handler)
 
-        response = await client.agent.with_raw_response.run(
-            prompt="Fix the bug in auth.go", extra_headers={"x-stainless-retry-count": "42"}
-        )
+        response = await client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 

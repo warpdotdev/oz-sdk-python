@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from typing import Iterable
+from typing_extensions import Literal
+
 import httpx
 
 from .runs import (
@@ -70,7 +73,9 @@ class AgentResource(SyncAPIResource):
     def list(
         self,
         *,
+        refresh: bool | Omit = omit,
         repo: str | Omit = omit,
+        sort_by: Literal["name", "last_run"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -83,8 +88,16 @@ class AgentResource(SyncAPIResource):
         Agents are discovered from environments or a specific repository.
 
         Args:
+          refresh: When true, clears the agent list cache before fetching. Use this to force a
+              refresh of the available agents.
+
           repo: Optional repository specification to list agents from (format: "owner/repo"). If
               not provided, lists agents from all accessible environments.
+
+          sort_by: Sort order for the returned agents.
+
+              - "name": Sort alphabetically by name (default)
+              - "last_run": Sort by most recently used
 
           extra_headers: Send extra headers
 
@@ -101,7 +114,14 @@ class AgentResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"repo": repo}, agent_list_params.AgentListParams),
+                query=maybe_transform(
+                    {
+                        "refresh": refresh,
+                        "repo": repo,
+                        "sort_by": sort_by,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
             ),
             cast_to=AgentListResponse,
         )
@@ -109,8 +129,11 @@ class AgentResource(SyncAPIResource):
     def run(
         self,
         *,
-        prompt: str,
         config: AmbientAgentConfigParam | Omit = omit,
+        conversation_id: str | Omit = omit,
+        images: Iterable[agent_run_params.Image] | Omit = omit,
+        prompt: str | Omit = omit,
+        skill: str | Omit = omit,
         team: bool | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -120,17 +143,33 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Spawn an ambient agent with a prompt and optional configuration.
+        """Spawn an cloud agent with a prompt and optional configuration.
 
-        The agent will
-        be queued for execution and assigned a unique run ID.
+        The agent will be
+        queued for execution and assigned a unique run ID.
 
         Args:
-          prompt: The prompt/instruction for the agent to execute
+          config: Configuration for an cloud agent run
 
-          config: Configuration for an ambient agent run
+          conversation_id: Optional conversation ID to continue an existing conversation. If provided, the
+              agent will continue from where the previous run left off.
 
-          team: Make the run visible to all team members, not only the calling user
+          images: Optional images to include with the prompt (max 5). Images are uploaded to cloud
+              storage and made available to the agent.
+
+          prompt: The prompt/instruction for the agent to execute. Required unless a skill is
+              specified via the skill field or config.skill_spec.
+
+          skill:
+              Skill specification to use as the base prompt for the agent. Supported formats:
+
+              - "repo:skill_name" - Simple name in specific repo
+              - "repo:skill_path" - Full path in specific repo
+              - "org/repo:skill_name" - Simple name with org and repo
+              - "org/repo:skill_path" - Full path with org and repo When provided, this takes
+                precedence over config.skill_spec.
+
+          team: Whether to create a team-owned run. Defaults to true for users on a single team.
 
           title: Custom title for the run (auto-generated if not provided)
 
@@ -146,8 +185,11 @@ class AgentResource(SyncAPIResource):
             "/agent/run",
             body=maybe_transform(
                 {
-                    "prompt": prompt,
                     "config": config,
+                    "conversation_id": conversation_id,
+                    "images": images,
+                    "prompt": prompt,
+                    "skill": skill,
                     "team": team,
                     "title": title,
                 },
@@ -191,7 +233,9 @@ class AsyncAgentResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        refresh: bool | Omit = omit,
         repo: str | Omit = omit,
+        sort_by: Literal["name", "last_run"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -204,8 +248,16 @@ class AsyncAgentResource(AsyncAPIResource):
         Agents are discovered from environments or a specific repository.
 
         Args:
+          refresh: When true, clears the agent list cache before fetching. Use this to force a
+              refresh of the available agents.
+
           repo: Optional repository specification to list agents from (format: "owner/repo"). If
               not provided, lists agents from all accessible environments.
+
+          sort_by: Sort order for the returned agents.
+
+              - "name": Sort alphabetically by name (default)
+              - "last_run": Sort by most recently used
 
           extra_headers: Send extra headers
 
@@ -222,7 +274,14 @@ class AsyncAgentResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"repo": repo}, agent_list_params.AgentListParams),
+                query=await async_maybe_transform(
+                    {
+                        "refresh": refresh,
+                        "repo": repo,
+                        "sort_by": sort_by,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
             ),
             cast_to=AgentListResponse,
         )
@@ -230,8 +289,11 @@ class AsyncAgentResource(AsyncAPIResource):
     async def run(
         self,
         *,
-        prompt: str,
         config: AmbientAgentConfigParam | Omit = omit,
+        conversation_id: str | Omit = omit,
+        images: Iterable[agent_run_params.Image] | Omit = omit,
+        prompt: str | Omit = omit,
+        skill: str | Omit = omit,
         team: bool | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -241,17 +303,33 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Spawn an ambient agent with a prompt and optional configuration.
+        """Spawn an cloud agent with a prompt and optional configuration.
 
-        The agent will
-        be queued for execution and assigned a unique run ID.
+        The agent will be
+        queued for execution and assigned a unique run ID.
 
         Args:
-          prompt: The prompt/instruction for the agent to execute
+          config: Configuration for an cloud agent run
 
-          config: Configuration for an ambient agent run
+          conversation_id: Optional conversation ID to continue an existing conversation. If provided, the
+              agent will continue from where the previous run left off.
 
-          team: Make the run visible to all team members, not only the calling user
+          images: Optional images to include with the prompt (max 5). Images are uploaded to cloud
+              storage and made available to the agent.
+
+          prompt: The prompt/instruction for the agent to execute. Required unless a skill is
+              specified via the skill field or config.skill_spec.
+
+          skill:
+              Skill specification to use as the base prompt for the agent. Supported formats:
+
+              - "repo:skill_name" - Simple name in specific repo
+              - "repo:skill_path" - Full path in specific repo
+              - "org/repo:skill_name" - Simple name with org and repo
+              - "org/repo:skill_path" - Full path with org and repo When provided, this takes
+                precedence over config.skill_spec.
+
+          team: Whether to create a team-owned run. Defaults to true for users on a single team.
 
           title: Custom title for the run (auto-generated if not provided)
 
@@ -267,8 +345,11 @@ class AsyncAgentResource(AsyncAPIResource):
             "/agent/run",
             body=await async_maybe_transform(
                 {
-                    "prompt": prompt,
                     "config": config,
+                    "conversation_id": conversation_id,
+                    "images": images,
+                    "prompt": prompt,
+                    "skill": skill,
                     "team": team,
                     "title": title,
                 },

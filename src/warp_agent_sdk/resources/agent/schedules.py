@@ -73,7 +73,7 @@ class SchedulesResource(SyncAPIResource):
 
           prompt: The prompt/instruction for the agent to execute
 
-          agent_config: Configuration for an ambient agent run
+          agent_config: Configuration for an cloud agent run
 
           enabled: Whether the schedule should be active immediately
 
@@ -171,7 +171,7 @@ class SchedulesResource(SyncAPIResource):
 
           prompt: The prompt/instruction for the agent to execute
 
-          agent_config: Configuration for an ambient agent run
+          agent_config: Configuration for an cloud agent run
 
           extra_headers: Send extra headers
 
@@ -378,7 +378,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
 
           prompt: The prompt/instruction for the agent to execute
 
-          agent_config: Configuration for an ambient agent run
+          agent_config: Configuration for an cloud agent run
 
           enabled: Whether the schedule should be active immediately
 
@@ -476,7 +476,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
 
           prompt: The prompt/instruction for the agent to execute
 
-          agent_config: Configuration for an ambient agent run
+          agent_config: Configuration for an cloud agent run
 
           extra_headers: Send extra headers
 

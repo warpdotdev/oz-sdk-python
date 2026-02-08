@@ -1,7 +1,7 @@
 # Warp API Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/warp-agent-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/warp-agent-sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/oz-agent-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/oz-agent-sdk/)
 
 The Warp API Python library provides convenient access to the Warp API REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -17,7 +17,7 @@ The full API of this library can be found in [api.md](api.md).
 
 ```sh
 # install from PyPI
-pip install warp-agent-sdk
+pip install oz-agent-sdk
 ```
 
 ## Usage
@@ -135,7 +135,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install warp-agent-sdk[aiohttp]
+pip install oz-agent-sdk[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:

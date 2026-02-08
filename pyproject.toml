@@ -1,5 +1,5 @@
 [project]
-name = "warp-agent-sdk"
+name = "oz-agent-sdk"
 version = "0.4.0"
 description = "The official Python library for the warp-api API"
 dynamic = ["readme"]

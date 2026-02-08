@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/warp_agent_sdk/_version.py"
+    "src/oz_agent_sdk/_version.py"
   ]
 }

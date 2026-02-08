@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from warp_agent_sdk import WarpAPI, AsyncWarpAPI
-from warp_agent_sdk.types import (
+from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk.types import (
     AgentRunResponse,
     AgentListResponse,
 )
@@ -22,13 +22,13 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list(self, client: WarpAPI) -> None:
+    def test_method_list(self, client: OzAPI) -> None:
         agent = client.agent.list()
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: WarpAPI) -> None:
+    def test_method_list_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.list(
             refresh=True,
             repo="repo",
@@ -38,7 +38,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: WarpAPI) -> None:
+    def test_raw_response_list(self, client: OzAPI) -> None:
         response = client.agent.with_raw_response.list()
 
         assert response.is_closed is True
@@ -48,7 +48,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: WarpAPI) -> None:
+    def test_streaming_response_list(self, client: OzAPI) -> None:
         with client.agent.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -60,13 +60,13 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_run(self, client: WarpAPI) -> None:
+    def test_method_run(self, client: OzAPI) -> None:
         agent = client.agent.run()
         assert_matches_type(AgentRunResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_run_with_all_params(self, client: WarpAPI) -> None:
+    def test_method_run_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.run(
             config={
                 "base_prompt": "base_prompt",
@@ -103,7 +103,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_run(self, client: WarpAPI) -> None:
+    def test_raw_response_run(self, client: OzAPI) -> None:
         response = client.agent.with_raw_response.run()
 
         assert response.is_closed is True
@@ -113,7 +113,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_run(self, client: WarpAPI) -> None:
+    def test_streaming_response_run(self, client: OzAPI) -> None:
         with client.agent.with_streaming_response.run() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -131,13 +131,13 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_list(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.list()
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.list(
             refresh=True,
             repo="repo",
@@ -147,7 +147,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncWarpAPI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.with_raw_response.list()
 
         assert response.is_closed is True
@@ -157,7 +157,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncWarpAPI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -169,13 +169,13 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_run(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_run(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.run()
         assert_matches_type(AgentRunResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_run_with_all_params(self, async_client: AsyncWarpAPI) -> None:
+    async def test_method_run_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.run(
             config={
                 "base_prompt": "base_prompt",
@@ -212,7 +212,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_run(self, async_client: AsyncWarpAPI) -> None:
+    async def test_raw_response_run(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.with_raw_response.run()
 
         assert response.is_closed is True
@@ -222,7 +222,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_run(self, async_client: AsyncWarpAPI) -> None:
+    async def test_streaming_response_run(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.with_streaming_response.run() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

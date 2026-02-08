@@ -23,7 +23,7 @@ from ._utils import is_given, get_async_library
 from ._compat import cached_property
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import WarpAPIError, APIStatusError
+from ._exceptions import OzAPIError, APIStatusError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -34,10 +34,10 @@ if TYPE_CHECKING:
     from .resources import agent
     from .resources.agent.agent import AgentResource, AsyncAgentResource
 
-__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "WarpAPI", "AsyncWarpAPI", "Client", "AsyncClient"]
+__all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "OzAPI", "AsyncOzAPI", "Client", "AsyncClient"]
 
 
-class WarpAPI(SyncAPIClient):
+class OzAPI(SyncAPIClient):
     # client options
     api_key: str
 
@@ -64,20 +64,20 @@ class WarpAPI(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous WarpAPI client instance.
+        """Construct a new synchronous OzAPI client instance.
 
         This automatically infers the `api_key` argument from the `WARP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("WARP_API_KEY")
         if api_key is None:
-            raise WarpAPIError(
+            raise OzAPIError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("WARP_API_BASE_URL")
+            base_url = os.environ.get("OZ_API_BASE_URL")
         if base_url is None:
             base_url = f"https://app.warp.dev/api/v1"
 
@@ -99,12 +99,12 @@ class WarpAPI(SyncAPIClient):
         return AgentResource(self)
 
     @cached_property
-    def with_raw_response(self) -> WarpAPIWithRawResponse:
-        return WarpAPIWithRawResponse(self)
+    def with_raw_response(self) -> OzAPIWithRawResponse:
+        return OzAPIWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> WarpAPIWithStreamedResponse:
-        return WarpAPIWithStreamedResponse(self)
+    def with_streaming_response(self) -> OzAPIWithStreamedResponse:
+        return OzAPIWithStreamedResponse(self)
 
     @property
     @override
@@ -211,7 +211,7 @@ class WarpAPI(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncWarpAPI(AsyncAPIClient):
+class AsyncOzAPI(AsyncAPIClient):
     # client options
     api_key: str
 
@@ -238,20 +238,20 @@ class AsyncWarpAPI(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncWarpAPI client instance.
+        """Construct a new async AsyncOzAPI client instance.
 
         This automatically infers the `api_key` argument from the `WARP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
             api_key = os.environ.get("WARP_API_KEY")
         if api_key is None:
-            raise WarpAPIError(
+            raise OzAPIError(
                 "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
             )
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("WARP_API_BASE_URL")
+            base_url = os.environ.get("OZ_API_BASE_URL")
         if base_url is None:
             base_url = f"https://app.warp.dev/api/v1"
 
@@ -273,12 +273,12 @@ class AsyncWarpAPI(AsyncAPIClient):
         return AsyncAgentResource(self)
 
     @cached_property
-    def with_raw_response(self) -> AsyncWarpAPIWithRawResponse:
-        return AsyncWarpAPIWithRawResponse(self)
+    def with_raw_response(self) -> AsyncOzAPIWithRawResponse:
+        return AsyncOzAPIWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncWarpAPIWithStreamedResponse:
-        return AsyncWarpAPIWithStreamedResponse(self)
+    def with_streaming_response(self) -> AsyncOzAPIWithStreamedResponse:
+        return AsyncOzAPIWithStreamedResponse(self)
 
     @property
     @override
@@ -385,10 +385,10 @@ class AsyncWarpAPI(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class WarpAPIWithRawResponse:
-    _client: WarpAPI
+class OzAPIWithRawResponse:
+    _client: OzAPI
 
-    def __init__(self, client: WarpAPI) -> None:
+    def __init__(self, client: OzAPI) -> None:
         self._client = client
 
     @cached_property
@@ -398,10 +398,10 @@ class WarpAPIWithRawResponse:
         return AgentResourceWithRawResponse(self._client.agent)
 
 
-class AsyncWarpAPIWithRawResponse:
-    _client: AsyncWarpAPI
+class AsyncOzAPIWithRawResponse:
+    _client: AsyncOzAPI
 
-    def __init__(self, client: AsyncWarpAPI) -> None:
+    def __init__(self, client: AsyncOzAPI) -> None:
         self._client = client
 
     @cached_property
@@ -411,10 +411,10 @@ class AsyncWarpAPIWithRawResponse:
         return AsyncAgentResourceWithRawResponse(self._client.agent)
 
 
-class WarpAPIWithStreamedResponse:
-    _client: WarpAPI
+class OzAPIWithStreamedResponse:
+    _client: OzAPI
 
-    def __init__(self, client: WarpAPI) -> None:
+    def __init__(self, client: OzAPI) -> None:
         self._client = client
 
     @cached_property
@@ -424,10 +424,10 @@ class WarpAPIWithStreamedResponse:
         return AgentResourceWithStreamingResponse(self._client.agent)
 
 
-class AsyncWarpAPIWithStreamedResponse:
-    _client: AsyncWarpAPI
+class AsyncOzAPIWithStreamedResponse:
+    _client: AsyncOzAPI
 
-    def __init__(self, client: AsyncWarpAPI) -> None:
+    def __init__(self, client: AsyncOzAPI) -> None:
         self._client = client
 
     @cached_property
@@ -437,6 +437,6 @@ class AsyncWarpAPIWithStreamedResponse:
         return AsyncAgentResourceWithStreamingResponse(self._client.agent)
 
 
-Client = WarpAPI
+Client = OzAPI
 
-AsyncClient = AsyncWarpAPI
+AsyncClient = AsyncOzAPI

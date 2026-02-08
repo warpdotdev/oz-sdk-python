@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.0 (2026-02-08)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/warpdotdev/warp-sdk-python/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** modify openapi trigger ([db2d311](https://github.com/warpdotdev/warp-sdk-python/commit/db2d3116a353cc7a5b552e09769372264f6353b8))
+
 ## 0.4.0 (2026-02-06)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/warpdotdev/warp-sdk-python/compare/v0.3.0...v0.4.0)

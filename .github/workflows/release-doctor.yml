@@ -9,7 +9,7 @@ jobs:
   release_doctor:
     name: release doctor
     runs-on: ubuntu-latest
-    if: github.repository == 'warpdotdev/warp-sdk-python' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || startsWith(github.head_ref, 'release-please') || github.head_ref == 'next')
+    if: github.repository == 'warpdotdev/oz-sdk-python' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch' || startsWith(github.head_ref, 'release-please') || github.head_ref == 'next')
 
     steps:
       - uses: actions/checkout@v6
@@ -17,5 +17,3 @@ jobs:
       - name: Check release environment
         run: |
           bash ./bin/check-release-environment
-        env:
-          PYPI_TOKEN: ${{ secrets.WARP_API_PYPI_TOKEN || secrets.PYPI_TOKEN }}

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from typing import List, Union
 from datetime import datetime
+from typing_extensions import Literal
 
 import httpx
 
@@ -34,7 +35,7 @@ class RunsResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/warpdotdev/warp-sdk-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/warpdotdev/oz-sdk-python#accessing-raw-response-data-eg-headers
         """
         return RunsResourceWithRawResponse(self)
 
@@ -43,7 +44,7 @@ class RunsResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/warpdotdev/warp-sdk-python#with_streaming_response
+        For more information, see https://www.github.com/warpdotdev/oz-sdk-python#with_streaming_response
         """
         return RunsResourceWithStreamingResponse(self)
 
@@ -84,7 +85,7 @@ class RunsResource(SyncAPIResource):
     def list(
         self,
         *,
-        config_name: str | Omit = omit,
+        artifact_type: Literal["PLAN", "PULL_REQUEST"] | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,
@@ -92,7 +93,10 @@ class RunsResource(SyncAPIResource):
         environment_id: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
+        name: str | Omit = omit,
+        q: str | Omit = omit,
         schedule_id: str | Omit = omit,
+        skill: str | Omit = omit,
         skill_spec: str | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
@@ -110,7 +114,7 @@ class RunsResource(SyncAPIResource):
         ordered by creation time (newest first).
 
         Args:
-          config_name: Filter by agent config name
+          artifact_type: Filter runs by artifact type (PLAN or PULL_REQUEST)
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
 
@@ -126,7 +130,14 @@ class RunsResource(SyncAPIResource):
 
           model_id: Filter by model ID
 
+          name: Filter by agent config name
+
+          q: Fuzzy search query across run title, prompt, and skill_spec
+
           schedule_id: Filter runs by the scheduled agent ID that created them
+
+          skill: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md"). Alias for
+              skill_spec.
 
           skill_spec: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
 
@@ -154,7 +165,7 @@ class RunsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "config_name": config_name,
+                        "artifact_type": artifact_type,
                         "created_after": created_after,
                         "created_before": created_before,
                         "creator": creator,
@@ -162,7 +173,10 @@ class RunsResource(SyncAPIResource):
                         "environment_id": environment_id,
                         "limit": limit,
                         "model_id": model_id,
+                        "name": name,
+                        "q": q,
                         "schedule_id": schedule_id,
+                        "skill": skill,
                         "skill_spec": skill_spec,
                         "source": source,
                         "state": state,
@@ -217,7 +231,7 @@ class AsyncRunsResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/warpdotdev/warp-sdk-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/warpdotdev/oz-sdk-python#accessing-raw-response-data-eg-headers
         """
         return AsyncRunsResourceWithRawResponse(self)
 
@@ -226,7 +240,7 @@ class AsyncRunsResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/warpdotdev/warp-sdk-python#with_streaming_response
+        For more information, see https://www.github.com/warpdotdev/oz-sdk-python#with_streaming_response
         """
         return AsyncRunsResourceWithStreamingResponse(self)
 
@@ -267,7 +281,7 @@ class AsyncRunsResource(AsyncAPIResource):
     async def list(
         self,
         *,
-        config_name: str | Omit = omit,
+        artifact_type: Literal["PLAN", "PULL_REQUEST"] | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,
@@ -275,7 +289,10 @@ class AsyncRunsResource(AsyncAPIResource):
         environment_id: str | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
+        name: str | Omit = omit,
+        q: str | Omit = omit,
         schedule_id: str | Omit = omit,
+        skill: str | Omit = omit,
         skill_spec: str | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
@@ -293,7 +310,7 @@ class AsyncRunsResource(AsyncAPIResource):
         ordered by creation time (newest first).
 
         Args:
-          config_name: Filter by agent config name
+          artifact_type: Filter runs by artifact type (PLAN or PULL_REQUEST)
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
 
@@ -309,7 +326,14 @@ class AsyncRunsResource(AsyncAPIResource):
 
           model_id: Filter by model ID
 
+          name: Filter by agent config name
+
+          q: Fuzzy search query across run title, prompt, and skill_spec
+
           schedule_id: Filter runs by the scheduled agent ID that created them
+
+          skill: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md"). Alias for
+              skill_spec.
 
           skill_spec: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
 
@@ -337,7 +361,7 @@ class AsyncRunsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "config_name": config_name,
+                        "artifact_type": artifact_type,
                         "created_after": created_after,
                         "created_before": created_before,
                         "creator": creator,
@@ -345,7 +369,10 @@ class AsyncRunsResource(AsyncAPIResource):
                         "environment_id": environment_id,
                         "limit": limit,
                         "model_id": model_id,
+                        "name": name,
+                        "q": q,
                         "schedule_id": schedule_id,
+                        "skill": skill,
                         "skill_spec": skill_spec,
                         "source": source,
                         "state": state,

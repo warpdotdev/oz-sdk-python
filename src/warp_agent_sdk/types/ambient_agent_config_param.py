@@ -11,7 +11,7 @@ __all__ = ["AmbientAgentConfigParam"]
 
 
 class AmbientAgentConfigParam(TypedDict, total=False):
-    """Configuration for an ambient agent run"""
+    """Configuration for an cloud agent run"""
 
     base_prompt: str
     """Custom base prompt for the agent"""

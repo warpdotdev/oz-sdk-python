@@ -21,3 +21,9 @@ class AgentRunResponse(BaseModel):
     - FAILED: Run failed
     - CANCELLED: Run was cancelled by user
     """
+
+    task_id: str
+    """Unique identifier for the task (same as run_id).
+
+    Deprecated - use run_id instead.
+    """

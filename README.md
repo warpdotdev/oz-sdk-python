@@ -1,7 +1,7 @@
 # Warp API Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/warp-agent-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/warp-agent-sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/oz-agent-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/oz-agent-sdk/)
 
 The Warp API Python library provides convenient access to the Warp API REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -17,7 +17,7 @@ The full API of this library can be found in [api.md](api.md).
 
 ```sh
 # install from PyPI
-pip install warp-agent-sdk
+pip install oz-agent-sdk
 ```
 
 ## Usage
@@ -135,7 +135,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install warp-agent-sdk[aiohttp]
+pip install oz-agent-sdk[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -180,7 +180,6 @@ from warp_agent_sdk import WarpAPI
 client = WarpAPI()
 
 response = client.agent.run(
-    prompt="Fix the bug in auth.go",
     config={},
 )
 print(response.config)
@@ -324,9 +323,9 @@ agent = response.parse()  # get the object that `agent.run()` would have returne
 print(agent.run_id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/warpdotdev/warp-sdk-python/tree/main/src/warp_agent_sdk/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/warpdotdev/oz-sdk-python/tree/main/src/warp_agent_sdk/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/warpdotdev/warp-sdk-python/tree/main/src/warp_agent_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/warpdotdev/oz-sdk-python/tree/main/src/warp_agent_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -432,7 +431,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/warpdotdev/warp-sdk-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/warpdotdev/oz-sdk-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 

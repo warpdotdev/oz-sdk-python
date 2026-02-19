@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestSchedules:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.create(
@@ -31,7 +31,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.create(
@@ -62,7 +62,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: OzAPI) -> None:
         response = client.agent.schedules.with_raw_response.create(
@@ -76,7 +76,7 @@ class TestSchedules:
         schedule = response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.create(
@@ -92,7 +92,7 @@ class TestSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.retrieve(
@@ -100,7 +100,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: OzAPI) -> None:
         response = client.agent.schedules.with_raw_response.retrieve(
@@ -112,7 +112,7 @@ class TestSchedules:
         schedule = response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.retrieve(
@@ -126,7 +126,7 @@ class TestSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -134,7 +134,7 @@ class TestSchedules:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.update(
@@ -146,7 +146,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.update(
@@ -177,7 +177,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: OzAPI) -> None:
         response = client.agent.schedules.with_raw_response.update(
@@ -193,7 +193,7 @@ class TestSchedules:
         schedule = response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.update(
@@ -211,7 +211,7 @@ class TestSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_update(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -223,13 +223,13 @@ class TestSchedules:
                 prompt="prompt",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.list()
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: OzAPI) -> None:
         response = client.agent.schedules.with_raw_response.list()
@@ -239,7 +239,7 @@ class TestSchedules:
         schedule = response.parse()
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.list() as response:
@@ -251,7 +251,7 @@ class TestSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.delete(
@@ -259,7 +259,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: OzAPI) -> None:
         response = client.agent.schedules.with_raw_response.delete(
@@ -271,7 +271,7 @@ class TestSchedules:
         schedule = response.parse()
         assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.delete(
@@ -285,7 +285,7 @@ class TestSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -293,7 +293,7 @@ class TestSchedules:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_pause(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.pause(
@@ -301,7 +301,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_pause(self, client: OzAPI) -> None:
         response = client.agent.schedules.with_raw_response.pause(
@@ -313,7 +313,7 @@ class TestSchedules:
         schedule = response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_pause(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.pause(
@@ -327,7 +327,7 @@ class TestSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_pause(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -335,7 +335,7 @@ class TestSchedules:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_resume(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.resume(
@@ -343,7 +343,7 @@ class TestSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_resume(self, client: OzAPI) -> None:
         response = client.agent.schedules.with_raw_response.resume(
@@ -355,7 +355,7 @@ class TestSchedules:
         schedule = response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_resume(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.resume(
@@ -369,7 +369,7 @@ class TestSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_resume(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -383,7 +383,7 @@ class TestAsyncSchedules:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.create(
@@ -393,7 +393,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.create(
@@ -424,7 +424,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.schedules.with_raw_response.create(
@@ -438,7 +438,7 @@ class TestAsyncSchedules:
         schedule = await response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.create(
@@ -454,7 +454,7 @@ class TestAsyncSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.retrieve(
@@ -462,7 +462,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.schedules.with_raw_response.retrieve(
@@ -474,7 +474,7 @@ class TestAsyncSchedules:
         schedule = await response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.retrieve(
@@ -488,7 +488,7 @@ class TestAsyncSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -496,7 +496,7 @@ class TestAsyncSchedules:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.update(
@@ -508,7 +508,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.update(
@@ -539,7 +539,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.schedules.with_raw_response.update(
@@ -555,7 +555,7 @@ class TestAsyncSchedules:
         schedule = await response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.update(
@@ -573,7 +573,7 @@ class TestAsyncSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_update(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -585,13 +585,13 @@ class TestAsyncSchedules:
                 prompt="prompt",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.list()
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.schedules.with_raw_response.list()
@@ -601,7 +601,7 @@ class TestAsyncSchedules:
         schedule = await response.parse()
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.list() as response:
@@ -613,7 +613,7 @@ class TestAsyncSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.delete(
@@ -621,7 +621,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.schedules.with_raw_response.delete(
@@ -633,7 +633,7 @@ class TestAsyncSchedules:
         schedule = await response.parse()
         assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.delete(
@@ -647,7 +647,7 @@ class TestAsyncSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -655,7 +655,7 @@ class TestAsyncSchedules:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_pause(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.pause(
@@ -663,7 +663,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_pause(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.schedules.with_raw_response.pause(
@@ -675,7 +675,7 @@ class TestAsyncSchedules:
         schedule = await response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_pause(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.pause(
@@ -689,7 +689,7 @@ class TestAsyncSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_pause(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
@@ -697,7 +697,7 @@ class TestAsyncSchedules:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_resume(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.resume(
@@ -705,7 +705,7 @@ class TestAsyncSchedules:
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_resume(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.schedules.with_raw_response.resume(
@@ -717,7 +717,7 @@ class TestAsyncSchedules:
         schedule = await response.parse()
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_resume(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.resume(
@@ -731,7 +731,7 @@ class TestAsyncSchedules:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_resume(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):

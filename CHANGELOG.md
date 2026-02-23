@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.6.2 (2026-02-23)
+
+Full Changelog: [v0.6.1...v0.6.2](https://github.com/warpdotdev/oz-sdk-python/compare/v0.6.1...v0.6.2)
+
+### Chores
+
+* format all `api.md` files ([99ca557](https://github.com/warpdotdev/oz-sdk-python/commit/99ca5575a5159bc024bbf427d41a25347fe5b0f1))
+* **internal:** add request options to SSE classes ([f66a316](https://github.com/warpdotdev/oz-sdk-python/commit/f66a3167892c0c98bd77f141ef325b5c2f576f09))
+* **internal:** bump dependencies ([c487a61](https://github.com/warpdotdev/oz-sdk-python/commit/c487a61c88362ebc3b48785830d1e3b16bd7dcfe))
+* **internal:** fix lint error on Python 3.14 ([25d5626](https://github.com/warpdotdev/oz-sdk-python/commit/25d56264996ae48e38696524f244e99a32316cc3))
+* **internal:** remove mock server code ([e4b9075](https://github.com/warpdotdev/oz-sdk-python/commit/e4b90753f07d4f5da5a1075e893bb87424530cb5))
+* update mock server docs ([c253a23](https://github.com/warpdotdev/oz-sdk-python/commit/c253a238f5902a71fbd033f3e0bc0ec74406e9b9))
+* update SDK settings ([82ead07](https://github.com/warpdotdev/oz-sdk-python/commit/82ead07e4501a6e23e5db060074a5c180b0947c6))
+
 ## 0.6.1 (2026-02-08)
 
 Full Changelog: [v0.6.0...v0.6.1](https://github.com/warpdotdev/oz-sdk-python/compare/v0.6.0...v0.6.1)

@@ -1,6 +1,6 @@
 [project]
 name = "oz-agent-sdk"
-version = "0.6.1"
+version = "0.6.2"
 description = "The official Python library for the oz-api API"
 dynamic = ["readme"]
 license = "Apache-2.0"

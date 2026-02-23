@@ -68,6 +68,13 @@ class TestAgent:
     @parametrize
     def test_method_run_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.run(
+            attachments=[
+                {
+                    "data": "U3RhaW5sZXNzIHJvY2tz",
+                    "file_name": "file_name",
+                    "mime_type": "mime_type",
+                }
+            ],
             config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -88,12 +95,6 @@ class TestAgent:
                 "worker_host": "worker_host",
             },
             conversation_id="conversation_id",
-            images=[
-                {
-                    "data": "U3RhaW5sZXNzIHJvY2tz",
-                    "mime_type": "image/jpeg",
-                }
-            ],
             prompt="Fix the bug in auth.go",
             skill="skill",
             team=True,
@@ -177,6 +178,13 @@ class TestAsyncAgent:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.run(
+            attachments=[
+                {
+                    "data": "U3RhaW5sZXNzIHJvY2tz",
+                    "file_name": "file_name",
+                    "mime_type": "mime_type",
+                }
+            ],
             config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -197,12 +205,6 @@ class TestAsyncAgent:
                 "worker_host": "worker_host",
             },
             conversation_id="conversation_id",
-            images=[
-                {
-                    "data": "U3RhaW5sZXNzIHJvY2tz",
-                    "mime_type": "image/jpeg",
-                }
-            ],
             prompt="Fix the bug in auth.go",
             skill="skill",
             team=True,

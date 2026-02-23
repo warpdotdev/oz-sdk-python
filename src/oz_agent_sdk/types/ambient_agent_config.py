@@ -11,7 +11,7 @@ __all__ = ["AmbientAgentConfig"]
 
 
 class AmbientAgentConfig(BaseModel):
-    """Configuration for an cloud agent run"""
+    """Configuration for a cloud agent run"""
 
     base_prompt: Optional[str] = None
     """Custom base prompt for the agent"""
@@ -32,7 +32,12 @@ class AmbientAgentConfig(BaseModel):
     """LLM model to use (uses team default if not specified)"""
 
     name: Optional[str] = None
-    """Config name for searchability and traceability"""
+    """
+    Human-readable label for grouping, filtering, and traceability. Automatically
+    set to the skill name when running a skill-based agent. Set this explicitly to
+    categorize runs by intent (e.g., "nightly-dependency-check") so you can filter
+    and track them via the name query parameter on GET /agent/runs.
+    """
 
     skill_spec: Optional[str] = None
     """

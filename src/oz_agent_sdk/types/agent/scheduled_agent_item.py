@@ -58,7 +58,7 @@ class ScheduledAgentItem(BaseModel):
     """Timestamp when the schedule was last updated (RFC3339)"""
 
     agent_config: Optional[AmbientAgentConfig] = None
-    """Configuration for an cloud agent run"""
+    """Configuration for a cloud agent run"""
 
     created_by: Optional[UserProfile] = None
 

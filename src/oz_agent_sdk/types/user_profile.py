@@ -12,6 +12,9 @@ class UserProfile(BaseModel):
     display_name: Optional[str] = None
     """Display name of the creator"""
 
+    email: Optional[str] = None
+    """Email address of the creator"""
+
     photo_url: Optional[str] = None
     """URL to the creator's photo"""
 

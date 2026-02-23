@@ -129,9 +129,9 @@ class AgentResource(SyncAPIResource):
     def run(
         self,
         *,
+        attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
-        images: Iterable[agent_run_params.Image] | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
         team: bool | Omit = omit,
@@ -143,19 +143,19 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Spawn an cloud agent with a prompt and optional configuration.
+        """Spawn a cloud agent with a prompt and optional configuration.
 
         The agent will be
         queued for execution and assigned a unique run ID.
 
         Args:
-          config: Configuration for an cloud agent run
+          attachments: Optional file attachments to include with the prompt (max 5). Attachments are
+              uploaded to cloud storage and made available to the agent.
+
+          config: Configuration for a cloud agent run
 
           conversation_id: Optional conversation ID to continue an existing conversation. If provided, the
               agent will continue from where the previous run left off.
-
-          images: Optional images to include with the prompt (max 5). Images are uploaded to cloud
-              storage and made available to the agent.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field or config.skill_spec.
@@ -185,9 +185,9 @@ class AgentResource(SyncAPIResource):
             "/agent/run",
             body=maybe_transform(
                 {
+                    "attachments": attachments,
                     "config": config,
                     "conversation_id": conversation_id,
-                    "images": images,
                     "prompt": prompt,
                     "skill": skill,
                     "team": team,
@@ -289,9 +289,9 @@ class AsyncAgentResource(AsyncAPIResource):
     async def run(
         self,
         *,
+        attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
-        images: Iterable[agent_run_params.Image] | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
         team: bool | Omit = omit,
@@ -303,19 +303,19 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Spawn an cloud agent with a prompt and optional configuration.
+        """Spawn a cloud agent with a prompt and optional configuration.
 
         The agent will be
         queued for execution and assigned a unique run ID.
 
         Args:
-          config: Configuration for an cloud agent run
+          attachments: Optional file attachments to include with the prompt (max 5). Attachments are
+              uploaded to cloud storage and made available to the agent.
+
+          config: Configuration for a cloud agent run
 
           conversation_id: Optional conversation ID to continue an existing conversation. If provided, the
               agent will continue from where the previous run left off.
-
-          images: Optional images to include with the prompt (max 5). Images are uploaded to cloud
-              storage and made available to the agent.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field or config.skill_spec.
@@ -345,9 +345,9 @@ class AsyncAgentResource(AsyncAPIResource):
             "/agent/run",
             body=await async_maybe_transform(
                 {
+                    "attachments": attachments,
                     "config": config,
                     "conversation_id": conversation_id,
-                    "images": images,
                     "prompt": prompt,
                     "skill": skill,
                     "team": team,

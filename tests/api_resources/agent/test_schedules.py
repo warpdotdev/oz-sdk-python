@@ -27,7 +27,6 @@ class TestSchedules:
         schedule = client.agent.schedules.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -37,7 +36,6 @@ class TestSchedules:
         schedule = client.agent.schedules.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -58,6 +56,7 @@ class TestSchedules:
                 "worker_host": "worker_host",
             },
             enabled=True,
+            prompt="Review open pull requests and provide feedback",
             team=True,
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
@@ -68,7 +67,6 @@ class TestSchedules:
         response = client.agent.schedules.with_raw_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
         )
 
         assert response.is_closed is True
@@ -82,7 +80,6 @@ class TestSchedules:
         with client.agent.schedules.with_streaming_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -142,7 +139,6 @@ class TestSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -154,7 +150,6 @@ class TestSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -174,6 +169,7 @@ class TestSchedules:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            prompt="prompt",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -185,7 +181,6 @@ class TestSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
         )
 
         assert response.is_closed is True
@@ -201,7 +196,6 @@ class TestSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -220,7 +214,6 @@ class TestSchedules:
                 cron_schedule="cron_schedule",
                 enabled=True,
                 name="name",
-                prompt="prompt",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -389,7 +382,6 @@ class TestAsyncSchedules:
         schedule = await async_client.agent.schedules.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -399,7 +391,6 @@ class TestAsyncSchedules:
         schedule = await async_client.agent.schedules.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -420,6 +411,7 @@ class TestAsyncSchedules:
                 "worker_host": "worker_host",
             },
             enabled=True,
+            prompt="Review open pull requests and provide feedback",
             team=True,
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
@@ -430,7 +422,6 @@ class TestAsyncSchedules:
         response = await async_client.agent.schedules.with_raw_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
         )
 
         assert response.is_closed is True
@@ -444,7 +435,6 @@ class TestAsyncSchedules:
         async with async_client.agent.schedules.with_streaming_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-            prompt="Review open pull requests and provide feedback",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -504,7 +494,6 @@ class TestAsyncSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -516,7 +505,6 @@ class TestAsyncSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
@@ -536,6 +524,7 @@ class TestAsyncSchedules:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            prompt="prompt",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -547,7 +536,6 @@ class TestAsyncSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
         )
 
         assert response.is_closed is True
@@ -563,7 +551,6 @@ class TestAsyncSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-            prompt="prompt",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -582,7 +569,6 @@ class TestAsyncSchedules:
                 cron_schedule="cron_schedule",
                 enabled=True,
                 name="name",
-                prompt="prompt",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

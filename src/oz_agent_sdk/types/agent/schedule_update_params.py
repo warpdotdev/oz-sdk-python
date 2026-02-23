@@ -19,8 +19,11 @@ class ScheduleUpdateParams(TypedDict, total=False):
     name: Required[str]
     """Human-readable name for the schedule"""
 
-    prompt: Required[str]
-    """The prompt/instruction for the agent to execute"""
-
     agent_config: AmbientAgentConfigParam
-    """Configuration for an cloud agent run"""
+    """Configuration for a cloud agent run"""
+
+    prompt: str
+    """
+    The prompt/instruction for the agent to execute. Required unless
+    agent_config.skill_spec is provided.
+    """

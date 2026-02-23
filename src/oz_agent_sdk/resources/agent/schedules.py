@@ -49,9 +49,9 @@ class SchedulesResource(SyncAPIResource):
         *,
         cron_schedule: str,
         name: str,
-        prompt: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
         enabled: bool | Omit = omit,
+        prompt: str | Omit = omit,
         team: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -71,11 +71,12 @@ class SchedulesResource(SyncAPIResource):
 
           name: Human-readable name for the schedule
 
-          prompt: The prompt/instruction for the agent to execute
-
-          agent_config: Configuration for an cloud agent run
+          agent_config: Configuration for a cloud agent run
 
           enabled: Whether the schedule should be active immediately
+
+          prompt: The prompt/instruction for the agent to execute. Required unless
+              agent_config.skill_spec is provided.
 
           team: Whether to create a team-owned schedule. Defaults to true for users on a single
               team.
@@ -94,9 +95,9 @@ class SchedulesResource(SyncAPIResource):
                 {
                     "cron_schedule": cron_schedule,
                     "name": name,
-                    "prompt": prompt,
                     "agent_config": agent_config,
                     "enabled": enabled,
+                    "prompt": prompt,
                     "team": team,
                 },
                 schedule_create_params.ScheduleCreateParams,
@@ -148,8 +149,8 @@ class SchedulesResource(SyncAPIResource):
         cron_schedule: str,
         enabled: bool,
         name: str,
-        prompt: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
+        prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -169,9 +170,10 @@ class SchedulesResource(SyncAPIResource):
 
           name: Human-readable name for the schedule
 
-          prompt: The prompt/instruction for the agent to execute
+          agent_config: Configuration for a cloud agent run
 
-          agent_config: Configuration for an cloud agent run
+          prompt: The prompt/instruction for the agent to execute. Required unless
+              agent_config.skill_spec is provided.
 
           extra_headers: Send extra headers
 
@@ -190,8 +192,8 @@ class SchedulesResource(SyncAPIResource):
                     "cron_schedule": cron_schedule,
                     "enabled": enabled,
                     "name": name,
-                    "prompt": prompt,
                     "agent_config": agent_config,
+                    "prompt": prompt,
                 },
                 schedule_update_params.ScheduleUpdateParams,
             ),
@@ -354,9 +356,9 @@ class AsyncSchedulesResource(AsyncAPIResource):
         *,
         cron_schedule: str,
         name: str,
-        prompt: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
         enabled: bool | Omit = omit,
+        prompt: str | Omit = omit,
         team: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -376,11 +378,12 @@ class AsyncSchedulesResource(AsyncAPIResource):
 
           name: Human-readable name for the schedule
 
-          prompt: The prompt/instruction for the agent to execute
-
-          agent_config: Configuration for an cloud agent run
+          agent_config: Configuration for a cloud agent run
 
           enabled: Whether the schedule should be active immediately
+
+          prompt: The prompt/instruction for the agent to execute. Required unless
+              agent_config.skill_spec is provided.
 
           team: Whether to create a team-owned schedule. Defaults to true for users on a single
               team.
@@ -399,9 +402,9 @@ class AsyncSchedulesResource(AsyncAPIResource):
                 {
                     "cron_schedule": cron_schedule,
                     "name": name,
-                    "prompt": prompt,
                     "agent_config": agent_config,
                     "enabled": enabled,
+                    "prompt": prompt,
                     "team": team,
                 },
                 schedule_create_params.ScheduleCreateParams,
@@ -453,8 +456,8 @@ class AsyncSchedulesResource(AsyncAPIResource):
         cron_schedule: str,
         enabled: bool,
         name: str,
-        prompt: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
+        prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -474,9 +477,10 @@ class AsyncSchedulesResource(AsyncAPIResource):
 
           name: Human-readable name for the schedule
 
-          prompt: The prompt/instruction for the agent to execute
+          agent_config: Configuration for a cloud agent run
 
-          agent_config: Configuration for an cloud agent run
+          prompt: The prompt/instruction for the agent to execute. Required unless
+              agent_config.skill_spec is provided.
 
           extra_headers: Send extra headers
 
@@ -495,8 +499,8 @@ class AsyncSchedulesResource(AsyncAPIResource):
                     "cron_schedule": cron_schedule,
                     "enabled": enabled,
                     "name": name,
-                    "prompt": prompt,
                     "agent_config": agent_config,
+                    "prompt": prompt,
                 },
                 schedule_update_params.ScheduleUpdateParams,
             ),

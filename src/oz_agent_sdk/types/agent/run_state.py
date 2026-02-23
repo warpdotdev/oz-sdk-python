@@ -4,4 +4,6 @@ from typing_extensions import Literal, TypeAlias
 
 __all__ = ["RunState"]
 
-RunState: TypeAlias = Literal["QUEUED", "PENDING", "CLAIMED", "INPROGRESS", "SUCCEEDED", "FAILED", "CANCELLED"]
+RunState: TypeAlias = Literal[
+    "QUEUED", "PENDING", "CLAIMED", "INPROGRESS", "SUCCEEDED", "FAILED", "BLOCKED", "ERROR", "CANCELLED"
+]

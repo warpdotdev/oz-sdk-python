@@ -7,7 +7,15 @@ from typing_extensions import Literal, Annotated, TypeAlias
 from ..._utils import PropertyInfo
 from ..._models import BaseModel
 
-__all__ = ["ArtifactItem", "PlanArtifact", "PlanArtifactData", "PullRequestArtifact", "PullRequestArtifactData"]
+__all__ = [
+    "ArtifactItem",
+    "PlanArtifact",
+    "PlanArtifactData",
+    "PullRequestArtifact",
+    "PullRequestArtifactData",
+    "ScreenshotArtifact",
+    "ScreenshotArtifactData",
+]
 
 
 class PlanArtifactData(BaseModel):
@@ -49,6 +57,27 @@ class PullRequestArtifact(BaseModel):
     data: PullRequestArtifactData
 
 
+class ScreenshotArtifactData(BaseModel):
+    artifact_uid: str
+    """Unique identifier for the screenshot artifact"""
+
+    mime_type: str
+    """MIME type of the screenshot image"""
+
+    description: Optional[str] = None
+    """Optional description of the screenshot"""
+
+
+class ScreenshotArtifact(BaseModel):
+    artifact_type: Literal["SCREENSHOT"]
+    """Type of the artifact"""
+
+    created_at: datetime
+    """Timestamp when the artifact was created (RFC3339)"""
+
+    data: ScreenshotArtifactData
+
+
 ArtifactItem: TypeAlias = Annotated[
-    Union[PlanArtifact, PullRequestArtifact], PropertyInfo(discriminator="artifact_type")
+    Union[PlanArtifact, PullRequestArtifact, ScreenshotArtifact], PropertyInfo(discriminator="artifact_type")
 ]

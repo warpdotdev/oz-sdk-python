@@ -10,6 +10,7 @@ from oz_agent_sdk.types import (
     McpServerConfig,
     UserProfile,
     AgentListResponse,
+    AgentGetArtifactResponse,
     AgentRunResponse,
 )
 ```
@@ -17,6 +18,7 @@ from oz_agent_sdk.types import (
 Methods:
 
 - <code title="get /agent">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_response.py">AgentListResponse</a></code>
+- <code title="get /agent/artifacts/{artifactUid}">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">get_artifact</a>(artifact_uid) -> <a href="./src/oz_agent_sdk/types/agent_get_artifact_response.py">AgentGetArtifactResponse</a></code>
 - <code title="post /agent/run">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/oz_agent_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
 
 ## Runs
@@ -61,3 +63,15 @@ Methods:
 - <code title="delete /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">delete</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/schedule_delete_response.py">ScheduleDeleteResponse</a></code>
 - <code title="post /agent/schedules/{scheduleId}/pause">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">pause</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
 - <code title="post /agent/schedules/{scheduleId}/resume">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">resume</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
+
+## Sessions
+
+Types:
+
+```python
+from oz_agent_sdk.types.agent import SessionCheckRedirectResponse
+```
+
+Methods:
+
+- <code title="get /agent/sessions/{sessionUuid}/redirect">client.agent.sessions.<a href="./src/oz_agent_sdk/resources/agent/sessions.py">check_redirect</a>(session_uuid) -> <a href="./src/oz_agent_sdk/types/agent/session_check_redirect_response.py">SessionCheckRedirectResponse</a></code>

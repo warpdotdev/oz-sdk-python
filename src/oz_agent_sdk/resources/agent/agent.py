@@ -18,6 +18,14 @@ from .runs import (
 from ...types import agent_run_params, agent_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
+from .sessions import (
+    SessionsResource,
+    AsyncSessionsResource,
+    SessionsResourceWithRawResponse,
+    AsyncSessionsResourceWithRawResponse,
+    SessionsResourceWithStreamingResponse,
+    AsyncSessionsResourceWithStreamingResponse,
+)
 from ..._compat import cached_property
 from .schedules import (
     SchedulesResource,
@@ -38,6 +46,7 @@ from ..._base_client import make_request_options
 from ...types.agent_run_response import AgentRunResponse
 from ...types.agent_list_response import AgentListResponse
 from ...types.ambient_agent_config_param import AmbientAgentConfigParam
+from ...types.agent_get_artifact_response import AgentGetArtifactResponse
 
 __all__ = ["AgentResource", "AsyncAgentResource"]
 
@@ -50,6 +59,10 @@ class AgentResource(SyncAPIResource):
     @cached_property
     def schedules(self) -> SchedulesResource:
         return SchedulesResource(self._client)
+
+    @cached_property
+    def sessions(self) -> SessionsResource:
+        return SessionsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AgentResourceWithRawResponse:
@@ -124,6 +137,41 @@ class AgentResource(SyncAPIResource):
                 ),
             ),
             cast_to=AgentListResponse,
+        )
+
+    def get_artifact(
+        self,
+        artifact_uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentGetArtifactResponse:
+        """Retrieve an artifact by its UUID.
+
+        For screenshot artifacts, returns a
+        time-limited signed download URL.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not artifact_uid:
+            raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
+        return self._get(
+            f"/agent/artifacts/{artifact_uid}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentGetArtifactResponse,
         )
 
     def run(
@@ -212,6 +260,10 @@ class AsyncAgentResource(AsyncAPIResource):
         return AsyncSchedulesResource(self._client)
 
     @cached_property
+    def sessions(self) -> AsyncSessionsResource:
+        return AsyncSessionsResource(self._client)
+
+    @cached_property
     def with_raw_response(self) -> AsyncAgentResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
@@ -284,6 +336,41 @@ class AsyncAgentResource(AsyncAPIResource):
                 ),
             ),
             cast_to=AgentListResponse,
+        )
+
+    async def get_artifact(
+        self,
+        artifact_uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentGetArtifactResponse:
+        """Retrieve an artifact by its UUID.
+
+        For screenshot artifacts, returns a
+        time-limited signed download URL.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not artifact_uid:
+            raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
+        return await self._get(
+            f"/agent/artifacts/{artifact_uid}",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentGetArtifactResponse,
         )
 
     async def run(
@@ -369,6 +456,9 @@ class AgentResourceWithRawResponse:
         self.list = to_raw_response_wrapper(
             agent.list,
         )
+        self.get_artifact = to_raw_response_wrapper(
+            agent.get_artifact,
+        )
         self.run = to_raw_response_wrapper(
             agent.run,
         )
@@ -381,6 +471,10 @@ class AgentResourceWithRawResponse:
     def schedules(self) -> SchedulesResourceWithRawResponse:
         return SchedulesResourceWithRawResponse(self._agent.schedules)
 
+    @cached_property
+    def sessions(self) -> SessionsResourceWithRawResponse:
+        return SessionsResourceWithRawResponse(self._agent.sessions)
+
 
 class AsyncAgentResourceWithRawResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
@@ -388,6 +482,9 @@ class AsyncAgentResourceWithRawResponse:
 
         self.list = async_to_raw_response_wrapper(
             agent.list,
+        )
+        self.get_artifact = async_to_raw_response_wrapper(
+            agent.get_artifact,
         )
         self.run = async_to_raw_response_wrapper(
             agent.run,
@@ -401,6 +498,10 @@ class AsyncAgentResourceWithRawResponse:
     def schedules(self) -> AsyncSchedulesResourceWithRawResponse:
         return AsyncSchedulesResourceWithRawResponse(self._agent.schedules)
 
+    @cached_property
+    def sessions(self) -> AsyncSessionsResourceWithRawResponse:
+        return AsyncSessionsResourceWithRawResponse(self._agent.sessions)
+
 
 class AgentResourceWithStreamingResponse:
     def __init__(self, agent: AgentResource) -> None:
@@ -408,6 +509,9 @@ class AgentResourceWithStreamingResponse:
 
         self.list = to_streamed_response_wrapper(
             agent.list,
+        )
+        self.get_artifact = to_streamed_response_wrapper(
+            agent.get_artifact,
         )
         self.run = to_streamed_response_wrapper(
             agent.run,
@@ -421,6 +525,10 @@ class AgentResourceWithStreamingResponse:
     def schedules(self) -> SchedulesResourceWithStreamingResponse:
         return SchedulesResourceWithStreamingResponse(self._agent.schedules)
 
+    @cached_property
+    def sessions(self) -> SessionsResourceWithStreamingResponse:
+        return SessionsResourceWithStreamingResponse(self._agent.sessions)
+
 
 class AsyncAgentResourceWithStreamingResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
@@ -428,6 +536,9 @@ class AsyncAgentResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             agent.list,
+        )
+        self.get_artifact = async_to_streamed_response_wrapper(
+            agent.get_artifact,
         )
         self.run = async_to_streamed_response_wrapper(
             agent.run,
@@ -440,3 +551,7 @@ class AsyncAgentResourceWithStreamingResponse:
     @cached_property
     def schedules(self) -> AsyncSchedulesResourceWithStreamingResponse:
         return AsyncSchedulesResourceWithStreamingResponse(self._agent.schedules)
+
+    @cached_property
+    def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:
+        return AsyncSessionsResourceWithStreamingResponse(self._agent.sessions)

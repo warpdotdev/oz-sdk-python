@@ -13,3 +13,4 @@ from .ambient_agent_config import AmbientAgentConfig as AmbientAgentConfig
 from .mcp_server_config_param import McpServerConfigParam as McpServerConfigParam
 from .cloud_environment_config import CloudEnvironmentConfig as CloudEnvironmentConfig
 from .ambient_agent_config_param import AmbientAgentConfigParam as AmbientAgentConfigParam
+from .agent_get_artifact_response import AgentGetArtifactResponse as AgentGetArtifactResponse

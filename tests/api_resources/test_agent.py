@@ -12,6 +12,7 @@ from oz_agent_sdk import OzAPI, AsyncOzAPI
 from oz_agent_sdk.types import (
     AgentRunResponse,
     AgentListResponse,
+    AgentGetArtifactResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -57,6 +58,48 @@ class TestAgent:
             assert_matches_type(AgentListResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_artifact(self, client: OzAPI) -> None:
+        agent = client.agent.get_artifact(
+            "artifactUid",
+        )
+        assert_matches_type(AgentGetArtifactResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get_artifact(self, client: OzAPI) -> None:
+        response = client.agent.with_raw_response.get_artifact(
+            "artifactUid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = response.parse()
+        assert_matches_type(AgentGetArtifactResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get_artifact(self, client: OzAPI) -> None:
+        with client.agent.with_streaming_response.get_artifact(
+            "artifactUid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = response.parse()
+            assert_matches_type(AgentGetArtifactResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_get_artifact(self, client: OzAPI) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `artifact_uid` but received ''"):
+            client.agent.with_raw_response.get_artifact(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -167,6 +210,48 @@ class TestAsyncAgent:
             assert_matches_type(AgentListResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_artifact(self, async_client: AsyncOzAPI) -> None:
+        agent = await async_client.agent.get_artifact(
+            "artifactUid",
+        )
+        assert_matches_type(AgentGetArtifactResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get_artifact(self, async_client: AsyncOzAPI) -> None:
+        response = await async_client.agent.with_raw_response.get_artifact(
+            "artifactUid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = await response.parse()
+        assert_matches_type(AgentGetArtifactResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_artifact(self, async_client: AsyncOzAPI) -> None:
+        async with async_client.agent.with_streaming_response.get_artifact(
+            "artifactUid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = await response.parse()
+            assert_matches_type(AgentGetArtifactResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_get_artifact(self, async_client: AsyncOzAPI) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `artifact_uid` but received ''"):
+            await async_client.agent.with_raw_response.get_artifact(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize

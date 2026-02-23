@@ -92,6 +92,8 @@ class RunItem(BaseModel):
     - INPROGRESS: Run is actively being executed
     - SUCCEEDED: Run completed successfully
     - FAILED: Run failed
+    - BLOCKED: Run is blocked (e.g., awaiting user input or approval)
+    - ERROR: Run encountered an error
     - CANCELLED: Run was cancelled by user
     """
 
@@ -108,7 +110,7 @@ class RunItem(BaseModel):
     """Timestamp when the run was last updated (RFC3339)"""
 
     agent_config: Optional[AmbientAgentConfig] = None
-    """Configuration for an cloud agent run"""
+    """Configuration for a cloud agent run"""
 
     agent_skill: Optional[AgentSkill] = None
     """

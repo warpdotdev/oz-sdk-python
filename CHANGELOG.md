@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.1 (2026-02-27)
+
+Full Changelog: [v0.7.0...v0.7.1](https://github.com/warpdotdev/oz-sdk-python/compare/v0.7.0...v0.7.1)
+
+### Chores
+
+* **ci:** bump uv version ([646ee4e](https://github.com/warpdotdev/oz-sdk-python/commit/646ee4e0381123a3b24e63c4829e32c7ffc3160d))
+* **docs:** add missing descriptions ([4777a8f](https://github.com/warpdotdev/oz-sdk-python/commit/4777a8fd9d5e9644a694695190d1dc6d4c1c9941))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([3c14f7a](https://github.com/warpdotdev/oz-sdk-python/commit/3c14f7ae100fbb6df1a9f7109fd77057cf10a780))
+
 ## 0.7.0 (2026-02-23)
 
 Full Changelog: [v0.6.2...v0.7.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.6.2...v0.7.0)

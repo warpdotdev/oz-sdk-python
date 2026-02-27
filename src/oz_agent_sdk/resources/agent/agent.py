@@ -52,16 +52,21 @@ __all__ = ["AgentResource", "AsyncAgentResource"]
 
 
 class AgentResource(SyncAPIResource):
+    """Operations for running and managing cloud agents"""
+
     @cached_property
     def runs(self) -> RunsResource:
+        """Operations for running and managing cloud agents"""
         return RunsResource(self._client)
 
     @cached_property
     def schedules(self) -> SchedulesResource:
+        """Operations for creating and managing scheduled agents"""
         return SchedulesResource(self._client)
 
     @cached_property
     def sessions(self) -> SessionsResource:
+        """Operations for running and managing cloud agents"""
         return SessionsResource(self._client)
 
     @cached_property
@@ -251,16 +256,21 @@ class AgentResource(SyncAPIResource):
 
 
 class AsyncAgentResource(AsyncAPIResource):
+    """Operations for running and managing cloud agents"""
+
     @cached_property
     def runs(self) -> AsyncRunsResource:
+        """Operations for running and managing cloud agents"""
         return AsyncRunsResource(self._client)
 
     @cached_property
     def schedules(self) -> AsyncSchedulesResource:
+        """Operations for creating and managing scheduled agents"""
         return AsyncSchedulesResource(self._client)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResource:
+        """Operations for running and managing cloud agents"""
         return AsyncSessionsResource(self._client)
 
     @cached_property
@@ -465,14 +475,17 @@ class AgentResourceWithRawResponse:
 
     @cached_property
     def runs(self) -> RunsResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
         return RunsResourceWithRawResponse(self._agent.runs)
 
     @cached_property
     def schedules(self) -> SchedulesResourceWithRawResponse:
+        """Operations for creating and managing scheduled agents"""
         return SchedulesResourceWithRawResponse(self._agent.schedules)
 
     @cached_property
     def sessions(self) -> SessionsResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
         return SessionsResourceWithRawResponse(self._agent.sessions)
 
 
@@ -492,14 +505,17 @@ class AsyncAgentResourceWithRawResponse:
 
     @cached_property
     def runs(self) -> AsyncRunsResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
         return AsyncRunsResourceWithRawResponse(self._agent.runs)
 
     @cached_property
     def schedules(self) -> AsyncSchedulesResourceWithRawResponse:
+        """Operations for creating and managing scheduled agents"""
         return AsyncSchedulesResourceWithRawResponse(self._agent.schedules)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
         return AsyncSessionsResourceWithRawResponse(self._agent.sessions)
 
 
@@ -519,14 +535,17 @@ class AgentResourceWithStreamingResponse:
 
     @cached_property
     def runs(self) -> RunsResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
         return RunsResourceWithStreamingResponse(self._agent.runs)
 
     @cached_property
     def schedules(self) -> SchedulesResourceWithStreamingResponse:
+        """Operations for creating and managing scheduled agents"""
         return SchedulesResourceWithStreamingResponse(self._agent.schedules)
 
     @cached_property
     def sessions(self) -> SessionsResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
         return SessionsResourceWithStreamingResponse(self._agent.sessions)
 
 
@@ -546,12 +565,15 @@ class AsyncAgentResourceWithStreamingResponse:
 
     @cached_property
     def runs(self) -> AsyncRunsResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
         return AsyncRunsResourceWithStreamingResponse(self._agent.runs)
 
     @cached_property
     def schedules(self) -> AsyncSchedulesResourceWithStreamingResponse:
+        """Operations for creating and managing scheduled agents"""
         return AsyncSchedulesResourceWithStreamingResponse(self._agent.schedules)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
         return AsyncSessionsResourceWithStreamingResponse(self._agent.sessions)

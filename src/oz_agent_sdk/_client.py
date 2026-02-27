@@ -94,6 +94,7 @@ class OzAPI(SyncAPIClient):
 
     @cached_property
     def agent(self) -> AgentResource:
+        """Operations for running and managing cloud agents"""
         from .resources.agent import AgentResource
 
         return AgentResource(self)
@@ -268,6 +269,7 @@ class AsyncOzAPI(AsyncAPIClient):
 
     @cached_property
     def agent(self) -> AsyncAgentResource:
+        """Operations for running and managing cloud agents"""
         from .resources.agent import AsyncAgentResource
 
         return AsyncAgentResource(self)
@@ -393,6 +395,7 @@ class OzAPIWithRawResponse:
 
     @cached_property
     def agent(self) -> agent.AgentResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
         from .resources.agent import AgentResourceWithRawResponse
 
         return AgentResourceWithRawResponse(self._client.agent)
@@ -406,6 +409,7 @@ class AsyncOzAPIWithRawResponse:
 
     @cached_property
     def agent(self) -> agent.AsyncAgentResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
         from .resources.agent import AsyncAgentResourceWithRawResponse
 
         return AsyncAgentResourceWithRawResponse(self._client.agent)
@@ -419,6 +423,7 @@ class OzAPIWithStreamedResponse:
 
     @cached_property
     def agent(self) -> agent.AgentResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
         from .resources.agent import AgentResourceWithStreamingResponse
 
         return AgentResourceWithStreamingResponse(self._client.agent)
@@ -432,6 +437,7 @@ class AsyncOzAPIWithStreamedResponse:
 
     @cached_property
     def agent(self) -> agent.AsyncAgentResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
         from .resources.agent import AsyncAgentResourceWithStreamingResponse
 
         return AsyncAgentResourceWithStreamingResponse(self._client.agent)

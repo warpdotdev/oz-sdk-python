@@ -25,6 +25,8 @@ __all__ = ["SchedulesResource", "AsyncSchedulesResource"]
 
 
 class SchedulesResource(SyncAPIResource):
+    """Operations for creating and managing scheduled agents"""
+
     @cached_property
     def with_raw_response(self) -> SchedulesResourceWithRawResponse:
         """
@@ -332,6 +334,8 @@ class SchedulesResource(SyncAPIResource):
 
 
 class AsyncSchedulesResource(AsyncAPIResource):
+    """Operations for creating and managing scheduled agents"""
+
     @cached_property
     def with_raw_response(self) -> AsyncSchedulesResourceWithRawResponse:
         """

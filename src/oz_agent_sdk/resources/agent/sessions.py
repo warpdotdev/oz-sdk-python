@@ -20,6 +20,8 @@ __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
 
 class SessionsResource(SyncAPIResource):
+    """Operations for running and managing cloud agents"""
+
     @cached_property
     def with_raw_response(self) -> SessionsResourceWithRawResponse:
         """
@@ -76,6 +78,8 @@ class SessionsResource(SyncAPIResource):
 
 
 class AsyncSessionsResource(AsyncAPIResource):
+    """Operations for running and managing cloud agents"""
+
     @cached_property
     def with_raw_response(self) -> AsyncSessionsResourceWithRawResponse:
         """

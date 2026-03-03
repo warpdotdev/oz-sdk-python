@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0 (2026-03-03)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **api:** manual updates ([26fc085](https://github.com/warpdotdev/oz-sdk-python/commit/26fc0852ddd9352fe7564cba64f34203d940ac57))
+* **api:** manual updates ([1f89eca](https://github.com/warpdotdev/oz-sdk-python/commit/1f89eca19e244721d77837d5aafbf0e1de20aee7))
+
 ## 0.8.0 (2026-03-03)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.7.0...v0.8.0)

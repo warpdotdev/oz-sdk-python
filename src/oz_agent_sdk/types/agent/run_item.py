@@ -2,8 +2,8 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
+from ..scope import Scope
 from ..._models import BaseModel
 from .run_state import RunState
 from ..user_profile import UserProfile
@@ -11,7 +11,7 @@ from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
 from ..ambient_agent_config import AmbientAgentConfig
 
-__all__ = ["RunItem", "AgentSkill", "RequestUsage", "Schedule", "Scope", "StatusMessage"]
+__all__ = ["RunItem", "AgentSkill", "RequestUsage", "Schedule", "StatusMessage"]
 
 
 class AgentSkill(BaseModel):
@@ -56,16 +56,6 @@ class Schedule(BaseModel):
 
     schedule_name: str
     """Name of the schedule at the time the run was created"""
-
-
-class Scope(BaseModel):
-    """Ownership scope for a resource (team or personal)"""
-
-    type: Literal["User", "Team"]
-    """Type of ownership ("User" for personal, "Team" for team-owned)"""
-
-    uid: Optional[str] = None
-    """UID of the owning user or team"""
 
 
 class StatusMessage(BaseModel):

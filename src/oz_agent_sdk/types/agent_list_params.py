@@ -8,6 +8,13 @@ __all__ = ["AgentListParams"]
 
 
 class AgentListParams(TypedDict, total=False):
+    include_malformed_skills: bool
+    """When true, includes skills whose SKILL.md file exists but is malformed.
+
+    These variants will have a non-empty `error` field describing the parse failure.
+    Defaults to false.
+    """
+
     refresh: bool
     """
     When true, clears the agent list cache before fetching. Use this to force a

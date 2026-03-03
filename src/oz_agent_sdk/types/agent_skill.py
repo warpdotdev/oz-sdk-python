@@ -45,6 +45,13 @@ class Variant(BaseModel):
 
     source: VariantSource
 
+    error: Optional[str] = None
+    """
+    Non-empty when the skill's SKILL.md file exists but is malformed. Contains a
+    description of the parse failure. Only present when
+    include_malformed_skills=true is passed to the list agents endpoint.
+    """
+
     last_run_timestamp: Optional[datetime] = None
     """Timestamp of the last time this skill was run (RFC3339)"""
 

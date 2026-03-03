@@ -29,6 +29,9 @@ class AgentRunParams(TypedDict, total=False):
     agent will continue from where the previous run left off.
     """
 
+    interactive: bool
+    """Whether the run should be interactive. If not set, defaults to false."""
+
     prompt: str
     """
     The prompt/instruction for the agent to execute. Required unless a skill is

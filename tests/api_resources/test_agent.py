@@ -31,6 +31,7 @@ class TestAgent:
     @parametrize
     def test_method_list_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.list(
+            include_malformed_skills=True,
             refresh=True,
             repo="repo",
             sort_by="name",
@@ -138,6 +139,7 @@ class TestAgent:
                 "worker_host": "worker_host",
             },
             conversation_id="conversation_id",
+            interactive=True,
             prompt="Fix the bug in auth.go",
             skill="skill",
             team=True,
@@ -183,6 +185,7 @@ class TestAsyncAgent:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.list(
+            include_malformed_skills=True,
             refresh=True,
             repo="repo",
             sort_by="name",
@@ -290,6 +293,7 @@ class TestAsyncAgent:
                 "worker_host": "worker_host",
             },
             conversation_id="conversation_id",
+            interactive=True,
             prompt="Fix the bug in auth.go",
             skill="skill",
             team=True,

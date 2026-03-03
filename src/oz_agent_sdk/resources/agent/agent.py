@@ -91,6 +91,7 @@ class AgentResource(SyncAPIResource):
     def list(
         self,
         *,
+        include_malformed_skills: bool | Omit = omit,
         refresh: bool | Omit = omit,
         repo: str | Omit = omit,
         sort_by: Literal["name", "last_run"] | Omit = omit,
@@ -106,6 +107,10 @@ class AgentResource(SyncAPIResource):
         Agents are discovered from environments or a specific repository.
 
         Args:
+          include_malformed_skills: When true, includes skills whose SKILL.md file exists but is malformed. These
+              variants will have a non-empty `error` field describing the parse failure.
+              Defaults to false.
+
           refresh: When true, clears the agent list cache before fetching. Use this to force a
               refresh of the available agents.
 
@@ -134,6 +139,7 @@ class AgentResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "include_malformed_skills": include_malformed_skills,
                         "refresh": refresh,
                         "repo": repo,
                         "sort_by": sort_by,
@@ -185,6 +191,7 @@ class AgentResource(SyncAPIResource):
         attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
+        interactive: bool | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
         team: bool | Omit = omit,
@@ -209,6 +216,8 @@ class AgentResource(SyncAPIResource):
 
           conversation_id: Optional conversation ID to continue an existing conversation. If provided, the
               agent will continue from where the previous run left off.
+
+          interactive: Whether the run should be interactive. If not set, defaults to false.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field or config.skill_spec.
@@ -241,6 +250,7 @@ class AgentResource(SyncAPIResource):
                     "attachments": attachments,
                     "config": config,
                     "conversation_id": conversation_id,
+                    "interactive": interactive,
                     "prompt": prompt,
                     "skill": skill,
                     "team": team,
@@ -295,6 +305,7 @@ class AsyncAgentResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        include_malformed_skills: bool | Omit = omit,
         refresh: bool | Omit = omit,
         repo: str | Omit = omit,
         sort_by: Literal["name", "last_run"] | Omit = omit,
@@ -310,6 +321,10 @@ class AsyncAgentResource(AsyncAPIResource):
         Agents are discovered from environments or a specific repository.
 
         Args:
+          include_malformed_skills: When true, includes skills whose SKILL.md file exists but is malformed. These
+              variants will have a non-empty `error` field describing the parse failure.
+              Defaults to false.
+
           refresh: When true, clears the agent list cache before fetching. Use this to force a
               refresh of the available agents.
 
@@ -338,6 +353,7 @@ class AsyncAgentResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "include_malformed_skills": include_malformed_skills,
                         "refresh": refresh,
                         "repo": repo,
                         "sort_by": sort_by,
@@ -389,6 +405,7 @@ class AsyncAgentResource(AsyncAPIResource):
         attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
+        interactive: bool | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
         team: bool | Omit = omit,
@@ -413,6 +430,8 @@ class AsyncAgentResource(AsyncAPIResource):
 
           conversation_id: Optional conversation ID to continue an existing conversation. If provided, the
               agent will continue from where the previous run left off.
+
+          interactive: Whether the run should be interactive. If not set, defaults to false.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field or config.skill_spec.
@@ -445,6 +464,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "attachments": attachments,
                     "config": config,
                     "conversation_id": conversation_id,
+                    "interactive": interactive,
                     "prompt": prompt,
                     "skill": skill,
                     "team": team,

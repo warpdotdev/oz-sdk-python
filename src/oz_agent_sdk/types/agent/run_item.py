@@ -2,11 +2,11 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from ..scope import Scope
 from ..._models import BaseModel
 from .run_state import RunState
+from ..error_code import ErrorCode
 from ..user_profile import UserProfile
 from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
@@ -69,26 +69,7 @@ class StatusMessage(BaseModel):
     message: str
     """Human-readable status message"""
 
-    error_code: Optional[
-        Literal[
-            "insufficient_credits",
-            "feature_not_available",
-            "external_authentication_required",
-            "not_authorized",
-            "invalid_request",
-            "resource_not_found",
-            "budget_exceeded",
-            "integration_disabled",
-            "integration_not_configured",
-            "operation_not_supported",
-            "environment_setup_failed",
-            "content_policy_violation",
-            "conflict",
-            "authentication_required",
-            "resource_unavailable",
-            "internal_error",
-        ]
-    ] = None
+    error_code: Optional[ErrorCode] = None
     """
     Machine-readable error code identifying the problem type. Used in the `type` URI
     of Error responses and in the `error_code` field of RunStatusMessage.

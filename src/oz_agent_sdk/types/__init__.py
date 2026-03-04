@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .scope import Scope as Scope
+from .error_code import ErrorCode as ErrorCode
 from .agent_skill import AgentSkill as AgentSkill
 from .user_profile import UserProfile as UserProfile
 from .agent_run_params import AgentRunParams as AgentRunParams

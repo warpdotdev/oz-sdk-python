@@ -7,7 +7,10 @@ from oz_agent_sdk.types import (
     AgentSkill,
     AmbientAgentConfig,
     CloudEnvironmentConfig,
+    Error,
+    ErrorCode,
     McpServerConfig,
+    Scope,
     UserProfile,
     AgentListResponse,
     AgentGetArtifactResponse,
@@ -48,6 +51,7 @@ Types:
 
 ```python
 from oz_agent_sdk.types.agent import (
+    ScheduleHistoryItem,
     ScheduledAgentItem,
     ScheduleListResponse,
     ScheduleDeleteResponse,

@@ -217,7 +217,11 @@ class RunsResource(SyncAPIResource):
         """Cancel an agent run that is currently queued or in progress.
 
         Once cancelled, the
-        run will transition to a failed state.
+        run will transition to a cancelled state.
+
+        Not all runs can be cancelled. Runs that are in a terminal state (SUCCEEDED,
+        FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in PENDING state return 409
+        (retry after a moment). Self-hosted, local, and GitHub Action runs return 422.
 
         Args:
           extra_headers: Send extra headers
@@ -428,7 +432,11 @@ class AsyncRunsResource(AsyncAPIResource):
         """Cancel an agent run that is currently queued or in progress.
 
         Once cancelled, the
-        run will transition to a failed state.
+        run will transition to a cancelled state.
+
+        Not all runs can be cancelled. Runs that are in a terminal state (SUCCEEDED,
+        FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in PENDING state return 409
+        (retry after a moment). Self-hosted, local, and GitHub Action runs return 422.
 
         Args:
           extra_headers: Send extra headers

@@ -5,10 +5,10 @@ from datetime import datetime
 
 from ..._models import BaseModel
 
-__all__ = ["ScheduleHistoryItem"]
+__all__ = ["ScheduledAgentHistoryItem"]
 
 
-class ScheduleHistoryItem(BaseModel):
+class ScheduledAgentHistoryItem(BaseModel):
     """Scheduler-derived history metadata for a scheduled agent"""
 
     last_ran: Optional[datetime] = None

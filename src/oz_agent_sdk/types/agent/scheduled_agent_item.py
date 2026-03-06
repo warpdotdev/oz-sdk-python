@@ -7,8 +7,8 @@ from ..scope import Scope
 from ..._models import BaseModel
 from ..user_profile import UserProfile
 from ..ambient_agent_config import AmbientAgentConfig
-from .schedule_history_item import ScheduleHistoryItem
 from ..cloud_environment_config import CloudEnvironmentConfig
+from .scheduled_agent_history_item import ScheduledAgentHistoryItem
 
 __all__ = ["ScheduledAgentItem"]
 
@@ -46,7 +46,7 @@ class ScheduledAgentItem(BaseModel):
     environment: Optional[CloudEnvironmentConfig] = None
     """Configuration for a cloud environment used by scheduled agents"""
 
-    history: Optional[ScheduleHistoryItem] = None
+    history: Optional[ScheduledAgentHistoryItem] = None
     """Scheduler-derived history metadata for a scheduled agent"""
 
     last_spawn_error: Optional[str] = None

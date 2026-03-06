@@ -51,7 +51,7 @@ Types:
 
 ```python
 from oz_agent_sdk.types.agent import (
-    ScheduleHistoryItem,
+    ScheduledAgentHistoryItem,
     ScheduledAgentItem,
     ScheduleListResponse,
     ScheduleDeleteResponse,

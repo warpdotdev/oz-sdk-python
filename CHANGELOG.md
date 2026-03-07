@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.10.0 (2026-03-07)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** error and error_code as types ([9766f85](https://github.com/warpdotdev/oz-sdk-python/commit/9766f85585ff3553f1f366476a3a6806f2534b22))
+* **api:** fix ScheduledAgentHistoryItem name ([ac75431](https://github.com/warpdotdev/oz-sdk-python/commit/ac754319e41b73d323cf9a36cbcf1c4dce2902bb))
+* **api:** fix schema version issues ([9c2f6a3](https://github.com/warpdotdev/oz-sdk-python/commit/9c2f6a32fa06812860efa1d76893dd8d2b60d176))
+* **api:** sorting ([0cc041e](https://github.com/warpdotdev/oz-sdk-python/commit/0cc041edf53d26c4f38c64faa7fd065d7a6760ab))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([1ef523c](https://github.com/warpdotdev/oz-sdk-python/commit/1ef523caca4d137def551560de8c8a75c761d0f9))
+
 ## 0.9.0 (2026-03-03)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.8.0...v0.9.0)

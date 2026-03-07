@@ -100,6 +100,8 @@ class RunsResource(SyncAPIResource):
         schedule_id: str | Omit = omit,
         skill: str | Omit = omit,
         skill_spec: str | Omit = omit,
+        sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
+        sort_order: Literal["asc", "desc"] | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
@@ -112,8 +114,8 @@ class RunsResource(SyncAPIResource):
     ) -> RunListResponse:
         """Retrieve a paginated list of agent runs with optional filtering.
 
-        Results are
-        ordered by creation time (newest first).
+        Results default
+        to `sort_by=updated_at` and `sort_order=desc`.
 
         Args:
           artifact_type: Filter runs by artifact type (PLAN or PULL_REQUEST)
@@ -142,6 +144,15 @@ class RunsResource(SyncAPIResource):
               skill_spec.
 
           skill_spec: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
+
+          sort_by: Sort field for results.
+
+              - `updated_at`: Sort by last update timestamp (default)
+              - `created_at`: Sort by creation timestamp
+              - `title`: Sort alphabetically by run title
+              - `agent`: Sort alphabetically by skill. Runs without a skill are grouped last.
+
+          sort_order: Sort direction
 
           source: Filter by run source type
 
@@ -180,6 +191,8 @@ class RunsResource(SyncAPIResource):
                         "schedule_id": schedule_id,
                         "skill": skill,
                         "skill_spec": skill_spec,
+                        "sort_by": sort_by,
+                        "sort_order": sort_order,
                         "source": source,
                         "state": state,
                         "updated_after": updated_after,
@@ -302,6 +315,8 @@ class AsyncRunsResource(AsyncAPIResource):
         schedule_id: str | Omit = omit,
         skill: str | Omit = omit,
         skill_spec: str | Omit = omit,
+        sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
+        sort_order: Literal["asc", "desc"] | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
@@ -314,8 +329,8 @@ class AsyncRunsResource(AsyncAPIResource):
     ) -> RunListResponse:
         """Retrieve a paginated list of agent runs with optional filtering.
 
-        Results are
-        ordered by creation time (newest first).
+        Results default
+        to `sort_by=updated_at` and `sort_order=desc`.
 
         Args:
           artifact_type: Filter runs by artifact type (PLAN or PULL_REQUEST)
@@ -344,6 +359,15 @@ class AsyncRunsResource(AsyncAPIResource):
               skill_spec.
 
           skill_spec: Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")
+
+          sort_by: Sort field for results.
+
+              - `updated_at`: Sort by last update timestamp (default)
+              - `created_at`: Sort by creation timestamp
+              - `title`: Sort alphabetically by run title
+              - `agent`: Sort alphabetically by skill. Runs without a skill are grouped last.
+
+          sort_order: Sort direction
 
           source: Filter by run source type
 
@@ -382,6 +406,8 @@ class AsyncRunsResource(AsyncAPIResource):
                         "schedule_id": schedule_id,
                         "skill": skill,
                         "skill_spec": skill_spec,
+                        "sort_by": sort_by,
+                        "sort_order": sort_order,
                         "source": source,
                         "state": state,
                         "updated_after": updated_after,

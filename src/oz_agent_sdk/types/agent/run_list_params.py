@@ -56,6 +56,18 @@ class RunListParams(TypedDict, total=False):
     skill_spec: str
     """Filter runs by skill spec (e.g., "owner/repo:path/to/SKILL.md")"""
 
+    sort_by: Literal["updated_at", "created_at", "title", "agent"]
+    """Sort field for results.
+
+    - `updated_at`: Sort by last update timestamp (default)
+    - `created_at`: Sort by creation timestamp
+    - `title`: Sort alphabetically by run title
+    - `agent`: Sort alphabetically by skill. Runs without a skill are grouped last.
+    """
+
+    sort_order: Literal["asc", "desc"]
+    """Sort direction"""
+
     source: RunSourceType
     """Filter by run source type"""
 

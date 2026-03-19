@@ -17,7 +17,7 @@ from .runs import (
 )
 from ...types import agent_run_params, agent_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from .sessions import (
     SessionsResource,
     AsyncSessionsResource,
@@ -178,7 +178,7 @@ class AgentResource(SyncAPIResource):
         if not artifact_uid:
             raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
         return self._get(
-            f"/agent/artifacts/{artifact_uid}",
+            path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -392,7 +392,7 @@ class AsyncAgentResource(AsyncAPIResource):
         if not artifact_uid:
             raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
         return await self._get(
-            f"/agent/artifacts/{artifact_uid}",
+            path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

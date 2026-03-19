@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -137,7 +137,7 @@ class SchedulesResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._get(
-            f"/agent/schedules/{schedule_id}",
+            path_template("/agent/schedules/{schedule_id}", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -188,7 +188,7 @@ class SchedulesResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._put(
-            f"/agent/schedules/{schedule_id}",
+            path_template("/agent/schedules/{schedule_id}", schedule_id=schedule_id),
             body=maybe_transform(
                 {
                     "cron_schedule": cron_schedule,
@@ -255,7 +255,7 @@ class SchedulesResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._delete(
-            f"/agent/schedules/{schedule_id}",
+            path_template("/agent/schedules/{schedule_id}", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -290,7 +290,7 @@ class SchedulesResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._post(
-            f"/agent/schedules/{schedule_id}/pause",
+            path_template("/agent/schedules/{schedule_id}/pause", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -325,7 +325,7 @@ class SchedulesResource(SyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return self._post(
-            f"/agent/schedules/{schedule_id}/resume",
+            path_template("/agent/schedules/{schedule_id}/resume", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -446,7 +446,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._get(
-            f"/agent/schedules/{schedule_id}",
+            path_template("/agent/schedules/{schedule_id}", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -497,7 +497,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._put(
-            f"/agent/schedules/{schedule_id}",
+            path_template("/agent/schedules/{schedule_id}", schedule_id=schedule_id),
             body=await async_maybe_transform(
                 {
                     "cron_schedule": cron_schedule,
@@ -564,7 +564,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._delete(
-            f"/agent/schedules/{schedule_id}",
+            path_template("/agent/schedules/{schedule_id}", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -599,7 +599,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._post(
-            f"/agent/schedules/{schedule_id}/pause",
+            path_template("/agent/schedules/{schedule_id}/pause", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -634,7 +634,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         if not schedule_id:
             raise ValueError(f"Expected a non-empty value for `schedule_id` but received {schedule_id!r}")
         return await self._post(
-            f"/agent/schedules/{schedule_id}/resume",
+            path_template("/agent/schedules/{schedule_id}/resume", schedule_id=schedule_id),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

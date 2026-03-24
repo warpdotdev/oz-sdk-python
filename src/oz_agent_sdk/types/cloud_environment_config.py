@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from .._models import BaseModel
 
-__all__ = ["CloudEnvironmentConfig", "GitHubRepo"]
+__all__ = ["CloudEnvironmentConfig", "GitHubRepo", "Providers", "ProvidersAws", "ProvidersGcp"]
 
 
 class GitHubRepo(BaseModel):
@@ -13,6 +13,36 @@ class GitHubRepo(BaseModel):
 
     repo: str
     """GitHub repository name"""
+
+
+class ProvidersAws(BaseModel):
+    """AWS IAM role assumption settings"""
+
+    role_arn: str
+    """AWS IAM role ARN to assume"""
+
+
+class ProvidersGcp(BaseModel):
+    """GCP Workload Identity Federation settings"""
+
+    project_number: str
+    """GCP project number"""
+
+    workload_identity_federation_pool_id: str
+    """Workload Identity Federation pool ID"""
+
+    workload_identity_federation_provider_id: str
+    """Workload Identity Federation provider ID"""
+
+
+class Providers(BaseModel):
+    """Optional cloud provider configurations for automatic auth"""
+
+    aws: Optional[ProvidersAws] = None
+    """AWS IAM role assumption settings"""
+
+    gcp: Optional[ProvidersGcp] = None
+    """GCP Workload Identity Federation settings"""
 
 
 class CloudEnvironmentConfig(BaseModel):
@@ -29,6 +59,9 @@ class CloudEnvironmentConfig(BaseModel):
 
     name: Optional[str] = None
     """Human-readable name for the environment"""
+
+    providers: Optional[Providers] = None
+    """Optional cloud provider configurations for automatic auth"""
 
     setup_commands: Optional[List[str]] = None
     """Shell commands to run during environment setup"""

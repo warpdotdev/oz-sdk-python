@@ -1,5 +1,34 @@
 # Changelog
 
+## 0.10.0 (2026-03-24)
+
+Full Changelog: [v0.9.0...v0.10.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.9.0...v0.10.0)
+
+### Features
+
+* **api:** api update ([41658e2](https://github.com/warpdotdev/oz-sdk-python/commit/41658e206812a57e27f97c1f7e0be57bedcbd3c6))
+* **api:** error and error_code as types ([9766f85](https://github.com/warpdotdev/oz-sdk-python/commit/9766f85585ff3553f1f366476a3a6806f2534b22))
+* **api:** fix ScheduledAgentHistoryItem name ([ac75431](https://github.com/warpdotdev/oz-sdk-python/commit/ac754319e41b73d323cf9a36cbcf1c4dce2902bb))
+* **api:** fix schema version issues ([9c2f6a3](https://github.com/warpdotdev/oz-sdk-python/commit/9c2f6a32fa06812860efa1d76893dd8d2b60d176))
+* **api:** sorting ([0cc041e](https://github.com/warpdotdev/oz-sdk-python/commit/0cc041edf53d26c4f38c64faa7fd065d7a6760ab))
+
+
+### Bug Fixes
+
+* **deps:** bump minimum typing-extensions version ([4f3ec38](https://github.com/warpdotdev/oz-sdk-python/commit/4f3ec385748655ca8fde2457ffe402f8bf30db56))
+* **pydantic:** do not pass `by_alias` unless set ([45e0377](https://github.com/warpdotdev/oz-sdk-python/commit/45e0377a495aa67b0ee7d4415cbf13b526dbbf7e))
+* sanitize endpoint path params ([da2a124](https://github.com/warpdotdev/oz-sdk-python/commit/da2a124f15c2b69f67905cfe4b75b52d90ece562))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([c2c0d4a](https://github.com/warpdotdev/oz-sdk-python/commit/c2c0d4af8460e7d1d86fa8c14f2480323308b9a2))
+* **ci:** skip uploading artifacts on stainless-internal branches ([1ef523c](https://github.com/warpdotdev/oz-sdk-python/commit/1ef523caca4d137def551560de8c8a75c761d0f9))
+* **internal:** tweak CI branches ([21f9e2e](https://github.com/warpdotdev/oz-sdk-python/commit/21f9e2e8065a3202a149b3a2440c5adb7d084681))
+* **internal:** update gitignore ([e9e4aef](https://github.com/warpdotdev/oz-sdk-python/commit/e9e4aef20150ac3560f00edc2078979dacde8549))
+* update SDK settings ([b897579](https://github.com/warpdotdev/oz-sdk-python/commit/b89757977744858277d095a752392e2faff0bb71))
+* update SDK settings ([e4510a6](https://github.com/warpdotdev/oz-sdk-python/commit/e4510a6259d03bf4cd24b40df6243f6c879e6fb3))
+
 ## 0.9.0 (2026-03-03)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.8.0...v0.9.0)

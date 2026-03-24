@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.10.1 (2026-03-24)
+
+Full Changelog: [v0.10.0...v0.10.1](https://github.com/warpdotdev/oz-sdk-python/compare/v0.10.0...v0.10.1)
+
+### Chores
+
+* update SDK settings ([8afbeb4](https://github.com/warpdotdev/oz-sdk-python/commit/8afbeb4c91e704eac42294dbe84d1469d1743027))
+* update SDK settings ([c597727](https://github.com/warpdotdev/oz-sdk-python/commit/c59772779c50cabc63bb881c01b841e5d3c9544a))
+* update SDK settings ([628303f](https://github.com/warpdotdev/oz-sdk-python/commit/628303fee3ec94b583573b891e9ff136857a585a))
+* update SDK settings ([621aa2e](https://github.com/warpdotdev/oz-sdk-python/commit/621aa2ea925c4946c2dbd362f71859c46554038b))
+
 ## 0.10.0 (2026-03-24)
 
 Full Changelog: [v0.9.0...v0.10.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.9.0...v0.10.0)

@@ -25,6 +25,19 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     environment_id: str
     """UID of the environment to run the agent in"""
 
+    harness: str
+    """
+    Agent harness to use for the agent run. Default (empty) uses Warp's built-in Oz
+    harness.
+    """
+
+    idle_timeout_minutes: int
+    """
+    Number of minutes to keep the agent environment alive after task completion. If
+    not set, defaults to 10 minutes. Maximum allowed value is min(60,
+    floor(max_instance_runtime_seconds / 60) for your billing tier).
+    """
+
     mcp_servers: Dict[str, McpServerConfigParam]
     """Map of MCP server configurations by name"""
 

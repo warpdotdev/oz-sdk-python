@@ -40,6 +40,8 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
+                "harness": "harness",
+                "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
                         "args": ["string"],
@@ -154,6 +156,8 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
+                "harness": "harness",
+                "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
                         "args": ["string"],
@@ -395,6 +399,8 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
+                "harness": "harness",
+                "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
                         "args": ["string"],
@@ -509,6 +515,8 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
+                "harness": "harness",
+                "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
                         "args": ["string"],

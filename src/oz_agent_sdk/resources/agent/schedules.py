@@ -275,8 +275,7 @@ class SchedulesResource(SyncAPIResource):
     ) -> ScheduledAgentItem:
         """Pause a scheduled agent.
 
-        The agent will not run until resumed. This sets the
-        enabled flag to false.
+        The agent will not run until resumed.
 
         Args:
           extra_headers: Send extra headers
@@ -311,7 +310,7 @@ class SchedulesResource(SyncAPIResource):
         """Resume a paused scheduled agent.
 
         The agent will start running according to its
-        cron schedule. This sets the enabled flag to true.
+        cron schedule.
 
         Args:
           extra_headers: Send extra headers
@@ -584,8 +583,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
     ) -> ScheduledAgentItem:
         """Pause a scheduled agent.
 
-        The agent will not run until resumed. This sets the
-        enabled flag to false.
+        The agent will not run until resumed.
 
         Args:
           extra_headers: Send extra headers
@@ -620,7 +618,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         """Resume a paused scheduled agent.
 
         The agent will start running according to its
-        cron schedule. This sets the enabled flag to true.
+        cron schedule.
 
         Args:
           extra_headers: Send extra headers

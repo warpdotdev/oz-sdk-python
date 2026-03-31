@@ -118,7 +118,7 @@ class RunsResource(SyncAPIResource):
         to `sort_by=updated_at` and `sort_order=desc`.
 
         Args:
-          artifact_type: Filter runs by artifact type (PLAN or PULL_REQUEST)
+          artifact_type: Filter runs by artifact type
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
 
@@ -333,7 +333,7 @@ class AsyncRunsResource(AsyncAPIResource):
         to `sort_by=updated_at` and `sort_order=desc`.
 
         Args:
-          artifact_type: Filter runs by artifact type (PLAN or PULL_REQUEST)
+          artifact_type: Filter runs by artifact type
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
 

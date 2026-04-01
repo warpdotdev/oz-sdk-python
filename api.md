@@ -6,9 +6,11 @@ Types:
 from oz_agent_sdk.types import (
     AgentSkill,
     AmbientAgentConfig,
+    AwsProviderConfig,
     CloudEnvironmentConfig,
     Error,
     ErrorCode,
+    GcpProviderConfig,
     McpServerConfig,
     Scope,
     UserProfile,
@@ -22,7 +24,7 @@ Methods:
 
 - <code title="get /agent">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_response.py">AgentListResponse</a></code>
 - <code title="get /agent/artifacts/{artifactUid}">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">get_artifact</a>(artifact_uid) -> <a href="./src/oz_agent_sdk/types/agent_get_artifact_response.py">AgentGetArtifactResponse</a></code>
-- <code title="post /agent/run">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/oz_agent_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
+- <code title="post /agent/runs">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/oz_agent_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
 
 ## Runs
 
@@ -34,7 +36,6 @@ from oz_agent_sdk.types.agent import (
     RunItem,
     RunSourceType,
     RunState,
-    RunListResponse,
     RunCancelResponse,
 )
 ```
@@ -42,7 +43,7 @@ from oz_agent_sdk.types.agent import (
 Methods:
 
 - <code title="get /agent/runs/{runId}">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">retrieve</a>(run_id) -> <a href="./src/oz_agent_sdk/types/agent/run_item.py">RunItem</a></code>
-- <code title="get /agent/runs">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent/run_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/run_list_response.py">RunListResponse</a></code>
+- <code title="get /agent/runs">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent/run_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/run_item.py">SyncRunsCursorPage[RunItem]</a></code>
 - <code title="post /agent/runs/{runId}/cancel">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">cancel</a>(run_id) -> str</code>
 
 ## Schedules

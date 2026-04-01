@@ -849,7 +849,7 @@ class TestOzAPI:
     @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: OzAPI) -> None:
-        respx_mock.post("/agent/run").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/agent/runs").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             client.agent.with_streaming_response.run().__enter__()
@@ -859,7 +859,7 @@ class TestOzAPI:
     @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: OzAPI) -> None:
-        respx_mock.post("/agent/run").mock(return_value=httpx.Response(500))
+        respx_mock.post("/agent/runs").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             client.agent.with_streaming_response.run().__enter__()
@@ -889,7 +889,7 @@ class TestOzAPI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/agent/run").mock(side_effect=retry_handler)
+        respx_mock.post("/agent/runs").mock(side_effect=retry_handler)
 
         response = client.agent.with_raw_response.run()
 
@@ -911,7 +911,7 @@ class TestOzAPI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/agent/run").mock(side_effect=retry_handler)
+        respx_mock.post("/agent/runs").mock(side_effect=retry_handler)
 
         response = client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": Omit()})
 
@@ -934,7 +934,7 @@ class TestOzAPI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/agent/run").mock(side_effect=retry_handler)
+        respx_mock.post("/agent/runs").mock(side_effect=retry_handler)
 
         response = client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": "42"})
 
@@ -1751,7 +1751,7 @@ class TestAsyncOzAPI:
     @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncOzAPI) -> None:
-        respx_mock.post("/agent/run").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.post("/agent/runs").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
             await async_client.agent.with_streaming_response.run().__aenter__()
@@ -1761,7 +1761,7 @@ class TestAsyncOzAPI:
     @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, async_client: AsyncOzAPI) -> None:
-        respx_mock.post("/agent/run").mock(return_value=httpx.Response(500))
+        respx_mock.post("/agent/runs").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
             await async_client.agent.with_streaming_response.run().__aenter__()
@@ -1791,7 +1791,7 @@ class TestAsyncOzAPI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/agent/run").mock(side_effect=retry_handler)
+        respx_mock.post("/agent/runs").mock(side_effect=retry_handler)
 
         response = await client.agent.with_raw_response.run()
 
@@ -1815,7 +1815,7 @@ class TestAsyncOzAPI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/agent/run").mock(side_effect=retry_handler)
+        respx_mock.post("/agent/runs").mock(side_effect=retry_handler)
 
         response = await client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": Omit()})
 
@@ -1838,7 +1838,7 @@ class TestAsyncOzAPI:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.post("/agent/run").mock(side_effect=retry_handler)
+        respx_mock.post("/agent/runs").mock(side_effect=retry_handler)
 
         response = await client.agent.with_raw_response.run(extra_headers={"x-stainless-retry-count": "42"})
 

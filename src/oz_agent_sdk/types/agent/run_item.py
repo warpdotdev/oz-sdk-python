@@ -2,6 +2,7 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ..scope import Scope
 from ..._models import BaseModel
@@ -159,6 +160,13 @@ class RunItem(BaseModel):
     """UUID of the conversation associated with the run"""
 
     creator: Optional[UserProfile] = None
+
+    execution_location: Optional[Literal["LOCAL", "REMOTE"]] = None
+    """Where the run executed:
+
+    - LOCAL: Executed in the user's local Oz environment
+    - REMOTE: Executed by a remote/cloud worker
+    """
 
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""

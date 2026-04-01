@@ -32,6 +32,9 @@ class RunListParams(TypedDict, total=False):
     environment_id: str
     """Filter runs by environment ID"""
 
+    execution_location: Literal["LOCAL", "REMOTE"]
+    """Filter by where the run executed"""
+
     limit: int
     """Maximum number of runs to return"""
 

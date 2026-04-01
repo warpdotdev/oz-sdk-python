@@ -93,6 +93,7 @@ class RunsResource(SyncAPIResource):
         creator: str | Omit = omit,
         cursor: str | Omit = omit,
         environment_id: str | Omit = omit,
+        execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
         name: str | Omit = omit,
@@ -129,6 +130,8 @@ class RunsResource(SyncAPIResource):
           cursor: Pagination cursor from previous response
 
           environment_id: Filter runs by environment ID
+
+          execution_location: Filter by where the run executed
 
           limit: Maximum number of runs to return
 
@@ -185,6 +188,7 @@ class RunsResource(SyncAPIResource):
                         "creator": creator,
                         "cursor": cursor,
                         "environment_id": environment_id,
+                        "execution_location": execution_location,
                         "limit": limit,
                         "model_id": model_id,
                         "name": name,
@@ -309,6 +313,7 @@ class AsyncRunsResource(AsyncAPIResource):
         creator: str | Omit = omit,
         cursor: str | Omit = omit,
         environment_id: str | Omit = omit,
+        execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         limit: int | Omit = omit,
         model_id: str | Omit = omit,
         name: str | Omit = omit,
@@ -345,6 +350,8 @@ class AsyncRunsResource(AsyncAPIResource):
           cursor: Pagination cursor from previous response
 
           environment_id: Filter runs by environment ID
+
+          execution_location: Filter by where the run executed
 
           limit: Maximum number of runs to return
 
@@ -401,6 +408,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "creator": creator,
                         "cursor": cursor,
                         "environment_id": environment_id,
+                        "execution_location": execution_location,
                         "limit": limit,
                         "model_id": model_id,
                         "name": name,

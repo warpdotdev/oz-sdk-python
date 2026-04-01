@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -18,12 +18,12 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ...pagination import SyncRunsCursorPage, AsyncRunsCursorPage
 from ...types.agent import RunSourceType, run_list_params
-from ..._base_client import make_request_options
+from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agent.run_item import RunItem
 from ...types.agent.run_state import RunState
 from ...types.agent.run_source_type import RunSourceType
-from ...types.agent.run_list_response import RunListResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -111,7 +111,7 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListResponse:
+    ) -> SyncRunsCursorPage[RunItem]:
         """Retrieve a paginated list of agent runs with optional filtering.
 
         Results default
@@ -169,8 +169,9 @@ class RunsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
+        return self._get_api_list(
             "/agent/runs",
+            page=SyncRunsCursorPage[RunItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -200,7 +201,7 @@ class RunsResource(SyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            cast_to=RunListResponse,
+            model=RunItem,
         )
 
     def cancel(
@@ -299,7 +300,7 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunItem,
         )
 
-    async def list(
+    def list(
         self,
         *,
         artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT"] | Omit = omit,
@@ -326,7 +327,7 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListResponse:
+    ) -> AsyncPaginator[RunItem, AsyncRunsCursorPage[RunItem]]:
         """Retrieve a paginated list of agent runs with optional filtering.
 
         Results default
@@ -384,14 +385,15 @@ class AsyncRunsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
+        return self._get_api_list(
             "/agent/runs",
+            page=AsyncRunsCursorPage[RunItem],
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform(
+                query=maybe_transform(
                     {
                         "artifact_type": artifact_type,
                         "created_after": created_after,
@@ -415,7 +417,7 @@ class AsyncRunsResource(AsyncAPIResource):
                     run_list_params.RunListParams,
                 ),
             ),
-            cast_to=RunListResponse,
+            model=RunItem,
         )
 
     async def cancel(

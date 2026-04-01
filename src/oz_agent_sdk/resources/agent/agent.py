@@ -203,10 +203,10 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Spawn a cloud agent with a prompt and optional configuration.
+        """Alias for POST /agent/run.
 
-        The agent will be
-        queued for execution and assigned a unique run ID.
+        This is the preferred endpoint for creating new agent
+        runs. Behavior is identical to POST /agent/run.
 
         Args:
           attachments: Optional file attachments to include with the prompt (max 5). Attachments are
@@ -244,7 +244,7 @@ class AgentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/agent/run",
+            "/agent/runs",
             body=maybe_transform(
                 {
                     "attachments": attachments,
@@ -417,10 +417,10 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Spawn a cloud agent with a prompt and optional configuration.
+        """Alias for POST /agent/run.
 
-        The agent will be
-        queued for execution and assigned a unique run ID.
+        This is the preferred endpoint for creating new agent
+        runs. Behavior is identical to POST /agent/run.
 
         Args:
           attachments: Optional file attachments to include with the prompt (max 5). Attachments are
@@ -458,7 +458,7 @@ class AsyncAgentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/agent/run",
+            "/agent/runs",
             body=await async_maybe_transform(
                 {
                     "attachments": attachments,

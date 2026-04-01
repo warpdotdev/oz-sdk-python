@@ -10,7 +10,8 @@ import pytest
 from tests.utils import assert_matches_type
 from oz_agent_sdk import OzAPI, AsyncOzAPI
 from oz_agent_sdk._utils import parse_datetime
-from oz_agent_sdk.types.agent import RunItem, RunListResponse
+from oz_agent_sdk.pagination import SyncRunsCursorPage, AsyncRunsCursorPage
+from oz_agent_sdk.types.agent import RunItem
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -64,7 +65,7 @@ class TestRuns:
     @parametrize
     def test_method_list(self, client: OzAPI) -> None:
         run = client.agent.runs.list()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(SyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -89,7 +90,7 @@ class TestRuns:
             state=["QUEUED"],
             updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(SyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -99,7 +100,7 @@ class TestRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(SyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -109,7 +110,7 @@ class TestRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(SyncRunsCursorPage[RunItem], run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -207,7 +208,7 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_list(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.list()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(AsyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -232,7 +233,7 @@ class TestAsyncRuns:
             state=["QUEUED"],
             updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
         )
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(AsyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -242,7 +243,7 @@ class TestAsyncRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(RunListResponse, run, path=["response"])
+        assert_matches_type(AsyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -252,7 +253,7 @@ class TestAsyncRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(RunListResponse, run, path=["response"])
+            assert_matches_type(AsyncRunsCursorPage[RunItem], run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

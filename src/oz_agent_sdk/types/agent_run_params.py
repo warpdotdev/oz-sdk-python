@@ -32,6 +32,12 @@ class AgentRunParams(TypedDict, total=False):
     interactive: bool
     """Whether the run should be interactive. If not set, defaults to false."""
 
+    parent_run_id: str
+    """
+    Optional run ID of the parent that spawned this run. Used for orchestration
+    hierarchies.
+    """
+
     prompt: str
     """
     The prompt/instruction for the agent to execute. Required unless a skill is

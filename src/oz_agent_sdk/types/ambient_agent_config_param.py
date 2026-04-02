@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict
 
 from .mcp_server_config_param import McpServerConfigParam
 
@@ -13,15 +13,11 @@ __all__ = ["AmbientAgentConfigParam", "Harness"]
 class Harness(TypedDict, total=False):
     """
     Specifies which execution harness to use for the agent run.
-    Default (nil/empty) uses Warp's built-in harness.
+    Default (nil/empty) uses Warp's built-in Oz harness.
     """
 
-    type: Literal["oz", "claude"]
-    """The harness type identifier.
-
-    - oz: Warp's built-in harness (default)
-    - claude: Claude Code harness
-    """
+    type: str
+    """The harness type identifier (e.g. "claude")."""
 
 
 class AmbientAgentConfigParam(TypedDict, total=False):
@@ -42,7 +38,7 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     harness: Harness
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
-    uses Warp's built-in harness.
+    uses Warp's built-in Oz harness.
     """
 
     idle_timeout_minutes: int

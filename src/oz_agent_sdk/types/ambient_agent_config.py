@@ -7,7 +7,17 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .mcp_server_config import McpServerConfig
 
-__all__ = ["AmbientAgentConfig"]
+__all__ = ["AmbientAgentConfig", "Harness"]
+
+
+class Harness(BaseModel):
+    """
+    Specifies which execution harness to use for the agent run.
+    Default (nil/empty) uses Warp's built-in Oz harness.
+    """
+
+    type: Optional[str] = None
+    """The harness type identifier (e.g. "claude")."""
 
 
 class AmbientAgentConfig(BaseModel):
@@ -25,10 +35,10 @@ class AmbientAgentConfig(BaseModel):
     environment_id: Optional[str] = None
     """UID of the environment to run the agent in"""
 
-    harness: Optional[str] = None
+    harness: Optional[Harness] = None
     """
-    Agent harness to use for the agent run. Default (empty) uses Warp's built-in Oz
-    harness.
+    Specifies which execution harness to use for the agent run. Default (nil/empty)
+    uses Warp's built-in Oz harness.
     """
 
     idle_timeout_minutes: Optional[int] = None

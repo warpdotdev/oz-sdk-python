@@ -123,7 +123,7 @@ class TestAgent:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": "harness",
+                "harness": {"type": "type"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -280,7 +280,7 @@ class TestAsyncAgent:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": "harness",
+                "harness": {"type": "type"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {

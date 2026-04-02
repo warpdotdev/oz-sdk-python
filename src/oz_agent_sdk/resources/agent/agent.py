@@ -192,6 +192,7 @@ class AgentResource(SyncAPIResource):
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
+        parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
         team: bool | Omit = omit,
@@ -218,6 +219,9 @@ class AgentResource(SyncAPIResource):
               agent will continue from where the previous run left off.
 
           interactive: Whether the run should be interactive. If not set, defaults to false.
+
+          parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
+              hierarchies.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field or config.skill_spec.
@@ -251,6 +255,7 @@ class AgentResource(SyncAPIResource):
                     "config": config,
                     "conversation_id": conversation_id,
                     "interactive": interactive,
+                    "parent_run_id": parent_run_id,
                     "prompt": prompt,
                     "skill": skill,
                     "team": team,
@@ -406,6 +411,7 @@ class AsyncAgentResource(AsyncAPIResource):
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
+        parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
         team: bool | Omit = omit,
@@ -432,6 +438,9 @@ class AsyncAgentResource(AsyncAPIResource):
               agent will continue from where the previous run left off.
 
           interactive: Whether the run should be interactive. If not set, defaults to false.
+
+          parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
+              hierarchies.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field or config.skill_spec.
@@ -465,6 +474,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "config": config,
                     "conversation_id": conversation_id,
                     "interactive": interactive,
+                    "parent_run_id": parent_run_id,
                     "prompt": prompt,
                     "skill": skill,
                     "team": team,

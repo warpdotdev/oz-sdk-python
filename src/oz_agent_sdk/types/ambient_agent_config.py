@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, Optional
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -13,11 +14,15 @@ __all__ = ["AmbientAgentConfig", "Harness"]
 class Harness(BaseModel):
     """
     Specifies which execution harness to use for the agent run.
-    Default (nil/empty) uses Warp's built-in Oz harness.
+    Default (nil/empty) uses Warp's built-in harness.
     """
 
-    type: Optional[str] = None
-    """The harness type identifier (e.g. "claude")."""
+    type: Optional[Literal["oz", "claude"]] = None
+    """The harness type identifier.
+
+    - oz: Warp's built-in harness (default)
+    - claude: Claude Code harness
+    """
 
 
 class AmbientAgentConfig(BaseModel):
@@ -38,7 +43,7 @@ class AmbientAgentConfig(BaseModel):
     harness: Optional[Harness] = None
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
-    uses Warp's built-in Oz harness.
+    uses Warp's built-in harness.
     """
 
     idle_timeout_minutes: Optional[int] = None

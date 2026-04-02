@@ -7,7 +7,17 @@ from typing_extensions import TypedDict
 
 from .mcp_server_config_param import McpServerConfigParam
 
-__all__ = ["AmbientAgentConfigParam"]
+__all__ = ["AmbientAgentConfigParam", "Harness"]
+
+
+class Harness(TypedDict, total=False):
+    """
+    Specifies which execution harness to use for the agent run.
+    Default (nil/empty) uses Warp's built-in Oz harness.
+    """
+
+    type: str
+    """The harness type identifier (e.g. "claude")."""
 
 
 class AmbientAgentConfigParam(TypedDict, total=False):
@@ -25,10 +35,10 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     environment_id: str
     """UID of the environment to run the agent in"""
 
-    harness: str
+    harness: Harness
     """
-    Agent harness to use for the agent run. Default (empty) uses Warp's built-in Oz
-    harness.
+    Specifies which execution harness to use for the agent run. Default (nil/empty)
+    uses Warp's built-in Oz harness.
     """
 
     idle_timeout_minutes: int

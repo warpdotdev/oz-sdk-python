@@ -5,10 +5,19 @@ from __future__ import annotations
 from typing import Dict
 from typing_extensions import TypedDict
 
-from .harness_param import HarnessParam
 from .mcp_server_config_param import McpServerConfigParam
 
-__all__ = ["AmbientAgentConfigParam"]
+__all__ = ["AmbientAgentConfigParam", "Harness"]
+
+
+class Harness(TypedDict, total=False):
+    """
+    Specifies which execution harness to use for the agent run.
+    Default (nil/empty) uses Warp's built-in Oz harness.
+    """
+
+    type: str
+    """The harness type identifier (e.g. "claude")."""
 
 
 class AmbientAgentConfigParam(TypedDict, total=False):
@@ -26,7 +35,7 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     environment_id: str
     """UID of the environment to run the agent in"""
 
-    harness: HarnessParam
+    harness: Harness
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
     uses Warp's built-in Oz harness.

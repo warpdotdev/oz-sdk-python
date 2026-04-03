@@ -11,6 +11,7 @@ from oz_agent_sdk.types import (
     Error,
     ErrorCode,
     GcpProviderConfig,
+    Harness,
     McpServerConfig,
     Scope,
     UserProfile,
@@ -33,9 +34,12 @@ Types:
 ```python
 from oz_agent_sdk.types.agent import (
     ArtifactItem,
+    RequestUsage,
     RunItem,
     RunSourceType,
     RunState,
+    RunStatusMessage,
+    ScheduleInfo,
     RunCancelResponse,
 )
 ```

@@ -4,20 +4,11 @@ from typing import Dict, Optional
 
 from pydantic import Field as FieldInfo
 
+from .harness import Harness
 from .._models import BaseModel
 from .mcp_server_config import McpServerConfig
 
-__all__ = ["AmbientAgentConfig", "Harness"]
-
-
-class Harness(BaseModel):
-    """
-    Specifies which execution harness to use for the agent run.
-    Default (nil/empty) uses Warp's built-in Oz harness.
-    """
-
-    type: Optional[str] = None
-    """The harness type identifier (e.g. "claude")."""
+__all__ = ["AmbientAgentConfig"]
 
 
 class AmbientAgentConfig(BaseModel):

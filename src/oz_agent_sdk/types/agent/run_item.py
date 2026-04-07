@@ -171,6 +171,9 @@ class RunItem(BaseModel):
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""
 
+    parent_run_id: Optional[str] = None
+    """UUID of the parent run that spawned this run"""
+
     request_usage: Optional[RequestUsage] = None
     """Resource usage information for the run"""
 

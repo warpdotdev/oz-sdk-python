@@ -40,7 +40,10 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {"type": "oz"},
+                "harness": {
+                    "auth_secret_name": "auth_secret_name",
+                    "type": "oz",
+                },
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -156,7 +159,10 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {"type": "oz"},
+                "harness": {
+                    "auth_secret_name": "auth_secret_name",
+                    "type": "oz",
+                },
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -399,7 +405,10 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {"type": "oz"},
+                "harness": {
+                    "auth_secret_name": "auth_secret_name",
+                    "type": "oz",
+                },
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -515,7 +524,10 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {"type": "oz"},
+                "harness": {
+                    "auth_secret_name": "auth_secret_name",
+                    "type": "oz",
+                },
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {

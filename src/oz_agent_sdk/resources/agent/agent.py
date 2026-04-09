@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Iterable
+from typing import Any, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
@@ -163,8 +163,8 @@ class AgentResource(SyncAPIResource):
     ) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
-        For screenshot artifacts, returns a
-        time-limited signed download URL.
+        For supported downloadable artifacts, returns
+        a time-limited signed download URL.
 
         Args:
           extra_headers: Send extra headers
@@ -177,12 +177,17 @@ class AgentResource(SyncAPIResource):
         """
         if not artifact_uid:
             raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
-        return self._get(
-            path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            AgentGetArtifactResponse,
+            self._get(
+                path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, AgentGetArtifactResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=AgentGetArtifactResponse,
         )
 
     def run(
@@ -382,8 +387,8 @@ class AsyncAgentResource(AsyncAPIResource):
     ) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
-        For screenshot artifacts, returns a
-        time-limited signed download URL.
+        For supported downloadable artifacts, returns
+        a time-limited signed download URL.
 
         Args:
           extra_headers: Send extra headers
@@ -396,12 +401,17 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         if not artifact_uid:
             raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
-        return await self._get(
-            path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+        return cast(
+            AgentGetArtifactResponse,
+            await self._get(
+                path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
+                options=make_request_options(
+                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                ),
+                cast_to=cast(
+                    Any, AgentGetArtifactResponse
+                ),  # Union types cannot be passed in as arguments in the type system
             ),
-            cast_to=AgentGetArtifactResponse,
         )
 
     async def run(

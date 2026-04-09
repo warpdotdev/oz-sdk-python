@@ -112,6 +112,7 @@ class TestAgent:
     @parametrize
     def test_method_run_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.run(
+            agent_identity_uid="agent_identity_uid",
             attachments=[
                 {
                     "data": "U3RhaW5sZXNzIHJvY2tz",
@@ -272,6 +273,7 @@ class TestAsyncAgent:
     @parametrize
     async def test_method_run_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.run(
+            agent_identity_uid="agent_identity_uid",
             attachments=[
                 {
                     "data": "U3RhaW5sZXNzIHJvY2tz",

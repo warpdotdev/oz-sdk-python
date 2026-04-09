@@ -87,7 +87,7 @@ class RunsResource(SyncAPIResource):
     def list(
         self,
         *,
-        artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT"] | Omit = omit,
+        artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,
@@ -307,7 +307,7 @@ class AsyncRunsResource(AsyncAPIResource):
     def list(
         self,
         *,
-        artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT"] | Omit = omit,
+        artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,

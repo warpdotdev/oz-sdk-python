@@ -14,7 +14,7 @@ __all__ = ["RunListParams"]
 
 
 class RunListParams(TypedDict, total=False):
-    artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT"]
+    artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"]
     """Filter runs by artifact type"""
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]

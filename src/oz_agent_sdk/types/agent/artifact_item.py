@@ -15,6 +15,8 @@ __all__ = [
     "PullRequestArtifactData",
     "ScreenshotArtifact",
     "ScreenshotArtifactData",
+    "FileArtifact",
+    "FileArtifactData",
 ]
 
 
@@ -78,6 +80,37 @@ class ScreenshotArtifact(BaseModel):
     data: ScreenshotArtifactData
 
 
+class FileArtifactData(BaseModel):
+    artifact_uid: str
+    """Unique identifier for the file artifact"""
+
+    filename: str
+    """Last path component of filepath"""
+
+    filepath: str
+    """Conversation-relative filepath for the uploaded file"""
+
+    mime_type: str
+    """MIME type of the uploaded file"""
+
+    description: Optional[str] = None
+    """Optional description of the file"""
+
+    size_bytes: Optional[int] = None
+    """Size of the uploaded file in bytes"""
+
+
+class FileArtifact(BaseModel):
+    artifact_type: Literal["FILE"]
+    """Type of the artifact"""
+
+    created_at: datetime
+    """Timestamp when the artifact was created (RFC3339)"""
+
+    data: FileArtifactData
+
+
 ArtifactItem: TypeAlias = Annotated[
-    Union[PlanArtifact, PullRequestArtifact, ScreenshotArtifact], PropertyInfo(discriminator="artifact_type")
+    Union[PlanArtifact, PullRequestArtifact, ScreenshotArtifact, FileArtifact],
+    PropertyInfo(discriminator="artifact_type"),
 ]

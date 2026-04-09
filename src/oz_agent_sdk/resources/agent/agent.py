@@ -193,6 +193,7 @@ class AgentResource(SyncAPIResource):
     def run(
         self,
         *,
+        agent_identity_uid: str | Omit = omit,
         attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
@@ -215,6 +216,9 @@ class AgentResource(SyncAPIResource):
         runs. Behavior is identical to POST /agent/run.
 
         Args:
+          agent_identity_uid: Optional agent identity UID to use as the execution principal for the run. This
+              is only valid for runs that are team owned.
+
           attachments: Optional file attachments to include with the prompt (max 5). Attachments are
               uploaded to cloud storage and made available to the agent.
 
@@ -256,6 +260,7 @@ class AgentResource(SyncAPIResource):
             "/agent/runs",
             body=maybe_transform(
                 {
+                    "agent_identity_uid": agent_identity_uid,
                     "attachments": attachments,
                     "config": config,
                     "conversation_id": conversation_id,
@@ -417,6 +422,7 @@ class AsyncAgentResource(AsyncAPIResource):
     async def run(
         self,
         *,
+        agent_identity_uid: str | Omit = omit,
         attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
@@ -439,6 +445,9 @@ class AsyncAgentResource(AsyncAPIResource):
         runs. Behavior is identical to POST /agent/run.
 
         Args:
+          agent_identity_uid: Optional agent identity UID to use as the execution principal for the run. This
+              is only valid for runs that are team owned.
+
           attachments: Optional file attachments to include with the prompt (max 5). Attachments are
               uploaded to cloud storage and made available to the agent.
 
@@ -480,6 +489,7 @@ class AsyncAgentResource(AsyncAPIResource):
             "/agent/runs",
             body=await async_maybe_transform(
                 {
+                    "agent_identity_uid": agent_identity_uid,
                     "attachments": attachments,
                     "config": config,
                     "conversation_id": conversation_id,

@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.11.0 (2026-04-09)
+
+Full Changelog: [v0.10.1...v0.11.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.10.1...v0.11.0)
+
+### Features
+
+* [Artifacts] public API file artifact downloads ([1d2007e](https://github.com/warpdotdev/oz-sdk-python/commit/1d2007eaa692679fdcc56a6092ffdf9ad09de6ca))
+* Add harness enum to openAPI spec ([c8b44e5](https://github.com/warpdotdev/oz-sdk-python/commit/c8b44e532885d53f406babf8c0463f62d86a1fbe))
+* Add parent_run_id to retrieve/list runs API response ([c5752fb](https://github.com/warpdotdev/oz-sdk-python/commit/c5752fbbceffbc322cee5dd8b111aa0ce84ce615))
+* Add VMIdleTimeoutMinutes param to API ([31b5a63](https://github.com/warpdotdev/oz-sdk-python/commit/31b5a63204a2baca1a41f0b4124408d2d2b7e6a4))
+* Address Stainless diagnostics ([58d59e3](https://github.com/warpdotdev/oz-sdk-python/commit/58d59e3593d27ad4bb17e340c384d9709f650806))
+* **api:** api update ([9140132](https://github.com/warpdotdev/oz-sdk-python/commit/9140132ca22861c78365898e250a5c613af454a8))
+* **api:** api update ([204505c](https://github.com/warpdotdev/oz-sdk-python/commit/204505c1472d5af4b9463a975fd919c5fc4dbe78))
+* **api:** api update ([5e2d3ee](https://github.com/warpdotdev/oz-sdk-python/commit/5e2d3ee9400130c5a8dc2d51d1618ad292c051ab))
+* **api:** api update ([1238769](https://github.com/warpdotdev/oz-sdk-python/commit/12387694506b5d0d53e527db1dcdb2ca02ae2f71))
+* **api:** api update ([75b1c92](https://github.com/warpdotdev/oz-sdk-python/commit/75b1c92550babef5b0cf19689613f95131df08d7))
+* **api:** api update ([4b777eb](https://github.com/warpdotdev/oz-sdk-python/commit/4b777ebbe2483c2d882597bd0ab593128f5355d9))
+* **api:** api update ([9fe02aa](https://github.com/warpdotdev/oz-sdk-python/commit/9fe02aad21c71cbab837f7d335e5234e1974bb90))
+* **api:** api update ([7fc79ef](https://github.com/warpdotdev/oz-sdk-python/commit/7fc79efe0897451670cb44cf29c0f99b06ffe821))
+* **api:** manual updates ([ed9f4cf](https://github.com/warpdotdev/oz-sdk-python/commit/ed9f4cfa6a0db58dc3ca5564f83b09ef1a19e3a9))
+* **api:** manual updates ([e52643f](https://github.com/warpdotdev/oz-sdk-python/commit/e52643fcb1408ac9f8dd6a284b9cb818f3f468ac))
+* Create run for every local conversation and add filter ([aac84c5](https://github.com/warpdotdev/oz-sdk-python/commit/aac84c585eb3b0ed5262d683e544960a82eec2a2))
+* Define auth secrets and inject them into the environment. ([54c505b](https://github.com/warpdotdev/oz-sdk-python/commit/54c505b2d58246abab42cda52d79df3ddbfed083))
+* Endpoint to upload third-party harness block snapshots ([2f71989](https://github.com/warpdotdev/oz-sdk-python/commit/2f7198972cec56e72b802c7505fb445d10304bf4))
+* Fix the harness type in the openAPI spec ([71d7204](https://github.com/warpdotdev/oz-sdk-python/commit/71d72043f6cb8d8ae6af4c01936967059936c7b0))
+* ian/fix_conversation_id_nameing ([658c50b](https://github.com/warpdotdev/oz-sdk-python/commit/658c50b6b3937249034ad9e6993e598705d0c3c6))
+* **internal:** implement indices array format for query and form serialization ([c518876](https://github.com/warpdotdev/oz-sdk-python/commit/c518876f3da1129d3c351982ed4a06590fd15f2e))
+* Orchestrations V2: Public API endpoints ([5514980](https://github.com/warpdotdev/oz-sdk-python/commit/551498004c85dd4277069b0c059c17c7504bc18b))
+* Use correct branch for Stainless PRs ([d7b298d](https://github.com/warpdotdev/oz-sdk-python/commit/d7b298d99c5dcb5e02530329fef222de92f3e9d6))
+
+
+### Bug Fixes
+
+* **client:** preserve hardcoded query params when merging with user params ([5da3150](https://github.com/warpdotdev/oz-sdk-python/commit/5da315075e053b1a6cef709439f9972f6fd0f70f))
+
 ## 0.10.1 (2026-03-24)
 
 Full Changelog: [v0.10.0...v0.10.1](https://github.com/warpdotdev/oz-sdk-python/compare/v0.10.0...v0.10.1)

@@ -71,7 +71,6 @@ class TestRuns:
     @parametrize
     def test_method_list_with_all_params(self, client: OzAPI) -> None:
         run = client.agent.runs.list(
-            ancestor_run_id="ancestor_run_id",
             artifact_type="PLAN",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
@@ -216,7 +215,6 @@ class TestAsyncRuns:
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.list(
-            ancestor_run_id="ancestor_run_id",
             artifact_type="PLAN",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),

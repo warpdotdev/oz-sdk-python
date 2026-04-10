@@ -7,7 +7,6 @@ from oz_agent_sdk.types import (
     AgentSkill,
     AmbientAgentConfig,
     AwsProviderConfig,
-    CloudEnvironment,
     CloudEnvironmentConfig,
     Error,
     ErrorCode,
@@ -17,7 +16,6 @@ from oz_agent_sdk.types import (
     UserProfile,
     AgentListResponse,
     AgentGetArtifactResponse,
-    AgentListEnvironmentsResponse,
     AgentRunResponse,
 )
 ```
@@ -26,7 +24,6 @@ Methods:
 
 - <code title="get /agent">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_response.py">AgentListResponse</a></code>
 - <code title="get /agent/artifacts/{artifactUid}">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">get_artifact</a>(artifact_uid) -> <a href="./src/oz_agent_sdk/types/agent_get_artifact_response.py">AgentGetArtifactResponse</a></code>
-- <code title="get /agent/environments">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list_environments</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_environments_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_environments_response.py">AgentListEnvironmentsResponse</a></code>
 - <code title="post /agent/runs">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/oz_agent_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
 
 ## Runs

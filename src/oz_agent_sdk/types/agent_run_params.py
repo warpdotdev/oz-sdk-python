@@ -14,12 +14,6 @@ __all__ = ["AgentRunParams", "Attachment"]
 
 
 class AgentRunParams(TypedDict, total=False):
-    agent_identity_uid: str
-    """
-    Optional agent identity UID to use as the execution principal for the run. This
-    is only valid for runs that are team owned.
-    """
-
     attachments: Iterable[Attachment]
     """
     Optional file attachments to include with the prompt (max 5). Attachments are

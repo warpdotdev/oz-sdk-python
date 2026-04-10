@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.12.0 (2026-04-10)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* Add parent_run_id filter to List runs endpoint ([33cf04c](https://github.com/warpdotdev/oz-sdk-python/commit/33cf04c0777d53059f8a3c73b925b468276aba2a))
+* **api:** api update ([a6d82f1](https://github.com/warpdotdev/oz-sdk-python/commit/a6d82f1a71ad8e0ff5f10c43cc81938babc1444e))
+* **api:** api update ([b9872f2](https://github.com/warpdotdev/oz-sdk-python/commit/b9872f2642191ef6e1d4d5d3542a08f9e2784b9e))
+* **api:** api update ([0ef9c8f](https://github.com/warpdotdev/oz-sdk-python/commit/0ef9c8f483269d203a3edc7b5805f48f4263eb2f))
+
+
+### Bug Fixes
+
+* ensure file data are only sent as 1 parameter ([6720ea9](https://github.com/warpdotdev/oz-sdk-python/commit/6720ea9331a945cf2d030e20b8851a223697aab3))
+
 ## 0.11.0 (2026-04-09)
 
 Full Changelog: [v0.10.1...v0.11.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.10.1...v0.11.0)

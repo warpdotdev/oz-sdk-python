@@ -14,6 +14,12 @@ __all__ = ["RunListParams"]
 
 
 class RunListParams(TypedDict, total=False):
+    ancestor_run_id: str
+    """Filter runs by ancestor run ID.
+
+    The referenced run must exist and be accessible to the caller.
+    """
+
     artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"]
     """Filter runs by artifact type"""
 

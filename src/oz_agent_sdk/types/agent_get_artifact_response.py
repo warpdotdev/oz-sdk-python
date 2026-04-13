@@ -9,51 +9,11 @@ from .._models import BaseModel
 
 __all__ = [
     "AgentGetArtifactResponse",
-    "PlanArtifactResponse",
-    "PlanArtifactResponseData",
     "ScreenshotArtifactResponse",
     "ScreenshotArtifactResponseData",
     "FileArtifactResponse",
     "FileArtifactResponseData",
 ]
-
-
-class PlanArtifactResponseData(BaseModel):
-    """Response data for a plan artifact, including current markdown content."""
-
-    content: str
-    """Current markdown content of the plan"""
-
-    content_type: str
-    """MIME type of the returned plan content"""
-
-    document_uid: str
-    """Unique identifier for the plan document"""
-
-    notebook_uid: str
-    """Unique identifier for the associated notebook"""
-
-    title: Optional[str] = None
-    """Current title of the plan"""
-
-    url: Optional[str] = None
-    """URL to open the plan in Warp Drive"""
-
-
-class PlanArtifactResponse(BaseModel):
-    """Response for retrieving a plan artifact."""
-
-    artifact_type: Literal["PLAN"]
-    """Type of the artifact"""
-
-    artifact_uid: str
-    """Unique identifier (UUID) for the artifact"""
-
-    created_at: datetime
-    """Timestamp when the artifact was created (RFC3339)"""
-
-    data: PlanArtifactResponseData
-    """Response data for a plan artifact, including current markdown content."""
 
 
 class ScreenshotArtifactResponseData(BaseModel):
@@ -130,6 +90,5 @@ class FileArtifactResponse(BaseModel):
 
 
 AgentGetArtifactResponse: TypeAlias = Annotated[
-    Union[PlanArtifactResponse, ScreenshotArtifactResponse, FileArtifactResponse],
-    PropertyInfo(discriminator="artifact_type"),
+    Union[ScreenshotArtifactResponse, FileArtifactResponse], PropertyInfo(discriminator="artifact_type")
 ]

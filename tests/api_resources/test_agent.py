@@ -124,8 +124,10 @@ class TestAgent:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {"type": "oz"},
-                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
+                "harness": {
+                    "auth_secret_name": "auth_secret_name",
+                    "type": "oz",
+                },
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -283,8 +285,10 @@ class TestAsyncAgent:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {"type": "oz"},
-                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
+                "harness": {
+                    "auth_secret_name": "auth_secret_name",
+                    "type": "oz",
+                },
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {

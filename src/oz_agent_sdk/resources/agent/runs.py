@@ -87,6 +87,7 @@ class RunsResource(SyncAPIResource):
     def list(
         self,
         *,
+        ancestor_run_id: str | Omit = omit,
         artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
@@ -119,6 +120,9 @@ class RunsResource(SyncAPIResource):
         to `sort_by=updated_at` and `sort_order=desc`.
 
         Args:
+          ancestor_run_id: Filter runs by ancestor run ID. The referenced run must exist and be accessible
+              to the caller.
+
           artifact_type: Filter runs by artifact type
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
@@ -182,6 +186,7 @@ class RunsResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "ancestor_run_id": ancestor_run_id,
                         "artifact_type": artifact_type,
                         "created_after": created_after,
                         "created_before": created_before,
@@ -307,6 +312,7 @@ class AsyncRunsResource(AsyncAPIResource):
     def list(
         self,
         *,
+        ancestor_run_id: str | Omit = omit,
         artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
@@ -339,6 +345,9 @@ class AsyncRunsResource(AsyncAPIResource):
         to `sort_by=updated_at` and `sort_order=desc`.
 
         Args:
+          ancestor_run_id: Filter runs by ancestor run ID. The referenced run must exist and be accessible
+              to the caller.
+
           artifact_type: Filter runs by artifact type
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
@@ -402,6 +411,7 @@ class AsyncRunsResource(AsyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "ancestor_run_id": ancestor_run_id,
                         "artifact_type": artifact_type,
                         "created_after": created_after,
                         "created_before": created_before,

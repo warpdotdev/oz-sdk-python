@@ -13,6 +13,7 @@ from oz_agent_sdk.types import (
     AgentRunResponse,
     AgentListResponse,
     AgentGetArtifactResponse,
+    AgentListEnvironmentsResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -104,6 +105,42 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    def test_method_list_environments(self, client: OzAPI) -> None:
+        agent = client.agent.list_environments()
+        assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_environments_with_all_params(self, client: OzAPI) -> None:
+        agent = client.agent.list_environments(
+            sort_by="name",
+        )
+        assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_environments(self, client: OzAPI) -> None:
+        response = client.agent.with_raw_response.list_environments()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = response.parse()
+        assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_environments(self, client: OzAPI) -> None:
+        with client.agent.with_streaming_response.list_environments() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = response.parse()
+            assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     def test_method_run(self, client: OzAPI) -> None:
         agent = client.agent.run()
         assert_matches_type(AgentRunResponse, agent, path=["response"])
@@ -124,10 +161,8 @@ class TestAgent:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "auth_secret_name": "auth_secret_name",
-                    "type": "oz",
-                },
+                "harness": {"type": "oz"},
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -265,6 +300,42 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
+    async def test_method_list_environments(self, async_client: AsyncOzAPI) -> None:
+        agent = await async_client.agent.list_environments()
+        assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_environments_with_all_params(self, async_client: AsyncOzAPI) -> None:
+        agent = await async_client.agent.list_environments(
+            sort_by="name",
+        )
+        assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_environments(self, async_client: AsyncOzAPI) -> None:
+        response = await async_client.agent.with_raw_response.list_environments()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = await response.parse()
+        assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_environments(self, async_client: AsyncOzAPI) -> None:
+        async with async_client.agent.with_streaming_response.list_environments() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = await response.parse()
+            assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
     async def test_method_run(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.run()
         assert_matches_type(AgentRunResponse, agent, path=["response"])
@@ -285,10 +356,8 @@ class TestAsyncAgent:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "auth_secret_name": "auth_secret_name",
-                    "type": "oz",
-                },
+                "harness": {"type": "oz"},
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {

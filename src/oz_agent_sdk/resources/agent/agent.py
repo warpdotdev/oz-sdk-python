@@ -164,9 +164,8 @@ class AgentResource(SyncAPIResource):
     ) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
-        For downloadable file-like artifacts, returns
-        a time-limited signed download URL. For plan artifacts, returns the current plan
-        content inline.
+        For supported downloadable artifacts, returns
+        a time-limited signed download URL.
 
         Args:
           extra_headers: Send extra headers
@@ -437,9 +436,8 @@ class AsyncAgentResource(AsyncAPIResource):
     ) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
-        For downloadable file-like artifacts, returns
-        a time-limited signed download URL. For plan artifacts, returns the current plan
-        content inline.
+        For supported downloadable artifacts, returns
+        a time-limited signed download URL.
 
         Args:
           extra_headers: Send extra headers

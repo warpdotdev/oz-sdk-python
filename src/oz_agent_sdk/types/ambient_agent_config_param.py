@@ -7,7 +7,7 @@ from typing_extensions import Literal, TypedDict
 
 from .mcp_server_config_param import McpServerConfigParam
 
-__all__ = ["AmbientAgentConfigParam", "Harness", "HarnessAuthSecrets"]
+__all__ = ["AmbientAgentConfigParam", "Harness"]
 
 
 class Harness(TypedDict, total=False):
@@ -16,25 +16,20 @@ class Harness(TypedDict, total=False):
     Default (nil/empty) uses Warp's built-in harness.
     """
 
+    auth_secret_name: str
+    """Name of a managed secret to use as the authentication credential for the
+    harness.
+
+    The secret must exist within the caller's personal or team scope. The
+    environment variable injected into the agent is determined by the secret type
+    (e.g. ANTHROPIC_API_KEY for anthropic_api_key secrets).
+    """
+
     type: Literal["oz", "claude"]
     """The harness type identifier.
 
     - oz: Warp's built-in harness (default)
     - claude: Claude Code harness
-    """
-
-
-class HarnessAuthSecrets(TypedDict, total=False):
-    """
-    Authentication secrets for third-party harnesses.
-    Only the secret for the harness specified gets injected into the environment.
-    """
-
-    claude_auth_secret_name: str
-    """
-    Name of a managed secret for Claude Code harness authentication. The secret must
-    exist within the caller's personal or team scope. Only applicable when harness
-    type is "claude".
     """
 
 
@@ -57,12 +52,6 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
     uses Warp's built-in harness.
-    """
-
-    harness_auth_secrets: HarnessAuthSecrets
-    """
-    Authentication secrets for third-party harnesses. Only the secret for the
-    harness specified gets injected into the environment.
     """
 
     idle_timeout_minutes: int

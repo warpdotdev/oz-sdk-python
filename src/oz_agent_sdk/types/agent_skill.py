@@ -26,13 +26,6 @@ class VariantSource(BaseModel):
     skill_path: str
     """Path to the skill definition file within the repository"""
 
-    worker_host: Optional[str] = None
-    """
-    Self-hosted worker host that reported this skill. Present only for skills
-    discovered from self-hosted workers (as opposed to skills from GitHub repos
-    linked to environments).
-    """
-
 
 class Variant(BaseModel):
     id: str

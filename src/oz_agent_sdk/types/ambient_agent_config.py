@@ -8,7 +8,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .mcp_server_config import McpServerConfig
 
-__all__ = ["AmbientAgentConfig", "Harness"]
+__all__ = ["AmbientAgentConfig", "Harness", "HarnessAuthSecrets"]
 
 
 class Harness(BaseModel):
@@ -17,20 +17,25 @@ class Harness(BaseModel):
     Default (nil/empty) uses Warp's built-in harness.
     """
 
-    auth_secret_name: Optional[str] = None
-    """Name of a managed secret to use as the authentication credential for the
-    harness.
-
-    The secret must exist within the caller's personal or team scope. The
-    environment variable injected into the agent is determined by the secret type
-    (e.g. ANTHROPIC_API_KEY for anthropic_api_key secrets).
-    """
-
     type: Optional[Literal["oz", "claude"]] = None
     """The harness type identifier.
 
     - oz: Warp's built-in harness (default)
     - claude: Claude Code harness
+    """
+
+
+class HarnessAuthSecrets(BaseModel):
+    """
+    Authentication secrets for third-party harnesses.
+    Only the secret for the harness specified gets injected into the environment.
+    """
+
+    claude_auth_secret_name: Optional[str] = None
+    """
+    Name of a managed secret for Claude Code harness authentication. The secret must
+    exist within the caller's personal or team scope. Only applicable when harness
+    type is "claude".
     """
 
 
@@ -53,6 +58,12 @@ class AmbientAgentConfig(BaseModel):
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
     uses Warp's built-in harness.
+    """
+
+    harness_auth_secrets: Optional[HarnessAuthSecrets] = None
+    """
+    Authentication secrets for third-party harnesses. Only the secret for the
+    harness specified gets injected into the environment.
     """
 
     idle_timeout_minutes: Optional[int] = None

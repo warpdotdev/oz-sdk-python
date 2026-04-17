@@ -7,6 +7,7 @@ from typing_extensions import Literal
 
 import httpx
 
+from . import agent_ as agent
 from .runs import (
     RunsResource,
     AsyncRunsResource,
@@ -15,7 +16,7 @@ from .runs import (
     RunsResourceWithStreamingResponse,
     AsyncRunsResourceWithStreamingResponse,
 )
-from ...types import agent_run_params, agent_list_params
+from ...types import agent_run_params, agent_list_params, agent_list_environments_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from .sessions import (
@@ -47,6 +48,7 @@ from ...types.agent_run_response import AgentRunResponse
 from ...types.agent_list_response import AgentListResponse
 from ...types.ambient_agent_config_param import AmbientAgentConfigParam
 from ...types.agent_get_artifact_response import AgentGetArtifactResponse
+from ...types.agent_list_environments_response import AgentListEnvironmentsResponse
 
 __all__ = ["AgentResource", "AsyncAgentResource"]
 
@@ -63,6 +65,11 @@ class AgentResource(SyncAPIResource):
     def schedules(self) -> SchedulesResource:
         """Operations for creating and managing scheduled agents"""
         return SchedulesResource(self._client)
+
+    @cached_property
+    def agent(self) -> agent.AgentResource:
+        """Operations for running and managing cloud agents"""
+        return agent.AgentResource(self._client)
 
     @cached_property
     def sessions(self) -> SessionsResource:
@@ -163,8 +170,9 @@ class AgentResource(SyncAPIResource):
     ) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
-        For supported downloadable artifacts, returns
-        a time-limited signed download URL.
+        For downloadable file-like artifacts, returns
+        a time-limited signed download URL. For plan artifacts, returns the current plan
+        content inline.
 
         Args:
           extra_headers: Send extra headers
@@ -188,6 +196,49 @@ class AgentResource(SyncAPIResource):
                     Any, AgentGetArtifactResponse
                 ),  # Union types cannot be passed in as arguments in the type system
             ),
+        )
+
+    def list_environments(
+        self,
+        *,
+        sort_by: Literal["name", "last_updated"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentListEnvironmentsResponse:
+        """Retrieve cloud environments accessible to the authenticated principal.
+
+        Returns
+        environments the caller owns, has been granted guest access to, or has accessed
+        via link sharing.
+
+        Args:
+          sort_by: Sort order for the returned environments.
+
+              - `name`: alphabetical by environment name
+              - `last_updated`: most recently updated first (default)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/agent/environments",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"sort_by": sort_by}, agent_list_environments_params.AgentListEnvironmentsParams),
+            ),
+            cast_to=AgentListEnvironmentsResponse,
         )
 
     def run(
@@ -294,6 +345,11 @@ class AsyncAgentResource(AsyncAPIResource):
         return AsyncSchedulesResource(self._client)
 
     @cached_property
+    def agent(self) -> agent.AsyncAgentResource:
+        """Operations for running and managing cloud agents"""
+        return agent.AsyncAgentResource(self._client)
+
+    @cached_property
     def sessions(self) -> AsyncSessionsResource:
         """Operations for running and managing cloud agents"""
         return AsyncSessionsResource(self._client)
@@ -392,8 +448,9 @@ class AsyncAgentResource(AsyncAPIResource):
     ) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
-        For supported downloadable artifacts, returns
-        a time-limited signed download URL.
+        For downloadable file-like artifacts, returns
+        a time-limited signed download URL. For plan artifacts, returns the current plan
+        content inline.
 
         Args:
           extra_headers: Send extra headers
@@ -417,6 +474,51 @@ class AsyncAgentResource(AsyncAPIResource):
                     Any, AgentGetArtifactResponse
                 ),  # Union types cannot be passed in as arguments in the type system
             ),
+        )
+
+    async def list_environments(
+        self,
+        *,
+        sort_by: Literal["name", "last_updated"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentListEnvironmentsResponse:
+        """Retrieve cloud environments accessible to the authenticated principal.
+
+        Returns
+        environments the caller owns, has been granted guest access to, or has accessed
+        via link sharing.
+
+        Args:
+          sort_by: Sort order for the returned environments.
+
+              - `name`: alphabetical by environment name
+              - `last_updated`: most recently updated first (default)
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/agent/environments",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"sort_by": sort_by}, agent_list_environments_params.AgentListEnvironmentsParams
+                ),
+            ),
+            cast_to=AgentListEnvironmentsResponse,
         )
 
     async def run(
@@ -519,6 +621,9 @@ class AgentResourceWithRawResponse:
         self.get_artifact = to_raw_response_wrapper(
             agent.get_artifact,
         )
+        self.list_environments = to_raw_response_wrapper(
+            agent.list_environments,
+        )
         self.run = to_raw_response_wrapper(
             agent.run,
         )
@@ -532,6 +637,11 @@ class AgentResourceWithRawResponse:
     def schedules(self) -> SchedulesResourceWithRawResponse:
         """Operations for creating and managing scheduled agents"""
         return SchedulesResourceWithRawResponse(self._agent.schedules)
+
+    @cached_property
+    def agent(self) -> agent.AgentResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
+        return agent.AgentResourceWithRawResponse(self._agent.agent)
 
     @cached_property
     def sessions(self) -> SessionsResourceWithRawResponse:
@@ -549,6 +659,9 @@ class AsyncAgentResourceWithRawResponse:
         self.get_artifact = async_to_raw_response_wrapper(
             agent.get_artifact,
         )
+        self.list_environments = async_to_raw_response_wrapper(
+            agent.list_environments,
+        )
         self.run = async_to_raw_response_wrapper(
             agent.run,
         )
@@ -562,6 +675,11 @@ class AsyncAgentResourceWithRawResponse:
     def schedules(self) -> AsyncSchedulesResourceWithRawResponse:
         """Operations for creating and managing scheduled agents"""
         return AsyncSchedulesResourceWithRawResponse(self._agent.schedules)
+
+    @cached_property
+    def agent(self) -> agent.AsyncAgentResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
+        return agent.AsyncAgentResourceWithRawResponse(self._agent.agent)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithRawResponse:
@@ -579,6 +697,9 @@ class AgentResourceWithStreamingResponse:
         self.get_artifact = to_streamed_response_wrapper(
             agent.get_artifact,
         )
+        self.list_environments = to_streamed_response_wrapper(
+            agent.list_environments,
+        )
         self.run = to_streamed_response_wrapper(
             agent.run,
         )
@@ -592,6 +713,11 @@ class AgentResourceWithStreamingResponse:
     def schedules(self) -> SchedulesResourceWithStreamingResponse:
         """Operations for creating and managing scheduled agents"""
         return SchedulesResourceWithStreamingResponse(self._agent.schedules)
+
+    @cached_property
+    def agent(self) -> agent.AgentResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
+        return agent.AgentResourceWithStreamingResponse(self._agent.agent)
 
     @cached_property
     def sessions(self) -> SessionsResourceWithStreamingResponse:
@@ -609,6 +735,9 @@ class AsyncAgentResourceWithStreamingResponse:
         self.get_artifact = async_to_streamed_response_wrapper(
             agent.get_artifact,
         )
+        self.list_environments = async_to_streamed_response_wrapper(
+            agent.list_environments,
+        )
         self.run = async_to_streamed_response_wrapper(
             agent.run,
         )
@@ -622,6 +751,11 @@ class AsyncAgentResourceWithStreamingResponse:
     def schedules(self) -> AsyncSchedulesResourceWithStreamingResponse:
         """Operations for creating and managing scheduled agents"""
         return AsyncSchedulesResourceWithStreamingResponse(self._agent.schedules)
+
+    @cached_property
+    def agent(self) -> agent.AsyncAgentResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
+        return agent.AsyncAgentResourceWithStreamingResponse(self._agent.agent)
 
     @cached_property
     def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:

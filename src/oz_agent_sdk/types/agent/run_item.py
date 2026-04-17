@@ -215,3 +215,6 @@ class RunItem(BaseModel):
     For terminal error states, includes structured error code and retryability info
     from the platform error catalog.
     """
+
+    trigger_url: Optional[str] = None
+    """URL to the run trigger (e.g. Slack thread, Linear issue, schedule)"""

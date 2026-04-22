@@ -16,11 +16,12 @@ class Harness(TypedDict, total=False):
     Default (nil/empty) uses Warp's built-in harness.
     """
 
-    type: Literal["oz", "claude"]
+    type: Literal["oz", "claude", "gemini"]
     """The harness type identifier.
 
     - oz: Warp's built-in harness (default)
     - claude: Claude Code harness
+    - gemini: Gemini CLI harness
     """
 
 

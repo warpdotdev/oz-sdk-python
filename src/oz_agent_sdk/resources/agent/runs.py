@@ -9,7 +9,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -19,12 +19,11 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncRunsCursorPage, AsyncRunsCursorPage
-from ...types.agent import RunSourceType, run_list_params, run_submit_followup_params
+from ...types.agent import RunSourceType, run_list_params
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agent.run_item import RunItem
 from ...types.agent.run_state import RunState
 from ...types.agent.run_source_type import RunSourceType
-from ...types.agent.run_list_handoff_attachments_response import RunListHandoffAttachmentsResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -253,86 +252,6 @@ class RunsResource(SyncAPIResource):
             cast_to=str,
         )
 
-    def list_handoff_attachments(
-        self,
-        run_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListHandoffAttachmentsResponse:
-        """
-        Return fresh presigned download URLs for handoff snapshot files uploaded by the
-        latest ended execution of this run. An empty list is returned when no ended
-        execution exists or no snapshot files were uploaded.
-
-        This endpoint is useful for third-party harnesses that want to download the
-        snapshot files produced by a previous execution before starting a handoff
-        execution themselves.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        return self._get(
-            path_template("/agent/runs/{run_id}/handoff/attachments", run_id=run_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=RunListHandoffAttachmentsResponse,
-        )
-
-    def submit_followup(
-        self,
-        run_id: str,
-        *,
-        message: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
-        """Send a follow-up message to an existing run.
-
-        The server transparently routes the
-        message based on the current state of the run (still queued, actively running,
-        or ended). A 200 response means the follow-up was accepted; updated run state
-        can be observed via `GET /agent/runs/{runId}`.
-
-        Args:
-          message: The follow-up message to send to the run.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        return self._post(
-            path_template("/agent/runs/{run_id}/followups", run_id=run_id),
-            body=maybe_transform({"message": message}, run_submit_followup_params.RunSubmitFollowupParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
 
 class AsyncRunsResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
@@ -558,86 +477,6 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=str,
         )
 
-    async def list_handoff_attachments(
-        self,
-        run_id: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RunListHandoffAttachmentsResponse:
-        """
-        Return fresh presigned download URLs for handoff snapshot files uploaded by the
-        latest ended execution of this run. An empty list is returned when no ended
-        execution exists or no snapshot files were uploaded.
-
-        This endpoint is useful for third-party harnesses that want to download the
-        snapshot files produced by a previous execution before starting a handoff
-        execution themselves.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        return await self._get(
-            path_template("/agent/runs/{run_id}/handoff/attachments", run_id=run_id),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=RunListHandoffAttachmentsResponse,
-        )
-
-    async def submit_followup(
-        self,
-        run_id: str,
-        *,
-        message: str,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
-        """Send a follow-up message to an existing run.
-
-        The server transparently routes the
-        message based on the current state of the run (still queued, actively running,
-        or ended). A 200 response means the follow-up was accepted; updated run state
-        can be observed via `GET /agent/runs/{runId}`.
-
-        Args:
-          message: The follow-up message to send to the run.
-
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not run_id:
-            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
-        return await self._post(
-            path_template("/agent/runs/{run_id}/followups", run_id=run_id),
-            body=await async_maybe_transform({"message": message}, run_submit_followup_params.RunSubmitFollowupParams),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=object,
-        )
-
 
 class RunsResourceWithRawResponse:
     def __init__(self, runs: RunsResource) -> None:
@@ -651,12 +490,6 @@ class RunsResourceWithRawResponse:
         )
         self.cancel = to_raw_response_wrapper(
             runs.cancel,
-        )
-        self.list_handoff_attachments = to_raw_response_wrapper(
-            runs.list_handoff_attachments,
-        )
-        self.submit_followup = to_raw_response_wrapper(
-            runs.submit_followup,
         )
 
 
@@ -673,12 +506,6 @@ class AsyncRunsResourceWithRawResponse:
         self.cancel = async_to_raw_response_wrapper(
             runs.cancel,
         )
-        self.list_handoff_attachments = async_to_raw_response_wrapper(
-            runs.list_handoff_attachments,
-        )
-        self.submit_followup = async_to_raw_response_wrapper(
-            runs.submit_followup,
-        )
 
 
 class RunsResourceWithStreamingResponse:
@@ -694,12 +521,6 @@ class RunsResourceWithStreamingResponse:
         self.cancel = to_streamed_response_wrapper(
             runs.cancel,
         )
-        self.list_handoff_attachments = to_streamed_response_wrapper(
-            runs.list_handoff_attachments,
-        )
-        self.submit_followup = to_streamed_response_wrapper(
-            runs.submit_followup,
-        )
 
 
 class AsyncRunsResourceWithStreamingResponse:
@@ -714,10 +535,4 @@ class AsyncRunsResourceWithStreamingResponse:
         )
         self.cancel = async_to_streamed_response_wrapper(
             runs.cancel,
-        )
-        self.list_handoff_attachments = async_to_streamed_response_wrapper(
-            runs.list_handoff_attachments,
-        )
-        self.submit_followup = async_to_streamed_response_wrapper(
-            runs.submit_followup,
         )

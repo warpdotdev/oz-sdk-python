@@ -52,6 +52,7 @@ class SchedulesResource(SyncAPIResource):
         cron_schedule: str,
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
         prompt: str | Omit = omit,
         team: bool | Omit = omit,
@@ -74,6 +75,9 @@ class SchedulesResource(SyncAPIResource):
           name: Human-readable name for the schedule
 
           agent_config: Configuration for a cloud agent run
+
+          agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
+              team-owned schedules.
 
           enabled: Whether the schedule should be active immediately
 
@@ -98,6 +102,7 @@ class SchedulesResource(SyncAPIResource):
                     "cron_schedule": cron_schedule,
                     "name": name,
                     "agent_config": agent_config,
+                    "agent_uid": agent_uid,
                     "enabled": enabled,
                     "prompt": prompt,
                     "team": team,
@@ -152,6 +157,7 @@ class SchedulesResource(SyncAPIResource):
         enabled: bool,
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_uid: str | Omit = omit,
         prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -174,6 +180,9 @@ class SchedulesResource(SyncAPIResource):
 
           agent_config: Configuration for a cloud agent run
 
+          agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
+              team-owned schedules.
+
           prompt: The prompt/instruction for the agent to execute. Required unless
               agent_config.skill_spec is provided.
 
@@ -195,6 +204,7 @@ class SchedulesResource(SyncAPIResource):
                     "enabled": enabled,
                     "name": name,
                     "agent_config": agent_config,
+                    "agent_uid": agent_uid,
                     "prompt": prompt,
                 },
                 schedule_update_params.ScheduleUpdateParams,
@@ -360,6 +370,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         cron_schedule: str,
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
         prompt: str | Omit = omit,
         team: bool | Omit = omit,
@@ -382,6 +393,9 @@ class AsyncSchedulesResource(AsyncAPIResource):
           name: Human-readable name for the schedule
 
           agent_config: Configuration for a cloud agent run
+
+          agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
+              team-owned schedules.
 
           enabled: Whether the schedule should be active immediately
 
@@ -406,6 +420,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
                     "cron_schedule": cron_schedule,
                     "name": name,
                     "agent_config": agent_config,
+                    "agent_uid": agent_uid,
                     "enabled": enabled,
                     "prompt": prompt,
                     "team": team,
@@ -460,6 +475,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         enabled: bool,
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_uid: str | Omit = omit,
         prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -482,6 +498,9 @@ class AsyncSchedulesResource(AsyncAPIResource):
 
           agent_config: Configuration for a cloud agent run
 
+          agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
+              team-owned schedules.
+
           prompt: The prompt/instruction for the agent to execute. Required unless
               agent_config.skill_spec is provided.
 
@@ -503,6 +522,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
                     "enabled": enabled,
                     "name": name,
                     "agent_config": agent_config,
+                    "agent_uid": agent_uid,
                     "prompt": prompt,
                 },
                 schedule_update_params.ScheduleUpdateParams,

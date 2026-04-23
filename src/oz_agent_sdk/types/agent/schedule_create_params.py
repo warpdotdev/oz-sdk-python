@@ -22,12 +22,6 @@ class ScheduleCreateParams(TypedDict, total=False):
     agent_config: AmbientAgentConfigParam
     """Configuration for a cloud agent run"""
 
-    agent_uid: str
-    """
-    Agent UID to use as the execution principal for this schedule. Only valid for
-    team-owned schedules.
-    """
-
     enabled: bool
     """Whether the schedule should be active immediately"""
 

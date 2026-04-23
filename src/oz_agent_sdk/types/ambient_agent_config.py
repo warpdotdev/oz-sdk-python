@@ -8,7 +8,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .mcp_server_config import McpServerConfig
 
-__all__ = ["AmbientAgentConfig", "Harness"]
+__all__ = ["AmbientAgentConfig", "Harness", "HarnessAuthSecrets", "SessionSharing"]
 
 
 class Harness(BaseModel):
@@ -17,20 +17,48 @@ class Harness(BaseModel):
     Default (nil/empty) uses Warp's built-in harness.
     """
 
-    auth_secret_name: Optional[str] = None
-    """Name of a managed secret to use as the authentication credential for the
-    harness.
-
-    The secret must exist within the caller's personal or team scope. The
-    environment variable injected into the agent is determined by the secret type
-    (e.g. ANTHROPIC_API_KEY for anthropic_api_key secrets).
-    """
-
-    type: Optional[Literal["oz", "claude"]] = None
+    type: Optional[Literal["oz", "claude", "gemini"]] = None
     """The harness type identifier.
 
     - oz: Warp's built-in harness (default)
     - claude: Claude Code harness
+    - gemini: Gemini CLI harness
+    """
+
+
+class HarnessAuthSecrets(BaseModel):
+    """
+    Authentication secrets for third-party harnesses.
+    Only the secret for the harness specified gets injected into the environment.
+    """
+
+    claude_auth_secret_name: Optional[str] = None
+    """
+    Name of a managed secret for Claude Code harness authentication. The secret must
+    exist within the caller's personal or team scope. Only applicable when harness
+    type is "claude".
+    """
+
+
+class SessionSharing(BaseModel):
+    """
+    Configures sharing behavior for the run's shared session.
+    When set, the worker emits `--share public:<level>` and the bundled Warp
+    client applies an anyone-with-link ACL to the shared session once it has
+    bootstrapped. The same ACL is mirrored onto the backing conversation so
+    link viewers can read the conversation without being on the run's team.
+    Subject to the workspace-level anyone-with-link sharing setting.
+    """
+
+    public_access: Optional[Literal["VIEWER", "EDITOR"]] = None
+    """
+    Grants anyone-with-link access at the specified level to the run's shared
+    session and backing conversation.
+
+    - VIEWER: link viewers can read the session and conversation.
+    - EDITOR: link viewers can also interact with the session. Anonymous
+      (unauthenticated) reads are not supported in this release; link viewers must
+      still be authenticated Warp users.
     """
 
 
@@ -55,6 +83,12 @@ class AmbientAgentConfig(BaseModel):
     uses Warp's built-in harness.
     """
 
+    harness_auth_secrets: Optional[HarnessAuthSecrets] = None
+    """
+    Authentication secrets for third-party harnesses. Only the secret for the
+    harness specified gets injected into the environment.
+    """
+
     idle_timeout_minutes: Optional[int] = None
     """
     Number of minutes to keep the agent environment alive after task completion. If
@@ -74,6 +108,16 @@ class AmbientAgentConfig(BaseModel):
     set to the skill name when running a skill-based agent. Set this explicitly to
     categorize runs by intent (e.g., "nightly-dependency-check") so you can filter
     and track them via the name query parameter on GET /agent/runs.
+    """
+
+    session_sharing: Optional[SessionSharing] = None
+    """
+    Configures sharing behavior for the run's shared session. When set, the worker
+    emits `--share public:<level>` and the bundled Warp client applies an
+    anyone-with-link ACL to the shared session once it has bootstrapped. The same
+    ACL is mirrored onto the backing conversation so link viewers can read the
+    conversation without being on the run's team. Subject to the workspace-level
+    anyone-with-link sharing setting.
     """
 
     skill_spec: Optional[str] = None

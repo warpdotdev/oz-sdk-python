@@ -1,5 +1,51 @@
 # Changelog
 
+## 0.12.0 (2026-04-23)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* Accept and persist executor on schedule and integration create/update APIs ([a8500aa](https://github.com/warpdotdev/oz-sdk-python/commit/a8500aa0b3e74221cd931b01d7e7569ad191d1f3))
+* Add API support for public access on oz session link ([df940e0](https://github.com/warpdotdev/oz-sdk-python/commit/df940e09b23d2cc3d314407a8826f722b9428dca))
+* Add Gemini as a third-party Oz harness. ([0128722](https://github.com/warpdotdev/oz-sdk-python/commit/0128722383f87f6d5a73fd0ecafc4206a3013342))
+* Add parent_run_id filter to List runs endpoint ([33cf04c](https://github.com/warpdotdev/oz-sdk-python/commit/33cf04c0777d53059f8a3c73b925b468276aba2a))
+* Add system prompt to resolve-prompt for harnesses. ([2b7afab](https://github.com/warpdotdev/oz-sdk-python/commit/2b7afabf4a54764ab162ac32f4dbe7fe4274ba72))
+* Add trigger URL to task source. ([9662dbe](https://github.com/warpdotdev/oz-sdk-python/commit/9662dbe10cc5392271b3e56c35cb8ef95ec80eed))
+* Add worker_host to AgentListSource in OpenAPI spec ([ec0982c](https://github.com/warpdotdev/oz-sdk-python/commit/ec0982ce786b2380ab89aa7298b28998c6eade46))
+* **api:** api update ([a44c455](https://github.com/warpdotdev/oz-sdk-python/commit/a44c455cb949e69b05f33f38571b40d9c0caed36))
+* **api:** api update ([e24ba64](https://github.com/warpdotdev/oz-sdk-python/commit/e24ba644c9d3624019f240fd43f51079adf7d8d4))
+* **api:** api update ([e5aea21](https://github.com/warpdotdev/oz-sdk-python/commit/e5aea2192017b1758d7b32d1e855015ce29e93ca))
+* **api:** api update ([f94b38b](https://github.com/warpdotdev/oz-sdk-python/commit/f94b38b2ffaf344a198e89ad7ace1d7b8e93c300))
+* **api:** api update ([7f419fa](https://github.com/warpdotdev/oz-sdk-python/commit/7f419faa01908e1b4a613ec2bdd708aed1a05871))
+* **api:** api update ([116f06e](https://github.com/warpdotdev/oz-sdk-python/commit/116f06e5c63e8d015e7dfea47fc22ede53ebb84e))
+* **api:** api update ([66c8521](https://github.com/warpdotdev/oz-sdk-python/commit/66c852194f355cedca2b34b944c398e796f064ab))
+* **api:** api update ([ebd2c55](https://github.com/warpdotdev/oz-sdk-python/commit/ebd2c5520128722d88285aea9dd0caf3242d9a31))
+* **api:** api update ([1ffc53b](https://github.com/warpdotdev/oz-sdk-python/commit/1ffc53b4d69eeb8060faac1903f1ba25f7a4c443))
+* **api:** api update ([cf28804](https://github.com/warpdotdev/oz-sdk-python/commit/cf288045d369ed927db45ac5e5ebd994ccebb547))
+* **api:** api update ([a6d82f1](https://github.com/warpdotdev/oz-sdk-python/commit/a6d82f1a71ad8e0ff5f10c43cc81938babc1444e))
+* **api:** api update ([b9872f2](https://github.com/warpdotdev/oz-sdk-python/commit/b9872f2642191ef6e1d4d5d3542a08f9e2784b9e))
+* **api:** api update ([0ef9c8f](https://github.com/warpdotdev/oz-sdk-python/commit/0ef9c8f483269d203a3edc7b5805f48f4263eb2f))
+* implement server-side cloud-to-cloud handoff for agent follow-ups (REMOTE-1290) ([eb873a6](https://github.com/warpdotdev/oz-sdk-python/commit/eb873a6092aa1792ca6c23f5d27a7ee66c225ea0))
+* Inject auth secrets via ambient agent config. ([6032a0c](https://github.com/warpdotdev/oz-sdk-python/commit/6032a0ccfe2ce669ce1f815ad853b912d4ca575e))
+* Update public API and graphql to support creating multiple service accounts and API keys ([8d537bc](https://github.com/warpdotdev/oz-sdk-python/commit/8d537bcbe75b344427bd04e5406ab066769f580a))
+
+
+### Bug Fixes
+
+* ensure file data are only sent as 1 parameter ([6720ea9](https://github.com/warpdotdev/oz-sdk-python/commit/6720ea9331a945cf2d030e20b8851a223697aab3))
+
+
+### Performance Improvements
+
+* **client:** optimize file structure copying in multipart requests ([b8e42cc](https://github.com/warpdotdev/oz-sdk-python/commit/b8e42cc08805eef08a3462088ba0e32cf79dac8c))
+
+
+### Chores
+
+* **internal:** more robust bootstrap script ([27c80e9](https://github.com/warpdotdev/oz-sdk-python/commit/27c80e953bc19de56ea730b0c2170aa8ffbc495a))
+* update SDK settings ([f2dd099](https://github.com/warpdotdev/oz-sdk-python/commit/f2dd099128bf4f98e304778556d55e80a4fd219c))
+
 ## 0.11.0 (2026-04-09)
 
 Full Changelog: [v0.10.1...v0.11.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.10.1...v0.11.0)

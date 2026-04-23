@@ -7,6 +7,7 @@ from oz_agent_sdk.types import (
     AgentSkill,
     AmbientAgentConfig,
     AwsProviderConfig,
+    CloudEnvironment,
     CloudEnvironmentConfig,
     Error,
     ErrorCode,
@@ -16,6 +17,7 @@ from oz_agent_sdk.types import (
     UserProfile,
     AgentListResponse,
     AgentGetArtifactResponse,
+    AgentListEnvironmentsResponse,
     AgentRunResponse,
 )
 ```
@@ -24,6 +26,7 @@ Methods:
 
 - <code title="get /agent">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_response.py">AgentListResponse</a></code>
 - <code title="get /agent/artifacts/{artifactUid}">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">get_artifact</a>(artifact_uid) -> <a href="./src/oz_agent_sdk/types/agent_get_artifact_response.py">AgentGetArtifactResponse</a></code>
+- <code title="get /agent/environments">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list_environments</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_environments_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_environments_response.py">AgentListEnvironmentsResponse</a></code>
 - <code title="post /agent/runs">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/oz_agent_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
 
 ## Runs
@@ -68,6 +71,26 @@ Methods:
 - <code title="delete /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">delete</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/schedule_delete_response.py">ScheduleDeleteResponse</a></code>
 - <code title="post /agent/schedules/{scheduleId}/pause">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">pause</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
 - <code title="post /agent/schedules/{scheduleId}/resume">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">resume</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
+
+## Agent
+
+Types:
+
+```python
+from oz_agent_sdk.types.agent import (
+    AgentResponse,
+    CreateAgentRequest,
+    ListAgentIdentitiesResponse,
+    UpdateAgentRequest,
+)
+```
+
+Methods:
+
+- <code title="post /agent/identities">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">create</a>(\*\*<a href="src/oz_agent_sdk/types/agent/agent_create_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
+- <code title="put /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">update</a>(uid, \*\*<a href="src/oz_agent_sdk/types/agent/agent_update_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
+- <code title="get /agent/identities">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">list</a>() -> <a href="./src/oz_agent_sdk/types/agent/list_agent_identities_response.py">ListAgentIdentitiesResponse</a></code>
+- <code title="delete /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">delete</a>(uid) -> None</code>
 
 ## Sessions
 

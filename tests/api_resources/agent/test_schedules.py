@@ -40,10 +40,8 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "auth_secret_name": "auth_secret_name",
-                    "type": "oz",
-                },
+                "harness": {"type": "oz"},
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -57,6 +55,7 @@ class TestSchedules:
                 },
                 "model_id": "model_id",
                 "name": "name",
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
@@ -159,10 +158,8 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "auth_secret_name": "auth_secret_name",
-                    "type": "oz",
-                },
+                "harness": {"type": "oz"},
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -176,6 +173,7 @@ class TestSchedules:
                 },
                 "model_id": "model_id",
                 "name": "name",
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
@@ -405,10 +403,8 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "auth_secret_name": "auth_secret_name",
-                    "type": "oz",
-                },
+                "harness": {"type": "oz"},
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -422,6 +418,7 @@ class TestAsyncSchedules:
                 },
                 "model_id": "model_id",
                 "name": "name",
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
@@ -524,10 +521,8 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "auth_secret_name": "auth_secret_name",
-                    "type": "oz",
-                },
+                "harness": {"type": "oz"},
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "mcp_servers": {
                     "foo": {
@@ -541,6 +536,7 @@ class TestAsyncSchedules:
                 },
                 "model_id": "model_id",
                 "name": "name",
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },

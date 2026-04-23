@@ -11,7 +11,10 @@ from tests.utils import assert_matches_type
 from oz_agent_sdk import OzAPI, AsyncOzAPI
 from oz_agent_sdk._utils import parse_datetime
 from oz_agent_sdk.pagination import SyncRunsCursorPage, AsyncRunsCursorPage
-from oz_agent_sdk.types.agent import RunItem
+from oz_agent_sdk.types.agent import (
+    RunItem,
+    RunListHandoffAttachmentsResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -158,6 +161,94 @@ class TestRuns:
                 "",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_handoff_attachments(self, client: OzAPI) -> None:
+        run = client.agent.runs.list_handoff_attachments(
+            "runId",
+        )
+        assert_matches_type(RunListHandoffAttachmentsResponse, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_handoff_attachments(self, client: OzAPI) -> None:
+        response = client.agent.runs.with_raw_response.list_handoff_attachments(
+            "runId",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = response.parse()
+        assert_matches_type(RunListHandoffAttachmentsResponse, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_handoff_attachments(self, client: OzAPI) -> None:
+        with client.agent.runs.with_streaming_response.list_handoff_attachments(
+            "runId",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            run = response.parse()
+            assert_matches_type(RunListHandoffAttachmentsResponse, run, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_list_handoff_attachments(self, client: OzAPI) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
+            client.agent.runs.with_raw_response.list_handoff_attachments(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_submit_followup(self, client: OzAPI) -> None:
+        run = client.agent.runs.submit_followup(
+            run_id="runId",
+            message="message",
+        )
+        assert_matches_type(object, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_submit_followup(self, client: OzAPI) -> None:
+        response = client.agent.runs.with_raw_response.submit_followup(
+            run_id="runId",
+            message="message",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = response.parse()
+        assert_matches_type(object, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_submit_followup(self, client: OzAPI) -> None:
+        with client.agent.runs.with_streaming_response.submit_followup(
+            run_id="runId",
+            message="message",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            run = response.parse()
+            assert_matches_type(object, run, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_submit_followup(self, client: OzAPI) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
+            client.agent.runs.with_raw_response.submit_followup(
+                run_id="",
+                message="message",
+            )
+
 
 class TestAsyncRuns:
     parametrize = pytest.mark.parametrize(
@@ -301,4 +392,92 @@ class TestAsyncRuns:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.cancel(
                 "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+        run = await async_client.agent.runs.list_handoff_attachments(
+            "runId",
+        )
+        assert_matches_type(RunListHandoffAttachmentsResponse, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+        response = await async_client.agent.runs.with_raw_response.list_handoff_attachments(
+            "runId",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = await response.parse()
+        assert_matches_type(RunListHandoffAttachmentsResponse, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+        async with async_client.agent.runs.with_streaming_response.list_handoff_attachments(
+            "runId",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            run = await response.parse()
+            assert_matches_type(RunListHandoffAttachmentsResponse, run, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
+            await async_client.agent.runs.with_raw_response.list_handoff_attachments(
+                "",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_submit_followup(self, async_client: AsyncOzAPI) -> None:
+        run = await async_client.agent.runs.submit_followup(
+            run_id="runId",
+            message="message",
+        )
+        assert_matches_type(object, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_submit_followup(self, async_client: AsyncOzAPI) -> None:
+        response = await async_client.agent.runs.with_raw_response.submit_followup(
+            run_id="runId",
+            message="message",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        run = await response.parse()
+        assert_matches_type(object, run, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_submit_followup(self, async_client: AsyncOzAPI) -> None:
+        async with async_client.agent.runs.with_streaming_response.submit_followup(
+            run_id="runId",
+            message="message",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            run = await response.parse()
+            assert_matches_type(object, run, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_submit_followup(self, async_client: AsyncOzAPI) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
+            await async_client.agent.runs.with_raw_response.submit_followup(
+                run_id="",
+                message="message",
             )

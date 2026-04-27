@@ -59,6 +59,7 @@ class TestSchedules:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            agent_uid="agent_uid",
             enabled=True,
             prompt="Review open pull requests and provide feedback",
             team=True,
@@ -177,6 +178,7 @@ class TestSchedules:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            agent_uid="agent_uid",
             prompt="prompt",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
@@ -422,6 +424,7 @@ class TestAsyncSchedules:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            agent_uid="agent_uid",
             enabled=True,
             prompt="Review open pull requests and provide feedback",
             team=True,
@@ -540,6 +543,7 @@ class TestAsyncSchedules:
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
+            agent_uid="agent_uid",
             prompt="prompt",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])

@@ -40,6 +40,7 @@ from oz_agent_sdk.types.agent import (
     RunSourceType,
     RunState,
     RunCancelResponse,
+    RunListHandoffAttachmentsResponse,
 )
 ```
 
@@ -48,6 +49,8 @@ Methods:
 - <code title="get /agent/runs/{runId}">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">retrieve</a>(run_id) -> <a href="./src/oz_agent_sdk/types/agent/run_item.py">RunItem</a></code>
 - <code title="get /agent/runs">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent/run_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/run_item.py">SyncRunsCursorPage[RunItem]</a></code>
 - <code title="post /agent/runs/{runId}/cancel">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">cancel</a>(run_id) -> str</code>
+- <code title="get /agent/runs/{runId}/handoff/attachments">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">list_handoff_attachments</a>(run_id) -> <a href="./src/oz_agent_sdk/types/agent/run_list_handoff_attachments_response.py">RunListHandoffAttachmentsResponse</a></code>
+- <code title="post /agent/runs/{runId}/followups">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">submit_followup</a>(run_id, \*\*<a href="src/oz_agent_sdk/types/agent/run_submit_followup_params.py">params</a>) -> object</code>
 
 ## Schedules
 

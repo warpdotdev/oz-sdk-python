@@ -43,6 +43,14 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .conversations import (
+    ConversationsResource,
+    AsyncConversationsResource,
+    ConversationsResourceWithRawResponse,
+    AsyncConversationsResourceWithRawResponse,
+    ConversationsResourceWithStreamingResponse,
+    AsyncConversationsResourceWithStreamingResponse,
+)
 from ..._base_client import make_request_options
 from ...types.agent_run_response import AgentRunResponse
 from ...types.agent_list_response import AgentListResponse
@@ -75,6 +83,11 @@ class AgentResource(SyncAPIResource):
     def sessions(self) -> SessionsResource:
         """Operations for running and managing cloud agents"""
         return SessionsResource(self._client)
+
+    @cached_property
+    def conversations(self) -> ConversationsResource:
+        """Operations for running and managing cloud agents"""
+        return ConversationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AgentResourceWithRawResponse:
@@ -353,6 +366,11 @@ class AsyncAgentResource(AsyncAPIResource):
     def sessions(self) -> AsyncSessionsResource:
         """Operations for running and managing cloud agents"""
         return AsyncSessionsResource(self._client)
+
+    @cached_property
+    def conversations(self) -> AsyncConversationsResource:
+        """Operations for running and managing cloud agents"""
+        return AsyncConversationsResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncAgentResourceWithRawResponse:
@@ -648,6 +666,11 @@ class AgentResourceWithRawResponse:
         """Operations for running and managing cloud agents"""
         return SessionsResourceWithRawResponse(self._agent.sessions)
 
+    @cached_property
+    def conversations(self) -> ConversationsResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
+        return ConversationsResourceWithRawResponse(self._agent.conversations)
+
 
 class AsyncAgentResourceWithRawResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
@@ -685,6 +708,11 @@ class AsyncAgentResourceWithRawResponse:
     def sessions(self) -> AsyncSessionsResourceWithRawResponse:
         """Operations for running and managing cloud agents"""
         return AsyncSessionsResourceWithRawResponse(self._agent.sessions)
+
+    @cached_property
+    def conversations(self) -> AsyncConversationsResourceWithRawResponse:
+        """Operations for running and managing cloud agents"""
+        return AsyncConversationsResourceWithRawResponse(self._agent.conversations)
 
 
 class AgentResourceWithStreamingResponse:
@@ -724,6 +752,11 @@ class AgentResourceWithStreamingResponse:
         """Operations for running and managing cloud agents"""
         return SessionsResourceWithStreamingResponse(self._agent.sessions)
 
+    @cached_property
+    def conversations(self) -> ConversationsResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
+        return ConversationsResourceWithStreamingResponse(self._agent.conversations)
+
 
 class AsyncAgentResourceWithStreamingResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
@@ -761,3 +794,8 @@ class AsyncAgentResourceWithStreamingResponse:
     def sessions(self) -> AsyncSessionsResourceWithStreamingResponse:
         """Operations for running and managing cloud agents"""
         return AsyncSessionsResourceWithStreamingResponse(self._agent.sessions)
+
+    @cached_property
+    def conversations(self) -> AsyncConversationsResourceWithStreamingResponse:
+        """Operations for running and managing cloud agents"""
+        return AsyncConversationsResourceWithStreamingResponse(self._agent.conversations)

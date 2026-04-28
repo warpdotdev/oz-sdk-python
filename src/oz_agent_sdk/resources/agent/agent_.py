@@ -2,11 +2,9 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -50,9 +48,6 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | Omit = omit,
-        secrets: Iterable[agent_create_params.Secret] | Omit = omit,
-        skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -68,18 +63,6 @@ class AgentResource(SyncAPIResource):
         Args:
           name: A name for the agent
 
-          description: Optional description of the agent
-
-          secrets: Optional list of secrets associated with the agent. Duplicate names within a
-              single request are rejected.
-
-          skills:
-              Optional list of skill specs to associate with the agent. Format:
-              "{owner}/{repo}:{skill_path}" (e.g.,
-              "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"). Each spec is validated
-              and normalized at attach time using the team's GitHub credentials; inaccessible
-              or malformed specs are rejected.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -90,15 +73,7 @@ class AgentResource(SyncAPIResource):
         """
         return self._post(
             "/agent/identities",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "description": description,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_create_params.AgentCreateParams,
-            ),
+            body=maybe_transform({"name": name}, agent_create_params.AgentCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -109,10 +84,7 @@ class AgentResource(SyncAPIResource):
         self,
         uid: str,
         *,
-        description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
-        secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
-        skills: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -120,21 +92,11 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Update an existing agent.
+        """
+        Update an existing agent.
 
         Args:
-          description: Replacement description.
-
-        Omit or pass `null` to leave unchanged, or use an empty
-              value to clear.
-
           name: The new name for the agent
-
-          secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
-              clear, or pass a non-empty array to replace. Duplicate names are rejected.
-
-          skills: Replacement list of skill specs. Omit to leave unchanged, pass an empty array to
-              clear, or pass a non-empty array to replace.
 
           extra_headers: Send extra headers
 
@@ -148,15 +110,7 @@ class AgentResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
         return self._put(
             path_template("/agent/identities/{uid}", uid=uid),
-            body=maybe_transform(
-                {
-                    "description": description,
-                    "name": name,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_update_params.AgentUpdateParams,
-            ),
+            body=maybe_transform({"name": name}, agent_update_params.AgentUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -248,9 +202,6 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        description: Optional[str] | Omit = omit,
-        secrets: Iterable[agent_create_params.Secret] | Omit = omit,
-        skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -266,18 +217,6 @@ class AsyncAgentResource(AsyncAPIResource):
         Args:
           name: A name for the agent
 
-          description: Optional description of the agent
-
-          secrets: Optional list of secrets associated with the agent. Duplicate names within a
-              single request are rejected.
-
-          skills:
-              Optional list of skill specs to associate with the agent. Format:
-              "{owner}/{repo}:{skill_path}" (e.g.,
-              "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"). Each spec is validated
-              and normalized at attach time using the team's GitHub credentials; inaccessible
-              or malformed specs are rejected.
-
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -288,15 +227,7 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return await self._post(
             "/agent/identities",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "description": description,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_create_params.AgentCreateParams,
-            ),
+            body=await async_maybe_transform({"name": name}, agent_create_params.AgentCreateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -307,10 +238,7 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         uid: str,
         *,
-        description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
-        secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
-        skills: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -318,21 +246,11 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Update an existing agent.
+        """
+        Update an existing agent.
 
         Args:
-          description: Replacement description.
-
-        Omit or pass `null` to leave unchanged, or use an empty
-              value to clear.
-
           name: The new name for the agent
-
-          secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
-              clear, or pass a non-empty array to replace. Duplicate names are rejected.
-
-          skills: Replacement list of skill specs. Omit to leave unchanged, pass an empty array to
-              clear, or pass a non-empty array to replace.
 
           extra_headers: Send extra headers
 
@@ -346,15 +264,7 @@ class AsyncAgentResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
         return await self._put(
             path_template("/agent/identities/{uid}", uid=uid),
-            body=await async_maybe_transform(
-                {
-                    "description": description,
-                    "name": name,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_update_params.AgentUpdateParams,
-            ),
+            body=await async_maybe_transform({"name": name}, agent_update_params.AgentUpdateParams),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

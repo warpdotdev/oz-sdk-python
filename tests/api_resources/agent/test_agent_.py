@@ -30,17 +30,6 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: OzAPI) -> None:
-        agent = client.agent.agent.create(
-            name="name",
-            description="description",
-            secrets=[{"name": "name"}],
-            skills=["string"],
-        )
-        assert_matches_type(AgentResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_create(self, client: OzAPI) -> None:
         response = client.agent.agent.with_raw_response.create(
             name="name",
@@ -78,10 +67,7 @@ class TestAgent:
     def test_method_update_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.update(
             uid="uid",
-            description="description",
             name="name",
-            secrets=[{"name": "name"}],
-            skills=["string"],
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 
@@ -205,17 +191,6 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOzAPI) -> None:
-        agent = await async_client.agent.agent.create(
-            name="name",
-            description="description",
-            secrets=[{"name": "name"}],
-            skills=["string"],
-        )
-        assert_matches_type(AgentResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     async def test_raw_response_create(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.agent.with_raw_response.create(
             name="name",
@@ -253,10 +228,7 @@ class TestAsyncAgent:
     async def test_method_update_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.update(
             uid="uid",
-            description="description",
             name="name",
-            secrets=[{"name": "name"}],
-            skills=["string"],
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 

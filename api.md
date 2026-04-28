@@ -106,3 +106,15 @@ from oz_agent_sdk.types.agent import SessionCheckRedirectResponse
 Methods:
 
 - <code title="get /agent/sessions/{sessionUuid}/redirect">client.agent.sessions.<a href="./src/oz_agent_sdk/resources/agent/sessions.py">check_redirect</a>(session_uuid) -> <a href="./src/oz_agent_sdk/types/agent/session_check_redirect_response.py">SessionCheckRedirectResponse</a></code>
+
+## Conversations
+
+Types:
+
+```python
+from oz_agent_sdk.types.agent import ConversationCheckRedirectResponse
+```
+
+Methods:
+
+- <code title="get /agent/conversations/{conversationId}/redirect">client.agent.conversations.<a href="./src/oz_agent_sdk/resources/agent/conversations.py">check_redirect</a>(conversation_id) -> <a href="./src/oz_agent_sdk/types/agent/conversation_check_redirect_response.py">ConversationCheckRedirectResponse</a></code>

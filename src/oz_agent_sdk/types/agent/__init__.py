@@ -20,6 +20,7 @@ from .run_submit_followup_params import RunSubmitFollowupParams as RunSubmitFoll
 from .scheduled_agent_history_item import ScheduledAgentHistoryItem as ScheduledAgentHistoryItem
 from .list_agent_identities_response import ListAgentIdentitiesResponse as ListAgentIdentitiesResponse
 from .session_check_redirect_response import SessionCheckRedirectResponse as SessionCheckRedirectResponse
+from .conversation_check_redirect_response import ConversationCheckRedirectResponse as ConversationCheckRedirectResponse
 from .run_list_handoff_attachments_response import (
     RunListHandoffAttachmentsResponse as RunListHandoffAttachmentsResponse,
 )

@@ -15,36 +15,36 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.agent.session_check_redirect_response import SessionCheckRedirectResponse
+from ...types.agent.conversation_check_redirect_response import ConversationCheckRedirectResponse
 
-__all__ = ["SessionsResource", "AsyncSessionsResource"]
+__all__ = ["ConversationsResource", "AsyncConversationsResource"]
 
 
-class SessionsResource(SyncAPIResource):
+class ConversationsResource(SyncAPIResource):
     """Operations for running and managing cloud agents"""
 
     @cached_property
-    def with_raw_response(self) -> SessionsResourceWithRawResponse:
+    def with_raw_response(self) -> ConversationsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/warpdotdev/oz-sdk-python#accessing-raw-response-data-eg-headers
         """
-        return SessionsResourceWithRawResponse(self)
+        return ConversationsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> SessionsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ConversationsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/warpdotdev/oz-sdk-python#with_streaming_response
         """
-        return SessionsResourceWithStreamingResponse(self)
+        return ConversationsResourceWithStreamingResponse(self)
 
     def check_redirect(
         self,
-        session_uuid: str,
+        conversation_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -52,15 +52,16 @@ class SessionsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SessionCheckRedirectResponse:
-        """
-        Check whether a shared session should redirect to a conversation transcript.
-        Returns a conversation_id if the agent sandbox has finished and conversation
-        data is available, or an empty object if no redirect is needed.
+    ) -> ConversationCheckRedirectResponse:
+        """Check whether a conversation should redirect to a live shared session.
+
+        Returns a
+        session_id if the underlying ambient agent task still has a live shared session,
+        or an empty object if no redirect is needed.
 
         This endpoint is public (no authentication required) so that anonymous viewers
-        can resolve a publicly-shared session link before signing in. Access to the
-        underlying conversation transcript is still gated by conversation link-sharing.
+        can resolve a publicly-shared conversation link before signing in. Access to the
+        underlying live session is still gated by the session-sharing service ACLs.
 
         Args:
           extra_headers: Send extra headers
@@ -71,10 +72,10 @@ class SessionsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_uuid:
-            raise ValueError(f"Expected a non-empty value for `session_uuid` but received {session_uuid!r}")
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return self._get(
-            path_template("/agent/sessions/{session_uuid}/redirect", session_uuid=session_uuid),
+            path_template("/agent/conversations/{conversation_id}/redirect", conversation_id=conversation_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -82,35 +83,35 @@ class SessionsResource(SyncAPIResource):
                 timeout=timeout,
                 security={},
             ),
-            cast_to=SessionCheckRedirectResponse,
+            cast_to=ConversationCheckRedirectResponse,
         )
 
 
-class AsyncSessionsResource(AsyncAPIResource):
+class AsyncConversationsResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
 
     @cached_property
-    def with_raw_response(self) -> AsyncSessionsResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncConversationsResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/warpdotdev/oz-sdk-python#accessing-raw-response-data-eg-headers
         """
-        return AsyncSessionsResourceWithRawResponse(self)
+        return AsyncConversationsResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncSessionsResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncConversationsResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/warpdotdev/oz-sdk-python#with_streaming_response
         """
-        return AsyncSessionsResourceWithStreamingResponse(self)
+        return AsyncConversationsResourceWithStreamingResponse(self)
 
     async def check_redirect(
         self,
-        session_uuid: str,
+        conversation_id: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -118,15 +119,16 @@ class AsyncSessionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SessionCheckRedirectResponse:
-        """
-        Check whether a shared session should redirect to a conversation transcript.
-        Returns a conversation_id if the agent sandbox has finished and conversation
-        data is available, or an empty object if no redirect is needed.
+    ) -> ConversationCheckRedirectResponse:
+        """Check whether a conversation should redirect to a live shared session.
+
+        Returns a
+        session_id if the underlying ambient agent task still has a live shared session,
+        or an empty object if no redirect is needed.
 
         This endpoint is public (no authentication required) so that anonymous viewers
-        can resolve a publicly-shared session link before signing in. Access to the
-        underlying conversation transcript is still gated by conversation link-sharing.
+        can resolve a publicly-shared conversation link before signing in. Access to the
+        underlying live session is still gated by the session-sharing service ACLs.
 
         Args:
           extra_headers: Send extra headers
@@ -137,10 +139,10 @@ class AsyncSessionsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not session_uuid:
-            raise ValueError(f"Expected a non-empty value for `session_uuid` but received {session_uuid!r}")
+        if not conversation_id:
+            raise ValueError(f"Expected a non-empty value for `conversation_id` but received {conversation_id!r}")
         return await self._get(
-            path_template("/agent/sessions/{session_uuid}/redirect", session_uuid=session_uuid),
+            path_template("/agent/conversations/{conversation_id}/redirect", conversation_id=conversation_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -148,41 +150,41 @@ class AsyncSessionsResource(AsyncAPIResource):
                 timeout=timeout,
                 security={},
             ),
-            cast_to=SessionCheckRedirectResponse,
+            cast_to=ConversationCheckRedirectResponse,
         )
 
 
-class SessionsResourceWithRawResponse:
-    def __init__(self, sessions: SessionsResource) -> None:
-        self._sessions = sessions
+class ConversationsResourceWithRawResponse:
+    def __init__(self, conversations: ConversationsResource) -> None:
+        self._conversations = conversations
 
         self.check_redirect = to_raw_response_wrapper(
-            sessions.check_redirect,
+            conversations.check_redirect,
         )
 
 
-class AsyncSessionsResourceWithRawResponse:
-    def __init__(self, sessions: AsyncSessionsResource) -> None:
-        self._sessions = sessions
+class AsyncConversationsResourceWithRawResponse:
+    def __init__(self, conversations: AsyncConversationsResource) -> None:
+        self._conversations = conversations
 
         self.check_redirect = async_to_raw_response_wrapper(
-            sessions.check_redirect,
+            conversations.check_redirect,
         )
 
 
-class SessionsResourceWithStreamingResponse:
-    def __init__(self, sessions: SessionsResource) -> None:
-        self._sessions = sessions
+class ConversationsResourceWithStreamingResponse:
+    def __init__(self, conversations: ConversationsResource) -> None:
+        self._conversations = conversations
 
         self.check_redirect = to_streamed_response_wrapper(
-            sessions.check_redirect,
+            conversations.check_redirect,
         )
 
 
-class AsyncSessionsResourceWithStreamingResponse:
-    def __init__(self, sessions: AsyncSessionsResource) -> None:
-        self._sessions = sessions
+class AsyncConversationsResourceWithStreamingResponse:
+    def __init__(self, conversations: AsyncConversationsResource) -> None:
+        self._conversations = conversations
 
         self.check_redirect = async_to_streamed_response_wrapper(
-            sessions.check_redirect,
+            conversations.check_redirect,
         )

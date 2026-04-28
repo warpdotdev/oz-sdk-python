@@ -168,6 +168,8 @@ class RunItem(BaseModel):
     - REMOTE: Executed by a remote/cloud worker
     """
 
+    executor: Optional[UserProfile] = None
+
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""
 

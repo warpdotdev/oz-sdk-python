@@ -41,6 +41,13 @@ class RunListParams(TypedDict, total=False):
     execution_location: Literal["LOCAL", "REMOTE"]
     """Filter by where the run executed"""
 
+    executor: str
+    """Filter by the user or agent that executed the run.
+
+    This will often be the same as the creator, but not always: users may delegate
+    tasks to agents.
+    """
+
     limit: int
     """Maximum number of runs to return"""
 

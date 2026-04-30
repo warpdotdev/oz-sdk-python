@@ -17,12 +17,13 @@ class Harness(BaseModel):
     Default (nil/empty) uses Warp's built-in harness.
     """
 
-    type: Optional[Literal["oz", "claude", "gemini"]] = None
+    type: Optional[Literal["oz", "claude", "gemini", "codex"]] = None
     """The harness type identifier.
 
     - oz: Warp's built-in harness (default)
     - claude: Claude Code harness
     - gemini: Gemini CLI harness
+    - codex: Codex CLI harness
     """
 
 

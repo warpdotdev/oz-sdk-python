@@ -262,7 +262,6 @@ class AgentResource(SyncAPIResource):
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
@@ -293,10 +292,6 @@ class AgentResource(SyncAPIResource):
               agent will continue from where the previous run left off.
 
           interactive: Whether the run should be interactive. If not set, defaults to false.
-
-          mode: Optional query mode for the run. Defaults to `normal` when omitted. The server
-              does not infer mode from prompt prefixes such as `/plan`, so callers should pass
-              this field explicitly to request non-normal behavior.
 
           parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
               hierarchies.
@@ -334,7 +329,6 @@ class AgentResource(SyncAPIResource):
                     "config": config,
                     "conversation_id": conversation_id,
                     "interactive": interactive,
-                    "mode": mode,
                     "parent_run_id": parent_run_id,
                     "prompt": prompt,
                     "skill": skill,
@@ -553,7 +547,6 @@ class AsyncAgentResource(AsyncAPIResource):
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
@@ -584,10 +577,6 @@ class AsyncAgentResource(AsyncAPIResource):
               agent will continue from where the previous run left off.
 
           interactive: Whether the run should be interactive. If not set, defaults to false.
-
-          mode: Optional query mode for the run. Defaults to `normal` when omitted. The server
-              does not infer mode from prompt prefixes such as `/plan`, so callers should pass
-              this field explicitly to request non-normal behavior.
 
           parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
               hierarchies.
@@ -625,7 +614,6 @@ class AsyncAgentResource(AsyncAPIResource):
                     "config": config,
                     "conversation_id": conversation_id,
                     "interactive": interactive,
-                    "mode": mode,
                     "parent_run_id": parent_run_id,
                     "prompt": prompt,
                     "skill": skill,

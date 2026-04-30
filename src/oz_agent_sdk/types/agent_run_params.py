@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Required, Annotated, TypedDict
 
 from .._types import Base64FileInput
 from .._utils import PropertyInfo
@@ -37,14 +37,6 @@ class AgentRunParams(TypedDict, total=False):
 
     interactive: bool
     """Whether the run should be interactive. If not set, defaults to false."""
-
-    mode: Literal["normal", "plan", "orchestrate"]
-    """Optional query mode for the run.
-
-    Defaults to `normal` when omitted. The server does not infer mode from prompt
-    prefixes such as `/plan`, so callers should pass this field explicitly to
-    request non-normal behavior.
-    """
 
     parent_run_id: str
     """

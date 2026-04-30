@@ -215,16 +215,6 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_submit_followup_with_all_params(self, client: OzAPI) -> None:
-        run = client.agent.runs.submit_followup(
-            run_id="runId",
-            message="message",
-            mode="normal",
-        )
-        assert_matches_type(object, run, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
     def test_raw_response_submit_followup(self, client: OzAPI) -> None:
         response = client.agent.runs.with_raw_response.submit_followup(
             run_id="runId",
@@ -454,16 +444,6 @@ class TestAsyncRuns:
         run = await async_client.agent.runs.submit_followup(
             run_id="runId",
             message="message",
-        )
-        assert_matches_type(object, run, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_submit_followup_with_all_params(self, async_client: AsyncOzAPI) -> None:
-        run = await async_client.agent.runs.submit_followup(
-            run_id="runId",
-            message="message",
-            mode="normal",
         )
         assert_matches_type(object, run, path=["response"])
 

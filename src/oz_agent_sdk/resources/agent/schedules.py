@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal
-
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
@@ -56,7 +54,6 @@ class SchedulesResource(SyncAPIResource):
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         team: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -84,9 +81,6 @@ class SchedulesResource(SyncAPIResource):
 
           enabled: Whether the schedule should be active immediately
 
-          mode: Optional query mode applied to every triggered run. Defaults to `normal` when
-              omitted. The server does not infer mode from prompt prefixes such as `/plan`.
-
           prompt: The prompt/instruction for the agent to execute. Required unless
               agent_config.skill_spec is provided.
 
@@ -110,7 +104,6 @@ class SchedulesResource(SyncAPIResource):
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
                     "enabled": enabled,
-                    "mode": mode,
                     "prompt": prompt,
                     "team": team,
                 },
@@ -165,7 +158,6 @@ class SchedulesResource(SyncAPIResource):
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -191,9 +183,6 @@ class SchedulesResource(SyncAPIResource):
           agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
               team-owned schedules.
 
-          mode: Optional query mode applied to every triggered run. Defaults to `normal` when
-              omitted. The server does not infer mode from prompt prefixes such as `/plan`.
-
           prompt: The prompt/instruction for the agent to execute. Required unless
               agent_config.skill_spec is provided.
 
@@ -216,7 +205,6 @@ class SchedulesResource(SyncAPIResource):
                     "name": name,
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
-                    "mode": mode,
                     "prompt": prompt,
                 },
                 schedule_update_params.ScheduleUpdateParams,
@@ -384,7 +372,6 @@ class AsyncSchedulesResource(AsyncAPIResource):
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         team: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -412,9 +399,6 @@ class AsyncSchedulesResource(AsyncAPIResource):
 
           enabled: Whether the schedule should be active immediately
 
-          mode: Optional query mode applied to every triggered run. Defaults to `normal` when
-              omitted. The server does not infer mode from prompt prefixes such as `/plan`.
-
           prompt: The prompt/instruction for the agent to execute. Required unless
               agent_config.skill_spec is provided.
 
@@ -438,7 +422,6 @@ class AsyncSchedulesResource(AsyncAPIResource):
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
                     "enabled": enabled,
-                    "mode": mode,
                     "prompt": prompt,
                     "team": team,
                 },
@@ -493,7 +476,6 @@ class AsyncSchedulesResource(AsyncAPIResource):
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -519,9 +501,6 @@ class AsyncSchedulesResource(AsyncAPIResource):
           agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
               team-owned schedules.
 
-          mode: Optional query mode applied to every triggered run. Defaults to `normal` when
-              omitted. The server does not infer mode from prompt prefixes such as `/plan`.
-
           prompt: The prompt/instruction for the agent to execute. Required unless
               agent_config.skill_spec is provided.
 
@@ -544,7 +523,6 @@ class AsyncSchedulesResource(AsyncAPIResource):
                     "name": name,
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
-                    "mode": mode,
                     "prompt": prompt,
                 },
                 schedule_update_params.ScheduleUpdateParams,

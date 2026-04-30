@@ -302,6 +302,7 @@ class RunsResource(SyncAPIResource):
         run_id: str,
         *,
         message: str,
+        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -319,6 +320,9 @@ class RunsResource(SyncAPIResource):
         Args:
           message: The follow-up message to send to the run.
 
+          mode: Optional query mode for the follow-up. Defaults to `normal` when omitted. The
+              server does not infer mode from prompt prefixes such as `/plan`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -331,7 +335,13 @@ class RunsResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._post(
             path_template("/agent/runs/{run_id}/followups", run_id=run_id),
-            body=maybe_transform({"message": message}, run_submit_followup_params.RunSubmitFollowupParams),
+            body=maybe_transform(
+                {
+                    "message": message,
+                    "mode": mode,
+                },
+                run_submit_followup_params.RunSubmitFollowupParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -612,6 +622,7 @@ class AsyncRunsResource(AsyncAPIResource):
         run_id: str,
         *,
         message: str,
+        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -629,6 +640,9 @@ class AsyncRunsResource(AsyncAPIResource):
         Args:
           message: The follow-up message to send to the run.
 
+          mode: Optional query mode for the follow-up. Defaults to `normal` when omitted. The
+              server does not infer mode from prompt prefixes such as `/plan`.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -641,7 +655,13 @@ class AsyncRunsResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return await self._post(
             path_template("/agent/runs/{run_id}/followups", run_id=run_id),
-            body=await async_maybe_transform({"message": message}, run_submit_followup_params.RunSubmitFollowupParams),
+            body=await async_maybe_transform(
+                {
+                    "message": message,
+                    "mode": mode,
+                },
+                run_submit_followup_params.RunSubmitFollowupParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),

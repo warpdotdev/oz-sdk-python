@@ -71,7 +71,8 @@ class AgentResource(SyncAPIResource):
           description: Optional description of the agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
-              single request are rejected.
+              single request are rejected. Each entry is unioned into the run-time secret
+              scope when the agent executes.
 
           skills:
               Optional list of skill specs to associate with the agent. Format:
@@ -269,7 +270,8 @@ class AsyncAgentResource(AsyncAPIResource):
           description: Optional description of the agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
-              single request are rejected.
+              single request are rejected. Each entry is unioned into the run-time secret
+              scope when the agent executes.
 
           skills:
               Optional list of skill specs to associate with the agent. Format:

@@ -20,7 +20,8 @@ class AgentCreateParams(TypedDict, total=False):
     secrets: Iterable[Secret]
     """
     Optional list of secrets associated with the agent. Duplicate names within a
-    single request are rejected.
+    single request are rejected. Each entry is unioned into the run-time secret
+    scope when the agent executes.
     """
 
     skills: SequenceNotStr[str]

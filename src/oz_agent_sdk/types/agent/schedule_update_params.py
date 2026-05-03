@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from ..ambient_agent_config_param import AmbientAgentConfigParam
 
@@ -26,6 +26,13 @@ class ScheduleUpdateParams(TypedDict, total=False):
     """
     Agent UID to use as the execution principal for this schedule. Only valid for
     team-owned schedules.
+    """
+
+    mode: Literal["normal", "plan", "orchestrate"]
+    """Optional query mode applied to every triggered run.
+
+    Defaults to `normal` when omitted. The server does not infer mode from prompt
+    prefixes such as `/plan`.
     """
 
     prompt: str

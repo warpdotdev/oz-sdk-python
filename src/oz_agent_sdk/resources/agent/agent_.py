@@ -222,6 +222,42 @@ class AgentResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def get(
+        self,
+        uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentResponse:
+        """Retrieve a single agent by its unique identifier.
+
+        The response includes an
+        `available` flag indicating whether the agent is within the team's plan limit
+        and may be used for runs.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uid:
+            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+        return self._get(
+            path_template("/agent/identities/{uid}", uid=uid),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentResponse,
+        )
+
 
 class AsyncAgentResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
@@ -421,6 +457,42 @@ class AsyncAgentResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def get(
+        self,
+        uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentResponse:
+        """Retrieve a single agent by its unique identifier.
+
+        The response includes an
+        `available` flag indicating whether the agent is within the team's plan limit
+        and may be used for runs.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uid:
+            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+        return await self._get(
+            path_template("/agent/identities/{uid}", uid=uid),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentResponse,
+        )
+
 
 class AgentResourceWithRawResponse:
     def __init__(self, agent: AgentResource) -> None:
@@ -437,6 +509,9 @@ class AgentResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             agent.delete,
+        )
+        self.get = to_raw_response_wrapper(
+            agent.get,
         )
 
 
@@ -456,6 +531,9 @@ class AsyncAgentResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             agent.delete,
         )
+        self.get = async_to_raw_response_wrapper(
+            agent.get,
+        )
 
 
 class AgentResourceWithStreamingResponse:
@@ -474,6 +552,9 @@ class AgentResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             agent.delete,
         )
+        self.get = to_streamed_response_wrapper(
+            agent.get,
+        )
 
 
 class AsyncAgentResourceWithStreamingResponse:
@@ -491,4 +572,7 @@ class AsyncAgentResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             agent.delete,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            agent.get,
         )

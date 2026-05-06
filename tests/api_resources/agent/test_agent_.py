@@ -33,6 +33,7 @@ class TestAgent:
     def test_method_create_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.create(
             name="name",
+            base_model="base_model",
             description="description",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -78,6 +79,7 @@ class TestAgent:
     def test_method_update_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.update(
             uid="uid",
+            base_model="base_model",
             description="description",
             name="name",
             secrets=[{"name": "name"}],
@@ -250,6 +252,7 @@ class TestAsyncAgent:
     async def test_method_create_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.create(
             name="name",
+            base_model="base_model",
             description="description",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -295,6 +298,7 @@ class TestAsyncAgent:
     async def test_method_update_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.update(
             uid="uid",
+            base_model="base_model",
             description="description",
             name="name",
             secrets=[{"name": "name"}],

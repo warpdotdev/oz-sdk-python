@@ -50,6 +50,7 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         name: str,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -67,6 +68,8 @@ class AgentResource(SyncAPIResource):
 
         Args:
           name: A name for the agent
+
+          base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
 
@@ -94,6 +97,7 @@ class AgentResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
+                    "base_model": base_model,
                     "description": description,
                     "secrets": secrets,
                     "skills": skills,
@@ -110,6 +114,7 @@ class AgentResource(SyncAPIResource):
         self,
         uid: str,
         *,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -124,9 +129,12 @@ class AgentResource(SyncAPIResource):
         """Update an existing agent.
 
         Args:
-          description: Replacement description.
+          base_model: Replacement base model.
 
-        Omit or pass `null` to leave unchanged, or use an empty
+        Omit or pass `null` to leave unchanged, or pass an empty
+              string to clear.
+
+          description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
           name: The new name for the agent
@@ -151,6 +159,7 @@ class AgentResource(SyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=maybe_transform(
                 {
+                    "base_model": base_model,
                     "description": description,
                     "name": name,
                     "secrets": secrets,
@@ -285,6 +294,7 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         name: str,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -302,6 +312,8 @@ class AsyncAgentResource(AsyncAPIResource):
 
         Args:
           name: A name for the agent
+
+          base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
 
@@ -329,6 +341,7 @@ class AsyncAgentResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
+                    "base_model": base_model,
                     "description": description,
                     "secrets": secrets,
                     "skills": skills,
@@ -345,6 +358,7 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         uid: str,
         *,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -359,9 +373,12 @@ class AsyncAgentResource(AsyncAPIResource):
         """Update an existing agent.
 
         Args:
-          description: Replacement description.
+          base_model: Replacement base model.
 
-        Omit or pass `null` to leave unchanged, or use an empty
+        Omit or pass `null` to leave unchanged, or pass an empty
+              string to clear.
+
+          description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
           name: The new name for the agent
@@ -386,6 +403,7 @@ class AsyncAgentResource(AsyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=await async_maybe_transform(
                 {
+                    "base_model": base_model,
                     "description": description,
                     "name": name,
                     "secrets": secrets,

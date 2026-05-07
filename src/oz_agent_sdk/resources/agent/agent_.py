@@ -50,7 +50,6 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         name: str,
-        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -68,8 +67,6 @@ class AgentResource(SyncAPIResource):
 
         Args:
           name: A name for the agent
-
-          base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
 
@@ -97,7 +94,6 @@ class AgentResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
-                    "base_model": base_model,
                     "description": description,
                     "secrets": secrets,
                     "skills": skills,
@@ -114,7 +110,6 @@ class AgentResource(SyncAPIResource):
         self,
         uid: str,
         *,
-        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -129,12 +124,9 @@ class AgentResource(SyncAPIResource):
         """Update an existing agent.
 
         Args:
-          base_model: Replacement base model.
+          description: Replacement description.
 
-        Omit or pass `null` to leave unchanged, or pass an empty
-              string to clear.
-
-          description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
+        Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
           name: The new name for the agent
@@ -159,7 +151,6 @@ class AgentResource(SyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=maybe_transform(
                 {
-                    "base_model": base_model,
                     "description": description,
                     "name": name,
                     "secrets": secrets,
@@ -231,42 +222,6 @@ class AgentResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
-    def get(
-        self,
-        uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
-        """Retrieve a single agent by its unique identifier.
-
-        The response includes an
-        `available` flag indicating whether the agent is within the team's plan limit
-        and may be used for runs.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
-        return self._get(
-            path_template("/agent/identities/{uid}", uid=uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentResponse,
-        )
-
 
 class AsyncAgentResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
@@ -294,7 +249,6 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -312,8 +266,6 @@ class AsyncAgentResource(AsyncAPIResource):
 
         Args:
           name: A name for the agent
-
-          base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
 
@@ -341,7 +293,6 @@ class AsyncAgentResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
-                    "base_model": base_model,
                     "description": description,
                     "secrets": secrets,
                     "skills": skills,
@@ -358,7 +309,6 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         uid: str,
         *,
-        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -373,12 +323,9 @@ class AsyncAgentResource(AsyncAPIResource):
         """Update an existing agent.
 
         Args:
-          base_model: Replacement base model.
+          description: Replacement description.
 
-        Omit or pass `null` to leave unchanged, or pass an empty
-              string to clear.
-
-          description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
+        Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
           name: The new name for the agent
@@ -403,7 +350,6 @@ class AsyncAgentResource(AsyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=await async_maybe_transform(
                 {
-                    "base_model": base_model,
                     "description": description,
                     "name": name,
                     "secrets": secrets,
@@ -475,42 +421,6 @@ class AsyncAgentResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
-    async def get(
-        self,
-        uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
-        """Retrieve a single agent by its unique identifier.
-
-        The response includes an
-        `available` flag indicating whether the agent is within the team's plan limit
-        and may be used for runs.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
-        return await self._get(
-            path_template("/agent/identities/{uid}", uid=uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
-            cast_to=AgentResponse,
-        )
-
 
 class AgentResourceWithRawResponse:
     def __init__(self, agent: AgentResource) -> None:
@@ -527,9 +437,6 @@ class AgentResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             agent.delete,
-        )
-        self.get = to_raw_response_wrapper(
-            agent.get,
         )
 
 
@@ -549,9 +456,6 @@ class AsyncAgentResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             agent.delete,
         )
-        self.get = async_to_raw_response_wrapper(
-            agent.get,
-        )
 
 
 class AgentResourceWithStreamingResponse:
@@ -570,9 +474,6 @@ class AgentResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             agent.delete,
         )
-        self.get = to_streamed_response_wrapper(
-            agent.get,
-        )
 
 
 class AsyncAgentResourceWithStreamingResponse:
@@ -590,7 +491,4 @@ class AsyncAgentResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             agent.delete,
-        )
-        self.get = async_to_streamed_response_wrapper(
-            agent.get,
         )

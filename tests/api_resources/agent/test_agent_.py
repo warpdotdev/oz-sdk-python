@@ -33,7 +33,6 @@ class TestAgent:
     def test_method_create_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.create(
             name="name",
-            base_model="base_model",
             description="description",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -79,7 +78,6 @@ class TestAgent:
     def test_method_update_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.update(
             uid="uid",
-            base_model="base_model",
             description="description",
             name="name",
             secrets=[{"name": "name"}],
@@ -191,48 +189,6 @@ class TestAgent:
                 "",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get(self, client: OzAPI) -> None:
-        agent = client.agent.agent.get(
-            "uid",
-        )
-        assert_matches_type(AgentResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_get(self, client: OzAPI) -> None:
-        response = client.agent.agent.with_raw_response.get(
-            "uid",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_get(self, client: OzAPI) -> None:
-        with client.agent.agent.with_streaming_response.get(
-            "uid",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = response.parse()
-            assert_matches_type(AgentResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_get(self, client: OzAPI) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
-            client.agent.agent.with_raw_response.get(
-                "",
-            )
-
 
 class TestAsyncAgent:
     parametrize = pytest.mark.parametrize(
@@ -252,7 +208,6 @@ class TestAsyncAgent:
     async def test_method_create_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.create(
             name="name",
-            base_model="base_model",
             description="description",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -298,7 +253,6 @@ class TestAsyncAgent:
     async def test_method_update_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.update(
             uid="uid",
-            base_model="base_model",
             description="description",
             name="name",
             secrets=[{"name": "name"}],
@@ -407,47 +361,5 @@ class TestAsyncAgent:
     async def test_path_params_delete(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
             await async_client.agent.agent.with_raw_response.delete(
-                "",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get(self, async_client: AsyncOzAPI) -> None:
-        agent = await async_client.agent.agent.get(
-            "uid",
-        )
-        assert_matches_type(AgentResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_get(self, async_client: AsyncOzAPI) -> None:
-        response = await async_client.agent.agent.with_raw_response.get(
-            "uid",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_get(self, async_client: AsyncOzAPI) -> None:
-        async with async_client.agent.agent.with_streaming_response.get(
-            "uid",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_get(self, async_client: AsyncOzAPI) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
-            await async_client.agent.agent.with_raw_response.get(
                 "",
             )

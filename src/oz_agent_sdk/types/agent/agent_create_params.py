@@ -14,9 +14,6 @@ class AgentCreateParams(TypedDict, total=False):
     name: Required[str]
     """A name for the agent"""
 
-    base_model: Optional[str]
-    """Optional base model for runs executed by this agent."""
-
     description: Optional[str]
     """Optional description of the agent"""
 

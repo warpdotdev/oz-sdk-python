@@ -11,12 +11,6 @@ __all__ = ["AgentUpdateParams", "Secret"]
 
 
 class AgentUpdateParams(TypedDict, total=False):
-    base_model: Optional[str]
-    """Replacement base model.
-
-    Omit or pass `null` to leave unchanged, or pass an empty string to clear.
-    """
-
     description: Optional[str]
     """Replacement description.
 

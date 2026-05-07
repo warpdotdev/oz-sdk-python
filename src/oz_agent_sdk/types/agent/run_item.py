@@ -44,9 +44,6 @@ class RequestUsage(BaseModel):
     inference_cost: Optional[float] = None
     """Cost of LLM inference for the run"""
 
-    platform_cost: Optional[float] = None
-    """Cost of platform usage for the run"""
-
 
 class Schedule(BaseModel):
     """

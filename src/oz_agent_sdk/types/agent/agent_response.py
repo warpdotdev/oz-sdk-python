@@ -37,15 +37,5 @@ class AgentResponse(BaseModel):
     uid: str
     """Unique identifier for the agent"""
 
-    base_model: Optional[str] = None
-    """Base model for runs executed by this agent.
-
-    The precedence order for model resolution is:
-
-    1. The model specified on the run itself
-    2. The agent's base model
-    3. The team's default model
-    """
-
     description: Optional[str] = None
     """Optional description of the agent"""

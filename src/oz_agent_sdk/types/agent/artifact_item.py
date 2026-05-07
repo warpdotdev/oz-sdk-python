@@ -24,11 +24,20 @@ class PlanArtifactData(BaseModel):
     document_uid: str
     """Unique identifier for the plan document"""
 
+    artifact_uid: Optional[str] = None
+    """
+    Unique identifier for the plan artifact, usable with the artifact retrieval
+    endpoint
+    """
+
     notebook_uid: Optional[str] = None
     """Unique identifier for the associated notebook"""
 
     title: Optional[str] = None
     """Title of the plan"""
+
+    url: Optional[str] = None
+    """URL to open the plan in Warp Drive"""
 
 
 class PlanArtifact(BaseModel):

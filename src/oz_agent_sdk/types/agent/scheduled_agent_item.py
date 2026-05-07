@@ -41,6 +41,9 @@ class ScheduledAgentItem(BaseModel):
     agent_config: Optional[AmbientAgentConfig] = None
     """Configuration for a cloud agent run"""
 
+    agent_uid: Optional[str] = None
+    """UID of the agent that this schedule runs as"""
+
     created_by: Optional[UserProfile] = None
 
     environment: Optional[CloudEnvironmentConfig] = None

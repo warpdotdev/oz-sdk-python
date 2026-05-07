@@ -168,6 +168,8 @@ class RunItem(BaseModel):
     - REMOTE: Executed by a remote/cloud worker
     """
 
+    executor: Optional[UserProfile] = None
+
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""
 
@@ -215,3 +217,6 @@ class RunItem(BaseModel):
     For terminal error states, includes structured error code and retryability info
     from the platform error catalog.
     """
+
+    trigger_url: Optional[str] = None
+    """URL to the run trigger (e.g. Slack thread, Linear issue, schedule)"""

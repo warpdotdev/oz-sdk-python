@@ -32,6 +32,14 @@ from .schedules import (
     SchedulesResourceWithStreamingResponse,
     AsyncSchedulesResourceWithStreamingResponse,
 )
+from .conversations import (
+    ConversationsResource,
+    AsyncConversationsResource,
+    ConversationsResourceWithRawResponse,
+    AsyncConversationsResourceWithRawResponse,
+    ConversationsResourceWithStreamingResponse,
+    AsyncConversationsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "RunsResource",
@@ -52,6 +60,12 @@ __all__ = [
     "AsyncSessionsResourceWithRawResponse",
     "SessionsResourceWithStreamingResponse",
     "AsyncSessionsResourceWithStreamingResponse",
+    "ConversationsResource",
+    "AsyncConversationsResource",
+    "ConversationsResourceWithRawResponse",
+    "AsyncConversationsResourceWithRawResponse",
+    "ConversationsResourceWithStreamingResponse",
+    "AsyncConversationsResourceWithStreamingResponse",
     "AgentResource",
     "AsyncAgentResource",
     "AgentResourceWithRawResponse",

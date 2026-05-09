@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -8,7 +8,7 @@ from pydantic import Field as FieldInfo
 from .._models import BaseModel
 from .mcp_server_config import McpServerConfig
 
-__all__ = ["AmbientAgentConfig", "Harness", "HarnessAuthSecrets", "SessionSharing"]
+__all__ = ["AmbientAgentConfig", "Harness", "HarnessAuthSecrets", "MemoryStore", "SessionSharing"]
 
 
 class Harness(BaseModel):
@@ -39,6 +39,19 @@ class HarnessAuthSecrets(BaseModel):
     exist within the caller's personal or team scope. Only applicable when harness
     type is "claude".
     """
+
+
+class MemoryStore(BaseModel):
+    """Reference to a memory store to attach to an agent."""
+
+    access: Literal["read_write", "read_only"]
+    """Access level for the store."""
+
+    instructions: str
+    """Instructions for how the agent should use this memory store. Must not be empty."""
+
+    uid: str
+    """UID of the memory store."""
 
 
 class SessionSharing(BaseModel):
@@ -99,6 +112,9 @@ class AmbientAgentConfig(BaseModel):
 
     mcp_servers: Optional[Dict[str, McpServerConfig]] = None
     """Map of MCP server configurations by name"""
+
+    memory_stores: Optional[List[MemoryStore]] = None
+    """Memory stores to attach to this run."""
 
     api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
     """LLM model to use (uses team default if not specified)"""

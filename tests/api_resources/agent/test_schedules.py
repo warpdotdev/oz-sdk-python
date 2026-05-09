@@ -53,13 +53,20 @@ class TestSchedules:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
-            agent_uid="agent_uid",
+            agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             enabled=True,
             mode="normal",
             prompt="Review open pull requests and provide feedback",
@@ -173,13 +180,20 @@ class TestSchedules:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
-            agent_uid="agent_uid",
+            agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             mode="normal",
             prompt="prompt",
         )
@@ -420,13 +434,20 @@ class TestAsyncSchedules:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
-            agent_uid="agent_uid",
+            agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             enabled=True,
             mode="normal",
             prompt="Review open pull requests and provide feedback",
@@ -540,13 +561,20 @@ class TestAsyncSchedules:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "worker_host": "worker_host",
             },
-            agent_uid="agent_uid",
+            agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             mode="normal",
             prompt="prompt",
         )

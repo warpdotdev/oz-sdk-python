@@ -174,6 +174,13 @@ class TestAgent:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},
@@ -371,6 +378,13 @@ class TestAsyncAgent:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},

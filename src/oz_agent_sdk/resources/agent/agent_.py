@@ -52,6 +52,7 @@ class AgentResource(SyncAPIResource):
         name: str,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -72,6 +73,10 @@ class AgentResource(SyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
+              team-owned by the same team as the agent. Duplicate UIDs within a single request
+              are rejected.
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
               single request are rejected. Each entry is unioned into the run-time secret
@@ -99,6 +104,7 @@ class AgentResource(SyncAPIResource):
                     "name": name,
                     "base_model": base_model,
                     "description": description,
+                    "memory_stores": memory_stores,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -116,6 +122,7 @@ class AgentResource(SyncAPIResource):
         *,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -136,6 +143,9 @@ class AgentResource(SyncAPIResource):
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
+
+          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
+              to clear, or pass a non-empty array to replace.
 
           name: The new name for the agent
 
@@ -161,6 +171,7 @@ class AgentResource(SyncAPIResource):
                 {
                     "base_model": base_model,
                     "description": description,
+                    "memory_stores": memory_stores,
                     "name": name,
                     "secrets": secrets,
                     "skills": skills,
@@ -296,6 +307,7 @@ class AsyncAgentResource(AsyncAPIResource):
         name: str,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -316,6 +328,10 @@ class AsyncAgentResource(AsyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
+              team-owned by the same team as the agent. Duplicate UIDs within a single request
+              are rejected.
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
               single request are rejected. Each entry is unioned into the run-time secret
@@ -343,6 +359,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "name": name,
                     "base_model": base_model,
                     "description": description,
+                    "memory_stores": memory_stores,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -360,6 +377,7 @@ class AsyncAgentResource(AsyncAPIResource):
         *,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -380,6 +398,9 @@ class AsyncAgentResource(AsyncAPIResource):
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
+
+          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
+              to clear, or pass a non-empty array to replace.
 
           name: The new name for the agent
 
@@ -405,6 +426,7 @@ class AsyncAgentResource(AsyncAPIResource):
                 {
                     "base_model": base_model,
                     "description": description,
+                    "memory_stores": memory_stores,
                     "name": name,
                     "secrets": secrets,
                     "skills": skills,

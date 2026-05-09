@@ -35,6 +35,13 @@ class TestAgent:
             name="name",
             base_model="base_model",
             description="description",
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             secrets=[{"name": "name"}],
             skills=["string"],
         )
@@ -81,6 +88,13 @@ class TestAgent:
             uid="uid",
             base_model="base_model",
             description="description",
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             name="name",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -254,6 +268,13 @@ class TestAsyncAgent:
             name="name",
             base_model="base_model",
             description="description",
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             secrets=[{"name": "name"}],
             skills=["string"],
         )
@@ -300,6 +321,13 @@ class TestAsyncAgent:
             uid="uid",
             base_model="base_model",
             description="description",
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             name="name",
             secrets=[{"name": "name"}],
             skills=["string"],

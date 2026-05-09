@@ -2,10 +2,24 @@
 
 from typing import List, Optional
 from datetime import datetime
+from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["AgentResponse", "Secret"]
+__all__ = ["AgentResponse", "MemoryStore", "Secret"]
+
+
+class MemoryStore(BaseModel):
+    """Reference to a memory store to attach to an agent."""
+
+    access: Literal["read_write", "read_only"]
+    """Access level for the store."""
+
+    instructions: str
+    """Instructions for how the agent should use this memory store. Must not be empty."""
+
+    uid: str
+    """UID of the memory store."""
 
 
 class Secret(BaseModel):
@@ -21,6 +35,12 @@ class AgentResponse(BaseModel):
 
     created_at: datetime
     """When the agent was created (RFC3339)"""
+
+    memory_stores: List[MemoryStore]
+    """
+    Memory stores attached to this agent. Always present; empty when no stores are
+    attached.
+    """
 
     name: str
     """Name of the agent"""

@@ -20,6 +20,9 @@ class AgentCreateParams(TypedDict, total=False):
     description: Optional[str]
     """Optional description of the agent"""
 
+    prompt: Optional[str]
+    """Optional base prompt for this agent"""
+
     secrets: Iterable[Secret]
     """
     Optional list of secrets associated with the agent. Duplicate names within a

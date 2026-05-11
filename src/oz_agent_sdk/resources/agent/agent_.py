@@ -52,6 +52,7 @@ class AgentResource(SyncAPIResource):
         name: str,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -72,6 +73,8 @@ class AgentResource(SyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          prompt: Optional base prompt for this agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
               single request are rejected. Each entry is unioned into the run-time secret
@@ -99,6 +102,7 @@ class AgentResource(SyncAPIResource):
                     "name": name,
                     "base_model": base_model,
                     "description": description,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -117,6 +121,7 @@ class AgentResource(SyncAPIResource):
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -138,6 +143,9 @@ class AgentResource(SyncAPIResource):
               value to clear.
 
           name: The new name for the agent
+
+          prompt: Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty
+              value to clear.
 
           secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace. Duplicate names are rejected.
@@ -162,6 +170,7 @@ class AgentResource(SyncAPIResource):
                     "base_model": base_model,
                     "description": description,
                     "name": name,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -296,6 +305,7 @@ class AsyncAgentResource(AsyncAPIResource):
         name: str,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -316,6 +326,8 @@ class AsyncAgentResource(AsyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          prompt: Optional base prompt for this agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
               single request are rejected. Each entry is unioned into the run-time secret
@@ -343,6 +355,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "name": name,
                     "base_model": base_model,
                     "description": description,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -361,6 +374,7 @@ class AsyncAgentResource(AsyncAPIResource):
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         name: str | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -382,6 +396,9 @@ class AsyncAgentResource(AsyncAPIResource):
               value to clear.
 
           name: The new name for the agent
+
+          prompt: Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty
+              value to clear.
 
           secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace. Duplicate names are rejected.
@@ -406,6 +423,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "base_model": base_model,
                     "description": description,
                     "name": name,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },

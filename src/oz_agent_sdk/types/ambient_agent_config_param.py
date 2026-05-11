@@ -2,12 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing import Dict
+from typing_extensions import Literal, TypedDict
 
 from .mcp_server_config_param import McpServerConfigParam
 
-__all__ = ["AmbientAgentConfigParam", "Harness", "HarnessAuthSecrets", "MemoryStore", "SessionSharing"]
+__all__ = ["AmbientAgentConfigParam", "Harness", "HarnessAuthSecrets", "SessionSharing"]
 
 
 class Harness(TypedDict, total=False):
@@ -38,19 +38,6 @@ class HarnessAuthSecrets(TypedDict, total=False):
     exist within the caller's personal or team scope. Only applicable when harness
     type is "claude".
     """
-
-
-class MemoryStore(TypedDict, total=False):
-    """Reference to a memory store to attach to an agent."""
-
-    access: Required[Literal["read_write", "read_only"]]
-    """Access level for the store."""
-
-    instructions: Required[str]
-    """Instructions for how the agent should use this memory store. Must not be empty."""
-
-    uid: Required[str]
-    """UID of the memory store."""
 
 
 class SessionSharing(TypedDict, total=False):
@@ -111,9 +98,6 @@ class AmbientAgentConfigParam(TypedDict, total=False):
 
     mcp_servers: Dict[str, McpServerConfigParam]
     """Map of MCP server configurations by name"""
-
-    memory_stores: Iterable[MemoryStore]
-    """Memory stores to attach to this run."""
 
     model_id: str
     """LLM model to use (uses team default if not specified)"""

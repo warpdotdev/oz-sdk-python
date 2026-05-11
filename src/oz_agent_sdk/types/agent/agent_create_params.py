@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = ["AgentCreateParams", "MemoryStore", "Secret"]
+__all__ = ["AgentCreateParams", "Secret"]
 
 
 class AgentCreateParams(TypedDict, total=False):
@@ -19,13 +19,6 @@ class AgentCreateParams(TypedDict, total=False):
 
     description: Optional[str]
     """Optional description of the agent"""
-
-    memory_stores: Iterable[MemoryStore]
-    """
-    Optional list of memory stores to attach to the agent. Each store must be
-    team-owned by the same team as the agent. Duplicate UIDs within a single request
-    are rejected.
-    """
 
     secrets: Iterable[Secret]
     """
@@ -42,19 +35,6 @@ class AgentCreateParams(TypedDict, total=False):
     and normalized at attach time using the team's GitHub credentials; inaccessible
     or malformed specs are rejected.
     """
-
-
-class MemoryStore(TypedDict, total=False):
-    """Reference to a memory store to attach to an agent."""
-
-    access: Required[Literal["read_write", "read_only"]]
-    """Access level for the store."""
-
-    instructions: Required[str]
-    """Instructions for how the agent should use this memory store. Must not be empty."""
-
-    uid: Required[str]
-    """UID of the memory store."""
 
 
 class Secret(TypedDict, total=False):

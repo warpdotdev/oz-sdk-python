@@ -26,6 +26,12 @@ class AgentUpdateParams(TypedDict, total=False):
     name: str
     """The new name for the agent"""
 
+    prompt: Optional[str]
+    """Replacement prompt.
+
+    Omit or pass `null` to leave unchanged, or use an empty value to clear.
+    """
+
     secrets: Optional[Iterable[Secret]]
     """Replacement list of secrets.
 

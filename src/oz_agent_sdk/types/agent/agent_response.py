@@ -49,3 +49,6 @@ class AgentResponse(BaseModel):
 
     description: Optional[str] = None
     """Optional description of the agent"""
+
+    prompt: Optional[str] = None
+    """Optional base prompt for this agent"""

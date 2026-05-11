@@ -35,6 +35,7 @@ class TestAgent:
             name="name",
             base_model="base_model",
             description="description",
+            prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
         )
@@ -82,6 +83,7 @@ class TestAgent:
             base_model="base_model",
             description="description",
             name="name",
+            prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
         )
@@ -254,6 +256,7 @@ class TestAsyncAgent:
             name="name",
             base_model="base_model",
             description="description",
+            prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
         )
@@ -301,6 +304,7 @@ class TestAsyncAgent:
             base_model="base_model",
             description="description",
             name="name",
+            prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
         )

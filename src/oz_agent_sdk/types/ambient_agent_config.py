@@ -48,6 +48,13 @@ class HarnessAuthSecrets(BaseModel):
     type is "claude".
     """
 
+    codex_auth_secret_name: Optional[str] = None
+    """
+    Name of a managed secret for Codex harness authentication. The secret must exist
+    within the caller's personal or team scope. Only applicable when harness type is
+    "codex".
+    """
+
 
 class InferenceProvidersAws(BaseModel):
     """

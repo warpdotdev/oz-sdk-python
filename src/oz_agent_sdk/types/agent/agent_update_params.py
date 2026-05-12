@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Required, TypedDict
+from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = ["AgentUpdateParams", "Secret"]
+__all__ = ["AgentUpdateParams", "InferenceProviders", "InferenceProvidersAws", "MemoryStore", "Secret"]
 
 
 class AgentUpdateParams(TypedDict, total=False):
@@ -21,6 +21,16 @@ class AgentUpdateParams(TypedDict, total=False):
     """Replacement description.
 
     Omit or pass `null` to leave unchanged, or use an empty value to clear.
+    """
+
+    inference_providers: Optional[InferenceProviders]
+    """Inference provider settings used for LLM calls."""
+
+    memory_stores: Optional[Iterable[MemoryStore]]
+    """Replacement list of memory stores.
+
+    Omit to leave unchanged, pass an empty array to clear, or pass a non-empty array
+    to replace.
     """
 
     name: str
@@ -45,6 +55,39 @@ class AgentUpdateParams(TypedDict, total=False):
     Omit to leave unchanged, pass an empty array to clear, or pass a non-empty array
     to replace.
     """
+
+
+class InferenceProvidersAws(TypedDict, total=False):
+    """
+    Configures AWS Bedrock as the LLM inference provider for this
+    agent or run.
+    """
+
+    disabled: bool
+    """If true, opt out of Bedrock at this layer."""
+
+    role_arn: str
+    """IAM role ARN to assume when calling Bedrock."""
+
+
+class InferenceProviders(TypedDict, total=False):
+    """Inference provider settings used for LLM calls."""
+
+    aws: InferenceProvidersAws
+    """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
+
+
+class MemoryStore(TypedDict, total=False):
+    """Reference to a memory store to attach to an agent."""
+
+    access: Required[Literal["read_write", "read_only"]]
+    """Access level for the store."""
+
+    instructions: Required[str]
+    """Instructions for how the agent should use this memory store. Must not be empty."""
+
+    uid: Required[str]
+    """UID of the memory store."""
 
 
 class Secret(TypedDict, total=False):

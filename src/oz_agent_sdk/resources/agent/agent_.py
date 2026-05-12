@@ -52,6 +52,8 @@ class AgentResource(SyncAPIResource):
         name: str,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -73,6 +75,12 @@ class AgentResource(SyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
+              team-owned by the same team as the agent. Duplicate UIDs within a single request
+              are rejected.
 
           prompt: Optional base prompt for this agent
 
@@ -102,6 +110,8 @@ class AgentResource(SyncAPIResource):
                     "name": name,
                     "base_model": base_model,
                     "description": description,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
@@ -120,6 +130,8 @@ class AgentResource(SyncAPIResource):
         *,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -141,6 +153,11 @@ class AgentResource(SyncAPIResource):
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
+              to clear, or pass a non-empty array to replace.
 
           name: The new name for the agent
 
@@ -169,6 +186,8 @@ class AgentResource(SyncAPIResource):
                 {
                     "base_model": base_model,
                     "description": description,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
                     "name": name,
                     "prompt": prompt,
                     "secrets": secrets,
@@ -305,6 +324,8 @@ class AsyncAgentResource(AsyncAPIResource):
         name: str,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -326,6 +347,12 @@ class AsyncAgentResource(AsyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
+              team-owned by the same team as the agent. Duplicate UIDs within a single request
+              are rejected.
 
           prompt: Optional base prompt for this agent
 
@@ -355,6 +382,8 @@ class AsyncAgentResource(AsyncAPIResource):
                     "name": name,
                     "base_model": base_model,
                     "description": description,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
@@ -373,6 +402,8 @@ class AsyncAgentResource(AsyncAPIResource):
         *,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -394,6 +425,11 @@ class AsyncAgentResource(AsyncAPIResource):
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
+              to clear, or pass a non-empty array to replace.
 
           name: The new name for the agent
 
@@ -422,6 +458,8 @@ class AsyncAgentResource(AsyncAPIResource):
                 {
                     "base_model": base_model,
                     "description": description,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
                     "name": name,
                     "prompt": prompt,
                     "secrets": secrets,

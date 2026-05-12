@@ -47,13 +47,6 @@ class HarnessAuthSecrets(TypedDict, total=False):
     type is "claude".
     """
 
-    codex_auth_secret_name: str
-    """
-    Name of a managed secret for Codex harness authentication. The secret must exist
-    within the caller's personal or team scope. Only applicable when harness type is
-    "codex".
-    """
-
 
 class InferenceProvidersAws(TypedDict, total=False):
     """

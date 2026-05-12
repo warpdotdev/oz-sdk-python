@@ -162,10 +162,7 @@ class TestAgent:
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "harness": {"type": "oz"},
-                "harness_auth_secrets": {
-                    "claude_auth_secret_name": "claude_auth_secret_name",
-                    "codex_auth_secret_name": "codex_auth_secret_name",
-                },
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "inference_providers": {
                     "aws": {
@@ -375,10 +372,7 @@ class TestAsyncAgent:
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "harness": {"type": "oz"},
-                "harness_auth_secrets": {
-                    "claude_auth_secret_name": "claude_auth_secret_name",
-                    "codex_auth_secret_name": "codex_auth_secret_name",
-                },
+                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
                 "idle_timeout_minutes": 1,
                 "inference_providers": {
                     "aws": {

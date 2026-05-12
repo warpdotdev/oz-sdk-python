@@ -35,6 +35,19 @@ class TestAgent:
             name="name",
             base_model="base_model",
             description="description",
+            inference_providers={
+                "aws": {
+                    "disabled": True,
+                    "role_arn": "role_arn",
+                }
+            },
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -82,6 +95,19 @@ class TestAgent:
             uid="uid",
             base_model="base_model",
             description="description",
+            inference_providers={
+                "aws": {
+                    "disabled": True,
+                    "role_arn": "role_arn",
+                }
+            },
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             name="name",
             prompt="prompt",
             secrets=[{"name": "name"}],
@@ -256,6 +282,19 @@ class TestAsyncAgent:
             name="name",
             base_model="base_model",
             description="description",
+            inference_providers={
+                "aws": {
+                    "disabled": True,
+                    "role_arn": "role_arn",
+                }
+            },
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -303,6 +342,19 @@ class TestAsyncAgent:
             uid="uid",
             base_model="base_model",
             description="description",
+            inference_providers={
+                "aws": {
+                    "disabled": True,
+                    "role_arn": "role_arn",
+                }
+            },
+            memory_stores=[
+                {
+                    "access": "read_write",
+                    "instructions": "instructions",
+                    "uid": "uid",
+                }
+            ],
             name="name",
             prompt="prompt",
             secrets=[{"name": "name"}],

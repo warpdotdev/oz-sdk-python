@@ -6,7 +6,14 @@ from typing_extensions import Literal
 
 from ..._models import BaseModel
 
-__all__ = ["AgentResponse", "MemoryStore", "Secret", "InferenceProviders", "InferenceProvidersAws"]
+__all__ = [
+    "AgentResponse",
+    "MemoryStore",
+    "Secret",
+    "HarnessAuthSecrets",
+    "InferenceProviders",
+    "InferenceProvidersAws",
+]
 
 
 class MemoryStore(BaseModel):
@@ -27,6 +34,20 @@ class Secret(BaseModel):
 
     name: str
     """Name of the managed secret."""
+
+
+class HarnessAuthSecrets(BaseModel):
+    """
+    Authentication secrets for third-party harnesses.
+    Only the secret for the harness specified gets injected into the environment.
+    """
+
+    claude_auth_secret_name: Optional[str] = None
+    """
+    Name of a managed secret for Claude Code harness authentication. The secret must
+    exist within the caller's personal or team scope. Only applicable when harness
+    type is "claude".
+    """
 
 
 class InferenceProvidersAws(BaseModel):
@@ -77,6 +98,16 @@ class AgentResponse(BaseModel):
     uid: str
     """Unique identifier for the agent"""
 
+    base_harness: Optional[str] = None
+    """Default harness for runs executed by this agent.
+
+    The precedence order for harness resolution is:
+
+    1. The harness specified on the run itself
+    2. The agent's base harness
+    3. Oz
+    """
+
     base_model: Optional[str] = None
     """Base model for runs executed by this agent.
 
@@ -89,6 +120,12 @@ class AgentResponse(BaseModel):
 
     description: Optional[str] = None
     """Optional description of the agent"""
+
+    harness_auth_secrets: Optional[HarnessAuthSecrets] = None
+    """
+    Authentication secrets for third-party harnesses. Only the secret for the
+    harness specified gets injected into the environment.
+    """
 
     inference_providers: Optional[InferenceProviders] = None
     """Inference provider settings used for LLM calls."""

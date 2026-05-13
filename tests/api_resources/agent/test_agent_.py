@@ -33,8 +33,10 @@ class TestAgent:
     def test_method_create_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.create(
             name="name",
+            base_harness="base_harness",
             base_model="base_model",
             description="description",
+            harness_auth_secrets={"claude_auth_secret_name": "claude_auth_secret_name"},
             inference_providers={
                 "aws": {
                     "disabled": True,
@@ -93,8 +95,10 @@ class TestAgent:
     def test_method_update_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.update(
             uid="uid",
+            base_harness="base_harness",
             base_model="base_model",
             description="description",
+            harness_auth_secrets={"claude_auth_secret_name": "claude_auth_secret_name"},
             inference_providers={
                 "aws": {
                     "disabled": True,
@@ -280,8 +284,10 @@ class TestAsyncAgent:
     async def test_method_create_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.create(
             name="name",
+            base_harness="base_harness",
             base_model="base_model",
             description="description",
+            harness_auth_secrets={"claude_auth_secret_name": "claude_auth_secret_name"},
             inference_providers={
                 "aws": {
                     "disabled": True,
@@ -340,8 +346,10 @@ class TestAsyncAgent:
     async def test_method_update_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.update(
             uid="uid",
+            base_harness="base_harness",
             base_model="base_model",
             description="description",
+            harness_auth_secrets={"claude_auth_secret_name": "claude_auth_secret_name"},
             inference_providers={
                 "aws": {
                     "disabled": True,

@@ -50,10 +50,8 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         name: str,
-        base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
@@ -74,14 +72,9 @@ class AgentResource(SyncAPIResource):
         Args:
           name: A name for the agent
 
-          base_harness: Optional default harness for runs executed by this agent.
-
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
-
-          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
-              harness specified gets injected into the environment.
 
           inference_providers: Inference provider settings used for LLM calls.
 
@@ -115,10 +108,8 @@ class AgentResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
-                    "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
-                    "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,
                     "prompt": prompt,
@@ -137,10 +128,8 @@ class AgentResource(SyncAPIResource):
         self,
         uid: str,
         *,
-        base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
@@ -157,19 +146,13 @@ class AgentResource(SyncAPIResource):
         """Update an existing agent.
 
         Args:
-          base_harness: Replacement default harness.
+          base_model: Replacement base model.
 
-        Omit or pass `null` to leave unchanged, or pass an
-              empty string to clear.
-
-          base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
+        Omit or pass `null` to leave unchanged, or pass an empty
               string to clear.
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
-
-          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
-              harness specified gets injected into the environment.
 
           inference_providers: Inference provider settings used for LLM calls.
 
@@ -201,10 +184,8 @@ class AgentResource(SyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=maybe_transform(
                 {
-                    "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
-                    "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,
                     "name": name,
@@ -341,10 +322,8 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         name: str,
-        base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
@@ -365,14 +344,9 @@ class AsyncAgentResource(AsyncAPIResource):
         Args:
           name: A name for the agent
 
-          base_harness: Optional default harness for runs executed by this agent.
-
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
-
-          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
-              harness specified gets injected into the environment.
 
           inference_providers: Inference provider settings used for LLM calls.
 
@@ -406,10 +380,8 @@ class AsyncAgentResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
-                    "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
-                    "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,
                     "prompt": prompt,
@@ -428,10 +400,8 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         uid: str,
         *,
-        base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
-        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
@@ -448,19 +418,13 @@ class AsyncAgentResource(AsyncAPIResource):
         """Update an existing agent.
 
         Args:
-          base_harness: Replacement default harness.
+          base_model: Replacement base model.
 
-        Omit or pass `null` to leave unchanged, or pass an
-              empty string to clear.
-
-          base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
+        Omit or pass `null` to leave unchanged, or pass an empty
               string to clear.
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
-
-          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
-              harness specified gets injected into the environment.
 
           inference_providers: Inference provider settings used for LLM calls.
 
@@ -492,10 +456,8 @@ class AsyncAgentResource(AsyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=await async_maybe_transform(
                 {
-                    "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
-                    "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,
                     "name": name,

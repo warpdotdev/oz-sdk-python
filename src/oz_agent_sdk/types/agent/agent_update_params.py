@@ -7,23 +7,10 @@ from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = [
-    "AgentUpdateParams",
-    "HarnessAuthSecrets",
-    "InferenceProviders",
-    "InferenceProvidersAws",
-    "MemoryStore",
-    "Secret",
-]
+__all__ = ["AgentUpdateParams", "InferenceProviders", "InferenceProvidersAws", "MemoryStore", "Secret"]
 
 
 class AgentUpdateParams(TypedDict, total=False):
-    base_harness: Optional[str]
-    """Replacement default harness.
-
-    Omit or pass `null` to leave unchanged, or pass an empty string to clear.
-    """
-
     base_model: Optional[str]
     """Replacement base model.
 
@@ -34,12 +21,6 @@ class AgentUpdateParams(TypedDict, total=False):
     """Replacement description.
 
     Omit or pass `null` to leave unchanged, or use an empty value to clear.
-    """
-
-    harness_auth_secrets: Optional[HarnessAuthSecrets]
-    """
-    Authentication secrets for third-party harnesses. Only the secret for the
-    harness specified gets injected into the environment.
     """
 
     inference_providers: Optional[InferenceProviders]
@@ -73,20 +54,6 @@ class AgentUpdateParams(TypedDict, total=False):
 
     Omit to leave unchanged, pass an empty array to clear, or pass a non-empty array
     to replace.
-    """
-
-
-class HarnessAuthSecrets(TypedDict, total=False):
-    """
-    Authentication secrets for third-party harnesses.
-    Only the secret for the harness specified gets injected into the environment.
-    """
-
-    claude_auth_secret_name: str
-    """
-    Name of a managed secret for Claude Code harness authentication. The secret must
-    exist within the caller's personal or team scope. Only applicable when harness
-    type is "claude".
     """
 
 

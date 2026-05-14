@@ -88,7 +88,7 @@ class SchedulesResource(SyncAPIResource):
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
           prompt: The prompt/instruction for the agent to execute. Required unless
-              agent_config.skill_spec is provided.
+              agent_config.skill_spec or agent_config.skills is provided.
 
           team: Whether to create a team-owned schedule. Defaults to true for users on a single
               team.
@@ -195,7 +195,7 @@ class SchedulesResource(SyncAPIResource):
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
           prompt: The prompt/instruction for the agent to execute. Required unless
-              agent_config.skill_spec is provided.
+              agent_config.skill_spec or agent_config.skills is provided.
 
           extra_headers: Send extra headers
 
@@ -416,7 +416,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
           prompt: The prompt/instruction for the agent to execute. Required unless
-              agent_config.skill_spec is provided.
+              agent_config.skill_spec or agent_config.skills is provided.
 
           team: Whether to create a team-owned schedule. Defaults to true for users on a single
               team.
@@ -523,7 +523,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
           prompt: The prompt/instruction for the agent to execute. Required unless
-              agent_config.skill_spec is provided.
+              agent_config.skill_spec or agent_config.skills is provided.
 
           extra_headers: Send extra headers
 

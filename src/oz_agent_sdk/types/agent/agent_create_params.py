@@ -7,18 +7,34 @@ from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
 
-__all__ = ["AgentCreateParams", "InferenceProviders", "InferenceProvidersAws", "MemoryStore", "Secret"]
+__all__ = [
+    "AgentCreateParams",
+    "HarnessAuthSecrets",
+    "InferenceProviders",
+    "InferenceProvidersAws",
+    "MemoryStore",
+    "Secret",
+]
 
 
 class AgentCreateParams(TypedDict, total=False):
     name: Required[str]
     """A name for the agent"""
 
+    base_harness: Optional[str]
+    """Optional default harness for runs executed by this agent."""
+
     base_model: Optional[str]
     """Optional base model for runs executed by this agent."""
 
     description: Optional[str]
     """Optional description of the agent"""
+
+    harness_auth_secrets: HarnessAuthSecrets
+    """
+    Authentication secrets for third-party harnesses. Only the secret for the
+    harness specified gets injected into the environment.
+    """
 
     inference_providers: InferenceProviders
     """Inference provider settings used for LLM calls."""
@@ -47,6 +63,27 @@ class AgentCreateParams(TypedDict, total=False):
     "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"). Each spec is validated
     and normalized at attach time using the team's GitHub credentials; inaccessible
     or malformed specs are rejected.
+    """
+
+
+class HarnessAuthSecrets(TypedDict, total=False):
+    """
+    Authentication secrets for third-party harnesses.
+    Only the secret for the harness specified gets injected into the environment.
+    """
+
+    claude_auth_secret_name: str
+    """
+    Name of a managed secret for Claude Code harness authentication. The secret must
+    exist within the caller's personal or team scope. Only applicable when harness
+    type is "claude".
+    """
+
+    codex_auth_secret_name: str
+    """
+    Name of a managed secret for Codex harness authentication. The secret must exist
+    within the caller's personal or team scope. Only applicable when harness type is
+    "codex".
     """
 
 

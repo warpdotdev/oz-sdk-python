@@ -53,6 +53,7 @@ class AgentResource(SyncAPIResource):
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
@@ -79,6 +80,9 @@ class AgentResource(SyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          environment_id: Optional default cloud environment ID for runs executed by this agent. The
+              environment must be owned by the same team as the agent.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -118,6 +122,7 @@ class AgentResource(SyncAPIResource):
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,
@@ -140,6 +145,7 @@ class AgentResource(SyncAPIResource):
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
@@ -167,6 +173,9 @@ class AgentResource(SyncAPIResource):
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
+
+          environment_id: Replacement default cloud environment ID. Omit or pass `null` to leave
+              unchanged, or pass an empty string to clear.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -204,6 +213,7 @@ class AgentResource(SyncAPIResource):
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,
@@ -344,6 +354,7 @@ class AsyncAgentResource(AsyncAPIResource):
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
@@ -370,6 +381,9 @@ class AsyncAgentResource(AsyncAPIResource):
           base_model: Optional base model for runs executed by this agent.
 
           description: Optional description of the agent
+
+          environment_id: Optional default cloud environment ID for runs executed by this agent. The
+              environment must be owned by the same team as the agent.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -409,6 +423,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,
@@ -431,6 +446,7 @@ class AsyncAgentResource(AsyncAPIResource):
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
@@ -458,6 +474,9 @@ class AsyncAgentResource(AsyncAPIResource):
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
+
+          environment_id: Replacement default cloud environment ID. Omit or pass `null` to leave
+              unchanged, or pass an empty string to clear.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -495,6 +514,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "memory_stores": memory_stores,

@@ -302,7 +302,7 @@ class AgentResource(SyncAPIResource):
               hierarchies.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
-              specified via the skill field, config.skill_spec, or config.skills.
+              specified via the skill field or config.skill_spec.
 
           skill:
               Skill specification to use as the base prompt for the agent. Supported formats:
@@ -593,7 +593,7 @@ class AsyncAgentResource(AsyncAPIResource):
               hierarchies.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
-              specified via the skill field, config.skill_spec, or config.skills.
+              specified via the skill field or config.skill_spec.
 
           skill:
               Skill specification to use as the base prompt for the agent. Supported formats:

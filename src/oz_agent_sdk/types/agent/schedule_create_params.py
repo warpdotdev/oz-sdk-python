@@ -41,7 +41,7 @@ class ScheduleCreateParams(TypedDict, total=False):
     prompt: str
     """
     The prompt/instruction for the agent to execute. Required unless
-    agent_config.skill_spec or agent_config.skills is provided.
+    agent_config.skill_spec is provided.
     """
 
     team: bool

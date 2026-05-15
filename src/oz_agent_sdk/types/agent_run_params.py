@@ -55,7 +55,7 @@ class AgentRunParams(TypedDict, total=False):
     prompt: str
     """
     The prompt/instruction for the agent to execute. Required unless a skill is
-    specified via the skill field or config.skill_spec.
+    specified via the skill field, config.skill_spec, or config.skills.
     """
 
     skill: str

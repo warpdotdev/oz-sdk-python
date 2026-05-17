@@ -177,20 +177,10 @@ class AmbientAgentConfig(BaseModel):
 
     skill_spec: Optional[str] = None
     """
-    Skill specification identifying the primary agent skill to use. Format:
+    Skill specification identifying which agent skill to use. Format:
     "{owner}/{repo}:{skill_path}" Example:
-    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Mutually exclusive with
-    skills in create/update requests. Responses include the first skills entry here
-    for backward compatibility. Use the list agents endpoint to discover available
-    skills.
-    """
-
-    skills: Optional[List[str]] = None
-    """
-    Ordered skill specifications to attach to the run. Format:
-    "{owner}/{repo}:{skill_path}" Example:
-    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Mutually exclusive with
-    skill_spec in create/update requests.
+    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Use the list agents
+    endpoint to discover available skills.
     """
 
     worker_host: Optional[str] = None

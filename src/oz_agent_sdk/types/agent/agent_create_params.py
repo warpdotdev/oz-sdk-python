@@ -30,12 +30,6 @@ class AgentCreateParams(TypedDict, total=False):
     description: Optional[str]
     """Optional description of the agent"""
 
-    environment_id: Optional[str]
-    """
-    Optional default cloud environment ID for runs executed by this agent. The
-    environment must be owned by the same team as the agent.
-    """
-
     harness_auth_secrets: HarnessAuthSecrets
     """
     Authentication secrets for third-party harnesses. Only the secret for the

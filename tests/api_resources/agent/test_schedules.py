@@ -49,6 +49,7 @@ class TestSchedules:
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
+                        "region": "region",
                         "role_arn": "role_arn",
                     }
                 },
@@ -185,6 +186,7 @@ class TestSchedules:
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
+                        "region": "region",
                         "role_arn": "role_arn",
                     }
                 },
@@ -448,6 +450,7 @@ class TestAsyncSchedules:
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
+                        "region": "region",
                         "role_arn": "role_arn",
                     }
                 },
@@ -584,6 +587,7 @@ class TestAsyncSchedules:
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
+                        "region": "region",
                         "role_arn": "role_arn",
                     }
                 },

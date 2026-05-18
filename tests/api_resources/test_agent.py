@@ -170,6 +170,7 @@ class TestAgent:
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
+                        "region": "region",
                         "role_arn": "role_arn",
                     }
                 },
@@ -383,6 +384,7 @@ class TestAsyncAgent:
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
+                        "region": "region",
                         "role_arn": "role_arn",
                     }
                 },

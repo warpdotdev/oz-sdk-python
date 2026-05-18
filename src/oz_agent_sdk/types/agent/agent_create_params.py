@@ -96,6 +96,9 @@ class InferenceProvidersAws(TypedDict, total=False):
     disabled: bool
     """If true, opt out of Bedrock at this layer."""
 
+    region: str
+    """AWS region used for STS when assuming the Bedrock inference role."""
+
     role_arn: str
     """IAM role ARN to assume when calling Bedrock."""
 

@@ -65,6 +65,9 @@ class InferenceProvidersAws(BaseModel):
     disabled: Optional[bool] = None
     """If true, opt out of Bedrock at this layer."""
 
+    region: Optional[str] = None
+    """AWS region used for STS when assuming the Bedrock inference role."""
+
     role_arn: Optional[str] = None
     """IAM role ARN to assume when calling Bedrock."""
 

@@ -131,6 +131,16 @@ class AgentResponse(BaseModel):
     description: Optional[str] = None
     """Optional description of the agent"""
 
+    environment_id: Optional[str] = None
+    """Default cloud environment ID for runs executed by this agent.
+
+    The precedence order for environment resolution is:
+
+    1. The environment specified on the run itself
+    2. The agent's default environment
+    3. An empty environment
+    """
+
     harness_auth_secrets: Optional[HarnessAuthSecrets] = None
     """
     Authentication secrets for third-party harnesses. Only the secret for the

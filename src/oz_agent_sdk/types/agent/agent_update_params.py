@@ -36,6 +36,12 @@ class AgentUpdateParams(TypedDict, total=False):
     Omit or pass `null` to leave unchanged, or use an empty value to clear.
     """
 
+    environment_id: Optional[str]
+    """Replacement default cloud environment ID.
+
+    Omit or pass `null` to leave unchanged, or pass an empty string to clear.
+    """
+
     harness_auth_secrets: Optional[HarnessAuthSecrets]
     """
     Authentication secrets for third-party harnesses. Only the secret for the

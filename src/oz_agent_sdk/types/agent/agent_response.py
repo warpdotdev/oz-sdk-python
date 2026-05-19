@@ -108,9 +108,6 @@ class AgentResponse(BaseModel):
     uid: str
     """Unique identifier for the agent"""
 
-    updated_at: datetime
-    """When the agent was last updated (RFC3339)"""
-
     base_harness: Optional[str] = None
     """Default harness for runs executed by this agent.
 

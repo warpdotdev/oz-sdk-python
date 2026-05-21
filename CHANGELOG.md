@@ -1,5 +1,40 @@
 # Changelog
 
+## 0.13.0 (2026-05-21)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* Add default harness selection for agents ([8cd06f6](https://github.com/warpdotdev/oz-sdk-python/commit/8cd06f6fcb48444e3861ff130d2fb4fa820e3aa7))
+* Add per-agent AWS Bedrock OIDC inference role (backend) ([e4aadec](https://github.com/warpdotdev/oz-sdk-python/commit/e4aadec916b2bea7e05e0e263b307449002e7f8b))
+* Add updated_at to agent API responses ([3188420](https://github.com/warpdotdev/oz-sdk-python/commit/318842095218a12c5b3ed1d945941e74ca5c9d54))
+* **agents:** add prompt property to agent identity data model ([520c835](https://github.com/warpdotdev/oz-sdk-python/commit/520c8350b5b7850242adc082fe83a7ae666e6da6))
+* **api:** api update ([b8306ad](https://github.com/warpdotdev/oz-sdk-python/commit/b8306ad8aff3c8e83f3c9549a8d78a1dfe22e7f5))
+* **api:** api update ([a66cdc2](https://github.com/warpdotdev/oz-sdk-python/commit/a66cdc2b99686872998efe8592b21bb14c6320cc))
+* **api:** api update ([da1ee9c](https://github.com/warpdotdev/oz-sdk-python/commit/da1ee9c25078cfbf6fb34e6e3afd09edcfe6b76b))
+* **api:** api update ([32f77e1](https://github.com/warpdotdev/oz-sdk-python/commit/32f77e19c7bd30dbeacb84ce95f5e487a7c9debf))
+* **api:** api update ([7ec4ab4](https://github.com/warpdotdev/oz-sdk-python/commit/7ec4ab432f4a3e6494d29d7db0b9bf3a08ba0885))
+* **api:** api update ([c05564a](https://github.com/warpdotdev/oz-sdk-python/commit/c05564aa69ba70685b6778859b0574f1d2d69a33))
+* **api:** api update ([0976362](https://github.com/warpdotdev/oz-sdk-python/commit/09763624c5e172aa28fa43ed18bc0e391c04331d))
+* **api:** api update ([96d640c](https://github.com/warpdotdev/oz-sdk-python/commit/96d640cd68290e1a915fca51a8629cf9dab4d81d))
+* **api:** api update ([2730eea](https://github.com/warpdotdev/oz-sdk-python/commit/2730eea19d91df998de5ef1b5da4989670a5889a))
+* **api:** api update ([af81ef3](https://github.com/warpdotdev/oz-sdk-python/commit/af81ef3a2d48f378209cf69a3074997cb02b1b6c))
+* **api:** api update ([99b2d31](https://github.com/warpdotdev/oz-sdk-python/commit/99b2d31ba1a4c2c3d79fc11c5eb8d611c55613b8))
+* Codex auth: API key support. ([cb84f0c](https://github.com/warpdotdev/oz-sdk-python/commit/cb84f0c6c9625d8c0657c728d5fadae065eb37c9))
+* **internal/types:** support eagerly validating pydantic iterators ([a588f0e](https://github.com/warpdotdev/oz-sdk-python/commit/a588f0e5ba27503659b5abf01d0ebc01f652950d))
+* **memory:** agent identity memory store attachments — API layer ([94b5348](https://github.com/warpdotdev/oz-sdk-python/commit/94b5348152c6b0bfb03b0d3887366c4a65e397fb))
+* **memory:** wire memory stores into run pipeline and add listing endpoint ([6bb74c2](https://github.com/warpdotdev/oz-sdk-python/commit/6bb74c2b695cd268fe8466fc6099f082370ba54e))
+* Partial support for multiple skills per run ([e39df48](https://github.com/warpdotdev/oz-sdk-python/commit/e39df4831329c75d13b7638a2edc146a0a2f57a1))
+* Resolve Bedrock region server-side and ship as AWS_REGION ([cef2591](https://github.com/warpdotdev/oz-sdk-python/commit/cef25915ca886a87aa5d567d1e3001ca746c8960))
+* Retrieve memories in third party harnesses ([7689e12](https://github.com/warpdotdev/oz-sdk-python/commit/7689e121d6f22efad3d81828721f8ed900b9cd28))
+* Support service account impersonation in GCP Workload Identity Federation config ([6df1722](https://github.com/warpdotdev/oz-sdk-python/commit/6df1722325b8c96d7655348e75bd82980e2bd055))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([17a8e5b](https://github.com/warpdotdev/oz-sdk-python/commit/17a8e5bf17b882a440a067fee1569caf679f8b55))
+
 ## 0.12.0 (2026-05-07)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.11.0...v0.12.0)

@@ -162,8 +162,18 @@ class TestAgent:
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "harness": {"type": "oz"},
-                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
+                "harness_auth_secrets": {
+                    "claude_auth_secret_name": "claude_auth_secret_name",
+                    "codex_auth_secret_name": "codex_auth_secret_name",
+                },
                 "idle_timeout_minutes": 1,
+                "inference_providers": {
+                    "aws": {
+                        "disabled": True,
+                        "region": "region",
+                        "role_arn": "role_arn",
+                    }
+                },
                 "mcp_servers": {
                     "foo": {
                         "args": ["string"],
@@ -174,10 +184,18 @@ class TestAgent:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
+                "skills": ["string"],
                 "worker_host": "worker_host",
             },
             conversation_id="conversation_id",
@@ -359,8 +377,18 @@ class TestAsyncAgent:
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
                 "harness": {"type": "oz"},
-                "harness_auth_secrets": {"claude_auth_secret_name": "claude_auth_secret_name"},
+                "harness_auth_secrets": {
+                    "claude_auth_secret_name": "claude_auth_secret_name",
+                    "codex_auth_secret_name": "codex_auth_secret_name",
+                },
                 "idle_timeout_minutes": 1,
+                "inference_providers": {
+                    "aws": {
+                        "disabled": True,
+                        "region": "region",
+                        "role_arn": "role_arn",
+                    }
+                },
                 "mcp_servers": {
                     "foo": {
                         "args": ["string"],
@@ -371,10 +399,18 @@ class TestAsyncAgent:
                         "warp_id": "warp_id",
                     }
                 },
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
                 "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
+                "skills": ["string"],
                 "worker_host": "worker_host",
             },
             conversation_id="conversation_id",

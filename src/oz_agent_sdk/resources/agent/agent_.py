@@ -50,7 +50,14 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         name: str,
+        base_harness: Optional[str] | Omit = omit,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
+        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
+        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -68,7 +75,25 @@ class AgentResource(SyncAPIResource):
         Args:
           name: A name for the agent
 
+          base_harness: Optional default harness for runs executed by this agent.
+
+          base_model: Optional base model for runs executed by this agent.
+
           description: Optional description of the agent
+
+          environment_id: Optional default cloud environment ID for runs executed by this agent. The
+              environment must be owned by the same team as the agent.
+
+          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
+              harness specified gets injected into the environment.
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
+              team-owned by the same team as the agent. Duplicate UIDs within a single request
+              are rejected.
+
+          prompt: Optional base prompt for this agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
               single request are rejected. Each entry is unioned into the run-time secret
@@ -94,7 +119,14 @@ class AgentResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
+                    "base_harness": base_harness,
+                    "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
+                    "harness_auth_secrets": harness_auth_secrets,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -110,8 +142,15 @@ class AgentResource(SyncAPIResource):
         self,
         uid: str,
         *,
+        base_harness: Optional[str] | Omit = omit,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
+        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
+        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -124,12 +163,32 @@ class AgentResource(SyncAPIResource):
         """Update an existing agent.
 
         Args:
-          description: Replacement description.
+          base_harness: Replacement default harness.
 
-        Omit or pass `null` to leave unchanged, or use an empty
+        Omit or pass `null` to leave unchanged, or pass an
+              empty string to clear.
+
+          base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
+              string to clear.
+
+          description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
+          environment_id: Replacement default cloud environment ID. Omit or pass `null` to leave
+              unchanged, or pass an empty string to clear.
+
+          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
+              harness specified gets injected into the environment.
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
+              to clear, or pass a non-empty array to replace.
+
           name: The new name for the agent
+
+          prompt: Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty
+              value to clear.
 
           secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace. Duplicate names are rejected.
@@ -151,8 +210,15 @@ class AgentResource(SyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=maybe_transform(
                 {
+                    "base_harness": base_harness,
+                    "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
+                    "harness_auth_secrets": harness_auth_secrets,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
                     "name": name,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -222,6 +288,42 @@ class AgentResource(SyncAPIResource):
             cast_to=NoneType,
         )
 
+    def get(
+        self,
+        uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentResponse:
+        """Retrieve a single agent by its unique identifier.
+
+        The response includes an
+        `available` flag indicating whether the agent is within the team's plan limit
+        and may be used for runs.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uid:
+            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+        return self._get(
+            path_template("/agent/identities/{uid}", uid=uid),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentResponse,
+        )
+
 
 class AsyncAgentResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
@@ -249,7 +351,14 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         name: str,
+        base_harness: Optional[str] | Omit = omit,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
+        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
+        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -267,7 +376,25 @@ class AsyncAgentResource(AsyncAPIResource):
         Args:
           name: A name for the agent
 
+          base_harness: Optional default harness for runs executed by this agent.
+
+          base_model: Optional base model for runs executed by this agent.
+
           description: Optional description of the agent
+
+          environment_id: Optional default cloud environment ID for runs executed by this agent. The
+              environment must be owned by the same team as the agent.
+
+          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
+              harness specified gets injected into the environment.
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
+              team-owned by the same team as the agent. Duplicate UIDs within a single request
+              are rejected.
+
+          prompt: Optional base prompt for this agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
               single request are rejected. Each entry is unioned into the run-time secret
@@ -293,7 +420,14 @@ class AsyncAgentResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
+                    "base_harness": base_harness,
+                    "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
+                    "harness_auth_secrets": harness_auth_secrets,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -309,8 +443,15 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         uid: str,
         *,
+        base_harness: Optional[str] | Omit = omit,
+        base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
+        environment_id: Optional[str] | Omit = omit,
+        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
+        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
         name: str | Omit = omit,
+        prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -323,12 +464,32 @@ class AsyncAgentResource(AsyncAPIResource):
         """Update an existing agent.
 
         Args:
-          description: Replacement description.
+          base_harness: Replacement default harness.
 
-        Omit or pass `null` to leave unchanged, or use an empty
+        Omit or pass `null` to leave unchanged, or pass an
+              empty string to clear.
+
+          base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
+              string to clear.
+
+          description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
+          environment_id: Replacement default cloud environment ID. Omit or pass `null` to leave
+              unchanged, or pass an empty string to clear.
+
+          harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
+              harness specified gets injected into the environment.
+
+          inference_providers: Inference provider settings used for LLM calls.
+
+          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
+              to clear, or pass a non-empty array to replace.
+
           name: The new name for the agent
+
+          prompt: Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty
+              value to clear.
 
           secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace. Duplicate names are rejected.
@@ -350,8 +511,15 @@ class AsyncAgentResource(AsyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=await async_maybe_transform(
                 {
+                    "base_harness": base_harness,
+                    "base_model": base_model,
                     "description": description,
+                    "environment_id": environment_id,
+                    "harness_auth_secrets": harness_auth_secrets,
+                    "inference_providers": inference_providers,
+                    "memory_stores": memory_stores,
                     "name": name,
+                    "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
                 },
@@ -421,6 +589,42 @@ class AsyncAgentResource(AsyncAPIResource):
             cast_to=NoneType,
         )
 
+    async def get(
+        self,
+        uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentResponse:
+        """Retrieve a single agent by its unique identifier.
+
+        The response includes an
+        `available` flag indicating whether the agent is within the team's plan limit
+        and may be used for runs.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not uid:
+            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+        return await self._get(
+            path_template("/agent/identities/{uid}", uid=uid),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentResponse,
+        )
+
 
 class AgentResourceWithRawResponse:
     def __init__(self, agent: AgentResource) -> None:
@@ -437,6 +641,9 @@ class AgentResourceWithRawResponse:
         )
         self.delete = to_raw_response_wrapper(
             agent.delete,
+        )
+        self.get = to_raw_response_wrapper(
+            agent.get,
         )
 
 
@@ -456,6 +663,9 @@ class AsyncAgentResourceWithRawResponse:
         self.delete = async_to_raw_response_wrapper(
             agent.delete,
         )
+        self.get = async_to_raw_response_wrapper(
+            agent.get,
+        )
 
 
 class AgentResourceWithStreamingResponse:
@@ -474,6 +684,9 @@ class AgentResourceWithStreamingResponse:
         self.delete = to_streamed_response_wrapper(
             agent.delete,
         )
+        self.get = to_streamed_response_wrapper(
+            agent.get,
+        )
 
 
 class AsyncAgentResourceWithStreamingResponse:
@@ -491,4 +704,7 @@ class AsyncAgentResourceWithStreamingResponse:
         )
         self.delete = async_to_streamed_response_wrapper(
             agent.delete,
+        )
+        self.get = async_to_streamed_response_wrapper(
+            agent.get,
         )

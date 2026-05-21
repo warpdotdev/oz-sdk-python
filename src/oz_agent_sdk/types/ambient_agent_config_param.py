@@ -2,12 +2,21 @@
 
 from __future__ import annotations
 
-from typing import Dict
-from typing_extensions import Literal, TypedDict
+from typing import Dict, Iterable
+from typing_extensions import Literal, Required, TypedDict
 
+from .._types import SequenceNotStr
 from .mcp_server_config_param import McpServerConfigParam
 
-__all__ = ["AmbientAgentConfigParam", "Harness", "HarnessAuthSecrets", "SessionSharing"]
+__all__ = [
+    "AmbientAgentConfigParam",
+    "Harness",
+    "HarnessAuthSecrets",
+    "InferenceProviders",
+    "InferenceProvidersAws",
+    "MemoryStore",
+    "SessionSharing",
+]
 
 
 class Harness(TypedDict, total=False):
@@ -38,6 +47,49 @@ class HarnessAuthSecrets(TypedDict, total=False):
     exist within the caller's personal or team scope. Only applicable when harness
     type is "claude".
     """
+
+    codex_auth_secret_name: str
+    """
+    Name of a managed secret for Codex harness authentication. The secret must exist
+    within the caller's personal or team scope. Only applicable when harness type is
+    "codex".
+    """
+
+
+class InferenceProvidersAws(TypedDict, total=False):
+    """
+    Configures AWS Bedrock as the LLM inference provider for this
+    agent or run.
+    """
+
+    disabled: bool
+    """If true, opt out of Bedrock at this layer."""
+
+    region: str
+    """AWS region used for STS when assuming the Bedrock inference role."""
+
+    role_arn: str
+    """IAM role ARN to assume when calling Bedrock."""
+
+
+class InferenceProviders(TypedDict, total=False):
+    """Inference provider settings used for LLM calls."""
+
+    aws: InferenceProvidersAws
+    """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
+
+
+class MemoryStore(TypedDict, total=False):
+    """Reference to a memory store to attach to an agent."""
+
+    access: Required[Literal["read_write", "read_only"]]
+    """Access level for the store."""
+
+    instructions: Required[str]
+    """Instructions for how the agent should use this memory store. Must not be empty."""
+
+    uid: Required[str]
+    """UID of the memory store."""
 
 
 class SessionSharing(TypedDict, total=False):
@@ -96,8 +148,14 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     floor(max_instance_runtime_seconds / 60) for your billing tier).
     """
 
+    inference_providers: InferenceProviders
+    """Inference provider settings used for LLM calls."""
+
     mcp_servers: Dict[str, McpServerConfigParam]
     """Map of MCP server configurations by name"""
+
+    memory_stores: Iterable[MemoryStore]
+    """Memory stores to attach to this run."""
 
     model_id: str
     """LLM model to use (uses team default if not specified)"""
@@ -122,10 +180,20 @@ class AmbientAgentConfigParam(TypedDict, total=False):
 
     skill_spec: str
     """
-    Skill specification identifying which agent skill to use. Format:
+    Skill specification identifying the primary agent skill to use. Format:
     "{owner}/{repo}:{skill_path}" Example:
-    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Use the list agents
-    endpoint to discover available skills.
+    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Mutually exclusive with
+    skills in create/update requests. Responses include the first skills entry here
+    for backward compatibility. Use the list agents endpoint to discover available
+    skills.
+    """
+
+    skills: SequenceNotStr[str]
+    """
+    Ordered skill specifications to attach to the run. Format:
+    "{owner}/{repo}:{skill_path}" Example:
+    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Mutually exclusive with
+    skill_spec in create/update requests.
     """
 
     worker_host: str

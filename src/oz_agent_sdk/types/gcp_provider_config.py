@@ -1,7 +1,5 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
-
 from .._models import BaseModel
 
 __all__ = ["GcpProviderConfig"]
@@ -18,6 +16,3 @@ class GcpProviderConfig(BaseModel):
 
     workload_identity_federation_provider_id: str
     """Workload Identity Federation provider ID"""
-
-    service_account_email: Optional[str] = None
-    """Optional GCP service account email to impersonate"""

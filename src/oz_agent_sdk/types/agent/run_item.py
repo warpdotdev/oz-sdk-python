@@ -182,6 +182,12 @@ class RunItem(BaseModel):
     request_usage: Optional[RequestUsage] = None
     """Resource usage information for the run"""
 
+    run_time: Optional[str] = None
+    """Total runtime as an ISO 8601 duration (e.g.
+
+    "PT2M30S"), computed server-side from run executions.
+    """
+
     schedule: Optional[Schedule] = None
     """
     Information about the schedule that triggered this run (only present for

@@ -209,6 +209,7 @@ class TestRuns:
     def test_method_submit_followup(self, client: OzAPI) -> None:
         run = client.agent.runs.submit_followup(
             run_id="runId",
+            message="message",
         )
         assert_matches_type(object, run, path=["response"])
 
@@ -227,6 +228,7 @@ class TestRuns:
     def test_raw_response_submit_followup(self, client: OzAPI) -> None:
         response = client.agent.runs.with_raw_response.submit_followup(
             run_id="runId",
+            message="message",
         )
 
         assert response.is_closed is True
@@ -239,6 +241,7 @@ class TestRuns:
     def test_streaming_response_submit_followup(self, client: OzAPI) -> None:
         with client.agent.runs.with_streaming_response.submit_followup(
             run_id="runId",
+            message="message",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -254,6 +257,7 @@ class TestRuns:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.agent.runs.with_raw_response.submit_followup(
                 run_id="",
+                message="message",
             )
 
 
@@ -449,6 +453,7 @@ class TestAsyncRuns:
     async def test_method_submit_followup(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.submit_followup(
             run_id="runId",
+            message="message",
         )
         assert_matches_type(object, run, path=["response"])
 
@@ -467,6 +472,7 @@ class TestAsyncRuns:
     async def test_raw_response_submit_followup(self, async_client: AsyncOzAPI) -> None:
         response = await async_client.agent.runs.with_raw_response.submit_followup(
             run_id="runId",
+            message="message",
         )
 
         assert response.is_closed is True
@@ -479,6 +485,7 @@ class TestAsyncRuns:
     async def test_streaming_response_submit_followup(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.runs.with_streaming_response.submit_followup(
             run_id="runId",
+            message="message",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -494,4 +501,5 @@ class TestAsyncRuns:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.submit_followup(
                 run_id="",
+                message="message",
             )

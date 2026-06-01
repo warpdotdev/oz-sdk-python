@@ -275,10 +275,10 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Alias for POST /agent/run.
+        """Spawn a cloud agent with a prompt and optional configuration.
 
-        This is the preferred endpoint for creating new agent
-        runs. Behavior is identical to POST /agent/run.
+        The agent will be
+        queued for execution and assigned a unique run ID.
 
         Args:
           agent_identity_uid: Optional agent identity UID to use as the execution principal for the run. This
@@ -566,10 +566,10 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Alias for POST /agent/run.
+        """Spawn a cloud agent with a prompt and optional configuration.
 
-        This is the preferred endpoint for creating new agent
-        runs. Behavior is identical to POST /agent/run.
+        The agent will be
+        queued for execution and assigned a unique run ID.
 
         Args:
           agent_identity_uid: Optional agent identity UID to use as the execution principal for the run. This

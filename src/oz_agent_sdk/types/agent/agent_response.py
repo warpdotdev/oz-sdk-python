@@ -1,10 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
 from ..._models import BaseModel
+from ..mcp_server_config import McpServerConfig
 
 __all__ = [
     "AgentResponse",
@@ -152,6 +153,12 @@ class AgentResponse(BaseModel):
 
     inference_providers: Optional[InferenceProviders] = None
     """Inference provider settings used for LLM calls."""
+
+    mcp_servers: Optional[Dict[str, McpServerConfig]] = None
+    """
+    MCP server configurations attached to this agent by default. Run-level MCP
+    config takes precedence over this agent-level default.
+    """
 
     prompt: Optional[str] = None
     """Optional base prompt for this agent"""

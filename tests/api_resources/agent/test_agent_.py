@@ -48,6 +48,16 @@ class TestAgent:
                     "role_arn": "role_arn",
                 }
             },
+            mcp_servers={
+                "foo": {
+                    "args": ["string"],
+                    "command": "command",
+                    "env": {"foo": "string"},
+                    "headers": {"foo": "string"},
+                    "url": "https://example.com",
+                    "warp_id": "warp_id",
+                }
+            },
             memory_stores=[
                 {
                     "access": "read_write",
@@ -113,6 +123,16 @@ class TestAgent:
                     "disabled": True,
                     "region": "region",
                     "role_arn": "role_arn",
+                }
+            },
+            mcp_servers={
+                "foo": {
+                    "args": ["string"],
+                    "command": "command",
+                    "env": {"foo": "string"},
+                    "headers": {"foo": "string"},
+                    "url": "https://example.com",
+                    "warp_id": "warp_id",
                 }
             },
             memory_stores=[
@@ -309,6 +329,16 @@ class TestAsyncAgent:
                     "role_arn": "role_arn",
                 }
             },
+            mcp_servers={
+                "foo": {
+                    "args": ["string"],
+                    "command": "command",
+                    "env": {"foo": "string"},
+                    "headers": {"foo": "string"},
+                    "url": "https://example.com",
+                    "warp_id": "warp_id",
+                }
+            },
             memory_stores=[
                 {
                     "access": "read_write",
@@ -374,6 +404,16 @@ class TestAsyncAgent:
                     "disabled": True,
                     "region": "region",
                     "role_arn": "role_arn",
+                }
+            },
+            mcp_servers={
+                "foo": {
+                    "args": ["string"],
+                    "command": "command",
+                    "env": {"foo": "string"},
+                    "headers": {"foo": "string"},
+                    "url": "https://example.com",
+                    "warp_id": "warp_id",
                 }
             },
             memory_stores=[

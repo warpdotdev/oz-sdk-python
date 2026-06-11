@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-from typing import Iterable, Optional
+from typing import Dict, Iterable, Optional
 from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
+from ..mcp_server_config_param import McpServerConfigParam
 
 __all__ = [
     "AgentCreateParams",
@@ -44,6 +45,12 @@ class AgentCreateParams(TypedDict, total=False):
 
     inference_providers: InferenceProviders
     """Inference provider settings used for LLM calls."""
+
+    mcp_servers: Dict[str, McpServerConfigParam]
+    """
+    Optional map of MCP server configurations by name to attach to runs executed by
+    this agent. Run-level MCP config takes precedence over this agent-level default.
+    """
 
     memory_stores: Iterable[MemoryStore]
     """

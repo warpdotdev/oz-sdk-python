@@ -41,7 +41,7 @@ Homepage = "https://github.com/warpdotdev/oz-sdk-python"
 Repository = "https://github.com/warpdotdev/oz-sdk-python"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
+aiohttp = ["aiohttp>=3.13.5", "httpx_aiohttp>=0.1.9"]
 
 [tool.uv]
 managed = true

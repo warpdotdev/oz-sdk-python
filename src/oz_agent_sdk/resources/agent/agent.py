@@ -275,10 +275,10 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Alias for POST /agent/run.
+        """Spawn a cloud agent with a prompt and optional configuration.
 
-        This is the preferred endpoint for creating new agent
-        runs. Behavior is identical to POST /agent/run.
+        The agent will be
+        queued for execution and assigned a unique run ID.
 
         Args:
           agent_identity_uid: Optional agent identity UID to use as the execution principal for the run. This
@@ -302,7 +302,8 @@ class AgentResource(SyncAPIResource):
               hierarchies.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
-              specified via the skill field, config.skill_spec, or config.skills.
+              specified via the skill field, config.skill_spec, or config.skills. Handoff
+              requests may omit prompt when conversation_id is set.
 
           skill:
               Skill specification to use as the base prompt for the agent. Supported formats:
@@ -566,10 +567,10 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentRunResponse:
-        """Alias for POST /agent/run.
+        """Spawn a cloud agent with a prompt and optional configuration.
 
-        This is the preferred endpoint for creating new agent
-        runs. Behavior is identical to POST /agent/run.
+        The agent will be
+        queued for execution and assigned a unique run ID.
 
         Args:
           agent_identity_uid: Optional agent identity UID to use as the execution principal for the run. This
@@ -593,7 +594,8 @@ class AsyncAgentResource(AsyncAPIResource):
               hierarchies.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
-              specified via the skill field, config.skill_spec, or config.skills.
+              specified via the skill field, config.skill_spec, or config.skills. Handoff
+              requests may omit prompt when conversation_id is set.
 
           skill:
               Skill specification to use as the base prompt for the agent. Supported formats:

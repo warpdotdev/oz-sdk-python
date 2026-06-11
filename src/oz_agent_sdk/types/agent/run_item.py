@@ -173,6 +173,14 @@ class RunItem(BaseModel):
 
     executor: Optional[UserProfile] = None
 
+    is_run_type_cancellable: Optional[bool] = None
+    """Whether the run's type is eligible for cancellation via the API.
+
+    State-independent: false for GitHub Action and local runs; true for all other
+    run types (including self-hosted). Clients should still gate the control on the
+    run's current state.
+    """
+
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""
 
@@ -181,6 +189,12 @@ class RunItem(BaseModel):
 
     request_usage: Optional[RequestUsage] = None
     """Resource usage information for the run"""
+
+    run_time: Optional[str] = None
+    """Total runtime as an ISO 8601 duration (e.g.
+
+    "PT2M30S"), computed server-side from run executions.
+    """
 
     schedule: Optional[Schedule] = None
     """

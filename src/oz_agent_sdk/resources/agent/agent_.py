@@ -58,7 +58,7 @@ class AgentResource(SyncAPIResource):
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
+        memory: agent_create_params.Memory | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -94,9 +94,7 @@ class AgentResource(SyncAPIResource):
           mcp_servers: Optional map of MCP server configurations by name to attach to runs executed by
               this agent. Run-level MCP config takes precedence over this agent-level default.
 
-          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
-              team-owned by the same team as the agent. Duplicate UIDs within a single request
-              are rejected.
+          memory: Memory settings for creating an agent.
 
           prompt: Optional base prompt for this agent
 
@@ -131,7 +129,7 @@ class AgentResource(SyncAPIResource):
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
+                    "memory": memory,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
@@ -155,7 +153,7 @@ class AgentResource(SyncAPIResource):
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
+        memory: Optional[agent_update_params.Memory] | Omit = omit,
         name: str | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -193,8 +191,7 @@ class AgentResource(SyncAPIResource):
               pass an empty object to clear, or pass a non-empty object to replace. Run-level
               MCP config takes precedence over this agent-level default.
 
-          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
-              to clear, or pass a non-empty array to replace.
+          memory: Memory settings for updating an agent.
 
           name: The new name for the agent
 
@@ -228,7 +225,7 @@ class AgentResource(SyncAPIResource):
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
+                    "memory": memory,
                     "name": name,
                     "prompt": prompt,
                     "secrets": secrets,
@@ -370,7 +367,7 @@ class AsyncAgentResource(AsyncAPIResource):
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
+        memory: agent_create_params.Memory | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -406,9 +403,7 @@ class AsyncAgentResource(AsyncAPIResource):
           mcp_servers: Optional map of MCP server configurations by name to attach to runs executed by
               this agent. Run-level MCP config takes precedence over this agent-level default.
 
-          memory_stores: Optional list of memory stores to attach to the agent. Each store must be
-              team-owned by the same team as the agent. Duplicate UIDs within a single request
-              are rejected.
+          memory: Memory settings for creating an agent.
 
           prompt: Optional base prompt for this agent
 
@@ -443,7 +438,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
+                    "memory": memory,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
@@ -467,7 +462,7 @@ class AsyncAgentResource(AsyncAPIResource):
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
+        memory: Optional[agent_update_params.Memory] | Omit = omit,
         name: str | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
@@ -505,8 +500,7 @@ class AsyncAgentResource(AsyncAPIResource):
               pass an empty object to clear, or pass a non-empty object to replace. Run-level
               MCP config takes precedence over this agent-level default.
 
-          memory_stores: Replacement list of memory stores. Omit to leave unchanged, pass an empty array
-              to clear, or pass a non-empty array to replace.
+          memory: Memory settings for updating an agent.
 
           name: The new name for the agent
 
@@ -540,7 +534,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
+                    "memory": memory,
                     "name": name,
                     "prompt": prompt,
                     "secrets": secrets,

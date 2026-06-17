@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict, Literal
 
 __all__ = ["AgentListParams"]
-
 
 class AgentListParams(TypedDict, total=False):
     include_malformed_skills: bool

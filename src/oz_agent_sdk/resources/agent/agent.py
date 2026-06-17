@@ -2,68 +2,57 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable, cast
-from typing_extensions import Literal
-
 import httpx
 
-from . import agent_ as agent
-from .runs import (
-    RunsResource,
-    AsyncRunsResource,
-    RunsResourceWithRawResponse,
-    AsyncRunsResourceWithRawResponse,
-    RunsResourceWithStreamingResponse,
-    AsyncRunsResourceWithStreamingResponse,
-)
-from ...types import agent_run_params, agent_list_params, agent_list_environments_params
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from .sessions import (
-    SessionsResource,
-    AsyncSessionsResource,
-    SessionsResourceWithRawResponse,
-    AsyncSessionsResourceWithRawResponse,
-    SessionsResourceWithStreamingResponse,
-    AsyncSessionsResourceWithStreamingResponse,
-)
-from ..._compat import cached_property
-from .schedules import (
-    SchedulesResource,
-    AsyncSchedulesResource,
-    SchedulesResourceWithRawResponse,
-    AsyncSchedulesResourceWithRawResponse,
-    SchedulesResourceWithStreamingResponse,
-    AsyncSchedulesResourceWithStreamingResponse,
-)
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from .conversations import (
-    ConversationsResource,
-    AsyncConversationsResource,
-    ConversationsResourceWithRawResponse,
-    AsyncConversationsResourceWithRawResponse,
-    ConversationsResourceWithStreamingResponse,
-    AsyncConversationsResourceWithStreamingResponse,
-)
-from ..._base_client import make_request_options
-from ...types.agent_run_response import AgentRunResponse
+
+from .runs import RunsResource, AsyncRunsResource, RunsResourceWithRawResponse, AsyncRunsResourceWithRawResponse, RunsResourceWithStreamingResponse, AsyncRunsResourceWithStreamingResponse
+
+from ..._compat import cached_property
+
+from .schedules import SchedulesResource, AsyncSchedulesResource, SchedulesResourceWithRawResponse, AsyncSchedulesResourceWithRawResponse, SchedulesResourceWithStreamingResponse, AsyncSchedulesResourceWithStreamingResponse
+
+from .sessions import SessionsResource, AsyncSessionsResource, SessionsResourceWithRawResponse, AsyncSessionsResourceWithRawResponse, SessionsResourceWithStreamingResponse, AsyncSessionsResourceWithStreamingResponse
+
+from .conversations import ConversationsResource, AsyncConversationsResource, ConversationsResourceWithRawResponse, AsyncConversationsResourceWithRawResponse, ConversationsResourceWithStreamingResponse, AsyncConversationsResourceWithStreamingResponse
+
 from ...types.agent_list_response import AgentListResponse
-from ...types.ambient_agent_config_param import AmbientAgentConfigParam
+
+from ..._base_client import make_request_options
+
+from ..._utils import maybe_transform, path_template, async_maybe_transform
+
+from ..._types import Omit, omit, NotGiven
+
+from typing_extensions import Literal
+
 from ...types.agent_get_artifact_response import AgentGetArtifactResponse
+
+from typing import Any, cast, Iterable
+
 from ...types.agent_list_environments_response import AgentListEnvironmentsResponse
+
+from ...types.agent_run_response import AgentRunResponse
+
+from ...types.ambient_agent_config_param import AmbientAgentConfigParam
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from . import agent_ as agent
+
+from ...types import agent_run_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types import agent_list_params
+from ...types import agent_list_environments_params
+from ...types import agent_run_params
+from ...types import AmbientAgentConfig
 
 __all__ = ["AgentResource", "AsyncAgentResource"]
 
-
 class AgentResource(SyncAPIResource):
     """Operations for running and managing cloud agents"""
-
     @cached_property
     def runs(self) -> RunsResource:
         """Operations for running and managing cloud agents"""
@@ -108,20 +97,18 @@ class AgentResource(SyncAPIResource):
         """
         return AgentResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        include_malformed_skills: bool | Omit = omit,
-        refresh: bool | Omit = omit,
-        repo: str | Omit = omit,
-        sort_by: Literal["name", "last_run"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    def list(self,
+    *,
+    include_malformed_skills: bool | Omit = omit,
+    refresh: bool | Omit = omit,
+    repo: str | Omit = omit,
+    sort_by: Literal["name", "last_run"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentListResponse:
         """
         Retrieve a list of available agents (skills) that can be used to run tasks.
         Agents are discovered from environments or a specific repository.
@@ -152,35 +139,24 @@ class AgentResource(SyncAPIResource):
         """
         return self._get(
             "/agent",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "include_malformed_skills": include_malformed_skills,
-                        "refresh": refresh,
-                        "repo": repo,
-                        "sort_by": sort_by,
-                    },
-                    agent_list_params.AgentListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "include_malformed_skills": include_malformed_skills,
+                "refresh": refresh,
+                "repo": repo,
+                "sort_by": sort_by,
+            }, agent_list_params.AgentListParams)),
             cast_to=AgentListResponse,
         )
 
-    def get_artifact(
-        self,
-        artifact_uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentGetArtifactResponse:
+    def get_artifact(self,
+    artifact_uid: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
         For downloadable file-like artifacts, returns
@@ -197,31 +173,24 @@ class AgentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not artifact_uid:
-            raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
-        return cast(
-            AgentGetArtifactResponse,
-            self._get(
-                path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, AgentGetArtifactResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-            ),
-        )
+          raise ValueError(
+            f'Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}'
+          )
+        return cast(AgentGetArtifactResponse, self._get(
+            path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            cast_to=cast(Any, AgentGetArtifactResponse),  # Union types cannot be passed in as arguments in the type system
+        ))
 
-    def list_environments(
-        self,
-        *,
-        sort_by: Literal["name", "last_updated"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListEnvironmentsResponse:
+    def list_environments(self,
+    *,
+    sort_by: Literal["name", "last_updated"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentListEnvironmentsResponse:
         """Retrieve cloud environments accessible to the authenticated principal.
 
         Returns
@@ -244,37 +213,31 @@ class AgentResource(SyncAPIResource):
         """
         return self._get(
             "/agent/environments",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"sort_by": sort_by}, agent_list_environments_params.AgentListEnvironmentsParams),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
+                "sort_by": sort_by
+            }, agent_list_environments_params.AgentListEnvironmentsParams)),
             cast_to=AgentListEnvironmentsResponse,
         )
 
-    def run(
-        self,
-        *,
-        agent_identity_uid: str | Omit = omit,
-        attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
-        config: AmbientAgentConfigParam | Omit = omit,
-        conversation_id: str | Omit = omit,
-        interactive: bool | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
-        parent_run_id: str | Omit = omit,
-        prompt: str | Omit = omit,
-        skill: str | Omit = omit,
-        team: bool | Omit = omit,
-        title: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentRunResponse:
+    def run(self,
+    *,
+    agent_identity_uid: str | Omit = omit,
+    attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
+    config: AmbientAgentConfigParam | Omit = omit,
+    conversation_id: str | Omit = omit,
+    interactive: bool | Omit = omit,
+    mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
+    parent_run_id: str | Omit = omit,
+    prompt: str | Omit = omit,
+    skill: str | Omit = omit,
+    team: bool | Omit = omit,
+    title: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentRunResponse:
         """Spawn a cloud agent with a prompt and optional configuration.
 
         The agent will be
@@ -328,32 +291,25 @@ class AgentResource(SyncAPIResource):
         """
         return self._post(
             "/agent/runs",
-            body=maybe_transform(
-                {
-                    "agent_identity_uid": agent_identity_uid,
-                    "attachments": attachments,
-                    "config": config,
-                    "conversation_id": conversation_id,
-                    "interactive": interactive,
-                    "mode": mode,
-                    "parent_run_id": parent_run_id,
-                    "prompt": prompt,
-                    "skill": skill,
-                    "team": team,
-                    "title": title,
-                },
-                agent_run_params.AgentRunParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "agent_identity_uid": agent_identity_uid,
+                "attachments": attachments,
+                "config": config,
+                "conversation_id": conversation_id,
+                "interactive": interactive,
+                "mode": mode,
+                "parent_run_id": parent_run_id,
+                "prompt": prompt,
+                "skill": skill,
+                "team": team,
+                "title": title,
+            }, agent_run_params.AgentRunParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentRunResponse,
         )
 
-
 class AsyncAgentResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
-
     @cached_property
     def runs(self) -> AsyncRunsResource:
         """Operations for running and managing cloud agents"""
@@ -398,20 +354,18 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return AsyncAgentResourceWithStreamingResponse(self)
 
-    async def list(
-        self,
-        *,
-        include_malformed_skills: bool | Omit = omit,
-        refresh: bool | Omit = omit,
-        repo: str | Omit = omit,
-        sort_by: Literal["name", "last_run"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    async def list(self,
+    *,
+    include_malformed_skills: bool | Omit = omit,
+    refresh: bool | Omit = omit,
+    repo: str | Omit = omit,
+    sort_by: Literal["name", "last_run"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentListResponse:
         """
         Retrieve a list of available agents (skills) that can be used to run tasks.
         Agents are discovered from environments or a specific repository.
@@ -442,35 +396,24 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return await self._get(
             "/agent",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "include_malformed_skills": include_malformed_skills,
-                        "refresh": refresh,
-                        "repo": repo,
-                        "sort_by": sort_by,
-                    },
-                    agent_list_params.AgentListParams,
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "include_malformed_skills": include_malformed_skills,
+                "refresh": refresh,
+                "repo": repo,
+                "sort_by": sort_by,
+            }, agent_list_params.AgentListParams)),
             cast_to=AgentListResponse,
         )
 
-    async def get_artifact(
-        self,
-        artifact_uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentGetArtifactResponse:
+    async def get_artifact(self,
+    artifact_uid: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentGetArtifactResponse:
         """Retrieve an artifact by its UUID.
 
         For downloadable file-like artifacts, returns
@@ -487,31 +430,24 @@ class AsyncAgentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not artifact_uid:
-            raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
-        return cast(
-            AgentGetArtifactResponse,
-            await self._get(
-                path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
-                options=make_request_options(
-                    extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-                ),
-                cast_to=cast(
-                    Any, AgentGetArtifactResponse
-                ),  # Union types cannot be passed in as arguments in the type system
-            ),
-        )
+          raise ValueError(
+            f'Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}'
+          )
+        return cast(AgentGetArtifactResponse, await self._get(
+            path_template("/agent/artifacts/{artifact_uid}", artifact_uid=artifact_uid),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            cast_to=cast(Any, AgentGetArtifactResponse),  # Union types cannot be passed in as arguments in the type system
+        ))
 
-    async def list_environments(
-        self,
-        *,
-        sort_by: Literal["name", "last_updated"] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListEnvironmentsResponse:
+    async def list_environments(self,
+    *,
+    sort_by: Literal["name", "last_updated"] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentListEnvironmentsResponse:
         """Retrieve cloud environments accessible to the authenticated principal.
 
         Returns
@@ -534,39 +470,31 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return await self._get(
             "/agent/environments",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"sort_by": sort_by}, agent_list_environments_params.AgentListEnvironmentsParams
-                ),
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=await async_maybe_transform({
+                "sort_by": sort_by
+            }, agent_list_environments_params.AgentListEnvironmentsParams)),
             cast_to=AgentListEnvironmentsResponse,
         )
 
-    async def run(
-        self,
-        *,
-        agent_identity_uid: str | Omit = omit,
-        attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
-        config: AmbientAgentConfigParam | Omit = omit,
-        conversation_id: str | Omit = omit,
-        interactive: bool | Omit = omit,
-        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
-        parent_run_id: str | Omit = omit,
-        prompt: str | Omit = omit,
-        skill: str | Omit = omit,
-        team: bool | Omit = omit,
-        title: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentRunResponse:
+    async def run(self,
+    *,
+    agent_identity_uid: str | Omit = omit,
+    attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
+    config: AmbientAgentConfigParam | Omit = omit,
+    conversation_id: str | Omit = omit,
+    interactive: bool | Omit = omit,
+    mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
+    parent_run_id: str | Omit = omit,
+    prompt: str | Omit = omit,
+    skill: str | Omit = omit,
+    team: bool | Omit = omit,
+    title: str | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentRunResponse:
         """Spawn a cloud agent with a prompt and optional configuration.
 
         The agent will be
@@ -620,28 +548,22 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return await self._post(
             "/agent/runs",
-            body=await async_maybe_transform(
-                {
-                    "agent_identity_uid": agent_identity_uid,
-                    "attachments": attachments,
-                    "config": config,
-                    "conversation_id": conversation_id,
-                    "interactive": interactive,
-                    "mode": mode,
-                    "parent_run_id": parent_run_id,
-                    "prompt": prompt,
-                    "skill": skill,
-                    "team": team,
-                    "title": title,
-                },
-                agent_run_params.AgentRunParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "agent_identity_uid": agent_identity_uid,
+                "attachments": attachments,
+                "config": config,
+                "conversation_id": conversation_id,
+                "interactive": interactive,
+                "mode": mode,
+                "parent_run_id": parent_run_id,
+                "prompt": prompt,
+                "skill": skill,
+                "team": team,
+                "title": title,
+            }, agent_run_params.AgentRunParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentRunResponse,
         )
-
 
 class AgentResourceWithRawResponse:
     def __init__(self, agent: AgentResource) -> None:
@@ -685,7 +607,6 @@ class AgentResourceWithRawResponse:
         """Operations for running and managing cloud agents"""
         return ConversationsResourceWithRawResponse(self._agent.conversations)
 
-
 class AsyncAgentResourceWithRawResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
         self._agent = agent
@@ -728,7 +649,6 @@ class AsyncAgentResourceWithRawResponse:
         """Operations for running and managing cloud agents"""
         return AsyncConversationsResourceWithRawResponse(self._agent.conversations)
 
-
 class AgentResourceWithStreamingResponse:
     def __init__(self, agent: AgentResource) -> None:
         self._agent = agent
@@ -770,7 +690,6 @@ class AgentResourceWithStreamingResponse:
     def conversations(self) -> ConversationsResourceWithStreamingResponse:
         """Operations for running and managing cloud agents"""
         return ConversationsResourceWithStreamingResponse(self._agent.conversations)
-
 
 class AsyncAgentResourceWithStreamingResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:

@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from datetime import datetime
-
 from .._models import BaseModel
 
-__all__ = ["AgentSkill", "Variant", "VariantEnvironment", "VariantSource"]
+from typing import Optional, List
 
+from datetime import datetime
+
+__all__ = ["AgentSkill", "Variant", "VariantEnvironment", "VariantSource"]
 
 class VariantEnvironment(BaseModel):
     name: str
@@ -14,7 +14,6 @@ class VariantEnvironment(BaseModel):
 
     uid: str
     """Unique identifier for the environment"""
-
 
 class VariantSource(BaseModel):
     name: str
@@ -32,7 +31,6 @@ class VariantSource(BaseModel):
     discovered from self-hosted workers (as opposed to skills from GitHub repos
     linked to environments).
     """
-
 
 class Variant(BaseModel):
     id: str
@@ -61,7 +59,6 @@ class Variant(BaseModel):
 
     last_run_timestamp: Optional[datetime] = None
     """Timestamp of the last time this skill was run (RFC3339)"""
-
 
 class AgentSkill(BaseModel):
     name: str

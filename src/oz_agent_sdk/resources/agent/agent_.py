@@ -2,32 +2,39 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
-from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
-)
-from ...types.agent import agent_create_params, agent_update_params
-from ..._base_client import make_request_options
+
+from ..._compat import cached_property
+
 from ...types.agent.agent_response import AgentResponse
+
+from ..._utils import maybe_transform, path_template, async_maybe_transform
+
+from ..._base_client import make_request_options
+
+from typing import Optional, Dict, Iterable
+
+from ..._types import Omit, omit, SequenceNotStr, NotGiven
+
 from ...types.mcp_server_config_param import McpServerConfigParam
+
 from ...types.agent.list_agent_identities_response import ListAgentIdentitiesResponse
+
+from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
+
+from ...types.agent import agent_create_params, agent_update_params
+
+from typing_extensions import Literal, overload
+from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.agent import agent_create_params
+from ...types.agent import agent_update_params
 
 __all__ = ["AgentResource", "AsyncAgentResource"]
 
-
 class AgentResource(SyncAPIResource):
     """Operations for running and managing cloud agents"""
-
     @cached_property
     def with_raw_response(self) -> AgentResourceWithRawResponse:
         """
@@ -47,28 +54,26 @@ class AgentResource(SyncAPIResource):
         """
         return AgentResourceWithStreamingResponse(self)
 
-    def create(
-        self,
-        *,
-        name: str,
-        base_harness: Optional[str] | Omit = omit,
-        base_model: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        environment_id: Optional[str] | Omit = omit,
-        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
-        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
-        mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        secrets: Iterable[agent_create_params.Secret] | Omit = omit,
-        skills: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
+    def create(self,
+    *,
+    name: str,
+    base_harness: Optional[str] | Omit = omit,
+    base_model: Optional[str] | Omit = omit,
+    description: Optional[str] | Omit = omit,
+    environment_id: Optional[str] | Omit = omit,
+    harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
+    inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+    mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
+    memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
+    prompt: Optional[str] | Omit = omit,
+    secrets: Iterable[agent_create_params.Secret] | Omit = omit,
+    skills: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentResponse:
         """Create a new agent for the caller's team.
 
         Agents can be used as the execution
@@ -121,52 +126,45 @@ class AgentResource(SyncAPIResource):
         """
         return self._post(
             "/agent/identities",
-            body=maybe_transform(
-                {
-                    "name": name,
-                    "base_harness": base_harness,
-                    "base_model": base_model,
-                    "description": description,
-                    "environment_id": environment_id,
-                    "harness_auth_secrets": harness_auth_secrets,
-                    "inference_providers": inference_providers,
-                    "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
-                    "prompt": prompt,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_create_params.AgentCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "name": name,
+                "base_harness": base_harness,
+                "base_model": base_model,
+                "description": description,
+                "environment_id": environment_id,
+                "harness_auth_secrets": harness_auth_secrets,
+                "inference_providers": inference_providers,
+                "mcp_servers": mcp_servers,
+                "memory_stores": memory_stores,
+                "prompt": prompt,
+                "secrets": secrets,
+                "skills": skills,
+            }, agent_create_params.AgentCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentResponse,
         )
 
-    def update(
-        self,
-        uid: str,
-        *,
-        base_harness: Optional[str] | Omit = omit,
-        base_model: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        environment_id: Optional[str] | Omit = omit,
-        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
-        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
-        mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
-        name: str | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
-        skills: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
+    def update(self,
+    uid: str,
+    *,
+    base_harness: Optional[str] | Omit = omit,
+    base_model: Optional[str] | Omit = omit,
+    description: Optional[str] | Omit = omit,
+    environment_id: Optional[str] | Omit = omit,
+    harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
+    inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+    mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
+    memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
+    name: str | Omit = omit,
+    prompt: Optional[str] | Omit = omit,
+    secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
+    skills: Optional[SequenceNotStr[str]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentResponse:
         """Update an existing agent.
 
         Args:
@@ -216,42 +214,37 @@ class AgentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `uid` but received {uid!r}'
+          )
         return self._put(
             path_template("/agent/identities/{uid}", uid=uid),
-            body=maybe_transform(
-                {
-                    "base_harness": base_harness,
-                    "base_model": base_model,
-                    "description": description,
-                    "environment_id": environment_id,
-                    "harness_auth_secrets": harness_auth_secrets,
-                    "inference_providers": inference_providers,
-                    "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
-                    "name": name,
-                    "prompt": prompt,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_update_params.AgentUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=maybe_transform({
+                "base_harness": base_harness,
+                "base_model": base_model,
+                "description": description,
+                "environment_id": environment_id,
+                "harness_auth_secrets": harness_auth_secrets,
+                "inference_providers": inference_providers,
+                "mcp_servers": mcp_servers,
+                "memory_stores": memory_stores,
+                "name": name,
+                "prompt": prompt,
+                "secrets": secrets,
+                "skills": skills,
+            }, agent_update_params.AgentUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentResponse,
         )
 
-    def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ListAgentIdentitiesResponse:
+    def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ListAgentIdentitiesResponse:
         """List all agents for the caller's team.
 
         Each agent includes an `available` flag
@@ -259,23 +252,19 @@ class AgentResource(SyncAPIResource):
         """
         return self._get(
             "/agent/identities",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ListAgentIdentitiesResponse,
         )
 
-    def delete(
-        self,
-        uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    def delete(self,
+    uid: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """Delete an agent.
 
         All API keys associated with the agent are deleted atomically.
@@ -290,27 +279,25 @@ class AgentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `uid` but received {uid!r}'
+          )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._delete(
             path_template("/agent/identities/{uid}", uid=uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    def get(
-        self,
-        uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
+    def get(self,
+    uid: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentResponse:
         """Retrieve a single agent by its unique identifier.
 
         The response includes an
@@ -327,19 +314,17 @@ class AgentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `uid` but received {uid!r}'
+          )
         return self._get(
             path_template("/agent/identities/{uid}", uid=uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentResponse,
         )
 
-
 class AsyncAgentResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
-
     @cached_property
     def with_raw_response(self) -> AsyncAgentResourceWithRawResponse:
         """
@@ -359,28 +344,26 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return AsyncAgentResourceWithStreamingResponse(self)
 
-    async def create(
-        self,
-        *,
-        name: str,
-        base_harness: Optional[str] | Omit = omit,
-        base_model: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        environment_id: Optional[str] | Omit = omit,
-        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
-        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
-        mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        secrets: Iterable[agent_create_params.Secret] | Omit = omit,
-        skills: SequenceNotStr[str] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
+    async def create(self,
+    *,
+    name: str,
+    base_harness: Optional[str] | Omit = omit,
+    base_model: Optional[str] | Omit = omit,
+    description: Optional[str] | Omit = omit,
+    environment_id: Optional[str] | Omit = omit,
+    harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
+    inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+    mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
+    memory_stores: Iterable[agent_create_params.MemoryStore] | Omit = omit,
+    prompt: Optional[str] | Omit = omit,
+    secrets: Iterable[agent_create_params.Secret] | Omit = omit,
+    skills: SequenceNotStr[str] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentResponse:
         """Create a new agent for the caller's team.
 
         Agents can be used as the execution
@@ -433,52 +416,45 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return await self._post(
             "/agent/identities",
-            body=await async_maybe_transform(
-                {
-                    "name": name,
-                    "base_harness": base_harness,
-                    "base_model": base_model,
-                    "description": description,
-                    "environment_id": environment_id,
-                    "harness_auth_secrets": harness_auth_secrets,
-                    "inference_providers": inference_providers,
-                    "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
-                    "prompt": prompt,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_create_params.AgentCreateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "name": name,
+                "base_harness": base_harness,
+                "base_model": base_model,
+                "description": description,
+                "environment_id": environment_id,
+                "harness_auth_secrets": harness_auth_secrets,
+                "inference_providers": inference_providers,
+                "mcp_servers": mcp_servers,
+                "memory_stores": memory_stores,
+                "prompt": prompt,
+                "secrets": secrets,
+                "skills": skills,
+            }, agent_create_params.AgentCreateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentResponse,
         )
 
-    async def update(
-        self,
-        uid: str,
-        *,
-        base_harness: Optional[str] | Omit = omit,
-        base_model: Optional[str] | Omit = omit,
-        description: Optional[str] | Omit = omit,
-        environment_id: Optional[str] | Omit = omit,
-        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
-        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
-        mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
-        memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
-        name: str | Omit = omit,
-        prompt: Optional[str] | Omit = omit,
-        secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
-        skills: Optional[SequenceNotStr[str]] | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
+    async def update(self,
+    uid: str,
+    *,
+    base_harness: Optional[str] | Omit = omit,
+    base_model: Optional[str] | Omit = omit,
+    description: Optional[str] | Omit = omit,
+    environment_id: Optional[str] | Omit = omit,
+    harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
+    inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+    mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
+    memory_stores: Optional[Iterable[agent_update_params.MemoryStore]] | Omit = omit,
+    name: str | Omit = omit,
+    prompt: Optional[str] | Omit = omit,
+    secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
+    skills: Optional[SequenceNotStr[str]] | Omit = omit,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentResponse:
         """Update an existing agent.
 
         Args:
@@ -528,42 +504,37 @@ class AsyncAgentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `uid` but received {uid!r}'
+          )
         return await self._put(
             path_template("/agent/identities/{uid}", uid=uid),
-            body=await async_maybe_transform(
-                {
-                    "base_harness": base_harness,
-                    "base_model": base_model,
-                    "description": description,
-                    "environment_id": environment_id,
-                    "harness_auth_secrets": harness_auth_secrets,
-                    "inference_providers": inference_providers,
-                    "mcp_servers": mcp_servers,
-                    "memory_stores": memory_stores,
-                    "name": name,
-                    "prompt": prompt,
-                    "secrets": secrets,
-                    "skills": skills,
-                },
-                agent_update_params.AgentUpdateParams,
-            ),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            body=await async_maybe_transform({
+                "base_harness": base_harness,
+                "base_model": base_model,
+                "description": description,
+                "environment_id": environment_id,
+                "harness_auth_secrets": harness_auth_secrets,
+                "inference_providers": inference_providers,
+                "mcp_servers": mcp_servers,
+                "memory_stores": memory_stores,
+                "name": name,
+                "prompt": prompt,
+                "secrets": secrets,
+                "skills": skills,
+            }, agent_update_params.AgentUpdateParams),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentResponse,
         )
 
-    async def list(
-        self,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> ListAgentIdentitiesResponse:
+    async def list(self,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> ListAgentIdentitiesResponse:
         """List all agents for the caller's team.
 
         Each agent includes an `available` flag
@@ -571,23 +542,19 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return await self._get(
             "/agent/identities",
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=ListAgentIdentitiesResponse,
         )
 
-    async def delete(
-        self,
-        uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> None:
+    async def delete(self,
+    uid: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> None:
         """Delete an agent.
 
         All API keys associated with the agent are deleted atomically.
@@ -602,27 +569,25 @@ class AsyncAgentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `uid` but received {uid!r}'
+          )
         extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._delete(
             path_template("/agent/identities/{uid}", uid=uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=NoneType,
         )
 
-    async def get(
-        self,
-        uid: str,
-        *,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentResponse:
+    async def get(self,
+    uid: str,
+    *,
+    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+    # The extra values given here take precedence over values defined on the client or passed to this method.
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AgentResponse:
         """Retrieve a single agent by its unique identifier.
 
         The response includes an
@@ -639,15 +604,14 @@ class AsyncAgentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not uid:
-            raise ValueError(f"Expected a non-empty value for `uid` but received {uid!r}")
+          raise ValueError(
+            f'Expected a non-empty value for `uid` but received {uid!r}'
+          )
         return await self._get(
             path_template("/agent/identities/{uid}", uid=uid),
-            options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
-            ),
+            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
             cast_to=AgentResponse,
         )
-
 
 class AgentResourceWithRawResponse:
     def __init__(self, agent: AgentResource) -> None:
@@ -669,7 +633,6 @@ class AgentResourceWithRawResponse:
             agent.get,
         )
 
-
 class AsyncAgentResourceWithRawResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
         self._agent = agent
@@ -690,7 +653,6 @@ class AsyncAgentResourceWithRawResponse:
             agent.get,
         )
 
-
 class AgentResourceWithStreamingResponse:
     def __init__(self, agent: AgentResource) -> None:
         self._agent = agent
@@ -710,7 +672,6 @@ class AgentResourceWithStreamingResponse:
         self.get = to_streamed_response_wrapper(
             agent.get,
         )
-
 
 class AsyncAgentResourceWithStreamingResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:

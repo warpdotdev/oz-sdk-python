@@ -1,27 +1,34 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from ..._models import BaseModel
+
+from typing import Optional, List
+
+from ..error_code import ErrorCode
+
 from datetime import datetime
+
+from .run_state import RunState
+
+from ..ambient_agent_config import AmbientAgentConfig
+
+from .artifact_item import ArtifactItem
+
+from ..user_profile import UserProfile
+
 from typing_extensions import Literal
 
 from ..scope import Scope
-from ..._models import BaseModel
-from .run_state import RunState
-from ..error_code import ErrorCode
-from ..user_profile import UserProfile
-from .artifact_item import ArtifactItem
+
 from .run_source_type import RunSourceType
-from ..ambient_agent_config import AmbientAgentConfig
 
 __all__ = ["RunItem", "AgentSkill", "RequestUsage", "Schedule", "StatusMessage"]
-
 
 class AgentSkill(BaseModel):
     """
     Information about the agent skill used for the run.
     Either full_path or bundled_skill_id will be set, but not both.
     """
-
     bundled_skill_id: Optional[str] = None
     """Unique identifier for bundled skills"""
 
@@ -34,10 +41,8 @@ class AgentSkill(BaseModel):
     name: Optional[str] = None
     """Human-readable name of the skill"""
 
-
 class RequestUsage(BaseModel):
     """Resource usage information for the run"""
-
     compute_cost: Optional[float] = None
     """Cost of compute resources for the run"""
 
@@ -47,12 +52,10 @@ class RequestUsage(BaseModel):
     platform_cost: Optional[float] = None
     """Cost of platform usage for the run"""
 
-
 class Schedule(BaseModel):
     """
     Information about the schedule that triggered this run (only present for scheduled runs)
     """
-
     cron_schedule: str
     """Cron expression at the time the run was created"""
 
@@ -62,14 +65,12 @@ class Schedule(BaseModel):
     schedule_name: str
     """Name of the schedule at the time the run was created"""
 
-
 class StatusMessage(BaseModel):
     """Status message for a run.
 
     For terminal error states, includes structured
     error code and retryability info from the platform error catalog.
     """
-
     message: str
     """Human-readable status message"""
 
@@ -109,7 +110,6 @@ class StatusMessage(BaseModel):
     Only present on terminal error states. When false, retrying without addressing
     the underlying cause will not succeed.
     """
-
 
 class RunItem(BaseModel):
     created_at: datetime
@@ -172,6 +172,14 @@ class RunItem(BaseModel):
     """
 
     executor: Optional[UserProfile] = None
+
+    is_run_type_cancellable: Optional[bool] = None
+    """Whether the run's type is eligible for cancellation via the API.
+
+    State-independent: false for GitHub Action and local runs; true for all other
+    run types (including self-hosted). Clients should still gate the control on the
+    run's current state.
+    """
 
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""

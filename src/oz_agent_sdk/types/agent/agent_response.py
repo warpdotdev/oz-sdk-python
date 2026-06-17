@@ -1,25 +1,19 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from datetime import datetime
+from ..._models import BaseModel
+
 from typing_extensions import Literal
 
-from ..._models import BaseModel
+from typing import Optional, List, Dict
+
+from datetime import datetime
+
 from ..mcp_server_config import McpServerConfig
 
-__all__ = [
-    "AgentResponse",
-    "MemoryStore",
-    "Secret",
-    "HarnessAuthSecrets",
-    "InferenceProviders",
-    "InferenceProvidersAws",
-]
-
+__all__ = ["AgentResponse", "MemoryStore", "Secret", "HarnessAuthSecrets", "InferenceProviders", "InferenceProvidersAws"]
 
 class MemoryStore(BaseModel):
     """Reference to a memory store to attach to an agent."""
-
     access: Literal["read_write", "read_only"]
     """Access level for the store."""
 
@@ -29,20 +23,16 @@ class MemoryStore(BaseModel):
     uid: str
     """UID of the memory store."""
 
-
 class Secret(BaseModel):
     """Reference to a managed secret by name."""
-
     name: str
     """Name of the managed secret."""
-
 
 class HarnessAuthSecrets(BaseModel):
     """
     Authentication secrets for third-party harnesses.
     Only the secret for the harness specified gets injected into the environment.
     """
-
     claude_auth_secret_name: Optional[str] = None
     """
     Name of a managed secret for Claude Code harness authentication. The secret must
@@ -57,13 +47,11 @@ class HarnessAuthSecrets(BaseModel):
     "codex".
     """
 
-
 class InferenceProvidersAws(BaseModel):
     """
     Configures AWS Bedrock as the LLM inference provider for this
     agent or run.
     """
-
     disabled: Optional[bool] = None
     """If true, opt out of Bedrock at this layer."""
 
@@ -73,13 +61,10 @@ class InferenceProvidersAws(BaseModel):
     role_arn: Optional[str] = None
     """IAM role ARN to assume when calling Bedrock."""
 
-
 class InferenceProviders(BaseModel):
     """Inference provider settings used for LLM calls."""
-
     aws: Optional[InferenceProvidersAws] = None
     """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
-
 
 class AgentResponse(BaseModel):
     available: bool

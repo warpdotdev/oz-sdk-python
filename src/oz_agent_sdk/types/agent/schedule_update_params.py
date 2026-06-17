@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import TypedDict, Required, Literal
 
 from ..ambient_agent_config_param import AmbientAgentConfigParam
 
 __all__ = ["ScheduleUpdateParams"]
-
 
 class ScheduleUpdateParams(TypedDict, total=False):
     cron_schedule: Required[str]

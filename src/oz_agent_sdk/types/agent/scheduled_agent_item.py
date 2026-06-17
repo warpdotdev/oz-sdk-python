@@ -1,17 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from ..._models import BaseModel
+
 from datetime import datetime
 
-from ..scope import Scope
-from ..._models import BaseModel
-from ..user_profile import UserProfile
+from typing import Optional
+
 from ..ambient_agent_config import AmbientAgentConfig
+
+from ..user_profile import UserProfile
+
 from ..cloud_environment_config import CloudEnvironmentConfig
+
 from .scheduled_agent_history_item import ScheduledAgentHistoryItem
 
-__all__ = ["ScheduledAgentItem"]
+from ..scope import Scope
 
+__all__ = ["ScheduledAgentItem"]
 
 class ScheduledAgentItem(BaseModel):
     id: str

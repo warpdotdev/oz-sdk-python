@@ -114,13 +114,11 @@ client = AsyncOzAPI(
     api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
 )
 
-
 async def main() -> None:
-    response = await client.agent.run(
-        prompt="Fix the bug in auth.go",
-    )
-    print(response.run_id)
-
+  response = await client.agent.run(
+      prompt="Fix the bug in auth.go",
+  )
+  print(response.run_id)
 
 asyncio.run(main())
 ```
@@ -146,17 +144,15 @@ import asyncio
 from oz_agent_sdk import DefaultAioHttpClient
 from oz_agent_sdk import AsyncOzAPI
 
-
 async def main() -> None:
-    async with AsyncOzAPI(
-        api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
-        http_client=DefaultAioHttpClient(),
-    ) as client:
-        response = await client.agent.run(
-            prompt="Fix the bug in auth.go",
-        )
-        print(response.run_id)
-
+  async with AsyncOzAPI(
+    api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
+    http_client=DefaultAioHttpClient(),
+) as client:
+    response = await client.agent.run(
+        prompt="Fix the bug in auth.go",
+    )
+    print(response.run_id)
 
 asyncio.run(main())
 ```
@@ -197,14 +193,12 @@ from oz_agent_sdk import AsyncOzAPI
 
 client = AsyncOzAPI()
 
-
 async def main() -> None:
     all_runs = []
     # Iterate through items across all pages, issuing requests as needed.
     async for run in client.agent.runs.list():
         all_runs.append(run)
     print(all_runs)
-
 
 asyncio.run(main())
 ```
@@ -226,7 +220,7 @@ Or just work directly with the returned data:
 ```python
 first_page = await client.agent.runs.list()
 
-print(f"next page cursor: {first_page.page_info.next_cursor}")  # => "next page cursor: ..."
+print(f"next page cursor: {first_page.page_info.next_cursor}") # => "next page cursor: ..."
 for run in first_page.runs:
     print(run.run_id)
 
@@ -269,7 +263,7 @@ try:
     )
 except oz_agent_sdk.APIConnectionError as e:
     print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
+    print(e.__cause__) # an underlying Exception, likely raised within httpx.
 except oz_agent_sdk.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
 except oz_agent_sdk.APIStatusError as e:
@@ -309,7 +303,7 @@ client = OzAPI(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).agent.run(
+client.with_options(max_retries = 5).agent.run(
     prompt="Fix the bug in auth.go",
 )
 ```
@@ -334,7 +328,7 @@ client = OzAPI(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).agent.run(
+client.with_options(timeout = 5.0).agent.run(
     prompt="Fix the bug in auth.go",
 )
 ```
@@ -399,11 +393,11 @@ To stream the response body, use `.with_streaming_response` instead, which requi
 ```python
 with client.agent.with_streaming_response.run(
     prompt="Fix the bug in auth.go",
-) as response:
-    print(response.headers.get("X-My-Header"))
+) as response :
+    print(response.headers.get('X-My-Header'))
 
     for line in response.iter_lines():
-        print(line)
+      print(line)
 ```
 
 The context manager is required so that the response will reliably be closed.
@@ -457,10 +451,7 @@ from oz_agent_sdk import OzAPI, DefaultHttpxClient
 client = OzAPI(
     # Or use the `OZ_API_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(
-        proxy="http://my.test.proxy.example.com",
-        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
-    ),
+    http_client=DefaultHttpxClient(proxy="http://my.test.proxy.example.com", transport=httpx.HTTPTransport(local_address="0.0.0.0")),
 )
 ```
 

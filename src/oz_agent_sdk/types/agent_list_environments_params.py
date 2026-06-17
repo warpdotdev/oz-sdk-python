@@ -2,10 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import TypedDict, Literal
 
 __all__ = ["AgentListEnvironmentsParams"]
-
 
 class AgentListEnvironmentsParams(TypedDict, total=False):
     sort_by: Literal["name", "last_updated"]

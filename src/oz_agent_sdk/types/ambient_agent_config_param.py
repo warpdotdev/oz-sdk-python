@@ -3,28 +3,20 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable
-from typing_extensions import Literal, Required, TypedDict
 
-from .._types import SequenceNotStr
 from .mcp_server_config_param import McpServerConfigParam
 
-__all__ = [
-    "AmbientAgentConfigParam",
-    "Harness",
-    "HarnessAuthSecrets",
-    "InferenceProviders",
-    "InferenceProvidersAws",
-    "MemoryStore",
-    "SessionSharing",
-]
+from .._types import SequenceNotStr
 
+from typing_extensions import Literal, TypedDict, Required
+
+__all__ = ["AmbientAgentConfigParam", "Harness", "HarnessAuthSecrets", "InferenceProviders", "InferenceProvidersAws", "MemoryStore", "SessionSharing"]
 
 class Harness(TypedDict, total=False):
     """
     Specifies which execution harness to use for the agent run.
     Default (nil/empty) uses Warp's built-in harness.
     """
-
     type: Literal["oz", "claude", "gemini", "codex"]
     """The harness type identifier.
 
@@ -34,13 +26,11 @@ class Harness(TypedDict, total=False):
     - codex: Codex CLI harness
     """
 
-
 class HarnessAuthSecrets(TypedDict, total=False):
     """
     Authentication secrets for third-party harnesses.
     Only the secret for the harness specified gets injected into the environment.
     """
-
     claude_auth_secret_name: str
     """
     Name of a managed secret for Claude Code harness authentication. The secret must
@@ -55,13 +45,11 @@ class HarnessAuthSecrets(TypedDict, total=False):
     "codex".
     """
 
-
 class InferenceProvidersAws(TypedDict, total=False):
     """
     Configures AWS Bedrock as the LLM inference provider for this
     agent or run.
     """
-
     disabled: bool
     """If true, opt out of Bedrock at this layer."""
 
@@ -71,17 +59,13 @@ class InferenceProvidersAws(TypedDict, total=False):
     role_arn: str
     """IAM role ARN to assume when calling Bedrock."""
 
-
 class InferenceProviders(TypedDict, total=False):
     """Inference provider settings used for LLM calls."""
-
     aws: InferenceProvidersAws
     """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
 
-
 class MemoryStore(TypedDict, total=False):
     """Reference to a memory store to attach to an agent."""
-
     access: Required[Literal["read_write", "read_only"]]
     """Access level for the store."""
 
@@ -90,7 +74,6 @@ class MemoryStore(TypedDict, total=False):
 
     uid: Required[str]
     """UID of the memory store."""
-
 
 class SessionSharing(TypedDict, total=False):
     """
@@ -101,7 +84,6 @@ class SessionSharing(TypedDict, total=False):
     link viewers can read the conversation without being on the run's team.
     Subject to the workspace-level anyone-with-link sharing setting.
     """
-
     public_access: Literal["VIEWER", "EDITOR"]
     """
     Grants anyone-with-link access at the specified level to the run's shared
@@ -113,10 +95,8 @@ class SessionSharing(TypedDict, total=False):
       still be authenticated Warp users.
     """
 
-
 class AmbientAgentConfigParam(TypedDict, total=False):
     """Configuration for a cloud agent run"""
-
     base_prompt: str
     """Custom base prompt for the agent"""
 

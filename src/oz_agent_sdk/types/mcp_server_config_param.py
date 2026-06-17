@@ -2,20 +2,19 @@
 
 from __future__ import annotations
 
-from typing import Dict
-from typing_extensions import TypedDict
-
 from .._types import SequenceNotStr
 
-__all__ = ["McpServerConfigParam"]
+from typing import Dict
 
+from typing_extensions import TypedDict
+
+__all__ = ["McpServerConfigParam"]
 
 class McpServerConfigParam(TypedDict, total=False):
     """Configuration for an MCP server.
 
     Must have exactly one of: warp_id, command, or url.
     """
-
     args: SequenceNotStr[str]
     """Stdio transport - command arguments"""
 

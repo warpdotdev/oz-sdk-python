@@ -1,30 +1,22 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from .._models import BaseModel
+
+from typing import Optional, Dict, List
+
 from typing_extensions import Literal
+
+from .mcp_server_config import McpServerConfig
 
 from pydantic import Field as FieldInfo
 
-from .._models import BaseModel
-from .mcp_server_config import McpServerConfig
-
-__all__ = [
-    "AmbientAgentConfig",
-    "Harness",
-    "HarnessAuthSecrets",
-    "InferenceProviders",
-    "InferenceProvidersAws",
-    "MemoryStore",
-    "SessionSharing",
-]
-
+__all__ = ["AmbientAgentConfig", "Harness", "HarnessAuthSecrets", "InferenceProviders", "InferenceProvidersAws", "MemoryStore", "SessionSharing"]
 
 class Harness(BaseModel):
     """
     Specifies which execution harness to use for the agent run.
     Default (nil/empty) uses Warp's built-in harness.
     """
-
     type: Optional[Literal["oz", "claude", "gemini", "codex"]] = None
     """The harness type identifier.
 
@@ -34,13 +26,11 @@ class Harness(BaseModel):
     - codex: Codex CLI harness
     """
 
-
 class HarnessAuthSecrets(BaseModel):
     """
     Authentication secrets for third-party harnesses.
     Only the secret for the harness specified gets injected into the environment.
     """
-
     claude_auth_secret_name: Optional[str] = None
     """
     Name of a managed secret for Claude Code harness authentication. The secret must
@@ -55,13 +45,11 @@ class HarnessAuthSecrets(BaseModel):
     "codex".
     """
 
-
 class InferenceProvidersAws(BaseModel):
     """
     Configures AWS Bedrock as the LLM inference provider for this
     agent or run.
     """
-
     disabled: Optional[bool] = None
     """If true, opt out of Bedrock at this layer."""
 
@@ -71,17 +59,13 @@ class InferenceProvidersAws(BaseModel):
     role_arn: Optional[str] = None
     """IAM role ARN to assume when calling Bedrock."""
 
-
 class InferenceProviders(BaseModel):
     """Inference provider settings used for LLM calls."""
-
     aws: Optional[InferenceProvidersAws] = None
     """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
 
-
 class MemoryStore(BaseModel):
     """Reference to a memory store to attach to an agent."""
-
     access: Literal["read_write", "read_only"]
     """Access level for the store."""
 
@@ -90,7 +74,6 @@ class MemoryStore(BaseModel):
 
     uid: str
     """UID of the memory store."""
-
 
 class SessionSharing(BaseModel):
     """
@@ -101,7 +84,6 @@ class SessionSharing(BaseModel):
     link viewers can read the conversation without being on the run's team.
     Subject to the workspace-level anyone-with-link sharing setting.
     """
-
     public_access: Optional[Literal["VIEWER", "EDITOR"]] = None
     """
     Grants anyone-with-link access at the specified level to the run's shared
@@ -113,10 +95,8 @@ class SessionSharing(BaseModel):
       still be authenticated Warp users.
     """
 
-
 class AmbientAgentConfig(BaseModel):
     """Configuration for a cloud agent run"""
-
     base_prompt: Optional[str] = None
     """Custom base prompt for the agent"""
 
@@ -157,7 +137,7 @@ class AmbientAgentConfig(BaseModel):
     memory_stores: Optional[List[MemoryStore]] = None
     """Memory stores to attach to this run."""
 
-    api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
+    api_model_id: Optional[str] = FieldInfo(alias = "model_id", default = None)
     """LLM model to use (uses team default if not specified)"""
 
     name: Optional[str] = None

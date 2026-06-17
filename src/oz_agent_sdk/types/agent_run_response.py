@@ -1,12 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
-from .agent.run_state import RunState
-
 from typing import Optional
 
+from .._models import BaseModel
+from .agent.run_state import RunState
+
 __all__ = ["AgentRunResponse"]
+
 
 class AgentRunResponse(BaseModel):
     run_id: str

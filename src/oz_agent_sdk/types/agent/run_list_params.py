@@ -2,19 +2,16 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal, Annotated
-
-from typing import Union, List
-
+from typing import List, Union
 from datetime import datetime
+from typing_extensions import Literal, Annotated, TypedDict
 
 from ..._utils import PropertyInfo
-
+from .run_state import RunState
 from .run_source_type import RunSourceType
 
-from .run_state import RunState
-
 __all__ = ["RunListParams"]
+
 
 class RunListParams(TypedDict, total=False):
     ancestor_run_id: str
@@ -26,10 +23,10 @@ class RunListParams(TypedDict, total=False):
     artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"]
     """Filter runs by artifact type"""
 
-    created_after: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Filter runs created after this timestamp (RFC3339 format)"""
 
-    created_before: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    created_before: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Filter runs created before this timestamp (RFC3339 format)"""
 
     creator: str
@@ -96,5 +93,5 @@ class RunListParams(TypedDict, total=False):
     Can be specified multiple times to match any of the given states.
     """
 
-    updated_after: Annotated[Union[str, datetime], PropertyInfo(format = "iso8601")]
+    updated_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Filter runs updated after this timestamp (RFC3339 format)"""

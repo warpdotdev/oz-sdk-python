@@ -6,7 +6,7 @@ import httpx
 import pytest
 import pydantic
 
-from oz_agent_sdk import BaseModel, OzAPI, AsyncOzAPI
+from oz_agent_sdk import OzAPI, BaseModel, AsyncOzAPI
 from oz_agent_sdk._response import (
     APIResponse,
     BaseAPIResponse,

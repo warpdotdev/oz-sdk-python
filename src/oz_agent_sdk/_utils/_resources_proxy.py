@@ -16,6 +16,7 @@ class ResourcesProxy(LazyProxy[Any]):
     @override
     def __load__(self) -> Any:
         import importlib
+
         mod = importlib.import_module("oz_agent_sdk.resources")
         return mod
 

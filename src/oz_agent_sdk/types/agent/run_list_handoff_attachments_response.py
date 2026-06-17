@@ -1,13 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from ..._models import BaseModel
+from typing import List, Optional
 
-from typing import Optional, List
+from ..._models import BaseModel
 
 __all__ = ["RunListHandoffAttachmentsResponse", "Attachment"]
 
+
 class Attachment(BaseModel):
     """A handoff snapshot attachment exposed for download."""
+
     attachment_id: str
     """Identifier for the snapshot attachment within the run."""
 
@@ -20,8 +22,10 @@ class Attachment(BaseModel):
     mime_type: Optional[str] = None
     """MIME type of the snapshot attachment, if known."""
 
+
 class RunListHandoffAttachmentsResponse(BaseModel):
     """Response body for listing handoff snapshot attachments."""
+
     attachments: List[Attachment]
     """
     Handoff snapshot attachments exposed by the latest ended execution. Empty when

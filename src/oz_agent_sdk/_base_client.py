@@ -5,11 +5,11 @@ import json
 import time
 import uuid
 import email
-import warnings
 import asyncio
 import inspect
 import logging
 import platform
+import warnings
 import email.utils
 from types import TracebackType
 from random import random
@@ -63,7 +63,7 @@ from ._types import (
 )
 from ._utils import is_dict, is_list, asyncify, is_given, lru_cache, is_mapping
 from ._compat import PYDANTIC_V1, model_copy, model_dump
-from ._models import GenericModel, FinalRequestOptions, SecurityOptions, validate_type, construct_type
+from ._models import GenericModel, SecurityOptions, FinalRequestOptions, validate_type, construct_type
 from ._response import (
     APIResponse,
     BaseAPIResponse,
@@ -86,7 +86,6 @@ from ._exceptions import (
     APIConnectionError,
     APIResponseValidationError,
 )
-from ._legacy_response import LegacyAPIResponse
 from ._utils._json import openapi_dumps
 
 log: logging.Logger = logging.getLogger(__name__)
@@ -437,32 +436,32 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         self,
         security: SecurityOptions,  # noqa: ARG002
     ) -> dict[str, str]:
-      return {}
-    
+        return {}
+
     def _auth_query(
         self,
         security: SecurityOptions,  # noqa: ARG002
     ) -> dict[str, str]:
-      return {}
-    
+        return {}
+
     def _custom_auth(
         self,
         security: SecurityOptions,  # noqa: ARG002
     ) -> httpx.Auth | None:
-      return None
-    
+        return None
+
     def _build_headers(self, options: FinalRequestOptions, *, retries_taken: int = 0) -> httpx.Headers:
         custom_headers = options.headers or {}
         headers_dict = _merge_mappings({**self._auth_headers(options.security), **self.default_headers}, custom_headers)
         self._validate_headers(headers_dict, custom_headers)
-    
+
         # headers are case-insensitive while dictionaries are not.
         headers = httpx.Headers(headers_dict)
-    
+
         idempotency_header = self._idempotency_header
         if idempotency_header and options.idempotency_key and idempotency_header not in headers:
             headers[idempotency_header] = options.idempotency_key
-    
+
         # Don't set these headers if they were already set or removed by the caller. We check
         # `custom_headers`, which can contain `Omit()`, instead of `headers` to account for the removal case.
         lower_custom_headers = [header.lower() for header in custom_headers]
@@ -474,7 +473,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
                 timeout = timeout.read
             if timeout is not None:
                 headers["x-stainless-read-timeout"] = str(timeout)
-    
+
         return headers
 
     def _prepare_url(self, url: str) -> URL:
@@ -514,7 +513,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
                 ),
             )
         kwargs: dict[str, Any] = {}
-    
+
         json_data = options.json_data
         if options.extra_json is not None:
             if json_data is None:
@@ -523,12 +522,12 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
                 json_data = _merge_mappings(json_data, options.extra_json)
             else:
                 raise RuntimeError(f"Unexpected JSON data type, {type(json_data)}, cannot merge with `extra_body`")
-    
+
         headers = self._build_headers(options, retries_taken=retries_taken)
         params = _merge_mappings({**self._auth_query(options.security), **self.default_query}, options.params)
         content_type = headers.get("Content-Type")
         files = options.files
-    
+
         # If the given Content-Type header is multipart/form-data then it
         # has to be removed so that httpx can generate the header with
         # additional information for us as it has to be in this form
@@ -539,7 +538,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
                 # only remove the header if the boundary hasn't been explicitly set
                 # as the caller doesn't want httpx to come up with their own boundary
                 headers.pop("Content-Type")
-    
+
             # As we are now sending multipart/form-data instead of application/json
             # we need to tell httpx to use it, https://www.python-httpx.org/advanced/clients/#multipart-file-encoding
             if json_data:
@@ -548,7 +547,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
                         f"Expected query input to be a dictionary for multipart requests but got {type(json_data)} instead."
                     )
                 kwargs["data"] = self._serialize_multipartform(json_data)
-    
+
             # httpx determines whether or not to send a "multipart/form-data"
             # request based on the truthiness of the "files" argument.
             # This gets around that issue by generating a dict value that
@@ -557,7 +556,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
             # https://github.com/encode/httpx/discussions/2399#discussioncomment-3814186
             if not files:
                 files = cast(HttpxRequestFiles, ForceMultipartDict())
-    
+
         prepared_url = self._prepare_url(options.url)
         # preserve hard-coded query params from the url
         if params and prepared_url.query:
@@ -566,9 +565,9 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         if "_" in prepared_url.host:
             # work around https://github.com/encode/httpx/discussions/2880
             kwargs["extensions"] = {"sni_hostname": prepared_url.host.replace("_", "-")}
-    
+
         is_body_allowed = options.method.lower() != "get"
-    
+
         if is_body_allowed:
             if options.content is not None and json_data is not None:
                 raise TypeError("Passing both `content` and `json_data` is not supported")
@@ -586,7 +585,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
         else:
             headers.pop("Content-Type", None)
             kwargs.pop("data", None)
-    
+
         # TODO: report this error to httpx
         return self._client.build_request(  # pyright: ignore[reportUnknownMemberType]
             headers=headers,
@@ -606,7 +605,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
             # TODO: type ignore is required as stringify_items is well typed but we can't be
             # well typed without heavy validation.
             data,  # type: ignore
-            array_format="brackets"
+            array_format="brackets",
         )
         serialized: dict[str, object] = {}
         for key, value in items:
@@ -694,7 +693,7 @@ class BaseClient(Generic[_HttpxClientT, _DefaultStreamT]):
             "Content-Type": "application/json",
             "User-Agent": self.user_agent,
             **self.platform_headers(),
-            **self._custom_headers
+            **self._custom_headers,
         }
 
     @property
@@ -1065,7 +1064,6 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
                 response.reason_phrase,
                 response.headers,
             )
-            
 
             try:
                 response.raise_for_status()
@@ -1126,8 +1124,6 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
         stream_cls: type[Stream[Any]] | type[AsyncStream[Any]] | None,
         retries_taken: int = 0,
     ) -> ResponseT:
-        
-
         origin = get_origin(cast_to) or cast_to
 
         if (
@@ -1305,8 +1301,6 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
         )
         return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
 
-    
-
     def patch(
         self,
         path: str,
@@ -1328,7 +1322,9 @@ class SyncAPIClient(BaseClient[httpx.Client, Stream[Any]]):
                 DeprecationWarning,
                 stacklevel=2,
             )
-        opts = FinalRequestOptions.construct(method="patch", url=path, json_data=body, content=content, files=to_httpx_files(files), **options)
+        opts = FinalRequestOptions.construct(
+            method="patch", url=path, json_data=body, content=content, files=to_httpx_files(files), **options
+        )
         return self.request(cast_to, opts)
 
     def put(
@@ -1652,7 +1648,6 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
                 response.reason_phrase,
                 response.headers,
             )
-            
 
             try:
                 response.raise_for_status()
@@ -1713,8 +1708,6 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
         stream_cls: type[Stream[Any]] | type[AsyncStream[Any]] | None,
         retries_taken: int = 0,
     ) -> ResponseT:
-        
-
         origin = get_origin(cast_to) or cast_to
 
         if (
@@ -1880,8 +1873,6 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
         )
         return await self.request(cast_to, opts, stream=stream, stream_cls=stream_cls)
 
-    
-
     async def patch(
         self,
         path: str,
@@ -1903,7 +1894,14 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
                 DeprecationWarning,
                 stacklevel=2,
             )
-        opts = FinalRequestOptions.construct(method="patch", url=path, json_data=body, content=content, files=await async_to_httpx_files(files), **options)
+        opts = FinalRequestOptions.construct(
+            method="patch",
+            url=path,
+            json_data=body,
+            content=content,
+            files=await async_to_httpx_files(files),
+            **options,
+        )
         return await self.request(cast_to, opts)
 
     async def put(
@@ -1967,7 +1965,17 @@ class AsyncAPIClient(BaseClient[httpx.AsyncClient, AsyncStream[Any]]):
         return self._request_api_list(model, page, opts)
 
 
-def make_request_options(*, query: Query | None = None, extra_headers: Headers | None = None, extra_query: Query | None = None, extra_body: Body | None = None, idempotency_key: str | None = None, timeout: float | httpx.Timeout | None | NotGiven = not_given, post_parser: PostParser | NotGiven = not_given, security: SecurityOptions | None = None) -> RequestOptions:
+def make_request_options(
+    *,
+    query: Query | None = None,
+    extra_headers: Headers | None = None,
+    extra_query: Query | None = None,
+    extra_body: Body | None = None,
+    idempotency_key: str | None = None,
+    timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    post_parser: PostParser | NotGiven = not_given,
+    security: SecurityOptions | None = None,
+) -> RequestOptions:
     """Create a dict of type RequestOptions without keys of NotGiven values."""
     options: RequestOptions = {}
     if extra_headers is not None:
@@ -1993,7 +2001,7 @@ def make_request_options(*, query: Query | None = None, extra_headers: Headers |
         options["post_parser"] = post_parser  # type: ignore
 
     if security is not None:
-      options['security'] = security
+        options["security"] = security
 
     return options
 

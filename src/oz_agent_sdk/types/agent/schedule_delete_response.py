@@ -4,6 +4,7 @@ from ..._models import BaseModel
 
 __all__ = ["ScheduleDeleteResponse"]
 
+
 class ScheduleDeleteResponse(BaseModel):
     success: bool
     """Whether the deletion was successful"""

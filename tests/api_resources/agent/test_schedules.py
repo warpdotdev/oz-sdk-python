@@ -2,29 +2,24 @@
 
 from __future__ import annotations
 
-from oz_agent_sdk import OzAPI, AsyncOzAPI
-
-from oz_agent_sdk.types.agent import ScheduledAgentItem, ScheduleListResponse, ScheduleDeleteResponse
-
-from typing import cast, Any
-
 import os
+from typing import Any, cast
+
 import pytest
-import httpx
-from typing_extensions import get_args
-from respx import MockRouter
-from oz_agent_sdk import OzAPI, AsyncOzAPI
+
 from tests.utils import assert_matches_type
-from oz_agent_sdk.types.agent import schedule_create_params
-from oz_agent_sdk.types.agent import schedule_update_params
-from oz_agent_sdk.types import AmbientAgentConfig
-from oz_agent_sdk.types import AmbientAgentConfig
+from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk.types.agent import (
+    ScheduledAgentItem,
+    ScheduleListResponse,
+    ScheduleDeleteResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
-class TestSchedules:
-    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=['loose', 'strict'])
 
+class TestSchedules:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -33,7 +28,7 @@ class TestSchedules:
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -45,9 +40,7 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "type": "oz"
-                },
+                "harness": {"type": "oz"},
                 "harness_auth_secrets": {
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
@@ -64,26 +57,22 @@ class TestSchedules:
                     "foo": {
                         "args": ["string"],
                         "command": "command",
-                        "env": {
-                            "foo": "string"
-                        },
-                        "headers": {
-                            "foo": "string"
-                        },
+                        "env": {"foo": "string"},
+                        "headers": {"foo": "string"},
                         "url": "https://example.com",
                         "warp_id": "warp_id",
                     }
                 },
-                "memory_stores": [{
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }],
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
-                "session_sharing": {
-                    "public_access": "VIEWER"
-                },
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "skills": ["string"],
                 "worker_host": "worker_host",
@@ -94,21 +83,20 @@ class TestSchedules:
             prompt="Review open pull requests and provide feedback",
             team=True,
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: OzAPI) -> None:
-
         response = client.agent.schedules.with_raw_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -116,12 +104,12 @@ class TestSchedules:
         with client.agent.schedules.with_streaming_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -131,32 +119,31 @@ class TestSchedules:
         schedule = client.agent.schedules.retrieve(
             "scheduleId",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: OzAPI) -> None:
-
         response = client.agent.schedules.with_raw_response.retrieve(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.retrieve(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -164,9 +151,9 @@ class TestSchedules:
     @parametrize
     def test_path_params_retrieve(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          client.agent.schedules.with_raw_response.retrieve(
-              "",
-          )
+            client.agent.schedules.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -177,7 +164,7 @@ class TestSchedules:
             enabled=True,
             name="name",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -191,9 +178,7 @@ class TestSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "type": "oz"
-                },
+                "harness": {"type": "oz"},
                 "harness_auth_secrets": {
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
@@ -210,26 +195,22 @@ class TestSchedules:
                     "foo": {
                         "args": ["string"],
                         "command": "command",
-                        "env": {
-                            "foo": "string"
-                        },
-                        "headers": {
-                            "foo": "string"
-                        },
+                        "env": {"foo": "string"},
+                        "headers": {"foo": "string"},
                         "url": "https://example.com",
                         "warp_id": "warp_id",
                     }
                 },
-                "memory_stores": [{
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }],
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
-                "session_sharing": {
-                    "public_access": "VIEWER"
-                },
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "skills": ["string"],
                 "worker_host": "worker_host",
@@ -238,12 +219,11 @@ class TestSchedules:
             mode="normal",
             prompt="prompt",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: OzAPI) -> None:
-
         response = client.agent.schedules.with_raw_response.update(
             schedule_id="scheduleId",
             cron_schedule="cron_schedule",
@@ -252,9 +232,9 @@ class TestSchedules:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -264,12 +244,12 @@ class TestSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -277,39 +257,38 @@ class TestSchedules:
     @parametrize
     def test_path_params_update(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          client.agent.schedules.with_raw_response.update(
-              schedule_id="",
-              cron_schedule="cron_schedule",
-              enabled=True,
-              name="name",
-          )
+            client.agent.schedules.with_raw_response.update(
+                schedule_id="",
+                cron_schedule="cron_schedule",
+                enabled=True,
+                name="name",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.list()
-        assert_matches_type(ScheduleListResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: OzAPI) -> None:
-
         response = client.agent.schedules.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = response.parse()
-        assert_matches_type(ScheduleListResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: OzAPI) -> None:
-        with client.agent.schedules.with_streaming_response.list() as response :
+        with client.agent.schedules.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = response.parse()
-            assert_matches_type(ScheduleListResponse, schedule, path=['response'])
+            assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -319,32 +298,31 @@ class TestSchedules:
         schedule = client.agent.schedules.delete(
             "scheduleId",
         )
-        assert_matches_type(ScheduleDeleteResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: OzAPI) -> None:
-
         response = client.agent.schedules.with_raw_response.delete(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = response.parse()
-        assert_matches_type(ScheduleDeleteResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.delete(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = response.parse()
-            assert_matches_type(ScheduleDeleteResponse, schedule, path=['response'])
+            assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -352,9 +330,9 @@ class TestSchedules:
     @parametrize
     def test_path_params_delete(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          client.agent.schedules.with_raw_response.delete(
-              "",
-          )
+            client.agent.schedules.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -362,32 +340,31 @@ class TestSchedules:
         schedule = client.agent.schedules.pause(
             "scheduleId",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_pause(self, client: OzAPI) -> None:
-
         response = client.agent.schedules.with_raw_response.pause(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_pause(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.pause(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -395,9 +372,9 @@ class TestSchedules:
     @parametrize
     def test_path_params_pause(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          client.agent.schedules.with_raw_response.pause(
-              "",
-          )
+            client.agent.schedules.with_raw_response.pause(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -405,32 +382,31 @@ class TestSchedules:
         schedule = client.agent.schedules.resume(
             "scheduleId",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_resume(self, client: OzAPI) -> None:
-
         response = client.agent.schedules.with_raw_response.resume(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_resume(self, client: OzAPI) -> None:
         with client.agent.schedules.with_streaming_response.resume(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -438,12 +414,15 @@ class TestSchedules:
     @parametrize
     def test_path_params_resume(self, client: OzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          client.agent.schedules.with_raw_response.resume(
-              "",
-          )
-class TestAsyncSchedules:
-    parametrize = pytest.mark.parametrize("async_client", [False, True, {'http_client': 'aiohttp'}], indirect=True, ids=['loose', 'strict', 'aiohttp'])
+            client.agent.schedules.with_raw_response.resume(
+                "",
+            )
 
+
+class TestAsyncSchedules:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -452,7 +431,7 @@ class TestAsyncSchedules:
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -464,9 +443,7 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "type": "oz"
-                },
+                "harness": {"type": "oz"},
                 "harness_auth_secrets": {
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
@@ -483,26 +460,22 @@ class TestAsyncSchedules:
                     "foo": {
                         "args": ["string"],
                         "command": "command",
-                        "env": {
-                            "foo": "string"
-                        },
-                        "headers": {
-                            "foo": "string"
-                        },
+                        "env": {"foo": "string"},
+                        "headers": {"foo": "string"},
                         "url": "https://example.com",
                         "warp_id": "warp_id",
                     }
                 },
-                "memory_stores": [{
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }],
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
-                "session_sharing": {
-                    "public_access": "VIEWER"
-                },
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "skills": ["string"],
                 "worker_host": "worker_host",
@@ -513,21 +486,20 @@ class TestAsyncSchedules:
             prompt="Review open pull requests and provide feedback",
             team=True,
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncOzAPI) -> None:
-
         response = await async_client.agent.schedules.with_raw_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = await response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -535,12 +507,12 @@ class TestAsyncSchedules:
         async with async_client.agent.schedules.with_streaming_response.create(
             cron_schedule="0 9 * * *",
             name="Daily Code Review",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = await response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -550,32 +522,31 @@ class TestAsyncSchedules:
         schedule = await async_client.agent.schedules.retrieve(
             "scheduleId",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncOzAPI) -> None:
-
         response = await async_client.agent.schedules.with_raw_response.retrieve(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = await response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.retrieve(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = await response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -583,9 +554,9 @@ class TestAsyncSchedules:
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          await async_client.agent.schedules.with_raw_response.retrieve(
-              "",
-          )
+            await async_client.agent.schedules.with_raw_response.retrieve(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -596,7 +567,7 @@ class TestAsyncSchedules:
             enabled=True,
             name="name",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -610,9 +581,7 @@ class TestAsyncSchedules:
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
                 "environment_id": "environment_id",
-                "harness": {
-                    "type": "oz"
-                },
+                "harness": {"type": "oz"},
                 "harness_auth_secrets": {
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
@@ -629,26 +598,22 @@ class TestAsyncSchedules:
                     "foo": {
                         "args": ["string"],
                         "command": "command",
-                        "env": {
-                            "foo": "string"
-                        },
-                        "headers": {
-                            "foo": "string"
-                        },
+                        "env": {"foo": "string"},
+                        "headers": {"foo": "string"},
                         "url": "https://example.com",
                         "warp_id": "warp_id",
                     }
                 },
-                "memory_stores": [{
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }],
+                "memory_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
                 "model_id": "model_id",
                 "name": "name",
-                "session_sharing": {
-                    "public_access": "VIEWER"
-                },
+                "session_sharing": {"public_access": "VIEWER"},
                 "skill_spec": "skill_spec",
                 "skills": ["string"],
                 "worker_host": "worker_host",
@@ -657,12 +622,11 @@ class TestAsyncSchedules:
             mode="normal",
             prompt="prompt",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncOzAPI) -> None:
-
         response = await async_client.agent.schedules.with_raw_response.update(
             schedule_id="scheduleId",
             cron_schedule="cron_schedule",
@@ -671,9 +635,9 @@ class TestAsyncSchedules:
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = await response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -683,12 +647,12 @@ class TestAsyncSchedules:
             cron_schedule="cron_schedule",
             enabled=True,
             name="name",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = await response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -696,39 +660,38 @@ class TestAsyncSchedules:
     @parametrize
     async def test_path_params_update(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          await async_client.agent.schedules.with_raw_response.update(
-              schedule_id="",
-              cron_schedule="cron_schedule",
-              enabled=True,
-              name="name",
-          )
+            await async_client.agent.schedules.with_raw_response.update(
+                schedule_id="",
+                cron_schedule="cron_schedule",
+                enabled=True,
+                name="name",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.list()
-        assert_matches_type(ScheduleListResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
-
         response = await async_client.agent.schedules.with_raw_response.list()
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = await response.parse()
-        assert_matches_type(ScheduleListResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
-        async with async_client.agent.schedules.with_streaming_response.list() as response :
+        async with async_client.agent.schedules.with_streaming_response.list() as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = await response.parse()
-            assert_matches_type(ScheduleListResponse, schedule, path=['response'])
+            assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -738,32 +701,31 @@ class TestAsyncSchedules:
         schedule = await async_client.agent.schedules.delete(
             "scheduleId",
         )
-        assert_matches_type(ScheduleDeleteResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOzAPI) -> None:
-
         response = await async_client.agent.schedules.with_raw_response.delete(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = await response.parse()
-        assert_matches_type(ScheduleDeleteResponse, schedule, path=['response'])
+        assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.delete(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = await response.parse()
-            assert_matches_type(ScheduleDeleteResponse, schedule, path=['response'])
+            assert_matches_type(ScheduleDeleteResponse, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -771,9 +733,9 @@ class TestAsyncSchedules:
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          await async_client.agent.schedules.with_raw_response.delete(
-              "",
-          )
+            await async_client.agent.schedules.with_raw_response.delete(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -781,32 +743,31 @@ class TestAsyncSchedules:
         schedule = await async_client.agent.schedules.pause(
             "scheduleId",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_pause(self, async_client: AsyncOzAPI) -> None:
-
         response = await async_client.agent.schedules.with_raw_response.pause(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = await response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_pause(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.pause(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = await response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -814,9 +775,9 @@ class TestAsyncSchedules:
     @parametrize
     async def test_path_params_pause(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          await async_client.agent.schedules.with_raw_response.pause(
-              "",
-          )
+            await async_client.agent.schedules.with_raw_response.pause(
+                "",
+            )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -824,32 +785,31 @@ class TestAsyncSchedules:
         schedule = await async_client.agent.schedules.resume(
             "scheduleId",
         )
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_resume(self, async_client: AsyncOzAPI) -> None:
-
         response = await async_client.agent.schedules.with_raw_response.resume(
             "scheduleId",
         )
 
         assert response.is_closed is True
-        assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         schedule = await response.parse()
-        assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+        assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_resume(self, async_client: AsyncOzAPI) -> None:
         async with async_client.agent.schedules.with_streaming_response.resume(
             "scheduleId",
-        ) as response :
+        ) as response:
             assert not response.is_closed
-            assert response.http_request.headers.get('X-Stainless-Lang') == 'python'
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             schedule = await response.parse()
-            assert_matches_type(ScheduledAgentItem, schedule, path=['response'])
+            assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -857,6 +817,6 @@ class TestAsyncSchedules:
     @parametrize
     async def test_path_params_resume(self, async_client: AsyncOzAPI) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `schedule_id` but received ''"):
-          await async_client.agent.schedules.with_raw_response.resume(
-              "",
-          )
+            await async_client.agent.schedules.with_raw_response.resume(
+                "",
+            )

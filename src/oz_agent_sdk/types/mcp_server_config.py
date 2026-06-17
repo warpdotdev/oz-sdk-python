@@ -1,16 +1,18 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from typing import Dict, List, Optional
+
 from .._models import BaseModel
 
-from typing import Optional, List, Dict
-
 __all__ = ["McpServerConfig"]
+
 
 class McpServerConfig(BaseModel):
     """Configuration for an MCP server.
 
     Must have exactly one of: warp_id, command, or url.
     """
+
     args: Optional[List[str]] = None
     """Stdio transport - command arguments"""
 

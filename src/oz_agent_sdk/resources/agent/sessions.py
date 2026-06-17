@@ -4,27 +4,25 @@ from __future__ import annotations
 
 import httpx
 
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
+from ..._types import Body, Query, Headers, NotGiven, not_given
 from ..._utils import path_template
-
-from ...types.agent.session_check_redirect_response import SessionCheckRedirectResponse
-
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
 from ..._base_client import make_request_options
-
-from ..._types import NotGiven
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
+from ...types.agent.session_check_redirect_response import SessionCheckRedirectResponse
 
 __all__ = ["SessionsResource", "AsyncSessionsResource"]
 
+
 class SessionsResource(SyncAPIResource):
     """Operations for running and managing cloud agents"""
+
     @cached_property
     def with_raw_response(self) -> SessionsResourceWithRawResponse:
         """
@@ -44,15 +42,17 @@ class SessionsResource(SyncAPIResource):
         """
         return SessionsResourceWithStreamingResponse(self)
 
-    def check_redirect(self,
-    session_uuid: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SessionCheckRedirectResponse:
+    def check_redirect(
+        self,
+        session_uuid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionCheckRedirectResponse:
         """
         Check whether a shared session should redirect to a conversation transcript.
         Returns a conversation_id if the agent sandbox has finished and conversation
@@ -72,17 +72,23 @@ class SessionsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not session_uuid:
-          raise ValueError(
-            f'Expected a non-empty value for `session_uuid` but received {session_uuid!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `session_uuid` but received {session_uuid!r}")
         return self._get(
             path_template("/agent/sessions/{session_uuid}/redirect", session_uuid=session_uuid),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, security={}),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                security={},
+            ),
             cast_to=SessionCheckRedirectResponse,
         )
 
+
 class AsyncSessionsResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
+
     @cached_property
     def with_raw_response(self) -> AsyncSessionsResourceWithRawResponse:
         """
@@ -102,15 +108,17 @@ class AsyncSessionsResource(AsyncAPIResource):
         """
         return AsyncSessionsResourceWithStreamingResponse(self)
 
-    async def check_redirect(self,
-    session_uuid: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SessionCheckRedirectResponse:
+    async def check_redirect(
+        self,
+        session_uuid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionCheckRedirectResponse:
         """
         Check whether a shared session should redirect to a conversation transcript.
         Returns a conversation_id if the agent sandbox has finished and conversation
@@ -130,14 +138,19 @@ class AsyncSessionsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not session_uuid:
-          raise ValueError(
-            f'Expected a non-empty value for `session_uuid` but received {session_uuid!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `session_uuid` but received {session_uuid!r}")
         return await self._get(
             path_template("/agent/sessions/{session_uuid}/redirect", session_uuid=session_uuid),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, security={}),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                security={},
+            ),
             cast_to=SessionCheckRedirectResponse,
         )
+
 
 class SessionsResourceWithRawResponse:
     def __init__(self, sessions: SessionsResource) -> None:
@@ -147,6 +160,7 @@ class SessionsResourceWithRawResponse:
             sessions.check_redirect,
         )
 
+
 class AsyncSessionsResourceWithRawResponse:
     def __init__(self, sessions: AsyncSessionsResource) -> None:
         self._sessions = sessions
@@ -155,6 +169,7 @@ class AsyncSessionsResourceWithRawResponse:
             sessions.check_redirect,
         )
 
+
 class SessionsResourceWithStreamingResponse:
     def __init__(self, sessions: SessionsResource) -> None:
         self._sessions = sessions
@@ -162,6 +177,7 @@ class SessionsResourceWithStreamingResponse:
         self.check_redirect = to_streamed_response_wrapper(
             sessions.check_redirect,
         )
+
 
 class AsyncSessionsResourceWithStreamingResponse:
     def __init__(self, sessions: AsyncSessionsResource) -> None:

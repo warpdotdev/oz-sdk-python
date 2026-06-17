@@ -1,16 +1,24 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union, Optional
-
-from ..._models import BaseModel
-
-from typing_extensions import Literal, Annotated, TypeAliasType, TypeAlias
-
 from datetime import datetime
+from typing_extensions import Literal, Annotated, TypeAlias
 
 from ..._utils import PropertyInfo
+from ..._models import BaseModel
 
-__all__ = ["ArtifactItem", "PlanArtifact", "PlanArtifactData", "PullRequestArtifact", "PullRequestArtifactData", "ScreenshotArtifact", "ScreenshotArtifactData", "FileArtifact", "FileArtifactData"]
+__all__ = [
+    "ArtifactItem",
+    "PlanArtifact",
+    "PlanArtifactData",
+    "PullRequestArtifact",
+    "PullRequestArtifactData",
+    "ScreenshotArtifact",
+    "ScreenshotArtifactData",
+    "FileArtifact",
+    "FileArtifactData",
+]
+
 
 class PlanArtifactData(BaseModel):
     document_uid: str
@@ -31,6 +39,7 @@ class PlanArtifactData(BaseModel):
     url: Optional[str] = None
     """URL to open the plan in Warp Drive"""
 
+
 class PlanArtifact(BaseModel):
     artifact_type: Literal["PLAN"]
     """Type of the artifact"""
@@ -40,12 +49,14 @@ class PlanArtifact(BaseModel):
 
     data: PlanArtifactData
 
+
 class PullRequestArtifactData(BaseModel):
     branch: str
     """Branch name for the pull request"""
 
     url: str
     """URL of the pull request"""
+
 
 class PullRequestArtifact(BaseModel):
     artifact_type: Literal["PULL_REQUEST"]
@@ -55,6 +66,7 @@ class PullRequestArtifact(BaseModel):
     """Timestamp when the artifact was created (RFC3339)"""
 
     data: PullRequestArtifactData
+
 
 class ScreenshotArtifactData(BaseModel):
     artifact_uid: str
@@ -66,6 +78,7 @@ class ScreenshotArtifactData(BaseModel):
     description: Optional[str] = None
     """Optional description of the screenshot"""
 
+
 class ScreenshotArtifact(BaseModel):
     artifact_type: Literal["SCREENSHOT"]
     """Type of the artifact"""
@@ -74,6 +87,7 @@ class ScreenshotArtifact(BaseModel):
     """Timestamp when the artifact was created (RFC3339)"""
 
     data: ScreenshotArtifactData
+
 
 class FileArtifactData(BaseModel):
     artifact_uid: str
@@ -94,6 +108,7 @@ class FileArtifactData(BaseModel):
     size_bytes: Optional[int] = None
     """Size of the uploaded file in bytes"""
 
+
 class FileArtifact(BaseModel):
     artifact_type: Literal["FILE"]
     """Type of the artifact"""
@@ -103,4 +118,8 @@ class FileArtifact(BaseModel):
 
     data: FileArtifactData
 
-ArtifactItem: TypeAlias = Annotated[Union[PlanArtifact, PullRequestArtifact, ScreenshotArtifact, FileArtifact], PropertyInfo(discriminator="artifact_type")]
+
+ArtifactItem: TypeAlias = Annotated[
+    Union[PlanArtifact, PullRequestArtifact, ScreenshotArtifact, FileArtifact],
+    PropertyInfo(discriminator="artifact_type"),
+]

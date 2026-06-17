@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal
+from typing_extensions import Literal, TypedDict
 
 __all__ = ["RunSubmitFollowupParams"]
+
 
 class RunSubmitFollowupParams(TypedDict, total=False):
     message: str

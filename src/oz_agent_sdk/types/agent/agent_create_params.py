@@ -2,15 +2,21 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Required, Literal
-
-from typing import Optional, Dict, Iterable
-
-from ..mcp_server_config_param import McpServerConfigParam
+from typing import Dict, Iterable, Optional
+from typing_extensions import Literal, Required, TypedDict
 
 from ..._types import SequenceNotStr
+from ..mcp_server_config_param import McpServerConfigParam
 
-__all__ = ["AgentCreateParams", "HarnessAuthSecrets", "InferenceProviders", "InferenceProvidersAws", "MemoryStore", "Secret"]
+__all__ = [
+    "AgentCreateParams",
+    "HarnessAuthSecrets",
+    "InferenceProviders",
+    "InferenceProvidersAws",
+    "MemoryStore",
+    "Secret",
+]
+
 
 class AgentCreateParams(TypedDict, total=False):
     name: Required[str]
@@ -72,11 +78,13 @@ class AgentCreateParams(TypedDict, total=False):
     or malformed specs are rejected.
     """
 
+
 class HarnessAuthSecrets(TypedDict, total=False):
     """
     Authentication secrets for third-party harnesses.
     Only the secret for the harness specified gets injected into the environment.
     """
+
     claude_auth_secret_name: str
     """
     Name of a managed secret for Claude Code harness authentication. The secret must
@@ -91,11 +99,13 @@ class HarnessAuthSecrets(TypedDict, total=False):
     "codex".
     """
 
+
 class InferenceProvidersAws(TypedDict, total=False):
     """
     Configures AWS Bedrock as the LLM inference provider for this
     agent or run.
     """
+
     disabled: bool
     """If true, opt out of Bedrock at this layer."""
 
@@ -105,13 +115,17 @@ class InferenceProvidersAws(TypedDict, total=False):
     role_arn: str
     """IAM role ARN to assume when calling Bedrock."""
 
+
 class InferenceProviders(TypedDict, total=False):
     """Inference provider settings used for LLM calls."""
+
     aws: InferenceProvidersAws
     """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
 
+
 class MemoryStore(TypedDict, total=False):
     """Reference to a memory store to attach to an agent."""
+
     access: Required[Literal["read_write", "read_only"]]
     """Access level for the store."""
 
@@ -121,7 +135,9 @@ class MemoryStore(TypedDict, total=False):
     uid: Required[str]
     """UID of the memory store."""
 
+
 class Secret(TypedDict, total=False):
     """Reference to a managed secret by name."""
+
     name: Required[str]
     """Name of the managed secret."""

@@ -8,7 +8,7 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from oz_agent_sdk._types import not_given, omit, Base64FileInput
+from oz_agent_sdk._types import Base64FileInput, omit, not_given
 from oz_agent_sdk._utils import (
     PropertyInfo,
     transform as _transform,

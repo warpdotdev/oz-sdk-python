@@ -2,19 +2,16 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict, Literal, Annotated, Required
-
-from typing import Iterable, Union
-
-from .ambient_agent_config_param import AmbientAgentConfigParam
-
-from .._models import set_pydantic_config
+from typing import Union, Iterable
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import Base64FileInput
-
 from .._utils import PropertyInfo
+from .._models import set_pydantic_config
+from .ambient_agent_config_param import AmbientAgentConfigParam
 
 __all__ = ["AgentRunParams", "Attachment"]
+
 
 class AgentRunParams(TypedDict, total=False):
     agent_identity_uid: str
@@ -80,9 +77,11 @@ class AgentRunParams(TypedDict, total=False):
     title: str
     """Custom title for the run (auto-generated if not provided)"""
 
+
 class Attachment(TypedDict, total=False):
     """A base64-encoded file attachment to include with the prompt"""
-    data: Required[Annotated[Union[str, Base64FileInput], PropertyInfo(format = "base64")]]
+
+    data: Required[Annotated[Union[str, Base64FileInput], PropertyInfo(format="base64")]]
     """Base64-encoded attachment data"""
 
     file_name: Required[str]
@@ -94,6 +93,5 @@ class Attachment(TypedDict, total=False):
     image/gif, image/webp
     """
 
-set_pydantic_config(Attachment, {
-    "arbitrary_types_allowed": True
-})
+
+set_pydantic_config(Attachment, {"arbitrary_types_allowed": True})

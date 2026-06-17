@@ -2,111 +2,115 @@
 
 from __future__ import annotations
 
-import httpx
-
 import os
+from typing import TYPE_CHECKING, Any, Mapping
+from typing_extensions import Self, override
 
-from ._streaming import AsyncStream as AsyncStream, Stream as Stream
-
-from ._types import NotGiven, not_given
-
-from typing import Mapping, Any
-
-from ._exceptions import OzAPIError, APIStatusError
-
-from ._utils import is_mapping_t, get_async_library
-
-from ._compat import cached_property
-
-from typing_extensions import override, Self
-
-from ._models import SecurityOptions
+import httpx
 
 from . import _exceptions
-
-import os
-import asyncio
-from typing_extensions import Literal
-
-import httpx
-
-from ._version import __version__
 from ._qs import Querystring
-from ._utils import maybe_coerce_integer, maybe_coerce_float, maybe_coerce_boolean, is_given
-from ._types import Omit, Timeout, Transport, ProxiesTypes, RequestOptions, Headers, NoneType, Query, Body
+from ._types import (
+    Omit,
+    Timeout,
+    NotGiven,
+    Transport,
+    ProxiesTypes,
+    RequestOptions,
+    not_given,
+)
+from ._utils import (
+    is_given,
+    is_mapping_t,
+    get_async_library,
+)
+from ._compat import cached_property
+from ._models import SecurityOptions
+from ._version import __version__
+from ._streaming import Stream as Stream, AsyncStream as AsyncStream
+from ._exceptions import OzAPIError, APIStatusError
 from ._base_client import (
-    DEFAULT_CONNECTION_LIMITS,
-    DEFAULT_TIMEOUT,
     DEFAULT_MAX_RETRIES,
-    ResponseT,
-    SyncHttpxClientWrapper,
-    AsyncHttpxClientWrapper,
     SyncAPIClient,
     AsyncAPIClient,
-    make_request_options,
 )
 
-from typing import TYPE_CHECKING
-
 if TYPE_CHECKING:
-  from .resources import agent
-  from .resources import agent
-  from .resources import agent
-  from .resources import agent
-  from .resources.agent.agent import AgentResource, AsyncAgentResource
+    from .resources import agent
+    from .resources.agent.agent import AgentResource, AsyncAgentResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "OzAPI", "AsyncOzAPI", "Client", "AsyncClient"]
+
 
 class OzAPI(SyncAPIClient):
     # client options
     api_key: str
 
-    def __init__(self, *, api_key: str | None = None, base_url: str | httpx.URL | None = None, timeout: float | Timeout | None | NotGiven = not_given, max_retries: int = DEFAULT_MAX_RETRIES, default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None,
-    # Configure a custom httpx client.
-    # We provide a `DefaultHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
-    # See the [httpx documentation](https://www.python-httpx.org/api/#client) for more details.
-    http_client: httpx.Client | None = None,
-    # Enable or disable schema validation for data returned by the API.
-    # When enabled an error APIResponseValidationError is raised
-    # if the API responds with invalid data for the expected schema.
-    #
-    # This parameter may be removed or changed in the future.
-    # If you rely on this feature, please open a GitHub issue
-    # outlining your use-case to help us decide if it should be
-    # part of our public interface in the future.
-    _strict_response_validation: bool = False) -> None:
+    def __init__(
+        self,
+        *,
+        api_key: str | None = None,
+        base_url: str | httpx.URL | None = None,
+        timeout: float | Timeout | None | NotGiven = not_given,
+        max_retries: int = DEFAULT_MAX_RETRIES,
+        default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        # Configure a custom httpx client.
+        # We provide a `DefaultHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
+        # See the [httpx documentation](https://www.python-httpx.org/api/#client) for more details.
+        http_client: httpx.Client | None = None,
+        # Enable or disable schema validation for data returned by the API.
+        # When enabled an error APIResponseValidationError is raised
+        # if the API responds with invalid data for the expected schema.
+        #
+        # This parameter may be removed or changed in the future.
+        # If you rely on this feature, please open a GitHub issue
+        # outlining your use-case to help us decide if it should be
+        # part of our public interface in the future.
+        _strict_response_validation: bool = False,
+    ) -> None:
         """Construct a new synchronous OzAPI client instance.
 
         This automatically infers the `api_key` argument from the `WARP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-          api_key = os.environ.get("WARP_API_KEY")
+            api_key = os.environ.get("WARP_API_KEY")
         if api_key is None:
-          raise OzAPIError(
-            "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
-          )
+            raise OzAPIError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
+            )
         self.api_key = api_key
 
         if base_url is None:
-          base_url = os.environ.get("OZ_API_BASE_URL")
+            base_url = os.environ.get("OZ_API_BASE_URL")
         if base_url is None:
-          base_url = f"https://app.warp.dev/api/v1"
+            base_url = f"https://app.warp.dev/api/v1"
 
         custom_headers_env = os.environ.get("OZ_API_CUSTOM_HEADERS")
         if custom_headers_env is not None:
-          parsed: dict[str, str] = {}
-          for line in custom_headers_env.split('\n'):
-            colon = line.find(':')
-            if colon >= 0:
-              parsed[line[:colon].strip()] = line[colon + 1:].strip()
-          default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
 
-        super().__init__(version=__version__, base_url=base_url, max_retries=max_retries, timeout=timeout, http_client=http_client, custom_headers=default_headers, custom_query=default_query, _strict_response_validation=_strict_response_validation)
+        super().__init__(
+            version=__version__,
+            base_url=base_url,
+            max_retries=max_retries,
+            timeout=timeout,
+            http_client=http_client,
+            custom_headers=default_headers,
+            custom_query=default_query,
+            _strict_response_validation=_strict_response_validation,
+        )
 
     @cached_property
     def agent(self) -> AgentResource:
         """Operations for running and managing cloud agents"""
         from .resources.agent import AgentResource
+
         return AgentResource(self)
 
     @cached_property
@@ -131,32 +135,39 @@ class OzAPI(SyncAPIClient):
     @property
     def _bearer_auth(self) -> dict[str, str]:
         api_key = self.api_key
-        return {
-            "Authorization": f"Bearer {api_key}"
-        }
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
-          **super().default_headers,
-          "X-Stainless-Async": "false",
-          **self._custom_headers,
+            **super().default_headers,
+            "X-Stainless-Async": "false",
+            **self._custom_headers,
         }
 
-    def copy(self, *, api_key: str | None = None, base_url: str | httpx.URL | None = None, timeout: float | Timeout | None | NotGiven = not_given, http_client: httpx.Client | None = None, max_retries: int | NotGiven = not_given, default_headers: Mapping[str, str] | None = None, set_default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None, set_default_query: Mapping[str, object] | None = None, _extra_kwargs: Mapping[str, Any] = {}) -> Self:
+    def copy(
+        self,
+        *,
+        api_key: str | None = None,
+        base_url: str | httpx.URL | None = None,
+        timeout: float | Timeout | None | NotGiven = not_given,
+        http_client: httpx.Client | None = None,
+        max_retries: int | NotGiven = not_given,
+        default_headers: Mapping[str, str] | None = None,
+        set_default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        set_default_query: Mapping[str, object] | None = None,
+        _extra_kwargs: Mapping[str, Any] = {},
+    ) -> Self:
         """
         Create a new client instance re-using the same options given to the current client with optional overriding.
         """
         if default_headers is not None and set_default_headers is not None:
-          raise ValueError(
-            'The `default_headers` and `set_default_headers` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_headers` and `set_default_headers` arguments are mutually exclusive")
 
         if default_query is not None and set_default_query is not None:
-          raise ValueError(
-            'The `default_query` and `set_default_query` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_query` and `set_default_query` arguments are mutually exclusive")
 
         headers = self._custom_headers
         if default_headers is not None:
@@ -171,14 +182,29 @@ class OzAPI(SyncAPIClient):
             params = set_default_query
 
         http_client = http_client or self._client
-        return self.__class__(api_key = api_key or self.api_key, base_url=base_url or self.base_url, timeout=self.timeout if isinstance(timeout, NotGiven) else timeout, http_client=http_client, max_retries=max_retries if is_given(max_retries) else self.max_retries, default_headers=headers, default_query=params, **_extra_kwargs)
+        return self.__class__(
+            api_key=api_key or self.api_key,
+            base_url=base_url or self.base_url,
+            timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
+            http_client=http_client,
+            max_retries=max_retries if is_given(max_retries) else self.max_retries,
+            default_headers=headers,
+            default_query=params,
+            **_extra_kwargs,
+        )
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
     @override
-    def _make_status_error(self, err_msg: str, *, body: object, response: httpx.Response,) -> APIStatusError:
+    def _make_status_error(
+        self,
+        err_msg: str,
+        *,
+        body: object,
+        response: httpx.Response,
+    ) -> APIStatusError:
         if response.status_code == 400:
             return _exceptions.BadRequestError(err_msg, response=response, body=body)
 
@@ -204,56 +230,76 @@ class OzAPI(SyncAPIClient):
             return _exceptions.InternalServerError(err_msg, response=response, body=body)
         return APIStatusError(err_msg, response=response, body=body)
 
+
 class AsyncOzAPI(AsyncAPIClient):
     # client options
     api_key: str
 
-    def __init__(self, *, api_key: str | None = None, base_url: str | httpx.URL | None = None, timeout: float | Timeout | None | NotGiven = not_given, max_retries: int = DEFAULT_MAX_RETRIES, default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None,
-    # Configure a custom httpx client.
-    # We provide a `DefaultAsyncHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
-    # See the [httpx documentation](https://www.python-httpx.org/api/#asyncclient) for more details.
-    http_client: httpx.AsyncClient | None = None,
-    # Enable or disable schema validation for data returned by the API.
-    # When enabled an error APIResponseValidationError is raised
-    # if the API responds with invalid data for the expected schema.
-    #
-    # This parameter may be removed or changed in the future.
-    # If you rely on this feature, please open a GitHub issue
-    # outlining your use-case to help us decide if it should be
-    # part of our public interface in the future.
-    _strict_response_validation: bool = False) -> None:
+    def __init__(
+        self,
+        *,
+        api_key: str | None = None,
+        base_url: str | httpx.URL | None = None,
+        timeout: float | Timeout | None | NotGiven = not_given,
+        max_retries: int = DEFAULT_MAX_RETRIES,
+        default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        # Configure a custom httpx client.
+        # We provide a `DefaultAsyncHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
+        # See the [httpx documentation](https://www.python-httpx.org/api/#asyncclient) for more details.
+        http_client: httpx.AsyncClient | None = None,
+        # Enable or disable schema validation for data returned by the API.
+        # When enabled an error APIResponseValidationError is raised
+        # if the API responds with invalid data for the expected schema.
+        #
+        # This parameter may be removed or changed in the future.
+        # If you rely on this feature, please open a GitHub issue
+        # outlining your use-case to help us decide if it should be
+        # part of our public interface in the future.
+        _strict_response_validation: bool = False,
+    ) -> None:
         """Construct a new async AsyncOzAPI client instance.
 
         This automatically infers the `api_key` argument from the `WARP_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-          api_key = os.environ.get("WARP_API_KEY")
+            api_key = os.environ.get("WARP_API_KEY")
         if api_key is None:
-          raise OzAPIError(
-            "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
-          )
+            raise OzAPIError(
+                "The api_key client option must be set either by passing api_key to the client or by setting the WARP_API_KEY environment variable"
+            )
         self.api_key = api_key
 
         if base_url is None:
-          base_url = os.environ.get("OZ_API_BASE_URL")
+            base_url = os.environ.get("OZ_API_BASE_URL")
         if base_url is None:
-          base_url = f"https://app.warp.dev/api/v1"
+            base_url = f"https://app.warp.dev/api/v1"
 
         custom_headers_env = os.environ.get("OZ_API_CUSTOM_HEADERS")
         if custom_headers_env is not None:
-          parsed: dict[str, str] = {}
-          for line in custom_headers_env.split('\n'):
-            colon = line.find(':')
-            if colon >= 0:
-              parsed[line[:colon].strip()] = line[colon + 1:].strip()
-          default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
 
-        super().__init__(version=__version__, base_url=base_url, max_retries=max_retries, timeout=timeout, http_client=http_client, custom_headers=default_headers, custom_query=default_query, _strict_response_validation=_strict_response_validation)
+        super().__init__(
+            version=__version__,
+            base_url=base_url,
+            max_retries=max_retries,
+            timeout=timeout,
+            http_client=http_client,
+            custom_headers=default_headers,
+            custom_query=default_query,
+            _strict_response_validation=_strict_response_validation,
+        )
 
     @cached_property
     def agent(self) -> AsyncAgentResource:
         """Operations for running and managing cloud agents"""
         from .resources.agent import AsyncAgentResource
+
         return AsyncAgentResource(self)
 
     @cached_property
@@ -278,32 +324,39 @@ class AsyncOzAPI(AsyncAPIClient):
     @property
     def _bearer_auth(self) -> dict[str, str]:
         api_key = self.api_key
-        return {
-            "Authorization": f"Bearer {api_key}"
-        }
+        return {"Authorization": f"Bearer {api_key}"}
 
     @property
     @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
-          **super().default_headers,
-          "X-Stainless-Async": f'async:{get_async_library()}',
-          **self._custom_headers,
+            **super().default_headers,
+            "X-Stainless-Async": f"async:{get_async_library()}",
+            **self._custom_headers,
         }
 
-    def copy(self, *, api_key: str | None = None, base_url: str | httpx.URL | None = None, timeout: float | Timeout | None | NotGiven = not_given, http_client: httpx.AsyncClient | None = None, max_retries: int | NotGiven = not_given, default_headers: Mapping[str, str] | None = None, set_default_headers: Mapping[str, str] | None = None, default_query: Mapping[str, object] | None = None, set_default_query: Mapping[str, object] | None = None, _extra_kwargs: Mapping[str, Any] = {}) -> Self:
+    def copy(
+        self,
+        *,
+        api_key: str | None = None,
+        base_url: str | httpx.URL | None = None,
+        timeout: float | Timeout | None | NotGiven = not_given,
+        http_client: httpx.AsyncClient | None = None,
+        max_retries: int | NotGiven = not_given,
+        default_headers: Mapping[str, str] | None = None,
+        set_default_headers: Mapping[str, str] | None = None,
+        default_query: Mapping[str, object] | None = None,
+        set_default_query: Mapping[str, object] | None = None,
+        _extra_kwargs: Mapping[str, Any] = {},
+    ) -> Self:
         """
         Create a new client instance re-using the same options given to the current client with optional overriding.
         """
         if default_headers is not None and set_default_headers is not None:
-          raise ValueError(
-            'The `default_headers` and `set_default_headers` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_headers` and `set_default_headers` arguments are mutually exclusive")
 
         if default_query is not None and set_default_query is not None:
-          raise ValueError(
-            'The `default_query` and `set_default_query` arguments are mutually exclusive'
-          )
+            raise ValueError("The `default_query` and `set_default_query` arguments are mutually exclusive")
 
         headers = self._custom_headers
         if default_headers is not None:
@@ -318,14 +371,29 @@ class AsyncOzAPI(AsyncAPIClient):
             params = set_default_query
 
         http_client = http_client or self._client
-        return self.__class__(api_key = api_key or self.api_key, base_url=base_url or self.base_url, timeout=self.timeout if isinstance(timeout, NotGiven) else timeout, http_client=http_client, max_retries=max_retries if is_given(max_retries) else self.max_retries, default_headers=headers, default_query=params, **_extra_kwargs)
+        return self.__class__(
+            api_key=api_key or self.api_key,
+            base_url=base_url or self.base_url,
+            timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
+            http_client=http_client,
+            max_retries=max_retries if is_given(max_retries) else self.max_retries,
+            default_headers=headers,
+            default_query=params,
+            **_extra_kwargs,
+        )
 
     # Alias for `copy` for nicer inline usage, e.g.
     # client.with_options(timeout=10).foo.create(...)
     with_options = copy
 
     @override
-    def _make_status_error(self, err_msg: str, *, body: object, response: httpx.Response,) -> APIStatusError:
+    def _make_status_error(
+        self,
+        err_msg: str,
+        *,
+        body: object,
+        response: httpx.Response,
+    ) -> APIStatusError:
         if response.status_code == 400:
             return _exceptions.BadRequestError(err_msg, response=response, body=body)
 
@@ -351,6 +419,7 @@ class AsyncOzAPI(AsyncAPIClient):
             return _exceptions.InternalServerError(err_msg, response=response, body=body)
         return APIStatusError(err_msg, response=response, body=body)
 
+
 class OzAPIWithRawResponse:
     _client: OzAPI
 
@@ -361,7 +430,9 @@ class OzAPIWithRawResponse:
     def agent(self) -> agent.AgentResourceWithRawResponse:
         """Operations for running and managing cloud agents"""
         from .resources.agent import AgentResourceWithRawResponse
+
         return AgentResourceWithRawResponse(self._client.agent)
+
 
 class AsyncOzAPIWithRawResponse:
     _client: AsyncOzAPI
@@ -373,7 +444,9 @@ class AsyncOzAPIWithRawResponse:
     def agent(self) -> agent.AsyncAgentResourceWithRawResponse:
         """Operations for running and managing cloud agents"""
         from .resources.agent import AsyncAgentResourceWithRawResponse
+
         return AsyncAgentResourceWithRawResponse(self._client.agent)
+
 
 class OzAPIWithStreamedResponse:
     _client: OzAPI
@@ -385,7 +458,9 @@ class OzAPIWithStreamedResponse:
     def agent(self) -> agent.AgentResourceWithStreamingResponse:
         """Operations for running and managing cloud agents"""
         from .resources.agent import AgentResourceWithStreamingResponse
+
         return AgentResourceWithStreamingResponse(self._client.agent)
+
 
 class AsyncOzAPIWithStreamedResponse:
     _client: AsyncOzAPI
@@ -397,7 +472,9 @@ class AsyncOzAPIWithStreamedResponse:
     def agent(self) -> agent.AsyncAgentResourceWithStreamingResponse:
         """Operations for running and managing cloud agents"""
         from .resources.agent import AsyncAgentResourceWithStreamingResponse
+
         return AsyncAgentResourceWithStreamingResponse(self._client.agent)
+
 
 Client = OzAPI
 

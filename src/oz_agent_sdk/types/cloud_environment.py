@@ -1,23 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from .._models import BaseModel
-
+from typing import Optional
 from datetime import datetime
 
-from .agent.run_state import RunState
-
-from typing import Optional
-
-from .cloud_environment_config import CloudEnvironmentConfig
-
-from .user_profile import UserProfile
-
 from .scope import Scope
+from .._models import BaseModel
+from .user_profile import UserProfile
+from .agent.run_state import RunState
+from .cloud_environment_config import CloudEnvironmentConfig
 
 __all__ = ["CloudEnvironment", "LastTaskCreated"]
 
+
 class LastTaskCreated(BaseModel):
     """Summary of the most recently created task for an environment"""
+
     id: str
     """Unique identifier of the task"""
 
@@ -47,8 +44,10 @@ class LastTaskCreated(BaseModel):
     started_at: Optional[datetime] = None
     """When the task started running (RFC3339), null if not yet started"""
 
+
 class CloudEnvironment(BaseModel):
     """A cloud environment for running agents"""
+
     config: CloudEnvironmentConfig
     """Configuration for a cloud environment used by scheduled agents"""
 

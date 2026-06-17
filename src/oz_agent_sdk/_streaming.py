@@ -4,18 +4,16 @@ from __future__ import annotations
 import json
 import inspect
 from types import TracebackType
-from typing import TYPE_CHECKING, Optional, Any, Generic, TypeVar, Iterator, AsyncIterator, cast
+from typing import TYPE_CHECKING, Any, Generic, TypeVar, Iterator, Optional, AsyncIterator, cast
 from typing_extensions import Self, Protocol, TypeGuard, override, get_origin, runtime_checkable
 
 import httpx
 
-from ._utils import is_mapping, is_dict, extract_type_var_from_base
-from ._exceptions import APIError
-from ._response import APIResponse, AsyncAPIResponse
+from ._utils import extract_type_var_from_base
 
 if TYPE_CHECKING:
-    from ._models import FinalRequestOptions
     from ._client import OzAPI, AsyncOzAPI
+    from ._models import FinalRequestOptions
 
 
 _T = TypeVar("_T")
@@ -58,7 +56,7 @@ class Stream(Generic[_T]):
         response = self.response
         process_data = self._client._process_response_data
         iterator = self._iter_events()
-        
+
         try:
             for sse in iterator:
                 yield process_data(data=sse.json(), cast_to=cast_to, response=response)
@@ -124,7 +122,7 @@ class AsyncStream(Generic[_T]):
         response = self.response
         process_data = self._client._process_response_data
         iterator = self._iter_events()
-        
+
         try:
             async for sse in iterator:
                 yield process_data(data=sse.json(), cast_to=cast_to, response=response)

@@ -2,48 +2,36 @@
 
 from __future__ import annotations
 
-import httpx
-
-from ..._resource import SyncAPIResource, AsyncAPIResource
-
-from ..._compat import cached_property
-
-from ..._utils import path_template, maybe_transform, async_maybe_transform
-
-from ...types.agent.run_item import RunItem
-
-from ..._base_client import make_request_options, AsyncPaginator
-
-from ..._types import NotGiven, Omit, omit
-
-from ...pagination import SyncRunsCursorPage, AsyncRunsCursorPage
-
+from typing import List, Union
+from datetime import datetime
 from typing_extensions import Literal
 
-from typing import Union, List
+import httpx
 
-from datetime import datetime
-
-from ...types.agent.run_source_type import RunSourceType
-
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
+)
+from ...pagination import SyncRunsCursorPage, AsyncRunsCursorPage
+from ...types.agent import RunSourceType, run_list_params, run_submit_followup_params
+from ..._base_client import AsyncPaginator, make_request_options
+from ...types.agent.run_item import RunItem
 from ...types.agent.run_state import RunState
-
-from ...types.agent.run_cancel_response import RunCancelResponse
-
+from ...types.agent.run_source_type import RunSourceType
 from ...types.agent.run_list_handoff_attachments_response import RunListHandoffAttachmentsResponse
-
-from ..._response import to_raw_response_wrapper, async_to_raw_response_wrapper, to_streamed_response_wrapper, async_to_streamed_response_wrapper
-
-from typing_extensions import Literal, overload
-from ..._types import Timeout, Headers, NotGiven, not_given, Omit, omit, NoneType, Query, Body
-from ...types.agent import run_list_params
-from ...types.agent import run_submit_followup_params
-from ...types.agent import RunSourceType
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
+
 class RunsResource(SyncAPIResource):
     """Operations for running and managing cloud agents"""
+
     @cached_property
     def with_raw_response(self) -> RunsResourceWithRawResponse:
         """
@@ -63,15 +51,17 @@ class RunsResource(SyncAPIResource):
         """
         return RunsResourceWithStreamingResponse(self)
 
-    def retrieve(self,
-    run_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> RunItem:
+    def retrieve(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunItem:
         """
         Retrieve detailed information about a specific agent run, including the full
         prompt, session link, and resolved configuration.
@@ -86,44 +76,46 @@ class RunsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get(
             path_template("/agent/runs/{run_id}", run_id=run_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=RunItem,
         )
 
-    def list(self,
-    *,
-    ancestor_run_id: str | Omit = omit,
-    artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
-    created_after: Union[str, datetime] | Omit = omit,
-    created_before: Union[str, datetime] | Omit = omit,
-    creator: str | Omit = omit,
-    cursor: str | Omit = omit,
-    environment_id: str | Omit = omit,
-    execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
-    executor: str | Omit = omit,
-    limit: int | Omit = omit,
-    model_id: str | Omit = omit,
-    name: str | Omit = omit,
-    q: str | Omit = omit,
-    schedule_id: str | Omit = omit,
-    skill: str | Omit = omit,
-    skill_spec: str | Omit = omit,
-    sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
-    sort_order: Literal["asc", "desc"] | Omit = omit,
-    source: RunSourceType | Omit = omit,
-    state: List[RunState] | Omit = omit,
-    updated_after: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> SyncRunsCursorPage[RunItem]:
+    def list(
+        self,
+        *,
+        ancestor_run_id: str | Omit = omit,
+        artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        creator: str | Omit = omit,
+        cursor: str | Omit = omit,
+        environment_id: str | Omit = omit,
+        execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
+        executor: str | Omit = omit,
+        limit: int | Omit = omit,
+        model_id: str | Omit = omit,
+        name: str | Omit = omit,
+        q: str | Omit = omit,
+        schedule_id: str | Omit = omit,
+        skill: str | Omit = omit,
+        skill_spec: str | Omit = omit,
+        sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
+        sort_order: Literal["asc", "desc"] | Omit = omit,
+        source: RunSourceType | Omit = omit,
+        state: List[RunState] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncRunsCursorPage[RunItem]:
         """Retrieve a paginated list of agent runs with optional filtering.
 
         Results default
@@ -191,42 +183,53 @@ class RunsResource(SyncAPIResource):
         """
         return self._get_api_list(
             "/agent/runs",
-            page = SyncRunsCursorPage[RunItem],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ancestor_run_id": ancestor_run_id,
-                "artifact_type": artifact_type,
-                "created_after": created_after,
-                "created_before": created_before,
-                "creator": creator,
-                "cursor": cursor,
-                "environment_id": environment_id,
-                "execution_location": execution_location,
-                "executor": executor,
-                "limit": limit,
-                "model_id": model_id,
-                "name": name,
-                "q": q,
-                "schedule_id": schedule_id,
-                "skill": skill,
-                "skill_spec": skill_spec,
-                "sort_by": sort_by,
-                "sort_order": sort_order,
-                "source": source,
-                "state": state,
-                "updated_after": updated_after,
-            }, run_list_params.RunListParams)),
+            page=SyncRunsCursorPage[RunItem],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ancestor_run_id": ancestor_run_id,
+                        "artifact_type": artifact_type,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "creator": creator,
+                        "cursor": cursor,
+                        "environment_id": environment_id,
+                        "execution_location": execution_location,
+                        "executor": executor,
+                        "limit": limit,
+                        "model_id": model_id,
+                        "name": name,
+                        "q": q,
+                        "schedule_id": schedule_id,
+                        "skill": skill,
+                        "skill_spec": skill_spec,
+                        "sort_by": sort_by,
+                        "sort_order": sort_order,
+                        "source": source,
+                        "state": state,
+                        "updated_after": updated_after,
+                    },
+                    run_list_params.RunListParams,
+                ),
+            ),
             model=RunItem,
         )
 
-    def cancel(self,
-    run_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    def cancel(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """Cancel an agent run that is currently queued or in progress.
 
         Once cancelled, the
@@ -246,24 +249,26 @@ class RunsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._post(
             path_template("/agent/runs/{run_id}/cancel", run_id=run_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
 
-    def list_handoff_attachments(self,
-    run_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> RunListHandoffAttachmentsResponse:
+    def list_handoff_attachments(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunListHandoffAttachmentsResponse:
         """
         Return fresh presigned download URLs for handoff snapshot files uploaded by the
         latest ended execution of this run. An empty list is returned when no ended
@@ -283,26 +288,28 @@ class RunsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._get(
             path_template("/agent/runs/{run_id}/handoff/attachments", run_id=run_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=RunListHandoffAttachmentsResponse,
         )
 
-    def submit_followup(self,
-    run_id: str,
-    *,
-    message: str | Omit = omit,
-    mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    def submit_followup(
+        self,
+        run_id: str,
+        *,
+        message: str | Omit = omit,
+        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """Send a follow-up message to an existing run.
 
         The server transparently routes the
@@ -325,21 +332,26 @@ class RunsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return self._post(
             path_template("/agent/runs/{run_id}/followups", run_id=run_id),
-            body=maybe_transform({
-                "message": message,
-                "mode": mode,
-            }, run_submit_followup_params.RunSubmitFollowupParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=maybe_transform(
+                {
+                    "message": message,
+                    "mode": mode,
+                },
+                run_submit_followup_params.RunSubmitFollowupParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
 
+
 class AsyncRunsResource(AsyncAPIResource):
     """Operations for running and managing cloud agents"""
+
     @cached_property
     def with_raw_response(self) -> AsyncRunsResourceWithRawResponse:
         """
@@ -359,15 +371,17 @@ class AsyncRunsResource(AsyncAPIResource):
         """
         return AsyncRunsResourceWithStreamingResponse(self)
 
-    async def retrieve(self,
-    run_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> RunItem:
+    async def retrieve(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunItem:
         """
         Retrieve detailed information about a specific agent run, including the full
         prompt, session link, and resolved configuration.
@@ -382,44 +396,46 @@ class AsyncRunsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return await self._get(
             path_template("/agent/runs/{run_id}", run_id=run_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=RunItem,
         )
 
-    def list(self,
-    *,
-    ancestor_run_id: str | Omit = omit,
-    artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
-    created_after: Union[str, datetime] | Omit = omit,
-    created_before: Union[str, datetime] | Omit = omit,
-    creator: str | Omit = omit,
-    cursor: str | Omit = omit,
-    environment_id: str | Omit = omit,
-    execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
-    executor: str | Omit = omit,
-    limit: int | Omit = omit,
-    model_id: str | Omit = omit,
-    name: str | Omit = omit,
-    q: str | Omit = omit,
-    schedule_id: str | Omit = omit,
-    skill: str | Omit = omit,
-    skill_spec: str | Omit = omit,
-    sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
-    sort_order: Literal["asc", "desc"] | Omit = omit,
-    source: RunSourceType | Omit = omit,
-    state: List[RunState] | Omit = omit,
-    updated_after: Union[str, datetime] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> AsyncPaginator[RunItem, AsyncRunsCursorPage[RunItem]]:
+    def list(
+        self,
+        *,
+        ancestor_run_id: str | Omit = omit,
+        artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"] | Omit = omit,
+        created_after: Union[str, datetime] | Omit = omit,
+        created_before: Union[str, datetime] | Omit = omit,
+        creator: str | Omit = omit,
+        cursor: str | Omit = omit,
+        environment_id: str | Omit = omit,
+        execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
+        executor: str | Omit = omit,
+        limit: int | Omit = omit,
+        model_id: str | Omit = omit,
+        name: str | Omit = omit,
+        q: str | Omit = omit,
+        schedule_id: str | Omit = omit,
+        skill: str | Omit = omit,
+        skill_spec: str | Omit = omit,
+        sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
+        sort_order: Literal["asc", "desc"] | Omit = omit,
+        source: RunSourceType | Omit = omit,
+        state: List[RunState] | Omit = omit,
+        updated_after: Union[str, datetime] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncPaginator[RunItem, AsyncRunsCursorPage[RunItem]]:
         """Retrieve a paginated list of agent runs with optional filtering.
 
         Results default
@@ -487,42 +503,53 @@ class AsyncRunsResource(AsyncAPIResource):
         """
         return self._get_api_list(
             "/agent/runs",
-            page = AsyncRunsCursorPage[RunItem],
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout, query=maybe_transform({
-                "ancestor_run_id": ancestor_run_id,
-                "artifact_type": artifact_type,
-                "created_after": created_after,
-                "created_before": created_before,
-                "creator": creator,
-                "cursor": cursor,
-                "environment_id": environment_id,
-                "execution_location": execution_location,
-                "executor": executor,
-                "limit": limit,
-                "model_id": model_id,
-                "name": name,
-                "q": q,
-                "schedule_id": schedule_id,
-                "skill": skill,
-                "skill_spec": skill_spec,
-                "sort_by": sort_by,
-                "sort_order": sort_order,
-                "source": source,
-                "state": state,
-                "updated_after": updated_after,
-            }, run_list_params.RunListParams)),
+            page=AsyncRunsCursorPage[RunItem],
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "ancestor_run_id": ancestor_run_id,
+                        "artifact_type": artifact_type,
+                        "created_after": created_after,
+                        "created_before": created_before,
+                        "creator": creator,
+                        "cursor": cursor,
+                        "environment_id": environment_id,
+                        "execution_location": execution_location,
+                        "executor": executor,
+                        "limit": limit,
+                        "model_id": model_id,
+                        "name": name,
+                        "q": q,
+                        "schedule_id": schedule_id,
+                        "skill": skill,
+                        "skill_spec": skill_spec,
+                        "sort_by": sort_by,
+                        "sort_order": sort_order,
+                        "source": source,
+                        "state": state,
+                        "updated_after": updated_after,
+                    },
+                    run_list_params.RunListParams,
+                ),
+            ),
             model=RunItem,
         )
 
-    async def cancel(self,
-    run_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> str:
+    async def cancel(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> str:
         """Cancel an agent run that is currently queued or in progress.
 
         Once cancelled, the
@@ -542,24 +569,26 @@ class AsyncRunsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return await self._post(
             path_template("/agent/runs/{run_id}/cancel", run_id=run_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=str,
         )
 
-    async def list_handoff_attachments(self,
-    run_id: str,
-    *,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> RunListHandoffAttachmentsResponse:
+    async def list_handoff_attachments(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunListHandoffAttachmentsResponse:
         """
         Return fresh presigned download URLs for handoff snapshot files uploaded by the
         latest ended execution of this run. An empty list is returned when no ended
@@ -579,26 +608,28 @@ class AsyncRunsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return await self._get(
             path_template("/agent/runs/{run_id}/handoff/attachments", run_id=run_id),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=RunListHandoffAttachmentsResponse,
         )
 
-    async def submit_followup(self,
-    run_id: str,
-    *,
-    message: str | Omit = omit,
-    mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
-    # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-    # The extra values given here take precedence over values defined on the client or passed to this method.
-    extra_headers: Headers | None = None,
-    extra_query: Query | None = None,
-    extra_body: Body | None = None,
-    timeout: float | httpx.Timeout | None | NotGiven = not_given,) -> object:
+    async def submit_followup(
+        self,
+        run_id: str,
+        *,
+        message: str | Omit = omit,
+        mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> object:
         """Send a follow-up message to an existing run.
 
         The server transparently routes the
@@ -621,18 +652,22 @@ class AsyncRunsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not run_id:
-          raise ValueError(
-            f'Expected a non-empty value for `run_id` but received {run_id!r}'
-          )
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
         return await self._post(
             path_template("/agent/runs/{run_id}/followups", run_id=run_id),
-            body=await async_maybe_transform({
-                "message": message,
-                "mode": mode,
-            }, run_submit_followup_params.RunSubmitFollowupParams),
-            options=make_request_options(extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout),
+            body=await async_maybe_transform(
+                {
+                    "message": message,
+                    "mode": mode,
+                },
+                run_submit_followup_params.RunSubmitFollowupParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
             cast_to=object,
         )
+
 
 class RunsResourceWithRawResponse:
     def __init__(self, runs: RunsResource) -> None:
@@ -654,6 +689,7 @@ class RunsResourceWithRawResponse:
             runs.submit_followup,
         )
 
+
 class AsyncRunsResourceWithRawResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:
         self._runs = runs
@@ -674,6 +710,7 @@ class AsyncRunsResourceWithRawResponse:
             runs.submit_followup,
         )
 
+
 class RunsResourceWithStreamingResponse:
     def __init__(self, runs: RunsResource) -> None:
         self._runs = runs
@@ -693,6 +730,7 @@ class RunsResourceWithStreamingResponse:
         self.submit_followup = to_streamed_response_wrapper(
             runs.submit_followup,
         )
+
 
 class AsyncRunsResourceWithStreamingResponse:
     def __init__(self, runs: AsyncRunsResource) -> None:

@@ -43,9 +43,12 @@ print(response.run_id)
 You can configure the agent with a custom environment and other settings using the `config` parameter:
 
 ```python
-from warp_sdk import WarpAPI
+import os
+from oz_agent_sdk import OzAPI
 
-client = WarpAPI()
+client = OzAPI(
+    api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
+)
 
 response = client.agent.run(
     prompt="Fix the bug in auth.go",
@@ -56,7 +59,7 @@ response = client.agent.run(
         "base_prompt": "You are a helpful coding assistant.",  # Optional: custom base prompt
     },
 )
-print(response.task_id)
+print(response.run_id)
 ```
 
 #### Configuration options

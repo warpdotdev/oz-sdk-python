@@ -9,7 +9,10 @@ from ..mcp_server_config import McpServerConfig
 
 __all__ = [
     "AgentResponse",
-    "MemoryStore",
+    "Memory",
+    "MemoryAttachedStore",
+    "MemoryAutoMemory",
+    "MemoryAutoMemoryStore",
     "Secret",
     "HarnessAuthSecrets",
     "InferenceProviders",
@@ -17,7 +20,7 @@ __all__ = [
 ]
 
 
-class MemoryStore(BaseModel):
+class MemoryAttachedStore(BaseModel):
     """Reference to a memory store to attach to an agent."""
 
     access: Literal["read_write", "read_only"]
@@ -28,6 +31,48 @@ class MemoryStore(BaseModel):
 
     uid: str
     """UID of the memory store."""
+
+
+class MemoryAutoMemoryStore(BaseModel):
+    """Memory store attached to an agent."""
+
+    access: Literal["read_write", "read_only"]
+    """Access level for the store."""
+
+    instructions: str
+    """Instructions for how the agent should use this memory store."""
+
+    owner_type: Literal["user", "service_account", "team"]
+    """Public owner type."""
+
+    owner_uid: str
+    """Public UID of the user, service account, or team that owns the memory store."""
+
+    uid: str
+    """UID of the memory store."""
+
+    description: Optional[str] = None
+    """Optional description for the memory store."""
+
+
+class MemoryAutoMemory(BaseModel):
+    """Auto-memory state for an agent."""
+
+    enabled: bool
+    """Whether this agent has an agent-owned memory store."""
+
+    store: Optional[MemoryAutoMemoryStore] = None
+    """Memory store attached to an agent."""
+
+
+class Memory(BaseModel):
+    """Memory settings for an agent."""
+
+    attached_stores: List[MemoryAttachedStore]
+    """Team memory stores attached to the agent."""
+
+    auto_memory: MemoryAutoMemory
+    """Auto-memory state for an agent."""
 
 
 class Secret(BaseModel):
@@ -88,11 +133,8 @@ class AgentResponse(BaseModel):
     created_at: datetime
     """When the agent was created (RFC3339)"""
 
-    memory_stores: List[MemoryStore]
-    """
-    Memory stores attached to this agent. Always present; empty when no stores are
-    attached.
-    """
+    memory: Memory
+    """Memory settings for an agent."""
 
     name: str
     """Name of the agent"""

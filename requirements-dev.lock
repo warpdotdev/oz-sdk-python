@@ -32,7 +32,7 @@ httpx==0.28.1
     # via
     #   oz-agent-sdk
     #   respx
-idna==3.11
+idna==3.18
     # via
     #   anyio
     #   httpx

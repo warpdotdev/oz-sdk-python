@@ -41,7 +41,14 @@ Homepage = "https://github.com/warpdotdev/oz-sdk-python"
 Repository = "https://github.com/warpdotdev/oz-sdk-python"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp>=3.13.5", "httpx_aiohttp>=0.1.9"]
+# Security pin: aiohttp <3.14.0 has multiple CVEs (CVE-2026-34993, CVE-2026-47265,
+# CVE-2026-54273 through CVE-2026-54280, CVE-2026-50269). aiohttp>=3.14.1 requires
+# Python >=3.10, so the extra is restricted to that range. Sealed as custom code
+# so it survives SDK regeneration.
+aiohttp = [
+    "aiohttp>=3.14.1 ; python_version >= '3.10'",
+    "httpx_aiohttp>=0.1.9 ; python_version >= '3.10'",
+]
 
 [tool.uv]
 managed = true

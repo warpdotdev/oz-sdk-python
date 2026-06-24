@@ -32,7 +32,7 @@ httpx==0.28.1
     # via
     #   oz-agent-sdk
     #   respx
-idna==3.11
+idna==3.18
     # via
     #   anyio
     #   httpx
@@ -62,7 +62,7 @@ pydantic==2.12.5
     # via oz-agent-sdk
 pydantic-core==2.41.5
     # via pydantic
-pygments==2.19.2
+pygments==2.20.0
     # via
     #   pytest
     #   rich

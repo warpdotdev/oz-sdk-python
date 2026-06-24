@@ -46,11 +46,9 @@ aiohttp = ["aiohttp>=3.13.5", "httpx_aiohttp>=0.1.9"]
 [tool.uv]
 managed = true
 required-version = ">=0.9"
-# Security pin: idna is a transitive dependency (via httpx + anyio) and is not
-# declared above. Versions <3.15 are vulnerable to CVE-2026-45409
-# (GHSA-65pc-fj4g-8rjx), so constrain it without adding it as a direct
-# dependency. Sealed as custom code so it survives SDK regeneration.
-constraint-dependencies = ["idna>=3.15"]
+# Security pins for undeclared transitive deps, kept here so they survive SDK
+# regeneration: idna>=3.15 (CVE-2026-45409), pygments>=2.20.0 (CVE-2026-4539).
+constraint-dependencies = ["idna>=3.15", "pygments>=2.20.0"]
 conflicts = [
     [
       { group = "pydantic-v1" },

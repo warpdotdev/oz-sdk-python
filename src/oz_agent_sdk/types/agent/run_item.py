@@ -223,6 +223,7 @@ class RunItem(BaseModel):
     - GITHUB_ACTION: Created from a GitHub action
     - CLOUD_MODE: Created from a Cloud Mode
     - CLI: Created from the CLI
+    - JIRA: Created from Jira integration
     """
 
     started_at: Optional[datetime] = None

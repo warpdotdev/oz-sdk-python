@@ -5,5 +5,5 @@ from typing_extensions import Literal, TypeAlias
 __all__ = ["RunSourceType"]
 
 RunSourceType: TypeAlias = Literal[
-    "LINEAR", "API", "SLACK", "LOCAL", "SCHEDULED_AGENT", "WEB_APP", "GITHUB_ACTION", "CLOUD_MODE", "CLI"
+    "LINEAR", "API", "SLACK", "LOCAL", "SCHEDULED_AGENT", "WEB_APP", "GITHUB_ACTION", "CLOUD_MODE", "CLI", "JIRA"
 ]

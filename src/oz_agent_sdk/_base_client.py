@@ -1397,7 +1397,7 @@ class _DefaultAsyncHttpxClient(httpx.AsyncClient):
 
 
 try:
-    import httpx_aiohttp
+    import httpx_aiohttp  # type: ignore[import]
 except ImportError:
 
     class _DefaultAioHttpClient(httpx.AsyncClient):
@@ -1411,7 +1411,7 @@ else:
             kwargs.setdefault("limits", DEFAULT_CONNECTION_LIMITS)
             kwargs.setdefault("follow_redirects", True)
 
-            super().__init__(**kwargs)
+            super().__init__(**kwargs)  # type: ignore[no-untyped-call]
 
 
 if TYPE_CHECKING:

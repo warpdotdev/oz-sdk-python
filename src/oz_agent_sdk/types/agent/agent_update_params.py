@@ -13,7 +13,8 @@ __all__ = [
     "HarnessAuthSecrets",
     "InferenceProviders",
     "InferenceProvidersAws",
-    "MemoryStore",
+    "Memory",
+    "MemoryAttachedStore",
     "Secret",
 ]
 
@@ -60,12 +61,8 @@ class AgentUpdateParams(TypedDict, total=False):
     default.
     """
 
-    memory_stores: Optional[Iterable[MemoryStore]]
-    """Replacement list of memory stores.
-
-    Omit to leave unchanged, pass an empty array to clear, or pass a non-empty array
-    to replace.
-    """
+    memory: Optional[Memory]
+    """Memory settings for updating an agent."""
 
     name: str
     """The new name for the agent"""
@@ -135,7 +132,7 @@ class InferenceProviders(TypedDict, total=False):
     """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
 
 
-class MemoryStore(TypedDict, total=False):
+class MemoryAttachedStore(TypedDict, total=False):
     """Reference to a memory store to attach to an agent."""
 
     access: Required[Literal["read_write", "read_only"]]
@@ -146,6 +143,17 @@ class MemoryStore(TypedDict, total=False):
 
     uid: Required[str]
     """UID of the memory store."""
+
+
+class Memory(TypedDict, total=False):
+    """Memory settings for updating an agent."""
+
+    attached_stores: Optional[Iterable[MemoryAttachedStore]]
+    """Replacement list of attached team memory stores.
+
+    Omit to leave unchanged, pass an empty array to clear, or pass a non-empty array
+    to replace.
+    """
 
 
 class Secret(TypedDict, total=False):

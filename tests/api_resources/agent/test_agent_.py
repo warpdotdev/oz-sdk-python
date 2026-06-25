@@ -58,13 +58,16 @@ class TestAgent:
                     "warp_id": "warp_id",
                 }
             },
-            memory_stores=[
-                {
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }
-            ],
+            memory={
+                "attached_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
+                "auto_memory": {"enabled": True},
+            },
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -135,13 +138,15 @@ class TestAgent:
                     "warp_id": "warp_id",
                 }
             },
-            memory_stores=[
-                {
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }
-            ],
+            memory={
+                "attached_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ]
+            },
             name="name",
             prompt="prompt",
             secrets=[{"name": "name"}],
@@ -339,13 +344,16 @@ class TestAsyncAgent:
                     "warp_id": "warp_id",
                 }
             },
-            memory_stores=[
-                {
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }
-            ],
+            memory={
+                "attached_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ],
+                "auto_memory": {"enabled": True},
+            },
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -416,13 +424,15 @@ class TestAsyncAgent:
                     "warp_id": "warp_id",
                 }
             },
-            memory_stores=[
-                {
-                    "access": "read_write",
-                    "instructions": "instructions",
-                    "uid": "uid",
-                }
-            ],
+            memory={
+                "attached_stores": [
+                    {
+                        "access": "read_write",
+                        "instructions": "instructions",
+                        "uid": "uid",
+                    }
+                ]
+            },
             name="name",
             prompt="prompt",
             secrets=[{"name": "name"}],

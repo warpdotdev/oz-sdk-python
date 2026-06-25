@@ -13,7 +13,9 @@ __all__ = [
     "HarnessAuthSecrets",
     "InferenceProviders",
     "InferenceProvidersAws",
-    "MemoryStore",
+    "Memory",
+    "MemoryAttachedStore",
+    "MemoryAutoMemory",
     "Secret",
 ]
 
@@ -52,12 +54,8 @@ class AgentCreateParams(TypedDict, total=False):
     this agent. Run-level MCP config takes precedence over this agent-level default.
     """
 
-    memory_stores: Iterable[MemoryStore]
-    """
-    Optional list of memory stores to attach to the agent. Each store must be
-    team-owned by the same team as the agent. Duplicate UIDs within a single request
-    are rejected.
-    """
+    memory: Memory
+    """Memory settings for creating an agent."""
 
     prompt: Optional[str]
     """Optional base prompt for this agent"""
@@ -123,7 +121,7 @@ class InferenceProviders(TypedDict, total=False):
     """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
 
 
-class MemoryStore(TypedDict, total=False):
+class MemoryAttachedStore(TypedDict, total=False):
     """Reference to a memory store to attach to an agent."""
 
     access: Required[Literal["read_write", "read_only"]]
@@ -134,6 +132,29 @@ class MemoryStore(TypedDict, total=False):
 
     uid: Required[str]
     """UID of the memory store."""
+
+
+class MemoryAutoMemory(TypedDict, total=False):
+    """Auto-memory settings for creating an agent."""
+
+    enabled: bool
+    """
+    Whether to create and attach a default service-account-owned memory store for
+    this agent. Defaults to true when omitted.
+    """
+
+
+class Memory(TypedDict, total=False):
+    """Memory settings for creating an agent."""
+
+    attached_stores: Iterable[MemoryAttachedStore]
+    """
+    Existing team memory stores to attach to the agent. Duplicate UIDs within a
+    single request are rejected.
+    """
+
+    auto_memory: MemoryAutoMemory
+    """Auto-memory settings for creating an agent."""
 
 
 class Secret(TypedDict, total=False):

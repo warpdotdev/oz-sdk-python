@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.14.0 (2026-07-02)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* Add server run runtime to agent API ([85d7ef8](https://github.com/warpdotdev/oz-sdk-python/commit/85d7ef8e6cc1380deed30f8efd6e75f062b3fa53))
+* Allow for empty-prompt cloud-agent handoff ([2542fa3](https://github.com/warpdotdev/oz-sdk-python/commit/2542fa3058b5feead7f46fe5255665ef5c36528e))
+* **api:** api update ([54f4c39](https://github.com/warpdotdev/oz-sdk-python/commit/54f4c39a78402eceb57dd531e4c35ed869cd10b1))
+* **api:** api update ([73a49ad](https://github.com/warpdotdev/oz-sdk-python/commit/73a49ad055f94883b17b03b8a2c328881d1fe859))
+* **api:** api update ([8d4b77c](https://github.com/warpdotdev/oz-sdk-python/commit/8d4b77c936054c5c125fa0747a298a64ed349a48))
+* **api:** api update ([a03690f](https://github.com/warpdotdev/oz-sdk-python/commit/a03690f7a25a0887c60981a53a2224c5ba1cc26a))
+* **api:** api update ([7ef54cc](https://github.com/warpdotdev/oz-sdk-python/commit/7ef54ccc0ad281b27a2e0db5cac2956bef2b93e1))
+* **api:** api update ([d25946f](https://github.com/warpdotdev/oz-sdk-python/commit/d25946f832fe901339b42dcf8842a17d20b57634))
+* **api:** api update ([d59deee](https://github.com/warpdotdev/oz-sdk-python/commit/d59deee2f15baa213eaa694b1bf71f94330b9d89))
+* Followups for docs-syncing workflow ([4697ddc](https://github.com/warpdotdev/oz-sdk-python/commit/4697ddc9625dd3bcdcc756af1da2e2ba0fc5fff0))
+
+
+### Bug Fixes
+
+* **auth:** prioritize first auth header ([bcf94f5](https://github.com/warpdotdev/oz-sdk-python/commit/bcf94f549cd8109ac30d87f3922e5772238183b3))
+* update aiohttp to resolve CVE-2026-22815 ([#25](https://github.com/warpdotdev/oz-sdk-python/issues/25)) ([03d6bc4](https://github.com/warpdotdev/oz-sdk-python/commit/03d6bc4d2253f820aa5b1fa842d382b20f2d681d))
+
 ## 0.13.0 (2026-05-21)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.12.0...v0.13.0)

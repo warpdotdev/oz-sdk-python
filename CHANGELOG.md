@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.14.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.13.0...v0.14.0) (2026-07-07)
+
+
+### Features
+
+* **deps:** seal idna&gt;=3.15 + aiohttp&gt;=3.13.5 CVE floors as custom code ([27e79ac](https://github.com/warpdotdev/oz-sdk-python/commit/27e79ac7caea54928333f9a44367c7830ee4c13a))
+
+
+### Bug Fixes
+
+* **deps:** pin aiohttp&gt;=3.14.1, pytest&gt;=9.0.3, pygments&gt;=2.20.0 (CVE fixes) ([9bcd811](https://github.com/warpdotdev/oz-sdk-python/commit/9bcd811980eb957f94ce639c43d673b7413999cd))
+* **deps:** seal aiohttp&gt;=3.14.1, pytest&gt;=9.0.3, pygments&gt;=2.20.0 CVE fixes ([5ad6a6e](https://github.com/warpdotdev/oz-sdk-python/commit/5ad6a6e49f2eb5769f839db25267eb605d81c674))
+* **lint:** suppress pyright errors for optional httpx_aiohttp import on Python 3.9 ([779259f](https://github.com/warpdotdev/oz-sdk-python/commit/779259fa90af41a7666ebdf14f4026453a648f1f))
+* **stlc:** seal handlebars&gt;=4.7.9 pin for CVE-2026-33937 and related (oz-sdk-typescript) ([46c1428](https://github.com/warpdotdev/oz-sdk-python/commit/46c142840b2637e734bdf272d66742a563282807))
+* update aiohttp to resolve CVE-2026-22815 ([#25](https://github.com/warpdotdev/oz-sdk-python/issues/25)) ([03d6bc4](https://github.com/warpdotdev/oz-sdk-python/commit/03d6bc4d2253f820aa5b1fa842d382b20f2d681d))
+
+
+### Chores
+
+* reseal python stlc tracking file to current staging main ([ed25fd4](https://github.com/warpdotdev/oz-sdk-python/commit/ed25fd46853fe06a7b8ae1e89bb96cef77ea61b6))
+* restore promote workflow and changelog as sealed custom code ([7ac7b1f](https://github.com/warpdotdev/oz-sdk-python/commit/7ac7b1fa205754be70a409721d30a2f8b9a4d175))
+
 ## 0.13.0 (2026-05-21)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.12.0...v0.13.0)

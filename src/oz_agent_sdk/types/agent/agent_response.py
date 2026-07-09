@@ -187,6 +187,12 @@ class AgentResponse(BaseModel):
     3. An empty environment
     """
 
+    factory_uid: Optional[str] = None
+    """UID of the Factory this agent was seeded for.
+
+    Null (or omitted) for agents that do not belong to a factory.
+    """
+
     harness_auth_secrets: Optional[HarnessAuthSecrets] = None
     """
     Authentication secrets for third-party harnesses. Only the secret for the

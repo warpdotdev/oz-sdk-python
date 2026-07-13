@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
+from typing_extensions import Literal
 
 import httpx
 
@@ -16,7 +17,7 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ...types.agent import agent_create_params, agent_update_params
+from ...types.agent import agent_list_params, agent_create_params, agent_update_params
 from ..._base_client import make_request_options
 from ...types.agent.agent_response import AgentResponse
 from ...types.mcp_server_config_param import McpServerConfigParam
@@ -51,10 +52,13 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         name: str,
+        agent_type: Optional[Literal["FOREMAN", "TRIAGE", "SPEC", "IMPLEMENT", "REVIEW", "VERIFY", "CUSTOM"]]
+        | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
+        factory_uid: Optional[str] | Omit = omit,
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
@@ -77,6 +81,9 @@ class AgentResource(SyncAPIResource):
         Args:
           name: A name for the agent
 
+          agent_type: The well-known type of a named agent. The built-in factory agents use FOREMAN,
+              TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
+
           base_harness: Optional default harness for runs executed by this agent.
 
           base_model: Optional base model for runs executed by this agent.
@@ -85,6 +92,9 @@ class AgentResource(SyncAPIResource):
 
           environment_id: Optional default cloud environment ID for runs executed by this agent. The
               environment must be owned by the same team as the agent.
+
+          factory_uid: Optional UID of the Factory to link this agent to. When omitted, the agent is
+              not linked to any factory.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -122,10 +132,12 @@ class AgentResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "name": name,
+                    "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
                     "environment_id": environment_id,
+                    "factory_uid": factory_uid,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
@@ -146,6 +158,8 @@ class AgentResource(SyncAPIResource):
         self,
         uid: str,
         *,
+        agent_type: Optional[Literal["FOREMAN", "TRIAGE", "SPEC", "IMPLEMENT", "REVIEW", "VERIFY", "CUSTOM"]]
+        | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -165,12 +179,14 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Update an existing agent.
+        """
+        Update an existing agent.
 
         Args:
-          base_harness: Replacement default harness.
+          agent_type: The well-known type of a named agent. The built-in factory agents use FOREMAN,
+              TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
 
-        Omit or pass `null` to leave unchanged, or pass an
+          base_harness: Replacement default harness. Omit or pass `null` to leave unchanged, or pass an
               empty string to clear.
 
           base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
@@ -218,6 +234,7 @@ class AgentResource(SyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=maybe_transform(
                 {
+                    "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
@@ -242,6 +259,7 @@ class AgentResource(SyncAPIResource):
     def list(
         self,
         *,
+        factory_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -253,11 +271,28 @@ class AgentResource(SyncAPIResource):
 
         Each agent includes an `available` flag
         indicating whether it is within the team's plan limit and may be used for runs.
+
+        Args:
+          factory_uid: Optional UID of a Factory to filter by. When provided, only agents linked to
+              that factory (and owned by the caller's team) are returned. Ignored unless the
+              factory API is enabled.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
             "/agent/identities",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"factory_uid": factory_uid}, agent_list_params.AgentListParams),
             ),
             cast_to=ListAgentIdentitiesResponse,
         )
@@ -360,10 +395,13 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         name: str,
+        agent_type: Optional[Literal["FOREMAN", "TRIAGE", "SPEC", "IMPLEMENT", "REVIEW", "VERIFY", "CUSTOM"]]
+        | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
+        factory_uid: Optional[str] | Omit = omit,
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
@@ -386,6 +424,9 @@ class AsyncAgentResource(AsyncAPIResource):
         Args:
           name: A name for the agent
 
+          agent_type: The well-known type of a named agent. The built-in factory agents use FOREMAN,
+              TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
+
           base_harness: Optional default harness for runs executed by this agent.
 
           base_model: Optional base model for runs executed by this agent.
@@ -394,6 +435,9 @@ class AsyncAgentResource(AsyncAPIResource):
 
           environment_id: Optional default cloud environment ID for runs executed by this agent. The
               environment must be owned by the same team as the agent.
+
+          factory_uid: Optional UID of the Factory to link this agent to. When omitted, the agent is
+              not linked to any factory.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -431,10 +475,12 @@ class AsyncAgentResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "name": name,
+                    "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
                     "environment_id": environment_id,
+                    "factory_uid": factory_uid,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
@@ -455,6 +501,8 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         uid: str,
         *,
+        agent_type: Optional[Literal["FOREMAN", "TRIAGE", "SPEC", "IMPLEMENT", "REVIEW", "VERIFY", "CUSTOM"]]
+        | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
@@ -474,12 +522,14 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Update an existing agent.
+        """
+        Update an existing agent.
 
         Args:
-          base_harness: Replacement default harness.
+          agent_type: The well-known type of a named agent. The built-in factory agents use FOREMAN,
+              TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
 
-        Omit or pass `null` to leave unchanged, or pass an
+          base_harness: Replacement default harness. Omit or pass `null` to leave unchanged, or pass an
               empty string to clear.
 
           base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
@@ -527,6 +577,7 @@ class AsyncAgentResource(AsyncAPIResource):
             path_template("/agent/identities/{uid}", uid=uid),
             body=await async_maybe_transform(
                 {
+                    "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
                     "description": description,
@@ -551,6 +602,7 @@ class AsyncAgentResource(AsyncAPIResource):
     async def list(
         self,
         *,
+        factory_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -562,11 +614,28 @@ class AsyncAgentResource(AsyncAPIResource):
 
         Each agent includes an `available` flag
         indicating whether it is within the team's plan limit and may be used for runs.
+
+        Args:
+          factory_uid: Optional UID of a Factory to filter by. When provided, only agents linked to
+              that factory (and owned by the caller's team) are returned. Ignored unless the
+              factory API is enabled.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
             "/agent/identities",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"factory_uid": factory_uid}, agent_list_params.AgentListParams),
             ),
             cast_to=ListAgentIdentitiesResponse,
         )

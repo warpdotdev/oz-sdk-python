@@ -92,7 +92,7 @@ Methods:
 
 - <code title="post /agent/identities">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">create</a>(\*\*<a href="src/oz_agent_sdk/types/agent/agent_create_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
 - <code title="put /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">update</a>(uid, \*\*<a href="src/oz_agent_sdk/types/agent/agent_update_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
-- <code title="get /agent/identities">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">list</a>() -> <a href="./src/oz_agent_sdk/types/agent/list_agent_identities_response.py">ListAgentIdentitiesResponse</a></code>
+- <code title="get /agent/identities">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent/agent_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/list_agent_identities_response.py">ListAgentIdentitiesResponse</a></code>
 - <code title="delete /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">delete</a>(uid) -> None</code>
 - <code title="get /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">get</a>(uid) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
 

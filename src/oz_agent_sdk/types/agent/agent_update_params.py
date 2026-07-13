@@ -20,6 +20,13 @@ __all__ = [
 
 
 class AgentUpdateParams(TypedDict, total=False):
+    agent_type: Optional[Literal["FOREMAN", "TRIAGE", "SPEC", "IMPLEMENT", "REVIEW", "VERIFY", "CUSTOM"]]
+    """The well-known type of a named agent.
+
+    The built-in factory agents use FOREMAN, TRIAGE, SPEC, IMPLEMENT, REVIEW, or
+    VERIFY; every other agent is CUSTOM.
+    """
+
     base_harness: Optional[str]
     """Replacement default harness.
 

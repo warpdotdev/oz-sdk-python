@@ -154,6 +154,13 @@ class AgentResponse(BaseModel):
     updated_at: datetime
     """When the agent was last updated (RFC3339)"""
 
+    agent_type: Optional[Literal["FOREMAN", "TRIAGE", "SPEC", "IMPLEMENT", "REVIEW", "VERIFY", "CUSTOM"]] = None
+    """The well-known type of a named agent.
+
+    The built-in factory agents use FOREMAN, TRIAGE, SPEC, IMPLEMENT, REVIEW, or
+    VERIFY; every other agent is CUSTOM.
+    """
+
     base_harness: Optional[str] = None
     """Default harness for runs executed by this agent.
 

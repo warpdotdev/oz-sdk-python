@@ -24,6 +24,13 @@ class AgentCreateParams(TypedDict, total=False):
     name: Required[str]
     """A name for the agent"""
 
+    agent_type: Optional[Literal["FOREMAN", "TRIAGE", "SPEC", "IMPLEMENT", "REVIEW", "VERIFY", "CUSTOM"]]
+    """The well-known type of a named agent.
+
+    The built-in factory agents use FOREMAN, TRIAGE, SPEC, IMPLEMENT, REVIEW, or
+    VERIFY; every other agent is CUSTOM.
+    """
+
     base_harness: Optional[str]
     """Optional default harness for runs executed by this agent."""
 
@@ -37,6 +44,12 @@ class AgentCreateParams(TypedDict, total=False):
     """
     Optional default cloud environment ID for runs executed by this agent. The
     environment must be owned by the same team as the agent.
+    """
+
+    factory_uid: Optional[str]
+    """Optional UID of the Factory to link this agent to.
+
+    When omitted, the agent is not linked to any factory.
     """
 
     harness_auth_secrets: HarnessAuthSecrets

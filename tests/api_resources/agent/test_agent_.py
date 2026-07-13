@@ -33,10 +33,12 @@ class TestAgent:
     def test_method_create_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.create(
             name="name",
+            agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
             description="description",
             environment_id="environment_id",
+            factory_uid="factory_uid",
             harness_auth_secrets={
                 "claude_auth_secret_name": "claude_auth_secret_name",
                 "codex_auth_secret_name": "codex_auth_secret_name",
@@ -113,6 +115,7 @@ class TestAgent:
     def test_method_update_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.update(
             uid="uid",
+            agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
             description="description",
@@ -192,6 +195,14 @@ class TestAgent:
     @parametrize
     def test_method_list(self, client: OzAPI) -> None:
         agent = client.agent.agent.list()
+        assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: OzAPI) -> None:
+        agent = client.agent.agent.list(
+            factory_uid="factory_uid",
+        )
         assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -319,10 +330,12 @@ class TestAsyncAgent:
     async def test_method_create_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.create(
             name="name",
+            agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
             description="description",
             environment_id="environment_id",
+            factory_uid="factory_uid",
             harness_auth_secrets={
                 "claude_auth_secret_name": "claude_auth_secret_name",
                 "codex_auth_secret_name": "codex_auth_secret_name",
@@ -399,6 +412,7 @@ class TestAsyncAgent:
     async def test_method_update_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.update(
             uid="uid",
+            agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
             description="description",
@@ -478,6 +492,14 @@ class TestAsyncAgent:
     @parametrize
     async def test_method_list(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.list()
+        assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
+        agent = await async_client.agent.agent.list(
+            factory_uid="factory_uid",
+        )
         assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

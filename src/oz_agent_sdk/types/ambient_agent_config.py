@@ -25,6 +25,21 @@ class Harness(BaseModel):
     Default (nil/empty) uses Warp's built-in harness.
     """
 
+    api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
+    """Model to use with a third-party harness (e.g.
+
+    "claude-haiku-4-5"). Only applies when type is a non-oz harness; the top-level
+    config model_id targets the built-in Oz harness instead. When omitted or empty,
+    the harness uses its own default model.
+    """
+
+    reasoning_level: Optional[str] = None
+    """Reasoning effort for harnesses that support it (e.g.
+
+    Codex). Only applies when type is a non-oz harness. Ignored by harnesses that do
+    not support reasoning levels.
+    """
+
     type: Optional[Literal["oz", "claude", "gemini", "codex"]] = None
     """The harness type identifier.
 

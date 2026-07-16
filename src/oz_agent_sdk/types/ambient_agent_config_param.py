@@ -25,6 +25,21 @@ class Harness(TypedDict, total=False):
     Default (nil/empty) uses Warp's built-in harness.
     """
 
+    model_id: str
+    """Model to use with a third-party harness (e.g.
+
+    "claude-haiku-4-5"). Only applies when type is a non-oz harness; the top-level
+    config model_id targets the built-in Oz harness instead. When omitted or empty,
+    the harness uses its own default model.
+    """
+
+    reasoning_level: str
+    """Reasoning effort for harnesses that support it (e.g.
+
+    Codex). Only applies when type is a non-oz harness. Ignored by harnesses that do
+    not support reasoning levels.
+    """
+
     type: Literal["oz", "claude", "gemini", "codex"]
     """The harness type identifier.
 

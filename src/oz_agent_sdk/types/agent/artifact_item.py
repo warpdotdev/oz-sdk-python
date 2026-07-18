@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import Dict, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
@@ -17,6 +17,8 @@ __all__ = [
     "ScreenshotArtifactData",
     "FileArtifact",
     "FileArtifactData",
+    "ExternalReferenceArtifact",
+    "ExternalReferenceArtifactData",
 ]
 
 
@@ -119,7 +121,40 @@ class FileArtifact(BaseModel):
     data: FileArtifactData
 
 
+class ExternalReferenceArtifactData(BaseModel):
+    """Data for a generic external reference artifact."""
+
+    reference_type: str
+    """Free-form category identifier for this reference (e.g.
+
+    "linear_issue", "spec_link", "jira_ticket"). Used for filtering and display.
+    """
+
+    url: str
+    """Canonical URL for the reference.
+
+    Used as the key for reverse lookups ("which run produced this URL?").
+    """
+
+    metadata: Optional[Dict[str, object]] = None
+    """Optional category-specific extra fields."""
+
+    title: Optional[str] = None
+    """Optional human-readable label for the reference."""
+
+
+class ExternalReferenceArtifact(BaseModel):
+    artifact_type: Literal["EXTERNAL_REFERENCE"]
+    """Type of the artifact"""
+
+    created_at: datetime
+    """Timestamp when the artifact was created (RFC3339)"""
+
+    data: ExternalReferenceArtifactData
+    """Data for a generic external reference artifact."""
+
+
 ArtifactItem: TypeAlias = Annotated[
-    Union[PlanArtifact, PullRequestArtifact, ScreenshotArtifact, FileArtifact],
+    Union[PlanArtifact, PullRequestArtifact, ScreenshotArtifact, FileArtifact, ExternalReferenceArtifact],
     PropertyInfo(discriminator="artifact_type"),
 ]

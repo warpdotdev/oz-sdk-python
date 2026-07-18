@@ -20,7 +20,7 @@ class RunListParams(TypedDict, total=False):
     The referenced run must exist and be accessible to the caller.
     """
 
-    artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE"]
+    artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE", "EXTERNAL_REFERENCE"]
     """Filter runs by artifact type"""
 
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]

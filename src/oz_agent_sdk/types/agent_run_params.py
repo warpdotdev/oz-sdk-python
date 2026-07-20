@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union, Iterable
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import Base64FileInput
@@ -37,6 +37,17 @@ class AgentRunParams(TypedDict, total=False):
 
     interactive: bool
     """Whether the run should be interactive. If not set, defaults to false."""
+
+    metadata: Dict[str, str]
+    """
+    Custom key/value metadata attached to a run at creation time and immutable
+    afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+    (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+    characters. Requests with invalid metadata are rejected. A run's effective
+    metadata is merged per key at creation: explicit request keys override keys
+    inherited from the parent run, which override automatic keys (ticket_id and
+    ticket_source on Linear- and Jira-triggered runs).
+    """
 
     mode: Literal["normal", "plan", "orchestrate"]
     """Optional query mode for the run.

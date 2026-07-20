@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import Dict, Optional
 from datetime import datetime
 
 from ..scope import Scope
@@ -54,6 +54,17 @@ class ScheduledAgentItem(BaseModel):
 
     last_spawn_error: Optional[str] = None
     """Error message from the last failed spawn attempt, if any"""
+
+    metadata: Optional[Dict[str, str]] = None
+    """
+    Custom key/value metadata attached to a run at creation time and immutable
+    afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+    (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+    characters. Requests with invalid metadata are rejected. A run's effective
+    metadata is merged per key at creation: explicit request keys override keys
+    inherited from the parent run, which override automatic keys (ticket_id and
+    ticket_source on Linear- and Jira-triggered runs).
+    """
 
     scope: Optional[Scope] = None
     """Ownership scope for a resource (team or personal)"""

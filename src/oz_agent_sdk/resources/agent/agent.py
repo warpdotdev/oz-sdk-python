@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Any, Iterable, cast
+from typing import Any, Dict, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
@@ -262,6 +262,7 @@ class AgentResource(SyncAPIResource):
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
@@ -293,6 +294,14 @@ class AgentResource(SyncAPIResource):
               agent will continue from where the previous run left off.
 
           interactive: Whether the run should be interactive. If not set, defaults to false.
+
+          metadata: Custom key/value metadata attached to a run at creation time and immutable
+              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+              characters. Requests with invalid metadata are rejected. A run's effective
+              metadata is merged per key at creation: explicit request keys override keys
+              inherited from the parent run, which override automatic keys (ticket_id and
+              ticket_source on Linear- and Jira-triggered runs).
 
           mode: Optional query mode for the run. Defaults to `normal` when omitted. The server
               does not infer mode from prompt prefixes such as `/plan`, so callers should pass
@@ -335,6 +344,7 @@ class AgentResource(SyncAPIResource):
                     "config": config,
                     "conversation_id": conversation_id,
                     "interactive": interactive,
+                    "metadata": metadata,
                     "mode": mode,
                     "parent_run_id": parent_run_id,
                     "prompt": prompt,
@@ -554,6 +564,7 @@ class AsyncAgentResource(AsyncAPIResource):
         config: AmbientAgentConfigParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
@@ -585,6 +596,14 @@ class AsyncAgentResource(AsyncAPIResource):
               agent will continue from where the previous run left off.
 
           interactive: Whether the run should be interactive. If not set, defaults to false.
+
+          metadata: Custom key/value metadata attached to a run at creation time and immutable
+              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+              characters. Requests with invalid metadata are rejected. A run's effective
+              metadata is merged per key at creation: explicit request keys override keys
+              inherited from the parent run, which override automatic keys (ticket_id and
+              ticket_source on Linear- and Jira-triggered runs).
 
           mode: Optional query mode for the run. Defaults to `normal` when omitted. The server
               does not infer mode from prompt prefixes such as `/plan`, so callers should pass
@@ -627,6 +646,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "config": config,
                     "conversation_id": conversation_id,
                     "interactive": interactive,
+                    "metadata": metadata,
                     "mode": mode,
                     "parent_run_id": parent_run_id,
                     "prompt": prompt,

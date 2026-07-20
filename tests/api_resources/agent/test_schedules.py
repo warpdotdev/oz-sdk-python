@@ -83,6 +83,7 @@ class TestSchedules:
             },
             agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             enabled=True,
+            metadata={"foo": "string"},
             mode="normal",
             prompt="Review open pull requests and provide feedback",
             team=True,
@@ -224,6 +225,7 @@ class TestSchedules:
                 "worker_host": "worker_host",
             },
             agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metadata={"foo": "string"},
             mode="normal",
             prompt="prompt",
         )
@@ -494,6 +496,7 @@ class TestAsyncSchedules:
             },
             agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
             enabled=True,
+            metadata={"foo": "string"},
             mode="normal",
             prompt="Review open pull requests and provide feedback",
             team=True,
@@ -635,6 +638,7 @@ class TestAsyncSchedules:
                 "worker_host": "worker_host",
             },
             agent_uid="182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
+            metadata={"foo": "string"},
             mode="normal",
             prompt="prompt",
         )

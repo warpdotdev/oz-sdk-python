@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal
 
 import httpx
@@ -56,6 +57,7 @@ class SchedulesResource(SyncAPIResource):
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         team: bool | Omit = omit,
@@ -84,6 +86,14 @@ class SchedulesResource(SyncAPIResource):
 
           enabled: Whether the schedule should be active immediately
 
+          metadata: Custom key/value metadata attached to a run at creation time and immutable
+              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+              characters. Requests with invalid metadata are rejected. A run's effective
+              metadata is merged per key at creation: explicit request keys override keys
+              inherited from the parent run, which override automatic keys (ticket_id and
+              ticket_source on Linear- and Jira-triggered runs).
+
           mode: Optional query mode applied to every triggered run. Defaults to `normal` when
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
@@ -110,6 +120,7 @@ class SchedulesResource(SyncAPIResource):
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
                     "enabled": enabled,
+                    "metadata": metadata,
                     "mode": mode,
                     "prompt": prompt,
                     "team": team,
@@ -165,6 +176,7 @@ class SchedulesResource(SyncAPIResource):
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -191,6 +203,14 @@ class SchedulesResource(SyncAPIResource):
           agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
               team-owned schedules.
 
+          metadata: Custom key/value metadata attached to a run at creation time and immutable
+              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+              characters. Requests with invalid metadata are rejected. A run's effective
+              metadata is merged per key at creation: explicit request keys override keys
+              inherited from the parent run, which override automatic keys (ticket_id and
+              ticket_source on Linear- and Jira-triggered runs).
+
           mode: Optional query mode applied to every triggered run. Defaults to `normal` when
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
@@ -216,6 +236,7 @@ class SchedulesResource(SyncAPIResource):
                     "name": name,
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
+                    "metadata": metadata,
                     "mode": mode,
                     "prompt": prompt,
                 },
@@ -384,6 +405,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         team: bool | Omit = omit,
@@ -412,6 +434,14 @@ class AsyncSchedulesResource(AsyncAPIResource):
 
           enabled: Whether the schedule should be active immediately
 
+          metadata: Custom key/value metadata attached to a run at creation time and immutable
+              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+              characters. Requests with invalid metadata are rejected. A run's effective
+              metadata is merged per key at creation: explicit request keys override keys
+              inherited from the parent run, which override automatic keys (ticket_id and
+              ticket_source on Linear- and Jira-triggered runs).
+
           mode: Optional query mode applied to every triggered run. Defaults to `normal` when
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
@@ -438,6 +468,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
                     "enabled": enabled,
+                    "metadata": metadata,
                     "mode": mode,
                     "prompt": prompt,
                     "team": team,
@@ -493,6 +524,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         name: str,
         agent_config: AmbientAgentConfigParam | Omit = omit,
         agent_uid: str | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         prompt: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -519,6 +551,14 @@ class AsyncSchedulesResource(AsyncAPIResource):
           agent_uid: Agent UID to use as the execution principal for this schedule. Only valid for
               team-owned schedules.
 
+          metadata: Custom key/value metadata attached to a run at creation time and immutable
+              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+              characters. Requests with invalid metadata are rejected. A run's effective
+              metadata is merged per key at creation: explicit request keys override keys
+              inherited from the parent run, which override automatic keys (ticket_id and
+              ticket_source on Linear- and Jira-triggered runs).
+
           mode: Optional query mode applied to every triggered run. Defaults to `normal` when
               omitted. The server does not infer mode from prompt prefixes such as `/plan`.
 
@@ -544,6 +584,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
                     "name": name,
                     "agent_config": agent_config,
                     "agent_uid": agent_uid,
+                    "metadata": metadata,
                     "mode": mode,
                     "prompt": prompt,
                 },

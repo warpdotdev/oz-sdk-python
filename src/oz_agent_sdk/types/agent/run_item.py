@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -183,6 +183,17 @@ class RunItem(BaseModel):
 
     is_sandbox_running: Optional[bool] = None
     """Whether the sandbox environment is currently running"""
+
+    metadata: Optional[Dict[str, str]] = None
+    """
+    Custom key/value metadata attached to a run at creation time and immutable
+    afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
+    (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
+    characters. Requests with invalid metadata are rejected. A run's effective
+    metadata is merged per key at creation: explicit request keys override keys
+    inherited from the parent run, which override automatic keys (ticket_id and
+    ticket_source on Linear- and Jira-triggered runs).
+    """
 
     parent_run_id: Optional[str] = None
     """UUID of the parent run that spawned this run"""

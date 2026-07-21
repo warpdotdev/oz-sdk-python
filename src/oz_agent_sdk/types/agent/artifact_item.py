@@ -110,6 +110,14 @@ class FileArtifactData(BaseModel):
     size_bytes: Optional[int] = None
     """Size of the uploaded file in bytes"""
 
+    title: Optional[str] = None
+    """Short, badge-visible label for the artifact.
+
+    For recording artifacts, this is the agent-authored title shown in Oz web and
+    blocklist badges. Distinct from description, which is longer and shown in detail
+    views.
+    """
+
 
 class FileArtifact(BaseModel):
     artifact_type: Literal["FILE"]

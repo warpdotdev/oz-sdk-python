@@ -37,6 +37,14 @@ class AgentCreateParams(TypedDict, total=False):
     base_model: Optional[str]
     """Optional base model for runs executed by this agent."""
 
+    default_runner_uid: Optional[str]
+    """Optional default runner UID for runs executed by this agent.
+
+    When set, it overrides the selected environment's default runner for runs that
+    do not specify their own `runner_id`. The editor must have View permission on
+    the referenced runner.
+    """
+
     description: Optional[str]
     """Optional description of the agent"""
 

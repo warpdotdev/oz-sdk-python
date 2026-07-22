@@ -56,6 +56,7 @@ class AgentResource(SyncAPIResource):
         | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
+        default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         factory_uid: Optional[str] | Omit = omit,
@@ -87,6 +88,11 @@ class AgentResource(SyncAPIResource):
           base_harness: Optional default harness for runs executed by this agent.
 
           base_model: Optional base model for runs executed by this agent.
+
+          default_runner_uid: Optional default runner UID for runs executed by this agent. When set, it
+              overrides the selected environment's default runner for runs that do not specify
+              their own `runner_id`. The editor must have View permission on the referenced
+              runner.
 
           description: Optional description of the agent
 
@@ -135,6 +141,7 @@ class AgentResource(SyncAPIResource):
                     "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
+                    "default_runner_uid": default_runner_uid,
                     "description": description,
                     "environment_id": environment_id,
                     "factory_uid": factory_uid,
@@ -162,6 +169,7 @@ class AgentResource(SyncAPIResource):
         | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
+        default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
@@ -191,6 +199,10 @@ class AgentResource(SyncAPIResource):
 
           base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
               string to clear.
+
+          default_runner_uid: Replacement default runner UID. Omit or pass `null` to leave unchanged, or pass
+              an empty string to clear. A non-empty value must reference a runner the editor
+              can View.
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
@@ -237,6 +249,7 @@ class AgentResource(SyncAPIResource):
                     "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
+                    "default_runner_uid": default_runner_uid,
                     "description": description,
                     "environment_id": environment_id,
                     "harness_auth_secrets": harness_auth_secrets,
@@ -399,6 +412,7 @@ class AsyncAgentResource(AsyncAPIResource):
         | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
+        default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         factory_uid: Optional[str] | Omit = omit,
@@ -430,6 +444,11 @@ class AsyncAgentResource(AsyncAPIResource):
           base_harness: Optional default harness for runs executed by this agent.
 
           base_model: Optional base model for runs executed by this agent.
+
+          default_runner_uid: Optional default runner UID for runs executed by this agent. When set, it
+              overrides the selected environment's default runner for runs that do not specify
+              their own `runner_id`. The editor must have View permission on the referenced
+              runner.
 
           description: Optional description of the agent
 
@@ -478,6 +497,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
+                    "default_runner_uid": default_runner_uid,
                     "description": description,
                     "environment_id": environment_id,
                     "factory_uid": factory_uid,
@@ -505,6 +525,7 @@ class AsyncAgentResource(AsyncAPIResource):
         | Omit = omit,
         base_harness: Optional[str] | Omit = omit,
         base_model: Optional[str] | Omit = omit,
+        default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
@@ -534,6 +555,10 @@ class AsyncAgentResource(AsyncAPIResource):
 
           base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
               string to clear.
+
+          default_runner_uid: Replacement default runner UID. Omit or pass `null` to leave unchanged, or pass
+              an empty string to clear. A non-empty value must reference a runner the editor
+              can View.
 
           description: Replacement description. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
@@ -580,6 +605,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "agent_type": agent_type,
                     "base_harness": base_harness,
                     "base_model": base_model,
+                    "default_runner_uid": default_runner_uid,
                     "description": description,
                     "environment_id": environment_id,
                     "harness_auth_secrets": harness_auth_secrets,

@@ -39,6 +39,13 @@ class AgentUpdateParams(TypedDict, total=False):
     Omit or pass `null` to leave unchanged, or pass an empty string to clear.
     """
 
+    default_runner_uid: Optional[str]
+    """Replacement default runner UID.
+
+    Omit or pass `null` to leave unchanged, or pass an empty string to clear. A
+    non-empty value must reference a runner the editor can View.
+    """
+
     description: Optional[str]
     """Replacement description.
 

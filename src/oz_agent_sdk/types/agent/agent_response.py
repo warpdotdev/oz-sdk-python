@@ -133,6 +133,20 @@ class AgentResponse(BaseModel):
     created_at: datetime
     """When the agent was created (RFC3339)"""
 
+    default_runner_uid: str
+    """Default runner UID for runs executed by this agent.
+
+    When set, it overrides the selected environment's default runner for runs that
+    do not specify their own `runner_id`. The precedence order for runner resolution
+    is:
+
+    1. The runner specified on the run itself
+    2. The agent's default runner
+    3. The selected environment's default runner
+    4. The environment's legacy inline compute fields
+    5. System defaults
+    """
+
     memory: Memory
     """Memory settings for an agent."""
 

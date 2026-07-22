@@ -36,6 +36,7 @@ class TestAgent:
             agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
+            default_runner_uid="default_runner_uid",
             description="description",
             environment_id="environment_id",
             factory_uid="factory_uid",
@@ -118,6 +119,7 @@ class TestAgent:
             agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
+            default_runner_uid="default_runner_uid",
             description="description",
             environment_id="environment_id",
             harness_auth_secrets={
@@ -333,6 +335,7 @@ class TestAsyncAgent:
             agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
+            default_runner_uid="default_runner_uid",
             description="description",
             environment_id="environment_id",
             factory_uid="factory_uid",
@@ -415,6 +418,7 @@ class TestAsyncAgent:
             agent_type="FOREMAN",
             base_harness="base_harness",
             base_model="base_model",
+            default_runner_uid="default_runner_uid",
             description="description",
             environment_id="environment_id",
             harness_auth_secrets={

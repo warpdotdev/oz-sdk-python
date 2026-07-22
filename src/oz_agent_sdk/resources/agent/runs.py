@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Dict, List, Union
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -98,6 +98,7 @@ class RunsResource(SyncAPIResource):
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
         limit: int | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         model_id: str | Omit = omit,
         name: str | Omit = omit,
         q: str | Omit = omit,
@@ -143,6 +144,11 @@ class RunsResource(SyncAPIResource):
               as the creator, but not always: users may delegate tasks to agents.
 
           limit: Maximum number of runs to return
+
+          metadata: Filter by exact metadata key/value pairs using object notation (e.g.
+              `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics. At
+              most 5 pairs per request. Returns `feature_not_available` when metadata
+              filtering is not enabled.
 
           model_id: Filter by model ID
 
@@ -201,6 +207,7 @@ class RunsResource(SyncAPIResource):
                         "execution_location": execution_location,
                         "executor": executor,
                         "limit": limit,
+                        "metadata": metadata,
                         "model_id": model_id,
                         "name": name,
                         "q": q,
@@ -418,6 +425,7 @@ class AsyncRunsResource(AsyncAPIResource):
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
         limit: int | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         model_id: str | Omit = omit,
         name: str | Omit = omit,
         q: str | Omit = omit,
@@ -463,6 +471,11 @@ class AsyncRunsResource(AsyncAPIResource):
               as the creator, but not always: users may delegate tasks to agents.
 
           limit: Maximum number of runs to return
+
+          metadata: Filter by exact metadata key/value pairs using object notation (e.g.
+              `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics. At
+              most 5 pairs per request. Returns `feature_not_available` when metadata
+              filtering is not enabled.
 
           model_id: Filter by model ID
 
@@ -521,6 +534,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "execution_location": execution_location,
                         "executor": executor,
                         "limit": limit,
+                        "metadata": metadata,
                         "model_id": model_id,
                         "name": name,
                         "q": q,

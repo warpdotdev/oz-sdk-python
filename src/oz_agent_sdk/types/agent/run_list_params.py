@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import List, Union
+from typing import Dict, List, Union
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
@@ -50,6 +50,14 @@ class RunListParams(TypedDict, total=False):
 
     limit: int
     """Maximum number of runs to return"""
+
+    metadata: Dict[str, str]
+    """
+    Filter by exact metadata key/value pairs using object notation (e.g.
+    `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics. At
+    most 5 pairs per request. Returns `feature_not_available` when metadata
+    filtering is not enabled.
+    """
 
     model_id: str
     """Filter by model ID"""

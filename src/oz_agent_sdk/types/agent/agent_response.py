@@ -229,5 +229,11 @@ class AgentResponse(BaseModel):
     config takes precedence over this agent-level default.
     """
 
+    on_behalf_of_enabled: Optional[bool] = None
+    """
+    Whether runs created with this agent's API key may use the on_behalf_of field to
+    attribute runs to another team member.
+    """
+
     prompt: Optional[str] = None
     """Optional base prompt for this agent"""

@@ -64,6 +64,7 @@ class AgentResource(SyncAPIResource):
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: agent_create_params.Memory | Omit = omit,
+        on_behalf_of_enabled: bool | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -112,6 +113,10 @@ class AgentResource(SyncAPIResource):
 
           memory: Memory settings for creating an agent.
 
+          on_behalf_of_enabled: Whether runs created with this agent's API key may use the on_behalf_of field to
+              attribute runs to another team member. Defaults to false. Only team admins may
+              set this field.
+
           prompt: Optional base prompt for this agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
@@ -149,6 +154,7 @@ class AgentResource(SyncAPIResource):
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
                     "memory": memory,
+                    "on_behalf_of_enabled": on_behalf_of_enabled,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
@@ -177,6 +183,7 @@ class AgentResource(SyncAPIResource):
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: Optional[agent_update_params.Memory] | Omit = omit,
         name: str | Omit = omit,
+        on_behalf_of_enabled: Optional[bool] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -223,6 +230,10 @@ class AgentResource(SyncAPIResource):
 
           name: The new name for the agent
 
+          on_behalf_of_enabled: Whether runs created with this agent's API key may use the on_behalf_of field to
+              attribute runs to another team member. Omit or pass `null` to leave unchanged.
+              Only team admins may set this field.
+
           prompt: Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
@@ -257,6 +268,7 @@ class AgentResource(SyncAPIResource):
                     "mcp_servers": mcp_servers,
                     "memory": memory,
                     "name": name,
+                    "on_behalf_of_enabled": on_behalf_of_enabled,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
@@ -420,6 +432,7 @@ class AsyncAgentResource(AsyncAPIResource):
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: agent_create_params.Memory | Omit = omit,
+        on_behalf_of_enabled: bool | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
@@ -468,6 +481,10 @@ class AsyncAgentResource(AsyncAPIResource):
 
           memory: Memory settings for creating an agent.
 
+          on_behalf_of_enabled: Whether runs created with this agent's API key may use the on_behalf_of field to
+              attribute runs to another team member. Defaults to false. Only team admins may
+              set this field.
+
           prompt: Optional base prompt for this agent
 
           secrets: Optional list of secrets associated with the agent. Duplicate names within a
@@ -505,6 +522,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
                     "memory": memory,
+                    "on_behalf_of_enabled": on_behalf_of_enabled,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
@@ -533,6 +551,7 @@ class AsyncAgentResource(AsyncAPIResource):
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: Optional[agent_update_params.Memory] | Omit = omit,
         name: str | Omit = omit,
+        on_behalf_of_enabled: Optional[bool] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
@@ -579,6 +598,10 @@ class AsyncAgentResource(AsyncAPIResource):
 
           name: The new name for the agent
 
+          on_behalf_of_enabled: Whether runs created with this agent's API key may use the on_behalf_of field to
+              attribute runs to another team member. Omit or pass `null` to leave unchanged.
+              Only team admins may set this field.
+
           prompt: Replacement prompt. Omit or pass `null` to leave unchanged, or use an empty
               value to clear.
 
@@ -613,6 +636,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "mcp_servers": mcp_servers,
                     "memory": memory,
                     "name": name,
+                    "on_behalf_of_enabled": on_behalf_of_enabled,
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,

@@ -57,6 +57,16 @@ class AgentRunParams(TypedDict, total=False):
     request non-normal behavior.
     """
 
+    on_behalf_of: str
+    """
+    Optional email address or user ID of a Warp user to attribute the run to. When
+    set, the resolved user becomes the run's creator instead of the caller. Only
+    agent API keys may use this field, and the calling agent must have on_behalf_of
+    enabled in its configuration (`on_behalf_of_enabled`), which a team admin must
+    intentionally turn on per agent. The target user must be an active member of the
+    run's owner team. Only valid for team-owned runs.
+    """
+
     parent_run_id: str
     """
     Optional run ID of the parent that spawned this run. Used for orchestration

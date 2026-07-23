@@ -81,6 +81,13 @@ class AgentUpdateParams(TypedDict, total=False):
     name: str
     """The new name for the agent"""
 
+    on_behalf_of_enabled: Optional[bool]
+    """
+    Whether runs created with this agent's API key may use the on_behalf_of field to
+    attribute runs to another team member. Omit or pass `null` to leave unchanged.
+    Only team admins may set this field.
+    """
+
     prompt: Optional[str]
     """Replacement prompt.
 

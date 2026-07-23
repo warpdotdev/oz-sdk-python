@@ -78,6 +78,13 @@ class AgentCreateParams(TypedDict, total=False):
     memory: Memory
     """Memory settings for creating an agent."""
 
+    on_behalf_of_enabled: bool
+    """
+    Whether runs created with this agent's API key may use the on_behalf_of field to
+    attribute runs to another team member. Defaults to false. Only team admins may
+    set this field.
+    """
+
     prompt: Optional[str]
     """Optional base prompt for this agent"""
 

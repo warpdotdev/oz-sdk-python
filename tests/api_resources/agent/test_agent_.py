@@ -71,6 +71,7 @@ class TestAgent:
                 ],
                 "auto_memory": {"enabled": True},
             },
+            on_behalf_of_enabled=True,
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -153,6 +154,7 @@ class TestAgent:
                 ]
             },
             name="name",
+            on_behalf_of_enabled=True,
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -370,6 +372,7 @@ class TestAsyncAgent:
                 ],
                 "auto_memory": {"enabled": True},
             },
+            on_behalf_of_enabled=True,
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
@@ -452,6 +455,7 @@ class TestAsyncAgent:
                 ]
             },
             name="name",
+            on_behalf_of_enabled=True,
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],

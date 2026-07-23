@@ -264,6 +264,7 @@ class AgentResource(SyncAPIResource):
         interactive: bool | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
+        on_behalf_of: str | Omit = omit,
         parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
@@ -307,6 +308,13 @@ class AgentResource(SyncAPIResource):
               does not infer mode from prompt prefixes such as `/plan`, so callers should pass
               this field explicitly to request non-normal behavior.
 
+          on_behalf_of: Optional email address or user ID of a Warp user to attribute the run to. When
+              set, the resolved user becomes the run's creator instead of the caller. Only
+              agent API keys may use this field, and the calling agent must have on_behalf_of
+              enabled in its configuration (`on_behalf_of_enabled`), which a team admin must
+              intentionally turn on per agent. The target user must be an active member of the
+              run's owner team. Only valid for team-owned runs.
+
           parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
               hierarchies.
 
@@ -346,6 +354,7 @@ class AgentResource(SyncAPIResource):
                     "interactive": interactive,
                     "metadata": metadata,
                     "mode": mode,
+                    "on_behalf_of": on_behalf_of,
                     "parent_run_id": parent_run_id,
                     "prompt": prompt,
                     "skill": skill,
@@ -566,6 +575,7 @@ class AsyncAgentResource(AsyncAPIResource):
         interactive: bool | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
+        on_behalf_of: str | Omit = omit,
         parent_run_id: str | Omit = omit,
         prompt: str | Omit = omit,
         skill: str | Omit = omit,
@@ -609,6 +619,13 @@ class AsyncAgentResource(AsyncAPIResource):
               does not infer mode from prompt prefixes such as `/plan`, so callers should pass
               this field explicitly to request non-normal behavior.
 
+          on_behalf_of: Optional email address or user ID of a Warp user to attribute the run to. When
+              set, the resolved user becomes the run's creator instead of the caller. Only
+              agent API keys may use this field, and the calling agent must have on_behalf_of
+              enabled in its configuration (`on_behalf_of_enabled`), which a team admin must
+              intentionally turn on per agent. The target user must be an active member of the
+              run's owner team. Only valid for team-owned runs.
+
           parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
               hierarchies.
 
@@ -648,6 +665,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "interactive": interactive,
                     "metadata": metadata,
                     "mode": mode,
+                    "on_behalf_of": on_behalf_of,
                     "parent_run_id": parent_run_id,
                     "prompt": prompt,
                     "skill": skill,

@@ -32,4 +32,7 @@ class McpServerConfigParam(TypedDict, total=False):
     """SSE/HTTP transport - server URL"""
 
     warp_id: str
-    """Reference to a Warp shared MCP server by UUID"""
+    """
+    Reference to a Warp shared MCP server by UUID, or a well-known integration MCP
+    id (e.g. "linear") backed by the team's integration connection.
+    """

@@ -138,7 +138,7 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     computer_use_enabled: bool
     """
     Controls whether computer use is enabled for this agent. If not set, defaults to
-    false.
+    true for runs on Warp's built-in harness and false for third-party harnesses.
     """
 
     environment_id: str

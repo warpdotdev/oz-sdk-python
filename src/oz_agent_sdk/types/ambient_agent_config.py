@@ -138,7 +138,7 @@ class AmbientAgentConfig(BaseModel):
     computer_use_enabled: Optional[bool] = None
     """
     Controls whether computer use is enabled for this agent. If not set, defaults to
-    false.
+    true for runs on Warp's built-in harness and false for third-party harnesses.
     """
 
     environment_id: Optional[str] = None

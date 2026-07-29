@@ -39,6 +39,7 @@ class TestSchedules:
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
+                "credential_strategy": "CREATOR",
                 "environment_id": "environment_id",
                 "harness": {
                     "model_id": "model_id",
@@ -182,6 +183,7 @@ class TestSchedules:
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
+                "credential_strategy": "CREATOR",
                 "environment_id": "environment_id",
                 "harness": {
                     "model_id": "model_id",
@@ -452,6 +454,7 @@ class TestAsyncSchedules:
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
+                "credential_strategy": "CREATOR",
                 "environment_id": "environment_id",
                 "harness": {
                     "model_id": "model_id",
@@ -595,6 +598,7 @@ class TestAsyncSchedules:
             agent_config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
+                "credential_strategy": "CREATOR",
                 "environment_id": "environment_id",
                 "harness": {
                     "model_id": "model_id",

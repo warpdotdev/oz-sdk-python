@@ -141,6 +141,22 @@ class AmbientAgentConfig(BaseModel):
     true for runs on Warp's built-in harness and false for third-party harnesses.
     """
 
+    credential_strategy: Optional[Literal["CREATOR", "EXECUTOR"]] = None
+    """
+    Controls which principal's credentials are used when the platform mints tokens
+    (e.g. GitHub or GitLab OAuth tokens) on behalf of this run.
+
+    - EXECUTOR (default when unset): credentials are sourced from the run's
+      execution principal. For agent principals this produces a GitHub App
+      installation token; for user principals this produces their personal OAuth
+      token.
+    - CREATOR: credentials are always sourced from the run creator, regardless of
+      the execution principal. Useful when a service account executes the run but
+      Git operations should authenticate as the human who triggered it. When unset,
+      behavior is identical to EXECUTOR and no additional pre-flight validation is
+      performed.
+    """
+
     environment_id: Optional[str] = None
     """UID of the environment to run the agent in"""
 

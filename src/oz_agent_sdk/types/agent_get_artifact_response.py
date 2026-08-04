@@ -103,11 +103,14 @@ class FileArtifactResponseData(BaseModel):
     filename: str
     """Last path component of filepath"""
 
-    filepath: str
-    """Conversation-relative filepath for the uploaded file"""
-
     description: Optional[str] = None
     """Optional description of the file"""
+
+    filepath: Optional[str] = None
+    """Conversation-relative filepath for the uploaded file.
+
+    Omitted for anonymous reads of public artifacts.
+    """
 
     size_bytes: Optional[int] = None
     """Size of the uploaded file in bytes"""

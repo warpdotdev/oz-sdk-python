@@ -187,6 +187,10 @@ class AgentResource(SyncAPIResource):
         a time-limited signed download URL. For plan artifacts, returns the current plan
         content inline.
 
+        Public artifacts can be read without authentication; private artifacts require
+        the caller to be authenticated and authorized. Anonymous reads of public file
+        artifacts omit the `filepath` field.
+
         Args:
           extra_headers: Send extra headers
 
@@ -495,6 +499,10 @@ class AsyncAgentResource(AsyncAPIResource):
         For downloadable file-like artifacts, returns
         a time-limited signed download URL. For plan artifacts, returns the current plan
         content inline.
+
+        Public artifacts can be read without authentication; private artifacts require
+        the caller to be authenticated and authorized. Anonymous reads of public file
+        artifacts omit the `filepath` field.
 
         Args:
           extra_headers: Send extra headers

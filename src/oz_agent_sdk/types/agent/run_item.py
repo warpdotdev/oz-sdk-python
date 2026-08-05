@@ -235,6 +235,7 @@ class RunItem(BaseModel):
     - CLOUD_MODE: Created from a Cloud Mode
     - CLI: Created from the CLI
     - JIRA: Created from Jira integration
+    - RUN_SCORER: Created by Warp's run-scoring judge
     """
 
     started_at: Optional[datetime] = None

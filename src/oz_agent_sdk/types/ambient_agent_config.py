@@ -199,6 +199,14 @@ class AmbientAgentConfig(BaseModel):
     and track them via the name query parameter on GET /agent/runs.
     """
 
+    runner_id: Optional[str] = None
+    """
+    UID of the runner providing the run's compute (platform, instance shape, and
+    setup commands). When omitted on a request, the runner is resolved at run
+    creation from the agent's default runner, then the environment's default runner,
+    and the resolved UID is recorded on the run.
+    """
+
     session_sharing: Optional[SessionSharing] = None
     """
     Configures sharing behavior for the run's shared session. When set, the worker

@@ -39,6 +39,20 @@ class AgentUpdateParams(TypedDict, total=False):
     Omit or pass `null` to leave unchanged, or pass an empty string to clear.
     """
 
+    credential_strategy: Optional[Literal["CREATOR", "EXECUTOR"]]
+    """Default credential strategy for runs executed by a named agent.
+
+    - EXECUTOR: runs authenticate with the named agent's own credentials (e.g. a
+      GitHub App installation token for the agent's team).
+    - CREATOR: runs authenticate with the credentials of the principal that created
+      the run. Unlike the factory default, an agent may leave this unset. The
+      strategy applied to a run is resolved in this order: the run's
+      config.credential_strategy, then the agent's default, then the factory's
+      default for factory-seeded agents, and finally EXECUTOR. The inherited
+      strategy is validated at run creation time (the required credential must be
+      mintable), like an explicit run-level value.
+    """
+
     default_runner_uid: Optional[str]
     """Replacement default runner UID.
 

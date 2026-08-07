@@ -90,6 +90,7 @@ class RunsResource(SyncAPIResource):
         *,
         ancestor_run_id: str | Omit = omit,
         artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE", "EXTERNAL_REFERENCE"] | Omit = omit,
+        automation_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,
@@ -128,6 +129,9 @@ class RunsResource(SyncAPIResource):
               to the caller.
 
           artifact_type: Filter runs by artifact type
+
+          automation_id: Filter runs by the factory automation that dispatched them. Matches runs stamped
+              with the automation_id metadata key at creation time.
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
 
@@ -203,6 +207,7 @@ class RunsResource(SyncAPIResource):
                     {
                         "ancestor_run_id": ancestor_run_id,
                         "artifact_type": artifact_type,
+                        "automation_id": automation_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "creator": creator,
@@ -422,6 +427,7 @@ class AsyncRunsResource(AsyncAPIResource):
         *,
         ancestor_run_id: str | Omit = omit,
         artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE", "EXTERNAL_REFERENCE"] | Omit = omit,
+        automation_id: str | Omit = omit,
         created_after: Union[str, datetime] | Omit = omit,
         created_before: Union[str, datetime] | Omit = omit,
         creator: str | Omit = omit,
@@ -460,6 +466,9 @@ class AsyncRunsResource(AsyncAPIResource):
               to the caller.
 
           artifact_type: Filter runs by artifact type
+
+          automation_id: Filter runs by the factory automation that dispatched them. Matches runs stamped
+              with the automation_id metadata key at creation time.
 
           created_after: Filter runs created after this timestamp (RFC3339 format)
 
@@ -535,6 +544,7 @@ class AsyncRunsResource(AsyncAPIResource):
                     {
                         "ancestor_run_id": ancestor_run_id,
                         "artifact_type": artifact_type,
+                        "automation_id": automation_id,
                         "created_after": created_after,
                         "created_before": created_before,
                         "creator": creator,

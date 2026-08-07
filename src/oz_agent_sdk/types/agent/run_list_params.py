@@ -23,6 +23,12 @@ class RunListParams(TypedDict, total=False):
     artifact_type: Literal["PLAN", "PULL_REQUEST", "SCREENSHOT", "FILE", "EXTERNAL_REFERENCE"]
     """Filter runs by artifact type"""
 
+    automation_id: str
+    """Filter runs by the factory automation that dispatched them.
+
+    Matches runs stamped with the automation_id metadata key at creation time.
+    """
+
     created_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Filter runs created after this timestamp (RFC3339 format)"""
 

@@ -76,6 +76,7 @@ class TestRuns:
         run = client.agent.runs.list(
             ancestor_run_id="ancestor_run_id",
             artifact_type="PLAN",
+            automation_id="automation_id",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             creator="creator",
@@ -318,6 +319,7 @@ class TestAsyncRuns:
         run = await async_client.agent.runs.list(
             ancestor_run_id="ancestor_run_id",
             artifact_type="PLAN",
+            automation_id="automation_id",
             created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
             creator="creator",

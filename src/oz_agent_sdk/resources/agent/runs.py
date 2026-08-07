@@ -97,6 +97,7 @@ class RunsResource(SyncAPIResource):
         environment_id: str | Omit = omit,
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
+        factory_uid: str | Omit = omit,
         limit: int | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         model_id: str | Omit = omit,
@@ -142,6 +143,9 @@ class RunsResource(SyncAPIResource):
 
           executor: Filter by the user or agent that executed the run. This will often be the same
               as the creator, but not always: users may delegate tasks to agents.
+
+          factory_uid: Filter runs by factory. Matches runs executed by any of the factory's agents. A
+              UID outside the caller's accessible factories matches nothing.
 
           limit: Maximum number of runs to return
 
@@ -206,6 +210,7 @@ class RunsResource(SyncAPIResource):
                         "environment_id": environment_id,
                         "execution_location": execution_location,
                         "executor": executor,
+                        "factory_uid": factory_uid,
                         "limit": limit,
                         "metadata": metadata,
                         "model_id": model_id,
@@ -424,6 +429,7 @@ class AsyncRunsResource(AsyncAPIResource):
         environment_id: str | Omit = omit,
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
+        factory_uid: str | Omit = omit,
         limit: int | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         model_id: str | Omit = omit,
@@ -469,6 +475,9 @@ class AsyncRunsResource(AsyncAPIResource):
 
           executor: Filter by the user or agent that executed the run. This will often be the same
               as the creator, but not always: users may delegate tasks to agents.
+
+          factory_uid: Filter runs by factory. Matches runs executed by any of the factory's agents. A
+              UID outside the caller's accessible factories matches nothing.
 
           limit: Maximum number of runs to return
 
@@ -533,6 +542,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "environment_id": environment_id,
                         "execution_location": execution_location,
                         "executor": executor,
+                        "factory_uid": factory_uid,
                         "limit": limit,
                         "metadata": metadata,
                         "model_id": model_id,

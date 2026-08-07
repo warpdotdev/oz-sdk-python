@@ -48,6 +48,13 @@ class RunListParams(TypedDict, total=False):
     tasks to agents.
     """
 
+    factory_uid: str
+    """Filter runs by factory.
+
+    Matches runs executed by any of the factory's agents. A UID outside the caller's
+    accessible factories matches nothing.
+    """
+
     limit: int
     """Maximum number of runs to return"""
 

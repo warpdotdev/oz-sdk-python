@@ -39,13 +39,31 @@ class RequestUsage(BaseModel):
     """Resource usage information for the run"""
 
     compute_cost: Optional[float] = None
-    """Cost of compute resources for the run"""
+    """Credits consumed by compute resources for the run"""
+
+    compute_cost_usd: Optional[float] = None
+    """compute_cost in US dollars, converted at a fixed rate.
+
+    An approximate cost, not a billed amount.
+    """
 
     inference_cost: Optional[float] = None
-    """Cost of LLM inference for the run"""
+    """Credits consumed by LLM inference for the run"""
+
+    inference_cost_usd: Optional[float] = None
+    """inference_cost in US dollars, converted at a fixed rate.
+
+    An approximate cost, not a billed amount.
+    """
 
     platform_cost: Optional[float] = None
-    """Cost of platform usage for the run"""
+    """Credits consumed by platform usage for the run"""
+
+    platform_cost_usd: Optional[float] = None
+    """platform_cost in US dollars, converted at a fixed rate.
+
+    An approximate cost, not a billed amount.
+    """
 
 
 class Schedule(BaseModel):

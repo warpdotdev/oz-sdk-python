@@ -70,7 +70,10 @@ class AgentRunParams(TypedDict, total=False):
     parent_run_id: str
     """
     Optional run ID of the parent that spawned this run. Used for orchestration
-    hierarchies.
+    hierarchies. The parent run must exist and be visible to the caller; otherwise
+    the request is rejected with a 400. Child runs are also subject to the server's
+    maximum orchestration depth, and requests that would exceed it are rejected with
+    a 400.
     """
 
     prompt: str

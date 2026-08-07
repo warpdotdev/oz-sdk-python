@@ -320,7 +320,10 @@ class AgentResource(SyncAPIResource):
               run's owner team. Only valid for team-owned runs.
 
           parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
-              hierarchies.
+              hierarchies. The parent run must exist and be visible to the caller; otherwise
+              the request is rejected with a 400. Child runs are also subject to the server's
+              maximum orchestration depth, and requests that would exceed it are rejected with
+              a 400.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field, config.skill_spec, or config.skills. Handoff
@@ -635,7 +638,10 @@ class AsyncAgentResource(AsyncAPIResource):
               run's owner team. Only valid for team-owned runs.
 
           parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
-              hierarchies.
+              hierarchies. The parent run must exist and be visible to the caller; otherwise
+              the request is rejected with a 400. Child runs are also subject to the server's
+              maximum orchestration depth, and requests that would exceed it are rejected with
+              a 400.
 
           prompt: The prompt/instruction for the agent to execute. Required unless a skill is
               specified via the skill field, config.skill_spec, or config.skills. Handoff

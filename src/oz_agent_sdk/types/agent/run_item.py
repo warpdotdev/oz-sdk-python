@@ -253,6 +253,7 @@ class RunItem(BaseModel):
     - CLOUD_MODE: Created from a Cloud Mode
     - CLI: Created from the CLI
     - JIRA: Created from Jira integration
+    - AUTOFIX: Created by Warp's autofix pipeline
     - RUN_SCORER: Created by Warp's run-scoring judge
     """
 

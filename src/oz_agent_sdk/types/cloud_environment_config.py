@@ -36,6 +36,22 @@ class CloudEnvironmentConfig(BaseModel):
     docker_image: Optional[str] = None
     """Docker image to use (e.g., "ubuntu:latest" or "registry/repo:tag")"""
 
+    failure_session_retention_minutes: Optional[int] = None
+    """
+    When set (1–60 minutes), a failed run using this environment keeps its session
+    open for this many minutes so it can be inspected. null or absent means
+    immediate teardown (disabled by default).
+
+    The window is an idle window held open by the agent process itself: working in
+    the session pushes the deadline out, so a session in active use is not torn down
+    mid-debug. It ends early if the run's sandbox reaches its own deadline first.
+
+    This policy applies to future failures of runs using this environment; it does
+    not change the window a currently-failed run was already started with. Opting in
+    keeps injected environment data (including secrets) alive and incurs compute
+    usage for as long as the session is held open.
+    """
+
     github_repos: Optional[List[GitHubRepo]] = None
     """List of GitHub repositories to clone into the environment"""
 

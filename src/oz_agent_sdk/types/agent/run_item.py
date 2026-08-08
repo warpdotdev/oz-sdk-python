@@ -128,6 +128,17 @@ class StatusMessage(BaseModel):
     the underlying cause will not succeed.
     """
 
+    session_debug_until: Optional[datetime] = None
+    """
+    When a failed run's shared session stops being held open for debugging. Only
+    present while that window is open.
+
+    The window is an idle window owned by the agent process: activity in the session
+    pushes this deadline out. The agent republishes it periodically rather than on
+    every keystroke, so the value can lag the true deadline by up to a throttle
+    interval, and always in the conservative direction.
+    """
+
 
 class RunItem(BaseModel):
     created_at: datetime

@@ -17,4 +17,5 @@ RunSourceType: TypeAlias = Literal[
     "JIRA",
     "AUTOFIX",
     "RUN_SCORER",
+    "ORCHESTRATION",
 ]

@@ -266,6 +266,8 @@ class RunItem(BaseModel):
     - JIRA: Created from Jira integration
     - AUTOFIX: Created by Warp's autofix pipeline
     - RUN_SCORER: Created by Warp's run-scoring judge
+    - ORCHESTRATION: Created as a child run by the orchestration layer
+      (parent_run_id set)
     """
 
     started_at: Optional[datetime] = None

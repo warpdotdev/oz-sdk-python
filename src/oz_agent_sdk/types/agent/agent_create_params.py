@@ -10,6 +10,7 @@ from ..mcp_server_config_param import McpServerConfigParam
 
 __all__ = [
     "AgentCreateParams",
+    "Harness",
     "HarnessAuthSecrets",
     "InferenceProviders",
     "InferenceProvidersAws",
@@ -32,7 +33,11 @@ class AgentCreateParams(TypedDict, total=False):
     """
 
     base_harness: Optional[str]
-    """Optional default harness for runs executed by this agent."""
+    """
+    Optional default harness for runs executed by this agent. Deprecated - use
+    harness instead. Kept for backward compatibility; when both are sent, harness is
+    authoritative and a conflicting type is rejected with invalid_request.
+    """
 
     base_model: Optional[str]
     """Optional base model for runs executed by this agent."""
@@ -72,6 +77,15 @@ class AgentCreateParams(TypedDict, total=False):
     """Optional UID of the Factory to link this agent to.
 
     When omitted, the agent is not linked to any factory.
+    """
+
+    harness: Harness
+    """
+    Specifies which execution harness to use for the agent run. Default (nil/empty)
+    uses Warp's built-in harness. When stored as a named agent's default
+    (create/update agent identity), this field replaces the deprecated
+    base_harness/base_model pair: a non-oz type here requires the agent's base_model
+    to be empty, since the two describe mutually exclusive default models.
     """
 
     harness_auth_secrets: HarnessAuthSecrets
@@ -116,6 +130,41 @@ class AgentCreateParams(TypedDict, total=False):
     "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md"). Each spec is validated
     and normalized at attach time using the team's GitHub credentials; inaccessible
     or malformed specs are rejected.
+    """
+
+
+class Harness(TypedDict, total=False):
+    """
+    Specifies which execution harness to use for the agent run.
+    Default (nil/empty) uses Warp's built-in harness.
+    When stored as a named agent's default (create/update agent identity),
+    this field replaces the deprecated base_harness/base_model pair: a
+    non-oz type here requires the agent's base_model to be empty, since
+    the two describe mutually exclusive default models.
+    """
+
+    model_id: str
+    """Model to use with a third-party harness (e.g.
+
+    "claude-haiku-4-5"). Only applies when type is a non-oz harness; the top-level
+    config model_id targets the built-in Oz harness instead. When omitted or empty,
+    the harness uses its own default model.
+    """
+
+    reasoning_level: str
+    """Reasoning effort for harnesses that support it (e.g.
+
+    Codex). Only applies when type is a non-oz harness. Ignored by harnesses that do
+    not support reasoning levels.
+    """
+
+    type: Literal["oz", "claude", "gemini", "codex"]
+    """The harness type identifier.
+
+    - oz: Warp's built-in harness (default)
+    - claude: Claude Code harness
+    - gemini: Gemini CLI harness
+    - codex: Codex CLI harness
     """
 
 

@@ -41,6 +41,11 @@ class TestAgent:
             description="description",
             environment_id="environment_id",
             factory_uid="factory_uid",
+            harness={
+                "model_id": "model_id",
+                "reasoning_level": "reasoning_level",
+                "type": "oz",
+            },
             harness_auth_secrets={
                 "claude_auth_secret_name": "claude_auth_secret_name",
                 "codex_auth_secret_name": "codex_auth_secret_name",
@@ -125,6 +130,11 @@ class TestAgent:
             default_runner_uid="default_runner_uid",
             description="description",
             environment_id="environment_id",
+            harness={
+                "model_id": "model_id",
+                "reasoning_level": "reasoning_level",
+                "type": "oz",
+            },
             harness_auth_secrets={
                 "claude_auth_secret_name": "claude_auth_secret_name",
                 "codex_auth_secret_name": "codex_auth_secret_name",
@@ -344,6 +354,11 @@ class TestAsyncAgent:
             description="description",
             environment_id="environment_id",
             factory_uid="factory_uid",
+            harness={
+                "model_id": "model_id",
+                "reasoning_level": "reasoning_level",
+                "type": "oz",
+            },
             harness_auth_secrets={
                 "claude_auth_secret_name": "claude_auth_secret_name",
                 "codex_auth_secret_name": "codex_auth_secret_name",
@@ -428,6 +443,11 @@ class TestAsyncAgent:
             default_runner_uid="default_runner_uid",
             description="description",
             environment_id="environment_id",
+            harness={
+                "model_id": "model_id",
+                "reasoning_level": "reasoning_level",
+                "type": "oz",
+            },
             harness_auth_secrets={
                 "claude_auth_secret_name": "claude_auth_secret_name",
                 "codex_auth_secret_name": "codex_auth_secret_name",

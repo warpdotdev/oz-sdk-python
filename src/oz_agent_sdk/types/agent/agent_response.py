@@ -4,6 +4,8 @@ from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
+from pydantic import Field as FieldInfo
+
 from ..._models import BaseModel
 from ..mcp_server_config import McpServerConfig
 
@@ -14,6 +16,7 @@ __all__ = [
     "MemoryAutoMemory",
     "MemoryAutoMemoryStore",
     "Secret",
+    "Harness",
     "HarnessAuthSecrets",
     "InferenceProviders",
     "InferenceProvidersAws",
@@ -80,6 +83,41 @@ class Secret(BaseModel):
 
     name: str
     """Name of the managed secret."""
+
+
+class Harness(BaseModel):
+    """
+    Specifies which execution harness to use for the agent run.
+    Default (nil/empty) uses Warp's built-in harness.
+    When stored as a named agent's default (create/update agent identity),
+    this field replaces the deprecated base_harness/base_model pair: a
+    non-oz type here requires the agent's base_model to be empty, since
+    the two describe mutually exclusive default models.
+    """
+
+    api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
+    """Model to use with a third-party harness (e.g.
+
+    "claude-haiku-4-5"). Only applies when type is a non-oz harness; the top-level
+    config model_id targets the built-in Oz harness instead. When omitted or empty,
+    the harness uses its own default model.
+    """
+
+    reasoning_level: Optional[str] = None
+    """Reasoning effort for harnesses that support it (e.g.
+
+    Codex). Only applies when type is a non-oz harness. Ignored by harnesses that do
+    not support reasoning levels.
+    """
+
+    type: Optional[Literal["oz", "claude", "gemini", "codex"]] = None
+    """The harness type identifier.
+
+    - oz: Warp's built-in harness (default)
+    - claude: Claude Code harness
+    - gemini: Gemini CLI harness
+    - codex: Codex CLI harness
+    """
 
 
 class HarnessAuthSecrets(BaseModel):
@@ -182,7 +220,8 @@ class AgentResponse(BaseModel):
 
     1. The harness specified on the run itself
     2. The agent's base harness
-    3. Oz
+    3. Oz Deprecated - use harness instead, which carries the full {type, model_id,
+       reasoning_level} default.
     """
 
     base_model: Optional[str] = None
@@ -226,6 +265,15 @@ class AgentResponse(BaseModel):
     """UID of the Factory this agent was seeded for.
 
     Null (or omitted) for agents that do not belong to a factory.
+    """
+
+    harness: Optional[Harness] = None
+    """
+    Specifies which execution harness to use for the agent run. Default (nil/empty)
+    uses Warp's built-in harness. When stored as a named agent's default
+    (create/update agent identity), this field replaces the deprecated
+    base_harness/base_model pair: a non-oz type here requires the agent's base_model
+    to be empty, since the two describe mutually exclusive default models.
     """
 
     harness_auth_secrets: Optional[HarnessAuthSecrets] = None

@@ -61,6 +61,7 @@ class AgentResource(SyncAPIResource):
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         factory_uid: Optional[str] | Omit = omit,
+        harness: agent_create_params.Harness | Omit = omit,
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
@@ -87,7 +88,9 @@ class AgentResource(SyncAPIResource):
           agent_type: The well-known type of a named agent. The built-in factory agents use FOREMAN,
               TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
 
-          base_harness: Optional default harness for runs executed by this agent.
+          base_harness: Optional default harness for runs executed by this agent. Deprecated - use
+              harness instead. Kept for backward compatibility; when both are sent, harness is
+              authoritative and a conflicting type is rejected with invalid_request.
 
           base_model: Optional base model for runs executed by this agent.
 
@@ -115,6 +118,12 @@ class AgentResource(SyncAPIResource):
 
           factory_uid: Optional UID of the Factory to link this agent to. When omitted, the agent is
               not linked to any factory.
+
+          harness: Specifies which execution harness to use for the agent run. Default (nil/empty)
+              uses Warp's built-in harness. When stored as a named agent's default
+              (create/update agent identity), this field replaces the deprecated
+              base_harness/base_model pair: a non-oz type here requires the agent's base_model
+              to be empty, since the two describe mutually exclusive default models.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -164,6 +173,7 @@ class AgentResource(SyncAPIResource):
                     "description": description,
                     "environment_id": environment_id,
                     "factory_uid": factory_uid,
+                    "harness": harness,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
@@ -193,6 +203,7 @@ class AgentResource(SyncAPIResource):
         default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
+        harness: Optional[agent_update_params.Harness] | Omit = omit,
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
@@ -217,7 +228,9 @@ class AgentResource(SyncAPIResource):
               TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
 
           base_harness: Replacement default harness. Omit or pass `null` to leave unchanged, or pass an
-              empty string to clear.
+              empty string to clear. Deprecated - use harness instead. Kept for backward
+              compatibility; when both are sent, harness is authoritative and a conflicting
+              type is rejected with invalid_request.
 
           base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
               string to clear.
@@ -243,6 +256,12 @@ class AgentResource(SyncAPIResource):
 
           environment_id: Replacement default cloud environment ID. Omit or pass `null` to leave
               unchanged, or pass an empty string to clear.
+
+          harness: Specifies which execution harness to use for the agent run. Default (nil/empty)
+              uses Warp's built-in harness. When stored as a named agent's default
+              (create/update agent identity), this field replaces the deprecated
+              base_harness/base_model pair: a non-oz type here requires the agent's base_model
+              to be empty, since the two describe mutually exclusive default models.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -291,6 +310,7 @@ class AgentResource(SyncAPIResource):
                     "default_runner_uid": default_runner_uid,
                     "description": description,
                     "environment_id": environment_id,
+                    "harness": harness,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
@@ -457,6 +477,7 @@ class AsyncAgentResource(AsyncAPIResource):
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         factory_uid: Optional[str] | Omit = omit,
+        harness: agent_create_params.Harness | Omit = omit,
         harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
         inference_providers: agent_create_params.InferenceProviders | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
@@ -483,7 +504,9 @@ class AsyncAgentResource(AsyncAPIResource):
           agent_type: The well-known type of a named agent. The built-in factory agents use FOREMAN,
               TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
 
-          base_harness: Optional default harness for runs executed by this agent.
+          base_harness: Optional default harness for runs executed by this agent. Deprecated - use
+              harness instead. Kept for backward compatibility; when both are sent, harness is
+              authoritative and a conflicting type is rejected with invalid_request.
 
           base_model: Optional base model for runs executed by this agent.
 
@@ -511,6 +534,12 @@ class AsyncAgentResource(AsyncAPIResource):
 
           factory_uid: Optional UID of the Factory to link this agent to. When omitted, the agent is
               not linked to any factory.
+
+          harness: Specifies which execution harness to use for the agent run. Default (nil/empty)
+              uses Warp's built-in harness. When stored as a named agent's default
+              (create/update agent identity), this field replaces the deprecated
+              base_harness/base_model pair: a non-oz type here requires the agent's base_model
+              to be empty, since the two describe mutually exclusive default models.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -560,6 +589,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "description": description,
                     "environment_id": environment_id,
                     "factory_uid": factory_uid,
+                    "harness": harness,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,
@@ -589,6 +619,7 @@ class AsyncAgentResource(AsyncAPIResource):
         default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
+        harness: Optional[agent_update_params.Harness] | Omit = omit,
         harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
         inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
@@ -613,7 +644,9 @@ class AsyncAgentResource(AsyncAPIResource):
               TRIAGE, SPEC, IMPLEMENT, REVIEW, or VERIFY; every other agent is CUSTOM.
 
           base_harness: Replacement default harness. Omit or pass `null` to leave unchanged, or pass an
-              empty string to clear.
+              empty string to clear. Deprecated - use harness instead. Kept for backward
+              compatibility; when both are sent, harness is authoritative and a conflicting
+              type is rejected with invalid_request.
 
           base_model: Replacement base model. Omit or pass `null` to leave unchanged, or pass an empty
               string to clear.
@@ -639,6 +672,12 @@ class AsyncAgentResource(AsyncAPIResource):
 
           environment_id: Replacement default cloud environment ID. Omit or pass `null` to leave
               unchanged, or pass an empty string to clear.
+
+          harness: Specifies which execution harness to use for the agent run. Default (nil/empty)
+              uses Warp's built-in harness. When stored as a named agent's default
+              (create/update agent identity), this field replaces the deprecated
+              base_harness/base_model pair: a non-oz type here requires the agent's base_model
+              to be empty, since the two describe mutually exclusive default models.
 
           harness_auth_secrets: Authentication secrets for third-party harnesses. Only the secret for the
               harness specified gets injected into the environment.
@@ -687,6 +726,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "default_runner_uid": default_runner_uid,
                     "description": description,
                     "environment_id": environment_id,
+                    "harness": harness,
                     "harness_auth_secrets": harness_auth_secrets,
                     "inference_providers": inference_providers,
                     "mcp_servers": mcp_servers,

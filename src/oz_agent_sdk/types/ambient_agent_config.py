@@ -23,6 +23,10 @@ class Harness(BaseModel):
     """
     Specifies which execution harness to use for the agent run.
     Default (nil/empty) uses Warp's built-in harness.
+    When stored as a named agent's default (create/update agent identity),
+    this field replaces the deprecated base_harness/base_model pair: a
+    non-oz type here requires the agent's base_model to be empty, since
+    the two describe mutually exclusive default models.
     """
 
     api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
@@ -163,7 +167,10 @@ class AmbientAgentConfig(BaseModel):
     harness: Optional[Harness] = None
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
-    uses Warp's built-in harness.
+    uses Warp's built-in harness. When stored as a named agent's default
+    (create/update agent identity), this field replaces the deprecated
+    base_harness/base_model pair: a non-oz type here requires the agent's base_model
+    to be empty, since the two describe mutually exclusive default models.
     """
 
     harness_auth_secrets: Optional[HarnessAuthSecrets] = None

@@ -132,6 +132,19 @@ class AgentCreateParams(TypedDict, total=False):
     or malformed specs are rejected.
     """
 
+    worker_host: Optional[str]
+    """
+    Optional default worker host for runs executed by this agent. Omission, null, or
+    an empty value stores no Agent default, in which case the workspace default
+    applies. A non-empty value is trimmed and stored; use "warp" to force
+    Warp-hosted execution over a self-hosted workspace default. The precedence order
+    for worker host resolution is:
+
+    1. The host specified on the run itself
+    2. The agent's default host
+    3. The workspace default host
+    """
+
 
 class Harness(TypedDict, total=False):
     """

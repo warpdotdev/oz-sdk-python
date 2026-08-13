@@ -70,6 +70,7 @@ class AgentResource(SyncAPIResource):
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
+        worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,6 +153,16 @@ class AgentResource(SyncAPIResource):
               and normalized at attach time using the team's GitHub credentials; inaccessible
               or malformed specs are rejected.
 
+          worker_host: Optional default worker host for runs executed by this agent. Omission, null, or
+              an empty value stores no Agent default, in which case the workspace default
+              applies. A non-empty value is trimmed and stored; use "warp" to force
+              Warp-hosted execution over a self-hosted workspace default. The precedence order
+              for worker host resolution is:
+
+              1. The host specified on the run itself
+              2. The agent's default host
+              3. The workspace default host
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -182,6 +193,7 @@ class AgentResource(SyncAPIResource):
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
+                    "worker_host": worker_host,
                 },
                 agent_create_params.AgentCreateParams,
             ),
@@ -213,6 +225,7 @@ class AgentResource(SyncAPIResource):
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
+        worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -289,6 +302,11 @@ class AgentResource(SyncAPIResource):
           skills: Replacement list of skill specs. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace.
 
+          worker_host: Replacement default worker host. Omit or pass `null` to leave unchanged, or pass
+              an empty string to clear (the workspace default then applies). A non-empty value
+              is trimmed and replaces the stored default; use "warp" to force Warp-hosted
+              execution over a self-hosted workspace default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -320,6 +338,7 @@ class AgentResource(SyncAPIResource):
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
+                    "worker_host": worker_host,
                 },
                 agent_update_params.AgentUpdateParams,
             ),
@@ -486,6 +505,7 @@ class AsyncAgentResource(AsyncAPIResource):
         prompt: Optional[str] | Omit = omit,
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
+        worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -568,6 +588,16 @@ class AsyncAgentResource(AsyncAPIResource):
               and normalized at attach time using the team's GitHub credentials; inaccessible
               or malformed specs are rejected.
 
+          worker_host: Optional default worker host for runs executed by this agent. Omission, null, or
+              an empty value stores no Agent default, in which case the workspace default
+              applies. A non-empty value is trimmed and stored; use "warp" to force
+              Warp-hosted execution over a self-hosted workspace default. The precedence order
+              for worker host resolution is:
+
+              1. The host specified on the run itself
+              2. The agent's default host
+              3. The workspace default host
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -598,6 +628,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
+                    "worker_host": worker_host,
                 },
                 agent_create_params.AgentCreateParams,
             ),
@@ -629,6 +660,7 @@ class AsyncAgentResource(AsyncAPIResource):
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
+        worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -705,6 +737,11 @@ class AsyncAgentResource(AsyncAPIResource):
           skills: Replacement list of skill specs. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace.
 
+          worker_host: Replacement default worker host. Omit or pass `null` to leave unchanged, or pass
+              an empty string to clear (the workspace default then applies). A non-empty value
+              is trimmed and replaces the stored default; use "warp" to force Warp-hosted
+              execution over a self-hosted workspace default.
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -736,6 +773,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "prompt": prompt,
                     "secrets": secrets,
                     "skills": skills,
+                    "worker_host": worker_host,
                 },
                 agent_update_params.AgentUpdateParams,
             ),

@@ -81,6 +81,7 @@ class TestAgent:
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
+            worker_host="worker_host",
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 
@@ -170,6 +171,7 @@ class TestAgent:
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
+            worker_host="worker_host",
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 
@@ -394,6 +396,7 @@ class TestAsyncAgent:
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
+            worker_host="worker_host",
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 
@@ -483,6 +486,7 @@ class TestAsyncAgent:
             prompt="prompt",
             secrets=[{"name": "name"}],
             skills=["string"],
+            worker_host="worker_host",
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 

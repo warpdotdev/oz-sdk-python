@@ -299,3 +299,13 @@ class AgentResponse(BaseModel):
 
     prompt: Optional[str] = None
     """Optional base prompt for this agent"""
+
+    worker_host: Optional[str] = None
+    """Default worker host for runs executed by this agent, or empty when unset.
+
+    The precedence order for worker host resolution is:
+
+    1. The host specified on the run itself
+    2. The agent's default host
+    3. The workspace default host
+    """

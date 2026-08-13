@@ -135,6 +135,15 @@ class AgentUpdateParams(TypedDict, total=False):
     to replace.
     """
 
+    worker_host: Optional[str]
+    """Replacement default worker host.
+
+    Omit or pass `null` to leave unchanged, or pass an empty string to clear (the
+    workspace default then applies). A non-empty value is trimmed and replaces the
+    stored default; use "warp" to force Warp-hosted execution over a self-hosted
+    workspace default.
+    """
+
 
 class Harness(TypedDict, total=False):
     """

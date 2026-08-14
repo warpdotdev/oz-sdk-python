@@ -42,7 +42,7 @@ class RequestUsage(BaseModel):
     """Credits consumed by compute resources for the run"""
 
     compute_cost_usd: Optional[float] = None
-    """compute_cost in US dollars, converted at a fixed rate.
+    """compute_cost in US dollars, converted at the owning team's current credit price.
 
     An approximate cost, not a billed amount.
     """
@@ -51,16 +51,17 @@ class RequestUsage(BaseModel):
     """Credits consumed by LLM inference for the run"""
 
     inference_cost_usd: Optional[float] = None
-    """inference_cost in US dollars, converted at a fixed rate.
-
-    An approximate cost, not a billed amount.
+    """
+    inference_cost in US dollars, converted at the owning team's current credit
+    price. An approximate cost, not a billed amount.
     """
 
     platform_cost: Optional[float] = None
     """Credits consumed by platform usage for the run"""
 
     platform_cost_usd: Optional[float] = None
-    """platform_cost in US dollars, converted at a fixed rate.
+    """platform_cost in US dollars, converted at the owning team's current credit
+    price.
 
     An approximate cost, not a billed amount.
     """

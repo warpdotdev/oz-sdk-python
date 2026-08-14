@@ -265,6 +265,9 @@ class RunItem(BaseModel):
     - CLI: Created from the CLI
     - JIRA: Created from Jira integration
     - SELF_IMPROVEMENT: Created by Warp's self-improvement pipeline
+    - GITHUB_WEBHOOK: Created from a GitHub webhook event
+    - GITLAB_WEBHOOK: Created from a GitLab webhook event
+    - AUTOFIX: Created by Warp's autofix pipeline
     - RUN_SCORER: Created by Warp's run-scoring judge
     - ORCHESTRATION: Created as a child run by the orchestration layer
       (parent_run_id set)

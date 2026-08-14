@@ -16,6 +16,9 @@ RunSourceType: TypeAlias = Literal[
     "CLI",
     "JIRA",
     "SELF_IMPROVEMENT",
+    "GITHUB_WEBHOOK",
+    "GITLAB_WEBHOOK",
+    "AUTOFIX",
     "RUN_SCORER",
     "ORCHESTRATION",
 ]

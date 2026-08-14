@@ -15,7 +15,7 @@ RunSourceType: TypeAlias = Literal[
     "CLOUD_MODE",
     "CLI",
     "JIRA",
-    "AUTOFIX",
+    "SELF_IMPROVEMENT",
     "RUN_SCORER",
     "ORCHESTRATION",
 ]

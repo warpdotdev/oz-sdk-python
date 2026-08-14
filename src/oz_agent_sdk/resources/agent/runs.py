@@ -141,7 +141,12 @@ class RunsResource(SyncAPIResource):
 
           cursor: Pagination cursor from previous response
 
-          environment_id: Filter runs by environment ID
+          environment_id: Filter runs by environment ID. Passing the literal value `empty-environment`
+              matches runs with no environment configured, rather than omitting the parameter,
+              which applies no environment filter at all. `empty-environment` can never
+              collide with a real environment ID: every environment ID is exactly 22
+              characters drawn from `[A-Za-z0-9]`, while this sentinel contains a hyphen and
+              is a different length.
 
           execution_location: Filter by where the run executed
 
@@ -478,7 +483,12 @@ class AsyncRunsResource(AsyncAPIResource):
 
           cursor: Pagination cursor from previous response
 
-          environment_id: Filter runs by environment ID
+          environment_id: Filter runs by environment ID. Passing the literal value `empty-environment`
+              matches runs with no environment configured, rather than omitting the parameter,
+              which applies no environment filter at all. `empty-environment` can never
+              collide with a real environment ID: every environment ID is exactly 22
+              characters drawn from `[A-Za-z0-9]`, while this sentinel contains a hyphen and
+              is a different length.
 
           execution_location: Filter by where the run executed
 

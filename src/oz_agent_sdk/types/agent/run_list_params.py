@@ -42,7 +42,14 @@ class RunListParams(TypedDict, total=False):
     """Pagination cursor from previous response"""
 
     environment_id: str
-    """Filter runs by environment ID"""
+    """Filter runs by environment ID.
+
+    Passing the literal value `empty-environment` matches runs with no environment
+    configured, rather than omitting the parameter, which applies no environment
+    filter at all. `empty-environment` can never collide with a real environment ID:
+    every environment ID is exactly 22 characters drawn from `[A-Za-z0-9]`, while
+    this sentinel contains a hyphen and is a different length.
+    """
 
     execution_location: Literal["LOCAL", "REMOTE"]
     """Filter by where the run executed"""

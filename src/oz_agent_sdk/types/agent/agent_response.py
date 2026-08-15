@@ -166,7 +166,7 @@ class InferenceProviders(BaseModel):
 
 class AgentResponse(BaseModel):
     available: bool
-    """Whether this agent is within the team's plan limit and can be used for runs"""
+    """Whether the agent is currently enabled. Defaults to true."""
 
     created_at: datetime
     """When the agent was created (RFC3339)"""

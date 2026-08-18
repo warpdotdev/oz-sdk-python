@@ -99,8 +99,8 @@ class Harness(BaseModel):
     """Model to use with a third-party harness (e.g.
 
     "claude-haiku-4-5"). Only applies when type is a non-oz harness; the top-level
-    config model_id targets the built-in Oz harness instead. When omitted or empty,
-    the harness uses its own default model.
+    config model_id targets the built-in Warp harness instead. When omitted or
+    empty, the harness uses its own default model.
     """
 
     reasoning_level: Optional[str] = None
@@ -220,8 +220,8 @@ class AgentResponse(BaseModel):
 
     1. The harness specified on the run itself
     2. The agent's base harness
-    3. Oz Deprecated - use harness instead, which carries the full {type, model_id,
-       reasoning_level} default.
+    3. Warp Deprecated - use harness instead, which carries the full {type,
+       model_id, reasoning_level} default.
     """
 
     base_model: Optional[str] = None

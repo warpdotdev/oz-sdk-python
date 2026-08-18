@@ -113,7 +113,7 @@ class FileArtifactData(BaseModel):
     title: Optional[str] = None
     """Short, badge-visible label for the artifact.
 
-    For recording artifacts, this is the agent-authored title shown in Oz web and
+    For recording artifacts, this is the agent-authored title shown in Warp web and
     blocklist badges. Distinct from description, which is longer and shown in detail
     views.
     """

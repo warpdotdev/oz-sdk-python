@@ -197,7 +197,7 @@ class RunItem(BaseModel):
     execution_location: Optional[Literal["LOCAL", "REMOTE"]] = None
     """Where the run executed:
 
-    - LOCAL: Executed in the user's local Oz environment
+    - LOCAL: Executed in the user's local Warp environment
     - REMOTE: Executed by a remote/cloud worker
     """
 

@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.15.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.14.0...v0.15.0) (2026-08-20)
+
+
+
+### Features
+
+* **agent-runs:** add on_behalf_of configuration option to the agent runs API ([0eca5db](https://github.com/warpdotdev/oz-sdk-python/commit/0eca5dbfb1b2c8664a06129104b94758b61dd781))
+* **api:** add run output artifact reporting and reverse lookup ([32393a5](https://github.com/warpdotdev/oz-sdk-python/commit/32393a5996ed0175d96fac9186b7122263bad6d9))
+* configurable credential strategy for agent runs (REMOTE-1815) ([2da5ccf](https://github.com/warpdotdev/oz-sdk-python/commit/2da5ccf9165341671057c2ee6f418a825516e77f))
+* **REMOTE-2208:** opt-in post-failure session retention via OZ_IDLE_ON_FAIL ([9db6f17](https://github.com/warpdotdev/oz-sdk-python/commit/9db6f170589865b73f7079bee82e167b578b8765))
+* **remote-2262:** default runner on named agents ([4d81dbf](https://github.com/warpdotdev/oz-sdk-python/commit/4d81dbf67fd3f33d8ba4cf98e5ffa6122e559501))
+* **REMOTE-2776:** enforce factory pricing V2 tier entitlements ([3bc4639](https://github.com/warpdotdev/oz-sdk-python/commit/3bc4639b66331798c40947d575cef26f18632e36))
+
+### Bug Fixes
+
+* Oz runs list filtering by Empty environment is a no-op ([85b2e1b](https://github.com/warpdotdev/oz-sdk-python/commit/85b2e1b1fdc57a72ee5e8e3928f152fa2bc995b6))
+
+### Chores
+
+* **stlc:** enable release-please pipeline for SDK publishing ([35ea74a](https://github.com/warpdotdev/oz-sdk-python/commit/35ea74a2ae880a21f770a47e054e99a9c3f1cb60))
+* sync release state from production (0.14.0) ([e8f125d](https://github.com/warpdotdev/oz-sdk-python/commit/e8f125d9daa9224dfd2f2ce0b40c4f1a41615360))
+
 ## [0.14.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.13.0...v0.14.0) (2026-07-07)
 
 

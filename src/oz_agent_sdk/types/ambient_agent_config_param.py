@@ -145,6 +145,15 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     true.
     """
 
+    computer_use_model_id: str
+    """Model the computer use subagent runs on.
+
+    If not set, the subagent picks its own model automatically. Only applies to the
+    built-in Oz harness; the value is accepted but has no effect under a third-party
+    harness or when computer use is disabled. Requires an agent CLI version that
+    supports the --computer-use-model flag.
+    """
+
     credential_strategy: Optional[Literal["CREATOR", "EXECUTOR"]]
     """
     Controls which principal's credentials are used when the platform mints tokens

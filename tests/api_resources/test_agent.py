@@ -160,6 +160,7 @@ class TestAgent:
             config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
+                "computer_use_model_id": "computer_use_model_id",
                 "credential_strategy": "CREATOR",
                 "environment_id": "environment_id",
                 "harness": {
@@ -383,6 +384,7 @@ class TestAsyncAgent:
             config={
                 "base_prompt": "base_prompt",
                 "computer_use_enabled": True,
+                "computer_use_model_id": "computer_use_model_id",
                 "credential_strategy": "CREATOR",
                 "environment_id": "environment_id",
                 "harness": {

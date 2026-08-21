@@ -14,7 +14,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Mint an installation token for the warp-sdk-release GitHub App instead of
+      # ianhodge's PAT (RELEASE_PLEASE_TOKEN), so release PRs are authored by the
+      # app, not a personal account. Same app/secrets as stlc-promote.yml.
+      - name: Mint app token
+        id: app-token
+        uses: actions/create-github-app-token@fee1f7d63c2ff003460e3d139729b119787bc349 # v2.2.2
+        with:
+          app-id: ${{ secrets.SDK_RELEASE_APP_ID }}
+          private-key: ${{ secrets.SDK_RELEASE_APP_PRIVATE_KEY }}
+          owner: warpdotdev
+          repositories: oz-sdk-python
+
       - uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4.4.1
         id: release
         with:
-          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}

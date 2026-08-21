@@ -13,7 +13,24 @@ from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
 from ..ambient_agent_config import AmbientAgentConfig
 
-__all__ = ["RunItem", "AgentSkill", "RequestUsage", "Schedule", "StatusMessage"]
+__all__ = [
+    "RunItem",
+    "AgentSkill",
+    "RequestUsage",
+    "RequestUsageInferenceCostBreakdownUsd",
+    "RequestUsageUsageByCategory",
+    "RequestUsageUsageByCategoryByokInferenceUsage",
+    "RequestUsageUsageByCategoryByokInferenceUsageCostUsd",
+    "RequestUsageUsageByCategoryByokInferenceUsageTokenCount",
+    "RequestUsageUsageByCategoryCustomEndpointInferenceUsage",
+    "RequestUsageUsageByCategoryCustomEndpointInferenceUsageCostUsd",
+    "RequestUsageUsageByCategoryCustomEndpointInferenceUsageTokenCount",
+    "RequestUsageUsageByCategoryDirectAPIInferenceUsage",
+    "RequestUsageUsageByCategoryDirectAPIInferenceUsageCostUsd",
+    "RequestUsageUsageByCategoryDirectAPIInferenceUsageTokenCount",
+    "Schedule",
+    "StatusMessage",
+]
 
 
 class AgentSkill(BaseModel):
@@ -35,6 +52,221 @@ class AgentSkill(BaseModel):
     """Human-readable name of the skill"""
 
 
+class RequestUsageInferenceCostBreakdownUsd(BaseModel):
+    """
+    Charged dollar cost of LLM inference, split by token type.
+    Omitted when the data is not available.
+    """
+
+    input_cache_read_cost_usd: float
+    """Cost of cache-read input tokens, in US dollars."""
+
+    input_cache_write_cost_usd: float
+    """Cost of cache-write input tokens, in US dollars."""
+
+    input_cost_usd: float
+    """Cost of non-cached input tokens, in US dollars."""
+
+    output_cost_usd: float
+    """Cost of output tokens, in US dollars."""
+
+
+class RequestUsageUsageByCategoryByokInferenceUsageCostUsd(BaseModel):
+    """
+    Charged dollar cost of LLM inference, split by token type.
+    Omitted when the data is not available.
+    """
+
+    input_cache_read_cost_usd: float
+    """Cost of cache-read input tokens, in US dollars."""
+
+    input_cache_write_cost_usd: float
+    """Cost of cache-write input tokens, in US dollars."""
+
+    input_cost_usd: float
+    """Cost of non-cached input tokens, in US dollars."""
+
+    output_cost_usd: float
+    """Cost of output tokens, in US dollars."""
+
+
+class RequestUsageUsageByCategoryByokInferenceUsageTokenCount(BaseModel):
+    """A per-token-type token count."""
+
+    input: int
+    """Count of non-cached input tokens."""
+
+    input_cache_read: int
+    """Count of cache-read input tokens."""
+
+    input_cache_write: int
+    """Count of cache-write input tokens."""
+
+    output: int
+    """Count of output tokens."""
+
+
+class RequestUsageUsageByCategoryByokInferenceUsage(BaseModel):
+    """
+    Full token count and dollar-cost detail inference usage.
+    The counts and cost describe the same usage (e.g. token_count.input
+    tokens cost cost_usd.input_cost_usd in total).
+    """
+
+    cost_usd: RequestUsageUsageByCategoryByokInferenceUsageCostUsd
+    """
+    Charged dollar cost of LLM inference, split by token type. Omitted when the data
+    is not available.
+    """
+
+    token_count: RequestUsageUsageByCategoryByokInferenceUsageTokenCount
+    """A per-token-type token count."""
+
+    web_search_cost_usd: float
+    """Total cost of those web searches, in US dollars."""
+
+    web_search_count: int
+    """Number of web searches performed by this model."""
+
+
+class RequestUsageUsageByCategoryCustomEndpointInferenceUsageCostUsd(BaseModel):
+    """
+    Charged dollar cost of LLM inference, split by token type.
+    Omitted when the data is not available.
+    """
+
+    input_cache_read_cost_usd: float
+    """Cost of cache-read input tokens, in US dollars."""
+
+    input_cache_write_cost_usd: float
+    """Cost of cache-write input tokens, in US dollars."""
+
+    input_cost_usd: float
+    """Cost of non-cached input tokens, in US dollars."""
+
+    output_cost_usd: float
+    """Cost of output tokens, in US dollars."""
+
+
+class RequestUsageUsageByCategoryCustomEndpointInferenceUsageTokenCount(BaseModel):
+    """A per-token-type token count."""
+
+    input: int
+    """Count of non-cached input tokens."""
+
+    input_cache_read: int
+    """Count of cache-read input tokens."""
+
+    input_cache_write: int
+    """Count of cache-write input tokens."""
+
+    output: int
+    """Count of output tokens."""
+
+
+class RequestUsageUsageByCategoryCustomEndpointInferenceUsage(BaseModel):
+    """
+    Full token count and dollar-cost detail inference usage.
+    The counts and cost describe the same usage (e.g. token_count.input
+    tokens cost cost_usd.input_cost_usd in total).
+    """
+
+    cost_usd: RequestUsageUsageByCategoryCustomEndpointInferenceUsageCostUsd
+    """
+    Charged dollar cost of LLM inference, split by token type. Omitted when the data
+    is not available.
+    """
+
+    token_count: RequestUsageUsageByCategoryCustomEndpointInferenceUsageTokenCount
+    """A per-token-type token count."""
+
+    web_search_cost_usd: float
+    """Total cost of those web searches, in US dollars."""
+
+    web_search_count: int
+    """Number of web searches performed by this model."""
+
+
+class RequestUsageUsageByCategoryDirectAPIInferenceUsageCostUsd(BaseModel):
+    """
+    Charged dollar cost of LLM inference, split by token type.
+    Omitted when the data is not available.
+    """
+
+    input_cache_read_cost_usd: float
+    """Cost of cache-read input tokens, in US dollars."""
+
+    input_cache_write_cost_usd: float
+    """Cost of cache-write input tokens, in US dollars."""
+
+    input_cost_usd: float
+    """Cost of non-cached input tokens, in US dollars."""
+
+    output_cost_usd: float
+    """Cost of output tokens, in US dollars."""
+
+
+class RequestUsageUsageByCategoryDirectAPIInferenceUsageTokenCount(BaseModel):
+    """A per-token-type token count."""
+
+    input: int
+    """Count of non-cached input tokens."""
+
+    input_cache_read: int
+    """Count of cache-read input tokens."""
+
+    input_cache_write: int
+    """Count of cache-write input tokens."""
+
+    output: int
+    """Count of output tokens."""
+
+
+class RequestUsageUsageByCategoryDirectAPIInferenceUsage(BaseModel):
+    """
+    Full token count and dollar-cost detail inference usage.
+    The counts and cost describe the same usage (e.g. token_count.input
+    tokens cost cost_usd.input_cost_usd in total).
+    """
+
+    cost_usd: RequestUsageUsageByCategoryDirectAPIInferenceUsageCostUsd
+    """
+    Charged dollar cost of LLM inference, split by token type. Omitted when the data
+    is not available.
+    """
+
+    token_count: RequestUsageUsageByCategoryDirectAPIInferenceUsageTokenCount
+    """A per-token-type token count."""
+
+    web_search_cost_usd: float
+    """Total cost of those web searches, in US dollars."""
+
+    web_search_count: int
+    """Number of web searches performed by this model."""
+
+
+class RequestUsageUsageByCategory(BaseModel):
+    """
+    Usage charged for a single usage category, broken down by usage type
+    (direct API/BYOK/custom endpoint) and, within each, by model ID.
+    """
+
+    platform_usage_usd: float
+    """Platform usage charged for this category, in US dollars."""
+
+    byok_inference_usage: Optional[Dict[str, RequestUsageUsageByCategoryByokInferenceUsage]] = None
+    """Inference usage charged using a user's own API key, keyed by model ID."""
+
+    custom_endpoint_inference_usage: Optional[Dict[str, RequestUsageUsageByCategoryCustomEndpointInferenceUsage]] = None
+    """
+    Inference usage charged using a custom endpoint, keyed by the custom model's
+    config key.
+    """
+
+    direct_api_inference_usage: Optional[Dict[str, RequestUsageUsageByCategoryDirectAPIInferenceUsage]] = None
+    """Inference usage incurred through Warp-provided model access, keyed by model ID."""
+
+
 class RequestUsage(BaseModel):
     """Resource usage information for the run"""
 
@@ -50,6 +282,12 @@ class RequestUsage(BaseModel):
     inference_cost: Optional[float] = None
     """Credits consumed by LLM inference for the run"""
 
+    inference_cost_breakdown_usd: Optional[RequestUsageInferenceCostBreakdownUsd] = None
+    """
+    Charged dollar cost of LLM inference, split by token type. Omitted when the data
+    is not available.
+    """
+
     inference_cost_usd: Optional[float] = None
     """
     inference_cost in US dollars, converted at the owning team's current credit
@@ -64,6 +302,21 @@ class RequestUsage(BaseModel):
     price.
 
     An approximate cost, not a billed amount.
+    """
+
+    total_tokens: Optional[int] = None
+    """
+    Total LLM token count (summed across every usage category and model) for the
+    run's conversation. Omitted when the data is not available.
+    """
+
+    usage_by_category: Optional[Dict[str, RequestUsageUsageByCategory]] = None
+    """
+    Full-granularity token and dollar-cost breakdown for the run's conversation,
+    keyed by usage category (e.g. "primary_agent", "conversation_compaction") and
+    model id. This differs from total_tokens/inference_cost_breakdown_usd which
+    combine usage across all categories and models. Omitted when the data is not
+    available.
     """
 
 

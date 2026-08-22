@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.15.0...v0.16.0) (2026-08-22)
+
+
+### Features
+
+* **api:** Add token totals and inference cost breakdown to REST RequestUsage ([bd77fc7](https://github.com/warpdotdev/oz-sdk-python/commit/bd77fc7b48544908f3d797e2203ab760ad6e2024))
+
 ## [0.15.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.14.0...v0.15.0) (2026-08-20)
 
 

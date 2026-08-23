@@ -119,3 +119,28 @@ from oz_agent_sdk.types.agent import ConversationCheckRedirectResponse
 Methods:
 
 - <code title="get /agent/conversations/{conversationId}/redirect">client.agent.conversations.<a href="./src/oz_agent_sdk/resources/agent/conversations.py">check_redirect</a>(conversation_id) -> <a href="./src/oz_agent_sdk/types/agent/conversation_check_redirect_response.py">ConversationCheckRedirectResponse</a></code>
+
+# Factories
+
+Types:
+
+```python
+from oz_agent_sdk.types import Factory
+```
+
+Methods:
+
+- <code title="get /factory">client.factories.<a href="./src/oz_agent_sdk/resources/factories/factories.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/factory_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factory.py">SyncFactoriesCursorPage[Factory]</a></code>
+- <code title="get /factory/{uid}">client.factories.<a href="./src/oz_agent_sdk/resources/factories/factories.py">get</a>(uid) -> <a href="./src/oz_agent_sdk/types/factory.py">Factory</a></code>
+
+## Runs
+
+Types:
+
+```python
+from oz_agent_sdk.types.factories import RunCreateResponse
+```
+
+Methods:
+
+- <code title="post /factory/{uid}/runs">client.factories.runs.<a href="./src/oz_agent_sdk/resources/factories/runs.py">create</a>(uid, \*\*<a href="src/oz_agent_sdk/types/factories/run_create_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/run_create_response.py">RunCreateResponse</a></code>

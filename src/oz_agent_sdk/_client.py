@@ -36,8 +36,9 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import agent
+    from .resources import agent, factories
     from .resources.agent.agent import AgentResource, AsyncAgentResource
+    from .resources.factories.factories import FactoriesResource, AsyncFactoriesResource
 
 __all__ = ["Timeout", "Transport", "ProxiesTypes", "RequestOptions", "OzAPI", "AsyncOzAPI", "Client", "AsyncClient"]
 
@@ -112,6 +113,13 @@ class OzAPI(SyncAPIClient):
         from .resources.agent import AgentResource
 
         return AgentResource(self)
+
+    @cached_property
+    def factories(self) -> FactoriesResource:
+        """Operations for creating and managing factories"""
+        from .resources.factories import FactoriesResource
+
+        return FactoriesResource(self)
 
     @cached_property
     def with_raw_response(self) -> OzAPIWithRawResponse:
@@ -305,6 +313,13 @@ class AsyncOzAPI(AsyncAPIClient):
         return AsyncAgentResource(self)
 
     @cached_property
+    def factories(self) -> AsyncFactoriesResource:
+        """Operations for creating and managing factories"""
+        from .resources.factories import AsyncFactoriesResource
+
+        return AsyncFactoriesResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOzAPIWithRawResponse:
         return AsyncOzAPIWithRawResponse(self)
 
@@ -437,6 +452,13 @@ class OzAPIWithRawResponse:
 
         return AgentResourceWithRawResponse(self._client.agent)
 
+    @cached_property
+    def factories(self) -> factories.FactoriesResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        from .resources.factories import FactoriesResourceWithRawResponse
+
+        return FactoriesResourceWithRawResponse(self._client.factories)
+
 
 class AsyncOzAPIWithRawResponse:
     _client: AsyncOzAPI
@@ -450,6 +472,13 @@ class AsyncOzAPIWithRawResponse:
         from .resources.agent import AsyncAgentResourceWithRawResponse
 
         return AsyncAgentResourceWithRawResponse(self._client.agent)
+
+    @cached_property
+    def factories(self) -> factories.AsyncFactoriesResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        from .resources.factories import AsyncFactoriesResourceWithRawResponse
+
+        return AsyncFactoriesResourceWithRawResponse(self._client.factories)
 
 
 class OzAPIWithStreamedResponse:
@@ -465,6 +494,13 @@ class OzAPIWithStreamedResponse:
 
         return AgentResourceWithStreamingResponse(self._client.agent)
 
+    @cached_property
+    def factories(self) -> factories.FactoriesResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        from .resources.factories import FactoriesResourceWithStreamingResponse
+
+        return FactoriesResourceWithStreamingResponse(self._client.factories)
+
 
 class AsyncOzAPIWithStreamedResponse:
     _client: AsyncOzAPI
@@ -478,6 +514,13 @@ class AsyncOzAPIWithStreamedResponse:
         from .resources.agent import AsyncAgentResourceWithStreamingResponse
 
         return AsyncAgentResourceWithStreamingResponse(self._client.agent)
+
+    @cached_property
+    def factories(self) -> factories.AsyncFactoriesResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        from .resources.factories import AsyncFactoriesResourceWithStreamingResponse
+
+        return AsyncFactoriesResourceWithStreamingResponse(self._client.factories)
 
 
 Client = OzAPI

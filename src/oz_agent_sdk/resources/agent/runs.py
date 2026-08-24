@@ -159,9 +159,9 @@ class RunsResource(SyncAPIResource):
           limit: Maximum number of runs to return
 
           metadata: Filter by exact metadata key/value pairs using object notation (e.g.
-              `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics. At
-              most 5 pairs per request. Returns `feature_not_available` when metadata
-              filtering is not enabled.
+              `metadata[ticket_id]=VIS-238`), combining multiple pairs with AND semantics, up
+              to 5 per request. Returns `feature_not_available` when metadata filtering is not
+              enabled.
 
           model_id: Filter by model ID
 
@@ -252,14 +252,12 @@ class RunsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
-        """Cancel an agent run that is currently queued or in progress.
-
-        Once cancelled, the
-        run will transition to a cancelled state.
-
-        Not all runs can be cancelled. Runs that are in a terminal state (SUCCEEDED,
-        FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in PENDING state return 409
-        (retry after a moment). Self-hosted, local, and GitHub Action runs return 422.
+        """
+        Cancel an agent run that is currently queued or in progress; once cancelled, the
+        run transitions to a cancelled state. Not all runs can be cancelled: a run
+        already in a terminal state, in PENDING, or of an unsupported type (self-hosted,
+        local, GitHub Action) is rejected instead — see the error responses below for
+        each case.
 
         Args:
           extra_headers: Send extra headers
@@ -501,9 +499,9 @@ class AsyncRunsResource(AsyncAPIResource):
           limit: Maximum number of runs to return
 
           metadata: Filter by exact metadata key/value pairs using object notation (e.g.
-              `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics. At
-              most 5 pairs per request. Returns `feature_not_available` when metadata
-              filtering is not enabled.
+              `metadata[ticket_id]=VIS-238`), combining multiple pairs with AND semantics, up
+              to 5 per request. Returns `feature_not_available` when metadata filtering is not
+              enabled.
 
           model_id: Filter by model ID
 
@@ -594,14 +592,12 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> str:
-        """Cancel an agent run that is currently queued or in progress.
-
-        Once cancelled, the
-        run will transition to a cancelled state.
-
-        Not all runs can be cancelled. Runs that are in a terminal state (SUCCEEDED,
-        FAILED, ERROR, BLOCKED, CANCELLED) return 400. Runs in PENDING state return 409
-        (retry after a moment). Self-hosted, local, and GitHub Action runs return 422.
+        """
+        Cancel an agent run that is currently queued or in progress; once cancelled, the
+        run transitions to a cancelled state. Not all runs can be cancelled: a run
+        already in a terminal state, in PENDING, or of an unsupported type (self-hosted,
+        local, GitHub Action) is rejected instead — see the error responses below for
+        each case.
 
         Args:
           extra_headers: Send extra headers

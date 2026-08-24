@@ -72,11 +72,11 @@ class RunListParams(TypedDict, total=False):
     """Maximum number of runs to return"""
 
     metadata: Dict[str, str]
-    """
-    Filter by exact metadata key/value pairs using object notation (e.g.
-    `metadata[ticket_id]=VIS-238`). Multiple pairs combine with AND semantics. At
-    most 5 pairs per request. Returns `feature_not_available` when metadata
-    filtering is not enabled.
+    """Filter by exact metadata key/value pairs using object notation (e.g.
+
+    `metadata[ticket_id]=VIS-238`), combining multiple pairs with AND semantics, up
+    to 5 per request. Returns `feature_not_available` when metadata filtering is not
+    enabled.
     """
 
     model_id: str

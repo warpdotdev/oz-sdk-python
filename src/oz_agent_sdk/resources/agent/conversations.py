@@ -53,14 +53,11 @@ class ConversationsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationCheckRedirectResponse:
-        """Check whether a conversation should redirect to a live shared session.
-
-        Returns a
-        session_id if the underlying ambient agent task still has a live shared session,
-        or an empty object if no redirect is needed.
-
-        This endpoint is public (no authentication required) so that anonymous viewers
-        can resolve a publicly-shared conversation link before signing in. Access to the
+        """
+        Check whether a conversation should redirect to a live shared session, returning
+        a session_id if the underlying ambient agent task still has one (or an empty
+        object if no redirect is needed). Public and unauthenticated, so anonymous
+        viewers can resolve a shared conversation link before signing in; access to the
         underlying live session is still gated by the session-sharing service ACLs.
 
         Args:
@@ -120,14 +117,11 @@ class AsyncConversationsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConversationCheckRedirectResponse:
-        """Check whether a conversation should redirect to a live shared session.
-
-        Returns a
-        session_id if the underlying ambient agent task still has a live shared session,
-        or an empty object if no redirect is needed.
-
-        This endpoint is public (no authentication required) so that anonymous viewers
-        can resolve a publicly-shared conversation link before signing in. Access to the
+        """
+        Check whether a conversation should redirect to a live shared session, returning
+        a session_id if the underlying ambient agent task still has one (or an empty
+        object if no redirect is needed). Public and unauthenticated, so anonymous
+        viewers can resolve a shared conversation link before signing in; access to the
         underlying live session is still gated by the session-sharing service ACLs.
 
         Args:

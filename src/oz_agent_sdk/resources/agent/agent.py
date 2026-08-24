@@ -181,15 +181,11 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentGetArtifactResponse:
-        """Retrieve an artifact by its UUID.
-
-        For downloadable file-like artifacts, returns
-        a time-limited signed download URL. For plan artifacts, returns the current plan
-        content inline.
-
-        Public artifacts can be read without authentication; private artifacts require
-        the caller to be authenticated and authorized. Anonymous reads of public file
-        artifacts omit the `filepath` field.
+        """
+        Retrieve an artifact by its UUID: a time-limited signed download URL for
+        downloadable file-like artifacts, or the current plan content inline for plan
+        artifacts. Public artifacts can be read without authentication; private
+        artifacts require the caller to be authenticated and authorized.
 
         Args:
           extra_headers: Send extra headers
@@ -301,27 +297,27 @@ class AgentResource(SyncAPIResource):
           interactive: Whether the run should be interactive. If not set, defaults to false.
 
           metadata: Custom key/value metadata attached to a run at creation time and immutable
-              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
-              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
-              characters. Requests with invalid metadata are rejected. A run's effective
-              metadata is merged per key at creation: explicit request keys override keys
-              inherited from the parent run, which override automatic keys (ticket_id and
-              ticket_source on Linear- and Jira-triggered runs).
+              afterward; at most 20 keys, with keys 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive) and values 0-256 bytes of UTF-8 with no NUL characters.
+              Requests with invalid metadata are rejected. A run's effective metadata is
+              merged per key at creation: explicit request keys override keys inherited from
+              the parent run, which override automatic keys (ticket_id and ticket_source on
+              Linear- and Jira-triggered runs).
 
           mode: Optional query mode for the run. Defaults to `normal` when omitted. The server
               does not infer mode from prompt prefixes such as `/plan`, so callers should pass
               this field explicitly to request non-normal behavior.
 
-          on_behalf_of: Optional email address or user ID of a Warp user to attribute the run to. When
+          on_behalf_of: Optional email address or user ID of a Warp user to attribute the run to; when
               set, the resolved user becomes the run's creator instead of the caller. Only
-              agent API keys may use this field, and the calling agent must have on_behalf_of
-              enabled in its configuration (`on_behalf_of_enabled`), which a team admin must
-              intentionally turn on per agent. The target user must be an active member of the
-              run's owner team. Only valid for team-owned runs.
+              agent API keys may use this field, only when the calling agent has on_behalf_of
+              enabled in its configuration (a team admin must turn this on per agent), and
+              only for team-owned runs. The target user must be an active member of the run's
+              owner team.
 
-          parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
-              hierarchies. The parent run must exist and be visible to the caller; otherwise
-              the request is rejected with a 400. Child runs are also subject to the server's
+          parent_run_id: Optional run ID of the parent that spawned this run, used for orchestration
+              hierarchies; the parent run must exist and be visible to the caller, or the
+              request is rejected with a 400. Child runs are also subject to the server's
               maximum orchestration depth, and requests that would exceed it are rejected with
               a 400.
 
@@ -497,15 +493,11 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentGetArtifactResponse:
-        """Retrieve an artifact by its UUID.
-
-        For downloadable file-like artifacts, returns
-        a time-limited signed download URL. For plan artifacts, returns the current plan
-        content inline.
-
-        Public artifacts can be read without authentication; private artifacts require
-        the caller to be authenticated and authorized. Anonymous reads of public file
-        artifacts omit the `filepath` field.
+        """
+        Retrieve an artifact by its UUID: a time-limited signed download URL for
+        downloadable file-like artifacts, or the current plan content inline for plan
+        artifacts. Public artifacts can be read without authentication; private
+        artifacts require the caller to be authenticated and authorized.
 
         Args:
           extra_headers: Send extra headers
@@ -619,27 +611,27 @@ class AsyncAgentResource(AsyncAPIResource):
           interactive: Whether the run should be interactive. If not set, defaults to false.
 
           metadata: Custom key/value metadata attached to a run at creation time and immutable
-              afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
-              (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
-              characters. Requests with invalid metadata are rejected. A run's effective
-              metadata is merged per key at creation: explicit request keys override keys
-              inherited from the parent run, which override automatic keys (ticket_id and
-              ticket_source on Linear- and Jira-triggered runs).
+              afterward; at most 20 keys, with keys 1-64 bytes matching [a-zA-Z0-9._-]+
+              (case-sensitive) and values 0-256 bytes of UTF-8 with no NUL characters.
+              Requests with invalid metadata are rejected. A run's effective metadata is
+              merged per key at creation: explicit request keys override keys inherited from
+              the parent run, which override automatic keys (ticket_id and ticket_source on
+              Linear- and Jira-triggered runs).
 
           mode: Optional query mode for the run. Defaults to `normal` when omitted. The server
               does not infer mode from prompt prefixes such as `/plan`, so callers should pass
               this field explicitly to request non-normal behavior.
 
-          on_behalf_of: Optional email address or user ID of a Warp user to attribute the run to. When
+          on_behalf_of: Optional email address or user ID of a Warp user to attribute the run to; when
               set, the resolved user becomes the run's creator instead of the caller. Only
-              agent API keys may use this field, and the calling agent must have on_behalf_of
-              enabled in its configuration (`on_behalf_of_enabled`), which a team admin must
-              intentionally turn on per agent. The target user must be an active member of the
-              run's owner team. Only valid for team-owned runs.
+              agent API keys may use this field, only when the calling agent has on_behalf_of
+              enabled in its configuration (a team admin must turn this on per agent), and
+              only for team-owned runs. The target user must be an active member of the run's
+              owner team.
 
-          parent_run_id: Optional run ID of the parent that spawned this run. Used for orchestration
-              hierarchies. The parent run must exist and be visible to the caller; otherwise
-              the request is rejected with a 400. Child runs are also subject to the server's
+          parent_run_id: Optional run ID of the parent that spawned this run, used for orchestration
+              hierarchies; the parent run must exist and be visible to the caller, or the
+              request is rejected with a 400. Child runs are also subject to the server's
               maximum orchestration depth, and requests that would exceed it are rejected with
               a 400.
 

@@ -25,23 +25,23 @@ class Harness(TypedDict, total=False):
     Default (nil/empty) uses Warp's built-in harness.
     When stored as a named agent's default (create/update agent identity),
     this field replaces the deprecated base_harness/base_model pair: a
-    non-oz type here requires the agent's base_model to be empty, since
-    the two describe mutually exclusive default models.
+    harness other than `oz` here requires the agent's base_model to be
+    empty, since the two describe mutually exclusive default models.
     """
 
     model_id: str
     """Model to use with a third-party harness (e.g.
 
-    "claude-haiku-4-5"). Only applies when type is a non-oz harness; the top-level
-    config model_id targets the built-in Warp harness instead. When omitted or
-    empty, the harness uses its own default model.
+    "claude-haiku-4-5"). Only applies when type is a harness other than `oz`; the
+    top-level config model_id targets the built-in Warp harness instead. When
+    omitted or empty, the harness uses its own default model.
     """
 
     reasoning_level: str
     """Reasoning effort for harnesses that support it (e.g.
 
-    Codex). Only applies when type is a non-oz harness. Ignored by harnesses that do
-    not support reasoning levels.
+    Codex). Only applies when type is a harness other than `oz`. Ignored by
+    harnesses that do not support reasoning levels.
     """
 
     type: Literal["oz", "claude", "gemini", "codex"]
@@ -113,23 +113,23 @@ class MemoryStore(TypedDict, total=False):
 
 class SessionSharing(TypedDict, total=False):
     """
-    Configures sharing behavior for the run's shared session.
-    When set, the worker emits `--share public:<level>` and the bundled Warp
-    client applies an anyone-with-link ACL to the shared session once it has
-    bootstrapped. The same ACL is mirrored onto the backing conversation so
-    link viewers can read the conversation without being on the run's team.
-    Subject to the workspace-level anyone-with-link sharing setting.
+    Configures sharing behavior for the run's shared session; when set,
+    the worker emits `--share public:<level>` and the bundled Warp
+    client applies an anyone-with-link ACL to the shared session once it
+    has bootstrapped. The same ACL is mirrored onto the backing
+    conversation so link viewers can read it without being on the run's
+    team, subject to the workspace-level anyone-with-link sharing
+    setting.
     """
 
     public_access: Literal["VIEWER", "EDITOR"]
     """
     Grants anyone-with-link access at the specified level to the run's shared
-    session and backing conversation.
+    session and backing conversation; link viewers must still be authenticated Warp
+    users (anonymous reads are not supported in this release).
 
     - VIEWER: link viewers can read the session and conversation.
-    - EDITOR: link viewers can also interact with the session. Anonymous
-      (unauthenticated) reads are not supported in this release; link viewers must
-      still be authenticated Warp users.
+    - EDITOR: link viewers can also interact with the session.
     """
 
 
@@ -146,12 +146,12 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     """
 
     computer_use_model_id: str
-    """Model the computer use subagent runs on.
-
-    If not set, the subagent picks its own model automatically. Only applies to the
-    built-in Oz harness; the value is accepted but has no effect under a third-party
-    harness or when computer use is disabled. Requires an agent CLI version that
-    supports the --computer-use-model flag.
+    """
+    Model the computer use subagent runs on; if omitted, the subagent picks its own
+    model automatically. Only applies to the built-in Warp harness — the value is
+    accepted but has no effect under a third-party harness or when computer use is
+    disabled. Requires an agent CLI version that supports the --computer-use-model
+    flag.
     """
 
     credential_strategy: Optional[Literal["CREATOR", "EXECUTOR"]]
@@ -160,14 +160,11 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     (e.g. GitHub or GitLab OAuth tokens) on behalf of this run.
 
     - EXECUTOR (default when unset): credentials are sourced from the run's
-      execution principal. For agent principals this produces a GitHub App
-      installation token; for user principals this produces their personal OAuth
-      token.
-    - CREATOR: credentials are always sourced from the run creator, regardless of
-      the execution principal. Useful when a service account executes the run but
-      Git operations should authenticate as the human who triggered it. When unset,
-      behavior is identical to EXECUTOR and no additional pre-flight validation is
-      performed.
+      execution principal — a GitHub App installation token for agent principals, a
+      personal OAuth token for user principals.
+    - CREATOR: credentials are always sourced from the run creator regardless of the
+      execution principal, useful when a service account executes the run but Git
+      operations should authenticate as the triggering human.
     """
 
     environment_id: str
@@ -178,8 +175,9 @@ class AmbientAgentConfigParam(TypedDict, total=False):
     Specifies which execution harness to use for the agent run. Default (nil/empty)
     uses Warp's built-in harness. When stored as a named agent's default
     (create/update agent identity), this field replaces the deprecated
-    base_harness/base_model pair: a non-oz type here requires the agent's base_model
-    to be empty, since the two describe mutually exclusive default models.
+    base_harness/base_model pair: a harness other than `oz` here requires the
+    agent's base_model to be empty, since the two describe mutually exclusive
+    default models.
     """
 
     harness_auth_secrets: HarnessAuthSecrets
@@ -225,22 +223,22 @@ class AmbientAgentConfigParam(TypedDict, total=False):
 
     session_sharing: SessionSharing
     """
-    Configures sharing behavior for the run's shared session. When set, the worker
+    Configures sharing behavior for the run's shared session; when set, the worker
     emits `--share public:<level>` and the bundled Warp client applies an
     anyone-with-link ACL to the shared session once it has bootstrapped. The same
-    ACL is mirrored onto the backing conversation so link viewers can read the
-    conversation without being on the run's team. Subject to the workspace-level
-    anyone-with-link sharing setting.
+    ACL is mirrored onto the backing conversation so link viewers can read it
+    without being on the run's team, subject to the workspace-level anyone-with-link
+    sharing setting.
     """
 
     skill_spec: str
     """
-    Skill specification identifying the primary agent skill to use. Format:
-    "{owner}/{repo}:{skill_path}" Example:
-    "warpdotdev/warp-server:.claude/skills/deploy/SKILL.md" Mutually exclusive with
-    skills in create/update requests. Responses include the first skills entry here
-    for backward compatibility. Use the list agents endpoint to discover available
-    skills.
+    Skill specification identifying the primary agent skill to use, in
+    `{owner}/{repo}:{skill_path}` format (e.g.
+    `warpdotdev/warp-server:.claude/skills/deploy/SKILL.md`); mutually exclusive
+    with `skills` in create/update requests. Responses include the first `skills`
+    entry here for backward compatibility; use the list agents endpoint to discover
+    available skills.
     """
 
     skills: SequenceNotStr[str]

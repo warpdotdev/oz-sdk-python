@@ -99,7 +99,10 @@ class FileArtifactData(BaseModel):
     """Last path component of filepath"""
 
     filepath: str
-    """Conversation-relative filepath for the uploaded file"""
+    """Conversation-relative filepath for the uploaded file.
+
+    Omitted on an anonymous read of a public file artifact.
+    """
 
     mime_type: str
     """MIME type of the uploaded file"""

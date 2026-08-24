@@ -15,10 +15,10 @@ class RunCreateParams(TypedDict, total=False):
     """
 
     ticket_ref: str
-    """Originating ticket reference in <source>:<id> form, e.g. linear:REMOTE-123.
-
-    Omit to mint an adhoc reference. Stamped onto the run as ticket_id/ticket_source
-    metadata.
+    """
+    Originating ticket reference in <source>:<id> form (for example,
+    linear:REMOTE-123); omit to mint an adhoc reference. Stamped onto the run as
+    ticket_id/ticket_source metadata.
     """
 
     ticket_url: str

@@ -313,8 +313,8 @@ class RequestUsage(BaseModel):
     usage_by_category: Optional[Dict[str, RequestUsageUsageByCategory]] = None
     """
     Full-granularity token and dollar-cost breakdown for the run's conversation,
-    keyed by usage category (e.g. "primary_agent", "conversation_compaction") and
-    model id. This differs from total_tokens/inference_cost_breakdown_usd which
+    keyed by usage category (for example, primary_agent or conversation_compaction)
+    and model id; differs from total_tokens/inference_cost_breakdown_usd, which
     combine usage across all categories and models. Omitted when the data is not
     available.
     """
@@ -384,13 +384,12 @@ class StatusMessage(BaseModel):
 
     session_debug_until: Optional[datetime] = None
     """
-    When a failed run's shared session stops being held open for debugging. Only
-    present while that window is open.
-
-    The window is an idle window owned by the agent process: activity in the session
-    pushes this deadline out. The agent republishes it periodically rather than on
-    every keystroke, so the value can lag the true deadline by up to a throttle
-    interval, and always in the conservative direction.
+    When a failed run's shared session stops being held open for debugging; only
+    present while that window is open. The window is an idle window owned by the
+    agent process: activity in the session pushes this deadline out. The agent
+    republishes it periodically rather than on every keystroke, so the value can lag
+    the true deadline by up to a throttle interval, always in the conservative
+    direction.
     """
 
 
@@ -470,12 +469,12 @@ class RunItem(BaseModel):
     metadata: Optional[Dict[str, str]] = None
     """
     Custom key/value metadata attached to a run at creation time and immutable
-    afterward. At most 20 keys. Keys are 1-64 bytes matching [a-zA-Z0-9._-]+
-    (case-sensitive); values are 0-256 bytes of UTF-8 and cannot contain NUL
-    characters. Requests with invalid metadata are rejected. A run's effective
-    metadata is merged per key at creation: explicit request keys override keys
-    inherited from the parent run, which override automatic keys (ticket_id and
-    ticket_source on Linear- and Jira-triggered runs).
+    afterward; at most 20 keys, with keys 1-64 bytes matching [a-zA-Z0-9._-]+
+    (case-sensitive) and values 0-256 bytes of UTF-8 with no NUL characters.
+    Requests with invalid metadata are rejected. A run's effective metadata is
+    merged per key at creation: explicit request keys override keys inherited from
+    the parent run, which override automatic keys (ticket_id and ticket_source on
+    Linear- and Jira-triggered runs).
     """
 
     parent_run_id: Optional[str] = None

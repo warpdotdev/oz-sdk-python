@@ -68,9 +68,9 @@ class RunsResource(SyncAPIResource):
           prompt: The prompt sent to the factory's foreman, not wrapped in any factory intake
               envelope. Required and non-empty.
 
-          ticket_ref: Originating ticket reference in <source>:<id> form, e.g. linear:REMOTE-123. Omit
-              to mint an adhoc reference. Stamped onto the run as ticket_id/ticket_source
-              metadata.
+          ticket_ref: Originating ticket reference in <source>:<id> form (for example,
+              linear:REMOTE-123); omit to mint an adhoc reference. Stamped onto the run as
+              ticket_id/ticket_source metadata.
 
           ticket_url: Optional URL of the ticket named by ticket_ref. Stamped onto the run as
               ticket_url metadata when given.
@@ -153,9 +153,9 @@ class AsyncRunsResource(AsyncAPIResource):
           prompt: The prompt sent to the factory's foreman, not wrapped in any factory intake
               envelope. Required and non-empty.
 
-          ticket_ref: Originating ticket reference in <source>:<id> form, e.g. linear:REMOTE-123. Omit
-              to mint an adhoc reference. Stamped onto the run as ticket_id/ticket_source
-              metadata.
+          ticket_ref: Originating ticket reference in <source>:<id> form (for example,
+              linear:REMOTE-123); omit to mint an adhoc reference. Stamped onto the run as
+              ticket_id/ticket_source metadata.
 
           ticket_url: Optional URL of the ticket named by ticket_ref. Stamped onto the run as
               ticket_url metadata when given.

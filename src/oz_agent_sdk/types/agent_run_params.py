@@ -101,6 +101,8 @@ class AgentRunParams(TypedDict, total=False):
     title: str
     """Custom title for the run (auto-generated if not provided)"""
 
+    team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]
+
 
 class Attachment(TypedDict, total=False):
     """A base64-encoded file attachment to include with the prompt"""

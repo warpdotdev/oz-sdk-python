@@ -82,6 +82,7 @@ class TestAgent:
             secrets=[{"name": "name"}],
             skills=["string"],
             worker_host="worker_host",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 
@@ -220,6 +221,7 @@ class TestAgent:
     def test_method_list_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.agent.list(
             factory_uid="factory_uid",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
 
@@ -397,6 +399,7 @@ class TestAsyncAgent:
             secrets=[{"name": "name"}],
             skills=["string"],
             worker_host="worker_host",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentResponse, agent, path=["response"])
 
@@ -535,6 +538,7 @@ class TestAsyncAgent:
     async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.agent.list(
             factory_uid="factory_uid",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
 

@@ -90,6 +90,7 @@ class TestSchedules:
             mode="normal",
             prompt="Review open pull requests and provide feedback",
             team=True,
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -284,6 +285,14 @@ class TestSchedules:
     @parametrize
     def test_method_list(self, client: OzAPI) -> None:
         schedule = client.agent.schedules.list()
+        assert_matches_type(ScheduleListResponse, schedule, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: OzAPI) -> None:
+        schedule = client.agent.schedules.list(
+            team_uid="X-Warp-Team-Uid",
+        )
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -509,6 +518,7 @@ class TestAsyncSchedules:
             mode="normal",
             prompt="Review open pull requests and provide feedback",
             team=True,
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(ScheduledAgentItem, schedule, path=["response"])
 
@@ -703,6 +713,14 @@ class TestAsyncSchedules:
     @parametrize
     async def test_method_list(self, async_client: AsyncOzAPI) -> None:
         schedule = await async_client.agent.schedules.list()
+        assert_matches_type(ScheduleListResponse, schedule, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
+        schedule = await async_client.agent.schedules.list(
+            team_uid="X-Warp-Team-Uid",
+        )
         assert_matches_type(ScheduleListResponse, schedule, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

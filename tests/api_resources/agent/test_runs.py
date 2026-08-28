@@ -98,6 +98,7 @@ class TestRuns:
             source="LINEAR",
             state=["QUEUED"],
             updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(SyncRunsCursorPage[RunItem], run, path=["response"])
 
@@ -341,6 +342,7 @@ class TestAsyncRuns:
             source="LINEAR",
             state=["QUEUED"],
             updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AsyncRunsCursorPage[RunItem], run, path=["response"])
 

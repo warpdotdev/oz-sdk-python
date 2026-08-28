@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing_extensions import Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["FactoryListParams"]
 
@@ -17,5 +19,10 @@ class FactoryListParams(TypedDict, total=False):
     search: str
     """Case-insensitive substring search over the factory name and alias."""
 
-    team_uid: str
-    """Optional team UID to filter factories by ownership."""
+    query_team_uid: Annotated[str, PropertyInfo(alias="team_uid")]
+    """Optional team UID to filter factories by ownership.
+
+    Takes precedence over the X-Warp-Team-Uid header.
+    """
+
+    team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]

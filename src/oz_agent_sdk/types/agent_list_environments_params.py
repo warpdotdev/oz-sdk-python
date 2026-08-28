@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["AgentListEnvironmentsParams"]
 
@@ -14,3 +16,5 @@ class AgentListEnvironmentsParams(TypedDict, total=False):
     - `name`: alphabetical by environment name
     - `last_updated`: most recently updated first (default)
     """
+
+    team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]

@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from typing import Dict
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from ..._utils import PropertyInfo
 from ..ambient_agent_config_param import AmbientAgentConfigParam
 
 __all__ = ["ScheduleCreateParams"]
@@ -61,3 +62,5 @@ class ScheduleCreateParams(TypedDict, total=False):
     Whether to create a team-owned schedule. Defaults to true for users on a single
     team.
     """
+
+    team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]

@@ -14,7 +14,7 @@ from .runs import (
 )
 from ...types import factory_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import path_template, maybe_transform
+from ..._utils import path_template, maybe_transform, strip_not_given
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -63,6 +63,7 @@ class FactoriesResource(SyncAPIResource):
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         search: str | Omit = omit,
+        query_team_uid: str | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -71,12 +72,12 @@ class FactoriesResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SyncFactoriesCursorPage[Factory]:
-        """List factories accessible to the authenticated principal.
-
-        An optional team_uid
-        query parameter restricts results to a single team, and an optional search query
-        parameter filters by a case-insensitive substring match on the factory name or
-        alias.
+        """
+        List factories accessible to the authenticated principal, restricted to the
+        request's active team when one is set. An optional team_uid query parameter
+        overrides the active team and restricts results to a single team, and an
+        optional search query parameter filters by a case-insensitive substring match on
+        the factory name or alias.
 
         Args:
           cursor: Opaque cursor returned by a previous list response.
@@ -85,7 +86,8 @@ class FactoriesResource(SyncAPIResource):
 
           search: Case-insensitive substring search over the factory name and alias.
 
-          team_uid: Optional team UID to filter factories by ownership.
+          query_team_uid: Optional team UID to filter factories by ownership. Takes precedence over the
+              X-Warp-Team-Uid header.
 
           extra_headers: Send extra headers
 
@@ -95,6 +97,7 @@ class FactoriesResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"X-Warp-Team-Uid": team_uid}), **(extra_headers or {})}
         return self._get_api_list(
             "/factory",
             page=SyncFactoriesCursorPage[Factory],
@@ -108,7 +111,7 @@ class FactoriesResource(SyncAPIResource):
                         "cursor": cursor,
                         "limit": limit,
                         "search": search,
-                        "team_uid": team_uid,
+                        "query_team_uid": query_team_uid,
                     },
                     factory_list_params.FactoryListParams,
                 ),
@@ -183,6 +186,7 @@ class AsyncFactoriesResource(AsyncAPIResource):
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         search: str | Omit = omit,
+        query_team_uid: str | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -191,12 +195,12 @@ class AsyncFactoriesResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncPaginator[Factory, AsyncFactoriesCursorPage[Factory]]:
-        """List factories accessible to the authenticated principal.
-
-        An optional team_uid
-        query parameter restricts results to a single team, and an optional search query
-        parameter filters by a case-insensitive substring match on the factory name or
-        alias.
+        """
+        List factories accessible to the authenticated principal, restricted to the
+        request's active team when one is set. An optional team_uid query parameter
+        overrides the active team and restricts results to a single team, and an
+        optional search query parameter filters by a case-insensitive substring match on
+        the factory name or alias.
 
         Args:
           cursor: Opaque cursor returned by a previous list response.
@@ -205,7 +209,8 @@ class AsyncFactoriesResource(AsyncAPIResource):
 
           search: Case-insensitive substring search over the factory name and alias.
 
-          team_uid: Optional team UID to filter factories by ownership.
+          query_team_uid: Optional team UID to filter factories by ownership. Takes precedence over the
+              X-Warp-Team-Uid header.
 
           extra_headers: Send extra headers
 
@@ -215,6 +220,7 @@ class AsyncFactoriesResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"X-Warp-Team-Uid": team_uid}), **(extra_headers or {})}
         return self._get_api_list(
             "/factory",
             page=AsyncFactoriesCursorPage[Factory],
@@ -228,7 +234,7 @@ class AsyncFactoriesResource(AsyncAPIResource):
                         "cursor": cursor,
                         "limit": limit,
                         "search": search,
-                        "team_uid": team_uid,
+                        "query_team_uid": query_team_uid,
                     },
                     factory_list_params.FactoryListParams,
                 ),

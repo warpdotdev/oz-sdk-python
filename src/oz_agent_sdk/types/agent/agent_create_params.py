@@ -3,9 +3,10 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._types import SequenceNotStr
+from ..._utils import PropertyInfo
 from ..mcp_server_config_param import McpServerConfigParam
 
 __all__ = [
@@ -143,6 +144,8 @@ class AgentCreateParams(TypedDict, total=False):
     2. The agent's default host
     3. The workspace default host
     """
+
+    team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]
 
 
 class Harness(TypedDict, total=False):

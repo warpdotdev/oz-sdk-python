@@ -8,7 +8,7 @@ from typing_extensions import Literal
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, SequenceNotStr, omit, not_given
-from ..._utils import path_template, maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -71,6 +71,7 @@ class AgentResource(SyncAPIResource):
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
+        team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -169,6 +170,7 @@ class AgentResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"X-Warp-Team-Uid": team_uid}), **(extra_headers or {})}
         return self._post(
             "/agent/identities",
             body=maybe_transform(
@@ -348,6 +350,7 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         factory_uid: str | Omit = omit,
+        team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -373,6 +376,7 @@ class AgentResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"X-Warp-Team-Uid": team_uid}), **(extra_headers or {})}
         return self._get(
             "/agent/identities",
             options=make_request_options(
@@ -502,6 +506,7 @@ class AsyncAgentResource(AsyncAPIResource):
         secrets: Iterable[agent_create_params.Secret] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
+        team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -600,6 +605,7 @@ class AsyncAgentResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"X-Warp-Team-Uid": team_uid}), **(extra_headers or {})}
         return await self._post(
             "/agent/identities",
             body=await async_maybe_transform(
@@ -779,6 +785,7 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         factory_uid: str | Omit = omit,
+        team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -804,6 +811,7 @@ class AsyncAgentResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        extra_headers = {**strip_not_given({"X-Warp-Team-Uid": team_uid}), **(extra_headers or {})}
         return await self._get(
             "/agent/identities",
             options=make_request_options(

@@ -36,6 +36,7 @@ class TestAgent:
             refresh=True,
             repo="repo",
             sort_by="name",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -114,6 +115,7 @@ class TestAgent:
     def test_method_list_environments_with_all_params(self, client: OzAPI) -> None:
         agent = client.agent.list_environments(
             sort_by="name",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
 
@@ -215,6 +217,7 @@ class TestAgent:
             skill="skill",
             team=True,
             title="title",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentRunResponse, agent, path=["response"])
 
@@ -260,6 +263,7 @@ class TestAsyncAgent:
             refresh=True,
             repo="repo",
             sort_by="name",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -338,6 +342,7 @@ class TestAsyncAgent:
     async def test_method_list_environments_with_all_params(self, async_client: AsyncOzAPI) -> None:
         agent = await async_client.agent.list_environments(
             sort_by="name",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentListEnvironmentsResponse, agent, path=["response"])
 
@@ -439,6 +444,7 @@ class TestAsyncAgent:
             skill="skill",
             team=True,
             title="title",
+            team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AgentRunResponse, agent, path=["response"])
 

@@ -123,3 +123,5 @@ class RunListParams(TypedDict, total=False):
 
     updated_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Filter runs updated after this timestamp (RFC3339 format)"""
+
+    team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]

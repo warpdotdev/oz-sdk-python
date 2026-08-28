@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["AgentListParams"]
 
@@ -33,3 +35,5 @@ class AgentListParams(TypedDict, total=False):
     - "name": Sort alphabetically by name (default)
     - "last_run": Sort by most recently used
     """
+
+    team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]

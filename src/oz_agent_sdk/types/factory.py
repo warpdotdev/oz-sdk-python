@@ -16,6 +16,7 @@ __all__ = [
     "AgentDefaultsHarness",
     "AgentDefaultsHarnessAuthSecrets",
     "Integration",
+    "IntegrationSlack",
     "Repository",
     "Scoring",
     "Creator",
@@ -129,6 +130,21 @@ class AgentDefaults(BaseModel):
     """
 
 
+class IntegrationSlack(BaseModel):
+    """Persisted Slack settings on a factory integration.
+
+    Omitted fields keep
+    their default-off behavior.
+    """
+
+    auto_respond_to_thread_replies: Optional[bool] = None
+    """
+    When true, eligible plain channel thread replies still reach the reply-intent
+    classifier. When false or omitted, those replies are ignored unless they
+    @-mention the Factory. Direct messages are unchanged.
+    """
+
+
 class Integration(BaseModel):
     """An integration provider attached to a factory."""
 
@@ -137,6 +153,12 @@ class Integration(BaseModel):
 
     github is not accepted here; repository access comes from the factory's code
     forge.
+    """
+
+    slack: Optional[IntegrationSlack] = None
+    """Persisted Slack settings on a factory integration.
+
+    Omitted fields keep their default-off behavior.
     """
 
 

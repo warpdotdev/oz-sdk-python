@@ -171,6 +171,9 @@ class Repository(BaseModel):
     repo: str
     """Repository name."""
 
+    code_forge: Optional[Literal["GITHUB", "GITLAB"]] = None
+    """The concrete source-control provider hosting a repository."""
+
 
 class Scoring(BaseModel):
     default_model: Optional[str] = None
@@ -213,10 +216,11 @@ class Factory(BaseModel):
     """
 
     code_forge: Literal["GITHUB", "GITLAB", "NONE"]
-    """Source-control provider hosting the factory's repositories.
+    """Primary source-control provider for the factory.
 
-    NONE declares a repo-less factory with no native repositories; its environment
-    relies on setup_commands to clone from any host instead.
+    GITHUB and GITLAB identify the compatibility primary when repositories span one
+    or more forges. NONE declares a repo-less factory with no native repositories;
+    its environment relies on setup_commands to clone from any host.
     """
 
     created_at: datetime

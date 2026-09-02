@@ -21,4 +21,5 @@ RunSourceType: TypeAlias = Literal[
     "AUTOFIX",
     "RUN_SCORER",
     "ORCHESTRATION",
+    "BENCHMARK_TRIAL",
 ]

@@ -540,6 +540,7 @@ class RunItem(BaseModel):
     - RUN_SCORER: Created by Warp's run-scoring judge
     - ORCHESTRATION: Created as a child run by the orchestration layer
       (parent_run_id set)
+    - BENCHMARK_TRIAL: Created as a factory benchmark trial
     """
 
     started_at: Optional[datetime] = None

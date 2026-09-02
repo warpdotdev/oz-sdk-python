@@ -339,6 +339,16 @@ class RunsResource(SyncAPIResource):
         or ended). A 200 response means the follow-up was accepted; updated run state
         can be observed via `GET /agent/runs/{runId}`.
 
+        A run that failed during environment setup keeps its retained session reachable
+        for a bounded debug window. A follow-up sent to an eligible run in that window
+        is delivered into the retained session to start or continue a debug agent,
+        without reopening the run: it stays in its failed state, with its original
+        failure message and error code unchanged. This applies uniformly to every
+        follow-up origin (this endpoint, the Warp client, and integrations) and requires
+        the same authorization as any other follow-up. Once the debug window closes, or
+        when the run is not eligible, a follow-up falls back to the run's ordinary
+        continuation behavior (which may start a new execution).
+
         Args:
           message: The follow-up message to send to the run.
 
@@ -680,6 +690,16 @@ class AsyncRunsResource(AsyncAPIResource):
         message based on the current state of the run (still queued, actively running,
         or ended). A 200 response means the follow-up was accepted; updated run state
         can be observed via `GET /agent/runs/{runId}`.
+
+        A run that failed during environment setup keeps its retained session reachable
+        for a bounded debug window. A follow-up sent to an eligible run in that window
+        is delivered into the retained session to start or continue a debug agent,
+        without reopening the run: it stays in its failed state, with its original
+        failure message and error code unchanged. This applies uniformly to every
+        follow-up origin (this endpoint, the Warp client, and integrations) and requires
+        the same authorization as any other follow-up. Once the debug window closes, or
+        when the run is not eligible, a follow-up falls back to the run's ordinary
+        continuation behavior (which may start a new execution).
 
         Args:
           message: The follow-up message to send to the run.

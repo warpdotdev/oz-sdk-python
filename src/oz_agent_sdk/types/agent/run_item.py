@@ -345,6 +345,13 @@ class StatusMessage(BaseModel):
     message: str
     """Human-readable status message"""
 
+    debug_agent_active: Optional[bool] = None
+    """
+    Whether a setup-failure debug turn is actively pinning the idle timer open right
+    now. While true, session_debug_until can lag behind the real deadline; clients
+    should show an active-debugging state instead of a countdown.
+    """
+
     error_code: Optional[ErrorCode] = None
     """
     Machine-readable error code identifying the problem type. Used in the `type` URI
@@ -384,12 +391,13 @@ class StatusMessage(BaseModel):
 
     session_debug_until: Optional[datetime] = None
     """
-    When a failed run's shared session stops being held open for debugging; only
-    present while that window is open. The window is an idle window owned by the
-    agent process: activity in the session pushes this deadline out. The agent
-    republishes it periodically rather than on every keystroke, so the value can lag
-    the true deadline by up to a throttle interval, always in the conservative
-    direction.
+    When a failed run's shared session stops being held open for debugging. Only
+    present while that window is open.
+
+    The window is an idle window owned by the agent process: activity in the session
+    pushes this deadline out. The agent republishes it periodically rather than on
+    every keystroke, so the value can lag the true deadline by up to a throttle
+    interval, and always in the conservative direction.
     """
 
 
@@ -445,6 +453,14 @@ class RunItem(BaseModel):
     """UUID of the conversation associated with the run"""
 
     creator: Optional[UserProfile] = None
+
+    debug_agent_available: Optional[bool] = None
+    """
+    Whether a debug agent can currently be started inside this run's retained
+    setup-failure session. Only true for a run that failed during environment setup,
+    whose retained execution is still reachable, and whose debug window has not
+    closed. See `POST /agent/runs/{runId}/followups`.
+    """
 
     execution_location: Optional[Literal["LOCAL", "REMOTE"]] = None
     """Where the run executed:

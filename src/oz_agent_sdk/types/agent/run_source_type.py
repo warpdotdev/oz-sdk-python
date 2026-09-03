@@ -23,4 +23,5 @@ RunSourceType: TypeAlias = Literal[
     "ORCHESTRATION",
     "BENCHMARK_TRIAL",
     "CREATE_BENCHMARK_TASK",
+    "CUSTOM_WEBHOOK",
 ]

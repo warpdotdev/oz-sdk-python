@@ -543,6 +543,8 @@ class RunItem(BaseModel):
     - BENCHMARK_TRIAL: Created as a factory benchmark trial
     - CREATE_BENCHMARK_TASK: Created by a Factory foreman authoring a benchmark task
       from a completed run
+    - CUSTOM_WEBHOOK: Created by a factory automation subscribed to a custom webhook
+      source
     """
 
     started_at: Optional[datetime] = None

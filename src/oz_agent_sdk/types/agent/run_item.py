@@ -541,6 +541,8 @@ class RunItem(BaseModel):
     - ORCHESTRATION: Created as a child run by the orchestration layer
       (parent_run_id set)
     - BENCHMARK_TRIAL: Created as a factory benchmark trial
+    - CREATE_BENCHMARK_TASK: Created by a Factory foreman authoring a benchmark task
+      from a completed run
     """
 
     started_at: Optional[datetime] = None

@@ -22,4 +22,5 @@ RunSourceType: TypeAlias = Literal[
     "RUN_SCORER",
     "ORCHESTRATION",
     "BENCHMARK_TRIAL",
+    "CREATE_BENCHMARK_TASK",
 ]

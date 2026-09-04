@@ -171,8 +171,14 @@ class Repository(BaseModel):
     repo: str
     """Repository name."""
 
-    code_forge: Optional[Literal["GITHUB", "GITLAB"]] = None
+    code_forge: Optional[Literal["GITHUB", "GITLAB", "AZURE_DEVOPS"]] = None
     """The concrete source-control provider hosting a repository."""
+
+    provider_metadata: Optional[Dict[str, str]] = None
+    """
+    Provider-specific repository identity and settings, such as the Azure DevOps
+    organization, project ID, and repository ID.
+    """
 
 
 class Scoring(BaseModel):
@@ -215,12 +221,13 @@ class Factory(BaseModel):
     The URL may change between reads.
     """
 
-    code_forge: Literal["GITHUB", "GITLAB", "NONE"]
+    code_forge: Literal["GITHUB", "GITLAB", "AZURE_DEVOPS", "NONE"]
     """Primary source-control provider for the factory.
 
     GITHUB and GITLAB identify the compatibility primary when repositories span one
-    or more forges. NONE declares a repo-less factory with no native repositories;
-    its environment relies on setup_commands to clone from any host.
+    or more forges. AZURE_DEVOPS identifies Azure Repos. NONE declares a repo-less
+    factory with no native repositories; its environment relies on setup_commands to
+    clone from any host.
     """
 
     created_at: datetime

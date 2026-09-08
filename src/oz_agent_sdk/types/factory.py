@@ -230,6 +230,12 @@ class Factory(BaseModel):
     clone from any host.
     """
 
+    code_forges: List[Literal["GITHUB", "GITLAB", "AZURE_DEVOPS", "NONE"]]
+    """Effective source-control providers for the factory.
+
+    When the effective set is empty, this contains the primary code_forge.
+    """
+
     created_at: datetime
     """Time the factory was created."""
 

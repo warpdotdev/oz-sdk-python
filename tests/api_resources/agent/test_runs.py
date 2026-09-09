@@ -13,6 +13,7 @@ from oz_agent_sdk._utils import parse_datetime
 from oz_agent_sdk.pagination import SyncRunsCursorPage, AsyncRunsCursorPage
 from oz_agent_sdk.types.agent import (
     RunItem,
+    RunSubmitFollowupResponse,
     RunListHandoffAttachmentsResponse,
 )
 
@@ -216,17 +217,23 @@ class TestRuns:
         run = client.agent.runs.submit_followup(
             run_id="runId",
         )
-        assert_matches_type(object, run, path=["response"])
+        assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_submit_followup_with_all_params(self, client: OzAPI) -> None:
         run = client.agent.runs.submit_followup(
             run_id="runId",
+            attachments=[
+                {
+                    "attachment_id": "attachment_id",
+                    "file_name": "file_name",
+                }
+            ],
             message="message",
             mode="normal",
         )
-        assert_matches_type(object, run, path=["response"])
+        assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -238,7 +245,7 @@ class TestRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = response.parse()
-        assert_matches_type(object, run, path=["response"])
+        assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -250,7 +257,7 @@ class TestRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = response.parse()
-            assert_matches_type(object, run, path=["response"])
+            assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -462,17 +469,23 @@ class TestAsyncRuns:
         run = await async_client.agent.runs.submit_followup(
             run_id="runId",
         )
-        assert_matches_type(object, run, path=["response"])
+        assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_submit_followup_with_all_params(self, async_client: AsyncOzAPI) -> None:
         run = await async_client.agent.runs.submit_followup(
             run_id="runId",
+            attachments=[
+                {
+                    "attachment_id": "attachment_id",
+                    "file_name": "file_name",
+                }
+            ],
             message="message",
             mode="normal",
         )
-        assert_matches_type(object, run, path=["response"])
+        assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -484,7 +497,7 @@ class TestAsyncRuns:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         run = await response.parse()
-        assert_matches_type(object, run, path=["response"])
+        assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -496,7 +509,7 @@ class TestAsyncRuns:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             run = await response.parse()
-            assert_matches_type(object, run, path=["response"])
+            assert_matches_type(RunSubmitFollowupResponse, run, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

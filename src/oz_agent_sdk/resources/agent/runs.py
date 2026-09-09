@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Iterable
 from datetime import datetime
 from typing_extensions import Literal
 
@@ -24,6 +24,7 @@ from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agent.run_item import RunItem
 from ...types.agent.run_state import RunState
 from ...types.agent.run_source_type import RunSourceType
+from ...types.agent.run_submit_followup_response import RunSubmitFollowupResponse
 from ...types.agent.run_list_handoff_attachments_response import RunListHandoffAttachmentsResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
@@ -334,6 +335,7 @@ class RunsResource(SyncAPIResource):
         self,
         run_id: str,
         *,
+        attachments: Iterable[run_submit_followup_params.Attachment] | Omit = omit,
         message: str | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -342,7 +344,7 @@ class RunsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> RunSubmitFollowupResponse:
         """Send a follow-up message to an existing run.
 
         The server transparently routes the
@@ -361,10 +363,21 @@ class RunsResource(SyncAPIResource):
         continuation behavior (which may start a new execution).
 
         Args:
-          message: The follow-up message to send to the run.
+          attachments: Files to deliver with the message, at most 25. Each entry must name an
+              attachment previously prepared for this run through
+              `POST /agent/runs/{runId}/attachments/prepare` and uploaded to its upload
+              target; an unknown `attachment_id` is rejected with 422. Files are only
+              materialized for the agent on the Oz harness; other harnesses receive a notice
+              naming the files.
+
+          message: The follow-up message to send to the run. May be empty when `attachments` is
+              non-empty.
 
           mode: Optional query mode for the follow-up. Defaults to `normal` when omitted. The
-              server does not infer mode from prompt prefixes such as `/plan`.
+              server does not infer mode from prompt prefixes such as `/plan`. The mode only
+              takes effect when the follow-up is queued ahead of the run starting or starts a
+              new execution; a follow-up injected into a live session runs in the session's
+              current mode.
 
           extra_headers: Send extra headers
 
@@ -380,6 +393,7 @@ class RunsResource(SyncAPIResource):
             path_template("/agent/runs/{run_id}/followups", run_id=run_id),
             body=maybe_transform(
                 {
+                    "attachments": attachments,
                     "message": message,
                     "mode": mode,
                 },
@@ -388,7 +402,7 @@ class RunsResource(SyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=RunSubmitFollowupResponse,
         )
 
 
@@ -697,6 +711,7 @@ class AsyncRunsResource(AsyncAPIResource):
         self,
         run_id: str,
         *,
+        attachments: Iterable[run_submit_followup_params.Attachment] | Omit = omit,
         message: str | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -705,7 +720,7 @@ class AsyncRunsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> RunSubmitFollowupResponse:
         """Send a follow-up message to an existing run.
 
         The server transparently routes the
@@ -724,10 +739,21 @@ class AsyncRunsResource(AsyncAPIResource):
         continuation behavior (which may start a new execution).
 
         Args:
-          message: The follow-up message to send to the run.
+          attachments: Files to deliver with the message, at most 25. Each entry must name an
+              attachment previously prepared for this run through
+              `POST /agent/runs/{runId}/attachments/prepare` and uploaded to its upload
+              target; an unknown `attachment_id` is rejected with 422. Files are only
+              materialized for the agent on the Oz harness; other harnesses receive a notice
+              naming the files.
+
+          message: The follow-up message to send to the run. May be empty when `attachments` is
+              non-empty.
 
           mode: Optional query mode for the follow-up. Defaults to `normal` when omitted. The
-              server does not infer mode from prompt prefixes such as `/plan`.
+              server does not infer mode from prompt prefixes such as `/plan`. The mode only
+              takes effect when the follow-up is queued ahead of the run starting or starts a
+              new execution; a follow-up injected into a live session runs in the session's
+              current mode.
 
           extra_headers: Send extra headers
 
@@ -743,6 +769,7 @@ class AsyncRunsResource(AsyncAPIResource):
             path_template("/agent/runs/{run_id}/followups", run_id=run_id),
             body=await async_maybe_transform(
                 {
+                    "attachments": attachments,
                     "message": message,
                     "mode": mode,
                 },
@@ -751,7 +778,7 @@ class AsyncRunsResource(AsyncAPIResource):
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=object,
+            cast_to=RunSubmitFollowupResponse,
         )
 
 

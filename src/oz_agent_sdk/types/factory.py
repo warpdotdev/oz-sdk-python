@@ -16,6 +16,8 @@ __all__ = [
     "AgentDefaultsHarness",
     "AgentDefaultsHarnessAuthSecrets",
     "Integration",
+    "IntegrationJira",
+    "IntegrationLinear",
     "IntegrationSlack",
     "Repository",
     "Scoring",
@@ -130,6 +132,34 @@ class AgentDefaults(BaseModel):
     """
 
 
+class IntegrationJira(BaseModel):
+    """Persisted Jira discovery scope.
+
+    Present only when type is jira and
+    the factory declares selected projects.
+    """
+
+    project_keys: List[str]
+    """
+    Jira project keys (for example APP, not the numeric project ID) that scope issue
+    discovery and routing to the Factory FOREMAN agent.
+    """
+
+
+class IntegrationLinear(BaseModel):
+    """Persisted Linear discovery scope.
+
+    Present only when type is linear
+    and the factory declares selected teams.
+    """
+
+    team_ids: List[str]
+    """
+    Linear team IDs that scope issue discovery and routing to the Factory FOREMAN
+    agent.
+    """
+
+
 class IntegrationSlack(BaseModel):
     """Persisted Slack settings on a factory integration.
 
@@ -153,6 +183,18 @@ class Integration(BaseModel):
 
     github is not accepted here; repository access comes from the factory's code
     forge.
+    """
+
+    jira: Optional[IntegrationJira] = None
+    """Persisted Jira discovery scope.
+
+    Present only when type is jira and the factory declares selected projects.
+    """
+
+    linear: Optional[IntegrationLinear] = None
+    """Persisted Linear discovery scope.
+
+    Present only when type is linear and the factory declares selected teams.
     """
 
     slack: Optional[IntegrationSlack] = None

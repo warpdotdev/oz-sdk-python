@@ -111,6 +111,7 @@ class RunsResource(SyncAPIResource):
         sort_order: Literal["asc", "desc"] | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
+        task_status: List[Literal["running", "failed", "blocked", "complete"]] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -191,6 +192,11 @@ class RunsResource(SyncAPIResource):
           state: Filter by run state. Can be specified multiple times to match any of the given
               states.
 
+          task_status: Filter by high-level task status. Can be specified multiple times to match any
+              value. `running` matches when the root or any descendant is queued, pending,
+              claimed, or in progress. `failed`, `blocked`, and `complete` match the root
+              state only.
+
           updated_after: Filter runs updated after this timestamp (RFC3339 format)
 
           extra_headers: Send extra headers
@@ -235,6 +241,7 @@ class RunsResource(SyncAPIResource):
                         "sort_order": sort_order,
                         "source": source,
                         "state": state,
+                        "task_status": task_status,
                         "updated_after": updated_after,
                     },
                     run_list_params.RunListParams,
@@ -463,6 +470,7 @@ class AsyncRunsResource(AsyncAPIResource):
         sort_order: Literal["asc", "desc"] | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
+        task_status: List[Literal["running", "failed", "blocked", "complete"]] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -543,6 +551,11 @@ class AsyncRunsResource(AsyncAPIResource):
           state: Filter by run state. Can be specified multiple times to match any of the given
               states.
 
+          task_status: Filter by high-level task status. Can be specified multiple times to match any
+              value. `running` matches when the root or any descendant is queued, pending,
+              claimed, or in progress. `failed`, `blocked`, and `complete` match the root
+              state only.
+
           updated_after: Filter runs updated after this timestamp (RFC3339 format)
 
           extra_headers: Send extra headers
@@ -587,6 +600,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "sort_order": sort_order,
                         "source": source,
                         "state": state,
+                        "task_status": task_status,
                         "updated_after": updated_after,
                     },
                     run_list_params.RunListParams,

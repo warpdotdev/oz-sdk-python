@@ -97,6 +97,7 @@ class TestRuns:
             sort_order="asc",
             source="LINEAR",
             state=["QUEUED"],
+            task_status=["running"],
             updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             team_uid="X-Warp-Team-Uid",
         )
@@ -341,6 +342,7 @@ class TestAsyncRuns:
             sort_order="asc",
             source="LINEAR",
             state=["QUEUED"],
+            task_status=["running"],
             updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
             team_uid="X-Warp-Team-Uid",
         )

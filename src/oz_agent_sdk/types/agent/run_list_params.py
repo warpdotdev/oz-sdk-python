@@ -121,6 +121,14 @@ class RunListParams(TypedDict, total=False):
     Can be specified multiple times to match any of the given states.
     """
 
+    task_status: List[Literal["running", "failed", "blocked", "complete"]]
+    """Filter by high-level task status.
+
+    Can be specified multiple times to match any value. `running` matches when the
+    root or any descendant is queued, pending, claimed, or in progress. `failed`,
+    `blocked`, and `complete` match the root state only.
+    """
+
     updated_after: Annotated[Union[str, datetime], PropertyInfo(format="iso8601")]
     """Filter runs updated after this timestamp (RFC3339 format)"""
 

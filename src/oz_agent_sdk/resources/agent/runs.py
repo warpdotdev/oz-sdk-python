@@ -98,6 +98,7 @@ class RunsResource(SyncAPIResource):
         environment_id: str | Omit = omit,
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
+        factory_only: bool | Omit = omit,
         factory_uid: str | Omit = omit,
         limit: int | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
@@ -111,7 +112,7 @@ class RunsResource(SyncAPIResource):
         sort_order: Literal["asc", "desc"] | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
-        task_status: List[Literal["running", "failed", "blocked", "complete"]] | Omit = omit,
+        task_status: List[Literal["running", "failed", "blocked", "cancelled", "complete"]] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -155,6 +156,8 @@ class RunsResource(SyncAPIResource):
           executor: Filter by the user or agent that executed the run. This will often be the same
               as the creator, but not always: users may delegate tasks to agents.
 
+          factory_only: Filter runs to those executed by an agent associated with any factory.
+
           factory_uid: Filter runs by factory. Matches runs executed by any of the factory's agents. A
               UID outside the caller's accessible factories matches nothing.
 
@@ -194,8 +197,8 @@ class RunsResource(SyncAPIResource):
 
           task_status: Filter by high-level task status. Can be specified multiple times to match any
               value. `running` matches when the root or any descendant is queued, pending,
-              claimed, or in progress. `failed`, `blocked`, and `complete` match the root
-              state only.
+              claimed, or in progress. `failed`, `blocked`, `cancelled`, and `complete` match
+              the root state only.
 
           updated_after: Filter runs updated after this timestamp (RFC3339 format)
 
@@ -228,6 +231,7 @@ class RunsResource(SyncAPIResource):
                         "environment_id": environment_id,
                         "execution_location": execution_location,
                         "executor": executor,
+                        "factory_only": factory_only,
                         "factory_uid": factory_uid,
                         "limit": limit,
                         "metadata": metadata,
@@ -457,6 +461,7 @@ class AsyncRunsResource(AsyncAPIResource):
         environment_id: str | Omit = omit,
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
+        factory_only: bool | Omit = omit,
         factory_uid: str | Omit = omit,
         limit: int | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
@@ -470,7 +475,7 @@ class AsyncRunsResource(AsyncAPIResource):
         sort_order: Literal["asc", "desc"] | Omit = omit,
         source: RunSourceType | Omit = omit,
         state: List[RunState] | Omit = omit,
-        task_status: List[Literal["running", "failed", "blocked", "complete"]] | Omit = omit,
+        task_status: List[Literal["running", "failed", "blocked", "cancelled", "complete"]] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -514,6 +519,8 @@ class AsyncRunsResource(AsyncAPIResource):
           executor: Filter by the user or agent that executed the run. This will often be the same
               as the creator, but not always: users may delegate tasks to agents.
 
+          factory_only: Filter runs to those executed by an agent associated with any factory.
+
           factory_uid: Filter runs by factory. Matches runs executed by any of the factory's agents. A
               UID outside the caller's accessible factories matches nothing.
 
@@ -553,8 +560,8 @@ class AsyncRunsResource(AsyncAPIResource):
 
           task_status: Filter by high-level task status. Can be specified multiple times to match any
               value. `running` matches when the root or any descendant is queued, pending,
-              claimed, or in progress. `failed`, `blocked`, and `complete` match the root
-              state only.
+              claimed, or in progress. `failed`, `blocked`, `cancelled`, and `complete` match
+              the root state only.
 
           updated_after: Filter runs updated after this timestamp (RFC3339 format)
 
@@ -587,6 +594,7 @@ class AsyncRunsResource(AsyncAPIResource):
                         "environment_id": environment_id,
                         "execution_location": execution_location,
                         "executor": executor,
+                        "factory_only": factory_only,
                         "factory_uid": factory_uid,
                         "limit": limit,
                         "metadata": metadata,

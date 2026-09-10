@@ -8,7 +8,7 @@ from typing_extensions import Literal
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -100,7 +100,7 @@ class RunsResource(SyncAPIResource):
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
         factory_only: bool | Omit = omit,
-        factory_uid: str | Omit = omit,
+        factory_uid: Union[str, SequenceNotStr[str]] | Omit = omit,
         limit: int | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         model_id: str | Omit = omit,
@@ -159,8 +159,9 @@ class RunsResource(SyncAPIResource):
 
           factory_only: Filter runs to those executed by an agent associated with any factory.
 
-          factory_uid: Filter runs by factory. Matches runs executed by any of the factory's agents. A
-              UID outside the caller's accessible factories matches nothing.
+          factory_uid: Filter runs by one or more factories. Repeating this parameter matches runs
+              executed by an agent from any selected factory. A UID outside the caller's
+              accessible factories matches nothing.
 
           limit: Maximum number of runs to return
 
@@ -476,7 +477,7 @@ class AsyncRunsResource(AsyncAPIResource):
         execution_location: Literal["LOCAL", "REMOTE"] | Omit = omit,
         executor: str | Omit = omit,
         factory_only: bool | Omit = omit,
-        factory_uid: str | Omit = omit,
+        factory_uid: Union[str, SequenceNotStr[str]] | Omit = omit,
         limit: int | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         model_id: str | Omit = omit,
@@ -535,8 +536,9 @@ class AsyncRunsResource(AsyncAPIResource):
 
           factory_only: Filter runs to those executed by an agent associated with any factory.
 
-          factory_uid: Filter runs by factory. Matches runs executed by any of the factory's agents. A
-              UID outside the caller's accessible factories matches nothing.
+          factory_uid: Filter runs by one or more factories. Repeating this parameter matches runs
+              executed by an agent from any selected factory. A UID outside the caller's
+              accessible factories matches nothing.
 
           limit: Maximum number of runs to return
 

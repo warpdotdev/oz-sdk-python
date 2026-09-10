@@ -6,6 +6,7 @@ from typing import Dict, List, Union
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypedDict
 
+from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
 from .run_state import RunState
 from .run_source_type import RunSourceType
@@ -64,11 +65,11 @@ class RunListParams(TypedDict, total=False):
     factory_only: bool
     """Filter runs to those executed by an agent associated with any factory."""
 
-    factory_uid: str
-    """Filter runs by factory.
+    factory_uid: Union[str, SequenceNotStr[str]]
+    """Filter runs by one or more factories.
 
-    Matches runs executed by any of the factory's agents. A UID outside the caller's
-    accessible factories matches nothing.
+    Repeating this parameter matches runs executed by an agent from any selected
+    factory. A UID outside the caller's accessible factories matches nothing.
     """
 
     limit: int

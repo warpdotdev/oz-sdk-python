@@ -90,7 +90,10 @@ class RunListParams(TypedDict, total=False):
     """Filter by agent config name"""
 
     q: str
-    """Fuzzy search query across run title, prompt, and skill_spec"""
+    """
+    Search by full run ID or run URL, or fuzzy match across run title, prompt, and
+    skill_spec
+    """
 
     schedule_id: str
     """Filter runs by the scheduled agent ID that created them"""

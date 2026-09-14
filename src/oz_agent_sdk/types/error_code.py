@@ -20,5 +20,7 @@ ErrorCode: TypeAlias = Literal[
     "conflict",
     "authentication_required",
     "resource_unavailable",
+    "agent_stream_network_error",
+    "agent_stream_failure",
     "internal_error",
 ]

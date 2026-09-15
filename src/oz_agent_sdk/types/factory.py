@@ -178,7 +178,7 @@ class IntegrationSlack(BaseModel):
 class Integration(BaseModel):
     """An integration provider attached to a factory."""
 
-    type: Literal["jira", "linear", "slack"]
+    type: Literal["jira", "linear", "microsoft-teams", "slack"]
     """Integration provider that can be attached to a factory.
 
     github is not accepted here; repository access comes from the factory's code

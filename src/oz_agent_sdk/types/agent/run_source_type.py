@@ -18,6 +18,7 @@ RunSourceType: TypeAlias = Literal[
     "SELF_IMPROVEMENT",
     "GITHUB_WEBHOOK",
     "GITLAB_WEBHOOK",
+    "AZURE_DEVOPS_WEBHOOK",
     "AUTOFIX",
     "RUN_SCORER",
     "ORCHESTRATION",

@@ -17,6 +17,7 @@ __all__ = [
     "ScreenshotArtifactData",
     "FileArtifact",
     "FileArtifactData",
+    "FileArtifactDataThumbnail",
     "ExternalReferenceArtifact",
     "ExternalReferenceArtifactData",
 ]
@@ -91,6 +92,14 @@ class ScreenshotArtifact(BaseModel):
     data: ScreenshotArtifactData
 
 
+class FileArtifactDataThumbnail(BaseModel):
+    download_url: str
+    """Time-limited signed URL to download the video's thumbnail image"""
+
+    expires_at: datetime
+    """Timestamp when the thumbnail download URL expires (RFC3339)"""
+
+
 class FileArtifactData(BaseModel):
     artifact_uid: str
     """Unique identifier for the file artifact"""
@@ -112,6 +121,8 @@ class FileArtifactData(BaseModel):
 
     size_bytes: Optional[int] = None
     """Size of the uploaded file in bytes"""
+
+    thumbnail: Optional[FileArtifactDataThumbnail] = None
 
     title: Optional[str] = None
     """Short, badge-visible label for the artifact.

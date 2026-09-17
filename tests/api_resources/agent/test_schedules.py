@@ -51,7 +51,7 @@ class TestSchedules:
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
                 },
-                "idle_timeout_minutes": 1,
+                "idle_timeout_minutes": 0,
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
@@ -198,7 +198,7 @@ class TestSchedules:
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
                 },
-                "idle_timeout_minutes": 1,
+                "idle_timeout_minutes": 0,
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
@@ -479,7 +479,7 @@ class TestAsyncSchedules:
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
                 },
-                "idle_timeout_minutes": 1,
+                "idle_timeout_minutes": 0,
                 "inference_providers": {
                     "aws": {
                         "disabled": True,
@@ -626,7 +626,7 @@ class TestAsyncSchedules:
                     "claude_auth_secret_name": "claude_auth_secret_name",
                     "codex_auth_secret_name": "codex_auth_secret_name",
                 },
-                "idle_timeout_minutes": 1,
+                "idle_timeout_minutes": 0,
                 "inference_providers": {
                     "aws": {
                         "disabled": True,

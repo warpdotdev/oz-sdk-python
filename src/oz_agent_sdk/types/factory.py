@@ -18,6 +18,7 @@ __all__ = [
     "Integration",
     "IntegrationJira",
     "IntegrationLinear",
+    "IntegrationMicrosoftTeams",
     "IntegrationSlack",
     "Repository",
     "Scoring",
@@ -160,11 +161,26 @@ class IntegrationLinear(BaseModel):
     """
 
 
-class IntegrationSlack(BaseModel):
-    """Persisted Slack settings on a factory integration.
+class IntegrationMicrosoftTeams(BaseModel):
+    """Plain channel-thread reply settings.
 
-    Omitted fields keep
-    their default-off behavior.
+    These apply when the shared
+    per-Factory reply-setting rollout is enabled.
+    """
+
+    auto_respond_to_thread_replies: Optional[bool] = None
+    """
+    When true, eligible plain channel thread replies still reach the reply-intent
+    classifier. When false or omitted, those replies are ignored unless they
+    @-mention the Factory. Direct messages are unchanged.
+    """
+
+
+class IntegrationSlack(BaseModel):
+    """Plain channel-thread reply settings.
+
+    These apply when the shared
+    per-Factory reply-setting rollout is enabled.
     """
 
     auto_respond_to_thread_replies: Optional[bool] = None
@@ -197,10 +213,16 @@ class Integration(BaseModel):
     Present only when type is linear and the factory declares selected teams.
     """
 
-    slack: Optional[IntegrationSlack] = None
-    """Persisted Slack settings on a factory integration.
+    microsoft_teams: Optional[IntegrationMicrosoftTeams] = FieldInfo(alias="microsoft-teams", default=None)
+    """Plain channel-thread reply settings.
 
-    Omitted fields keep their default-off behavior.
+    These apply when the shared per-Factory reply-setting rollout is enabled.
+    """
+
+    slack: Optional[IntegrationSlack] = None
+    """Plain channel-thread reply settings.
+
+    These apply when the shared per-Factory reply-setting rollout is enabled.
     """
 
 

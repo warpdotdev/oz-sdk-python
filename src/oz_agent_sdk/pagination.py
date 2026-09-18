@@ -10,6 +10,9 @@ __all__ = [
     "RunsCursorPagePageInfo",
     "SyncRunsCursorPage",
     "AsyncRunsCursorPage",
+    "FactoryInboxCursorPagePageInfo",
+    "SyncFactoryInboxCursorPage",
+    "AsyncFactoryInboxCursorPage",
     "FactoriesCursorPagePageInfo",
     "SyncFactoriesCursorPage",
     "AsyncFactoriesCursorPage",
@@ -68,6 +71,80 @@ class AsyncRunsCursorPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
         if not runs:
             return []
         return runs
+
+    @override
+    def has_next_page(self) -> bool:
+        has_next_page = None
+        if self.page_info is not None:
+            if self.page_info.has_next_page is not None:
+                has_next_page = self.page_info.has_next_page
+        if has_next_page is not None and has_next_page is False:
+            return False
+
+        return super().has_next_page()
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        next_cursor = None
+        if self.page_info is not None:
+            if self.page_info.next_cursor is not None:
+                next_cursor = self.page_info.next_cursor
+        if not next_cursor:
+            return None
+
+        return PageInfo(params={"cursor": next_cursor})
+
+
+class FactoryInboxCursorPagePageInfo(BaseModel):
+    has_next_page: Optional[bool] = None
+
+    next_cursor: Optional[str] = None
+
+
+class SyncFactoryInboxCursorPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+    items: List[_T]
+    page_info: Optional[FactoryInboxCursorPagePageInfo] = None
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        items = self.items
+        if not items:
+            return []
+        return items
+
+    @override
+    def has_next_page(self) -> bool:
+        has_next_page = None
+        if self.page_info is not None:
+            if self.page_info.has_next_page is not None:
+                has_next_page = self.page_info.has_next_page
+        if has_next_page is not None and has_next_page is False:
+            return False
+
+        return super().has_next_page()
+
+    @override
+    def next_page_info(self) -> Optional[PageInfo]:
+        next_cursor = None
+        if self.page_info is not None:
+            if self.page_info.next_cursor is not None:
+                next_cursor = self.page_info.next_cursor
+        if not next_cursor:
+            return None
+
+        return PageInfo(params={"cursor": next_cursor})
+
+
+class AsyncFactoryInboxCursorPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+    items: List[_T]
+    page_info: Optional[FactoryInboxCursorPagePageInfo] = None
+
+    @override
+    def _get_page_items(self) -> List[_T]:
+        items = self.items
+        if not items:
+            return []
+        return items
 
     @override
     def has_next_page(self) -> bool:

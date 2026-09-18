@@ -8,6 +8,14 @@ from .runs import (
     RunsResourceWithStreamingResponse,
     AsyncRunsResourceWithStreamingResponse,
 )
+from .inbox import (
+    InboxResource,
+    AsyncInboxResource,
+    InboxResourceWithRawResponse,
+    AsyncInboxResourceWithRawResponse,
+    InboxResourceWithStreamingResponse,
+    AsyncInboxResourceWithStreamingResponse,
+)
 from .factories import (
     FactoriesResource,
     AsyncFactoriesResource,
@@ -18,6 +26,12 @@ from .factories import (
 )
 
 __all__ = [
+    "InboxResource",
+    "AsyncInboxResource",
+    "InboxResourceWithRawResponse",
+    "AsyncInboxResourceWithRawResponse",
+    "InboxResourceWithStreamingResponse",
+    "AsyncInboxResourceWithStreamingResponse",
     "RunsResource",
     "AsyncRunsResource",
     "RunsResourceWithRawResponse",

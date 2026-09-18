@@ -1,0 +1,107 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+import os
+from typing import Any, cast
+
+import pytest
+
+from tests.utils import assert_matches_type
+from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk.pagination import SyncFactoryInboxCursorPage, AsyncFactoryInboxCursorPage
+from oz_agent_sdk.types.factories import InboxItem
+
+base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
+
+
+class TestInbox:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list(self, client: OzAPI) -> None:
+        inbox = client.factories.inbox.list()
+        assert_matches_type(SyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: OzAPI) -> None:
+        inbox = client.factories.inbox.list(
+            cursor="cursor",
+            factory_uid="factory_uid",
+            limit=1,
+            recipient_uid="recipient_uid",
+            scope="mine",
+            team_uid="X-Warp-Team-Uid",
+        )
+        assert_matches_type(SyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: OzAPI) -> None:
+        response = client.factories.inbox.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        inbox = response.parse()
+        assert_matches_type(SyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: OzAPI) -> None:
+        with client.factories.inbox.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            inbox = response.parse()
+            assert_matches_type(SyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+
+class TestAsyncInbox:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncOzAPI) -> None:
+        inbox = await async_client.factories.inbox.list()
+        assert_matches_type(AsyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
+        inbox = await async_client.factories.inbox.list(
+            cursor="cursor",
+            factory_uid="factory_uid",
+            limit=1,
+            recipient_uid="recipient_uid",
+            scope="mine",
+            team_uid="X-Warp-Team-Uid",
+        )
+        assert_matches_type(AsyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
+        response = await async_client.factories.inbox.with_raw_response.list()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        inbox = await response.parse()
+        assert_matches_type(AsyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
+        async with async_client.factories.inbox.with_streaming_response.list() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            inbox = await response.parse()
+            assert_matches_type(AsyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

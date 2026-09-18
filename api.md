@@ -134,6 +134,18 @@ Methods:
 - <code title="get /factory">client.factories.<a href="./src/oz_agent_sdk/resources/factories/factories.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/factory_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factory.py">SyncFactoriesCursorPage[Factory]</a></code>
 - <code title="get /factory/{uid}">client.factories.<a href="./src/oz_agent_sdk/resources/factories/factories.py">get</a>(uid) -> <a href="./src/oz_agent_sdk/types/factory.py">Factory</a></code>
 
+## Inbox
+
+Types:
+
+```python
+from oz_agent_sdk.types.factories import InboxItem, InboxRecipient, InboxScope
+```
+
+Methods:
+
+- <code title="get /factory-inbox">client.factories.inbox.<a href="./src/oz_agent_sdk/resources/factories/inbox.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/factories/inbox_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/inbox_item.py">SyncFactoryInboxCursorPage[InboxItem]</a></code>
+
 ## Runs
 
 Types:

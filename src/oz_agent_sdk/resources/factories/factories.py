@@ -12,6 +12,14 @@ from .runs import (
     RunsResourceWithStreamingResponse,
     AsyncRunsResourceWithStreamingResponse,
 )
+from .inbox import (
+    InboxResource,
+    AsyncInboxResource,
+    InboxResourceWithRawResponse,
+    AsyncInboxResourceWithRawResponse,
+    InboxResourceWithStreamingResponse,
+    AsyncInboxResourceWithStreamingResponse,
+)
 from ...types import factory_list_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, strip_not_given
@@ -32,6 +40,11 @@ __all__ = ["FactoriesResource", "AsyncFactoriesResource"]
 
 class FactoriesResource(SyncAPIResource):
     """Operations for creating and managing factories"""
+
+    @cached_property
+    def inbox(self) -> InboxResource:
+        """Operations for creating and managing factories"""
+        return InboxResource(self._client)
 
     @cached_property
     def runs(self) -> RunsResource:
@@ -155,6 +168,11 @@ class FactoriesResource(SyncAPIResource):
 
 class AsyncFactoriesResource(AsyncAPIResource):
     """Operations for creating and managing factories"""
+
+    @cached_property
+    def inbox(self) -> AsyncInboxResource:
+        """Operations for creating and managing factories"""
+        return AsyncInboxResource(self._client)
 
     @cached_property
     def runs(self) -> AsyncRunsResource:
@@ -288,6 +306,11 @@ class FactoriesResourceWithRawResponse:
         )
 
     @cached_property
+    def inbox(self) -> InboxResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        return InboxResourceWithRawResponse(self._factories.inbox)
+
+    @cached_property
     def runs(self) -> RunsResourceWithRawResponse:
         """Operations for creating and managing factories"""
         return RunsResourceWithRawResponse(self._factories.runs)
@@ -303,6 +326,11 @@ class AsyncFactoriesResourceWithRawResponse:
         self.get = async_to_raw_response_wrapper(
             factories.get,
         )
+
+    @cached_property
+    def inbox(self) -> AsyncInboxResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        return AsyncInboxResourceWithRawResponse(self._factories.inbox)
 
     @cached_property
     def runs(self) -> AsyncRunsResourceWithRawResponse:
@@ -322,6 +350,11 @@ class FactoriesResourceWithStreamingResponse:
         )
 
     @cached_property
+    def inbox(self) -> InboxResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        return InboxResourceWithStreamingResponse(self._factories.inbox)
+
+    @cached_property
     def runs(self) -> RunsResourceWithStreamingResponse:
         """Operations for creating and managing factories"""
         return RunsResourceWithStreamingResponse(self._factories.runs)
@@ -337,6 +370,11 @@ class AsyncFactoriesResourceWithStreamingResponse:
         self.get = async_to_streamed_response_wrapper(
             factories.get,
         )
+
+    @cached_property
+    def inbox(self) -> AsyncInboxResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        return AsyncInboxResourceWithStreamingResponse(self._factories.inbox)
 
     @cached_property
     def runs(self) -> AsyncRunsResourceWithStreamingResponse:

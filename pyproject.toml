@@ -55,12 +55,10 @@ required-version = ">=0.9"
 constraint-dependencies = [
   "idna>=3.15",
   # Security pin: pytest<9.0.3 is vulnerable to CVE-2025-71176 (tmpdir handling).
+  # pytest 9.0.3 requires Python>=3.10; pin only for compatible versions.
   "pytest>=9.0.3; python_version >= '3.10'",
   # Security pin: pygments<2.20.0 is vulnerable to CVE-2026-4539 (ReDoS).
   "pygments>=2.20.0",
-  # Security pin: anyio<4.14.2 is vulnerable to CVE-2026-63374 (IDNA TLS cert
-  # spoofing) and CVE-2026-64847 (process-pool stderr deadlock).
-  "anyio>=4.14.2",
 ]
 conflicts = [
     [

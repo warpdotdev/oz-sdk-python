@@ -6,7 +6,7 @@ from .._models import BaseModel
 from .aws_provider_config import AwsProviderConfig
 from .gcp_provider_config import GcpProviderConfig
 
-__all__ = ["CloudEnvironmentConfig", "GitHubRepo", "Providers"]
+__all__ = ["CloudEnvironmentConfig", "GitHubRepo", "Providers", "Secret"]
 
 
 class GitHubRepo(BaseModel):
@@ -25,6 +25,13 @@ class Providers(BaseModel):
 
     gcp: Optional[GcpProviderConfig] = None
     """GCP Workload Identity Federation settings"""
+
+
+class Secret(BaseModel):
+    """Reference to a managed secret by name."""
+
+    name: str
+    """Name of the managed secret."""
 
 
 class CloudEnvironmentConfig(BaseModel):
@@ -56,6 +63,13 @@ class CloudEnvironmentConfig(BaseModel):
 
     providers: Optional[Providers] = None
     """Optional cloud provider configurations for automatic auth"""
+
+    secrets: Optional[List[Secret]] = None
+    """
+    Managed secret references contributed by this environment. Omission and an empty
+    array both contribute no secrets. These references are unioned with references
+    from the run config and execution principal.
+    """
 
     setup_commands: Optional[List[str]] = None
     """Shell commands to run during environment setup"""

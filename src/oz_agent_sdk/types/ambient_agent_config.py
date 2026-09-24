@@ -15,6 +15,7 @@ __all__ = [
     "InferenceProviders",
     "InferenceProvidersAws",
     "MemoryStore",
+    "Secret",
     "SessionSharing",
 ]
 
@@ -109,6 +110,13 @@ class MemoryStore(BaseModel):
 
     uid: str
     """UID of the memory store."""
+
+
+class Secret(BaseModel):
+    """Reference to a managed secret by name."""
+
+    name: str
+    """Name of the managed secret."""
 
 
 class SessionSharing(BaseModel):
@@ -220,6 +228,14 @@ class AmbientAgentConfig(BaseModel):
     setup commands). When omitted on a request, the runner is resolved at run
     creation from the agent's default runner, then the environment's default runner,
     and the resolved UID is recorded on the run.
+    """
+
+    secrets: Optional[List[Secret]] = None
+    """Optional run-specific managed secret allowlist.
+
+    Omission and an empty array both add no generic secrets. Secret references from
+    the resolved environment and execution principal are still unioned into the
+    run's secret scope.
     """
 
     session_sharing: Optional[SessionSharing] = None

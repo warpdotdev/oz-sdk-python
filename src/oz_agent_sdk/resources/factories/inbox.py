@@ -4,8 +4,8 @@ from __future__ import annotations
 
 import httpx
 
-from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, strip_not_given
+from ..._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
+from ..._utils import maybe_transform, strip_not_given, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -16,9 +16,11 @@ from ..._response import (
 )
 from ...pagination import SyncFactoryInboxCursorPage, AsyncFactoryInboxCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
-from ...types.factories import InboxScope, inbox_list_params
+from ...types.factories import InboxScope, inbox_list_params, inbox_mark_read_params, inbox_mark_unread_params
 from ...types.factories.inbox_item import InboxItem
 from ...types.factories.inbox_scope import InboxScope
+from ...types.factories.inbox_mark_read_response import InboxMarkReadResponse
+from ...types.factories.inbox_mark_unread_response import InboxMarkUnreadResponse
 
 __all__ = ["InboxResource", "AsyncInboxResource"]
 
@@ -66,7 +68,9 @@ class InboxResource(SyncAPIResource):
         principal and active team. The default `mine` scope preserves the personal Inbox
         and requires user credentials. The `team` scope lists notifications assigned to
         any live recipient and can be used by user or service-account credentials.
-        Delivery routing is configured separately from Inbox assignment.
+        Delivery routing is configured separately from Inbox assignment. Personal read
+        state (`is_read`) is included only in `mine` scope and omitted in `team` scope,
+        including when filtering by recipient.
 
         Args:
           cursor: Opaque cursor from page_info.next_cursor.
@@ -113,6 +117,80 @@ class InboxResource(SyncAPIResource):
             model=InboxItem,
         )
 
+    def mark_read(
+        self,
+        *,
+        notification_uids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InboxMarkReadResponse:
+        """
+        Mark a batch of notifications as read for the authenticated user after checking
+        access to each factory. The caller must be a recipient of each existing
+        notification, and the notification must remain active; otherwise its outcome is
+        unsuccessful. Missing notifications are successful no-ops. Outcomes are returned
+        in request order.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/factory-inbox/notifications/read",
+            body=maybe_transform({"notification_uids": notification_uids}, inbox_mark_read_params.InboxMarkReadParams),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InboxMarkReadResponse,
+        )
+
+    def mark_unread(
+        self,
+        *,
+        notification_uids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InboxMarkUnreadResponse:
+        """
+        Mark a batch of notifications as unread for the authenticated user after
+        checking access to each factory. The caller must be a recipient of each existing
+        notification, and the notification must remain active; otherwise its outcome is
+        unsuccessful. Missing notifications are successful no-ops. Outcomes are returned
+        in request order.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/factory-inbox/notifications/unread",
+            body=maybe_transform(
+                {"notification_uids": notification_uids}, inbox_mark_unread_params.InboxMarkUnreadParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InboxMarkUnreadResponse,
+        )
+
 
 class AsyncInboxResource(AsyncAPIResource):
     """Operations for creating and managing factories"""
@@ -157,7 +235,9 @@ class AsyncInboxResource(AsyncAPIResource):
         principal and active team. The default `mine` scope preserves the personal Inbox
         and requires user credentials. The `team` scope lists notifications assigned to
         any live recipient and can be used by user or service-account credentials.
-        Delivery routing is configured separately from Inbox assignment.
+        Delivery routing is configured separately from Inbox assignment. Personal read
+        state (`is_read`) is included only in `mine` scope and omitted in `team` scope,
+        including when filtering by recipient.
 
         Args:
           cursor: Opaque cursor from page_info.next_cursor.
@@ -204,6 +284,82 @@ class AsyncInboxResource(AsyncAPIResource):
             model=InboxItem,
         )
 
+    async def mark_read(
+        self,
+        *,
+        notification_uids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InboxMarkReadResponse:
+        """
+        Mark a batch of notifications as read for the authenticated user after checking
+        access to each factory. The caller must be a recipient of each existing
+        notification, and the notification must remain active; otherwise its outcome is
+        unsuccessful. Missing notifications are successful no-ops. Outcomes are returned
+        in request order.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/factory-inbox/notifications/read",
+            body=await async_maybe_transform(
+                {"notification_uids": notification_uids}, inbox_mark_read_params.InboxMarkReadParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InboxMarkReadResponse,
+        )
+
+    async def mark_unread(
+        self,
+        *,
+        notification_uids: SequenceNotStr[str],
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> InboxMarkUnreadResponse:
+        """
+        Mark a batch of notifications as unread for the authenticated user after
+        checking access to each factory. The caller must be a recipient of each existing
+        notification, and the notification must remain active; otherwise its outcome is
+        unsuccessful. Missing notifications are successful no-ops. Outcomes are returned
+        in request order.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/factory-inbox/notifications/unread",
+            body=await async_maybe_transform(
+                {"notification_uids": notification_uids}, inbox_mark_unread_params.InboxMarkUnreadParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=InboxMarkUnreadResponse,
+        )
+
 
 class InboxResourceWithRawResponse:
     def __init__(self, inbox: InboxResource) -> None:
@@ -211,6 +367,12 @@ class InboxResourceWithRawResponse:
 
         self.list = to_raw_response_wrapper(
             inbox.list,
+        )
+        self.mark_read = to_raw_response_wrapper(
+            inbox.mark_read,
+        )
+        self.mark_unread = to_raw_response_wrapper(
+            inbox.mark_unread,
         )
 
 
@@ -221,6 +383,12 @@ class AsyncInboxResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             inbox.list,
         )
+        self.mark_read = async_to_raw_response_wrapper(
+            inbox.mark_read,
+        )
+        self.mark_unread = async_to_raw_response_wrapper(
+            inbox.mark_unread,
+        )
 
 
 class InboxResourceWithStreamingResponse:
@@ -230,6 +398,12 @@ class InboxResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             inbox.list,
         )
+        self.mark_read = to_streamed_response_wrapper(
+            inbox.mark_read,
+        )
+        self.mark_unread = to_streamed_response_wrapper(
+            inbox.mark_unread,
+        )
 
 
 class AsyncInboxResourceWithStreamingResponse:
@@ -238,4 +412,10 @@ class AsyncInboxResourceWithStreamingResponse:
 
         self.list = async_to_streamed_response_wrapper(
             inbox.list,
+        )
+        self.mark_read = async_to_streamed_response_wrapper(
+            inbox.mark_read,
+        )
+        self.mark_unread = async_to_streamed_response_wrapper(
+            inbox.mark_unread,
         )

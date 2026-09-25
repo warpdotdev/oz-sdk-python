@@ -47,6 +47,13 @@ class InboxItem(BaseModel):
     description: Optional[str] = None
     """Notification body, when present."""
 
+    is_read: Optional[bool] = None
+    """
+    Whether the authenticated user has read this notification. Always present in
+    `mine` scope, including when false. Omitted in `team` scope, even when filtering
+    by recipient.
+    """
+
     origin_link: Optional[str] = None
     """Server-derived link back to the task's origin, when present."""
 

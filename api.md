@@ -139,12 +139,20 @@ Methods:
 Types:
 
 ```python
-from oz_agent_sdk.types.factories import InboxItem, InboxRecipient, InboxScope
+from oz_agent_sdk.types.factories import (
+    InboxItem,
+    InboxRecipient,
+    InboxScope,
+    InboxMarkReadResponse,
+    InboxMarkUnreadResponse,
+)
 ```
 
 Methods:
 
 - <code title="get /factory-inbox">client.factories.inbox.<a href="./src/oz_agent_sdk/resources/factories/inbox.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/factories/inbox_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/inbox_item.py">SyncFactoryInboxCursorPage[InboxItem]</a></code>
+- <code title="post /factory-inbox/notifications/read">client.factories.inbox.<a href="./src/oz_agent_sdk/resources/factories/inbox.py">mark_read</a>(\*\*<a href="src/oz_agent_sdk/types/factories/inbox_mark_read_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/inbox_mark_read_response.py">InboxMarkReadResponse</a></code>
+- <code title="post /factory-inbox/notifications/unread">client.factories.inbox.<a href="./src/oz_agent_sdk/resources/factories/inbox.py">mark_unread</a>(\*\*<a href="src/oz_agent_sdk/types/factories/inbox_mark_unread_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/inbox_mark_unread_response.py">InboxMarkUnreadResponse</a></code>
 
 ## Runs
 

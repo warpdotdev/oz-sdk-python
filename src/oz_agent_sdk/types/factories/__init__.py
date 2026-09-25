@@ -8,3 +8,7 @@ from .inbox_recipient import InboxRecipient as InboxRecipient
 from .inbox_list_params import InboxListParams as InboxListParams
 from .run_create_params import RunCreateParams as RunCreateParams
 from .run_create_response import RunCreateResponse as RunCreateResponse
+from .inbox_mark_read_params import InboxMarkReadParams as InboxMarkReadParams
+from .inbox_mark_read_response import InboxMarkReadResponse as InboxMarkReadResponse
+from .inbox_mark_unread_params import InboxMarkUnreadParams as InboxMarkUnreadParams
+from .inbox_mark_unread_response import InboxMarkUnreadResponse as InboxMarkUnreadResponse

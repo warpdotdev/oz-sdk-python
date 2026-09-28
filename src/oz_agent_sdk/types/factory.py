@@ -21,6 +21,8 @@ __all__ = [
     "IntegrationMicrosoftTeams",
     "IntegrationSlack",
     "Repository",
+    "ScorerDefaults",
+    "ScorerDefaultsSecret",
     "Scoring",
     "Creator",
 ]
@@ -247,6 +249,37 @@ class Repository(BaseModel):
     """
 
 
+class ScorerDefaultsSecret(BaseModel):
+    """Reference to a managed secret by name."""
+
+    name: str
+    """Name of the managed secret."""
+
+
+class ScorerDefaults(BaseModel):
+    """Sparse execution defaults for scorers.
+
+    An omitted field inherits the
+    corresponding agent default; an explicit empty collection overrides
+    the agent default with no values.
+    """
+
+    default_runner_uid: Optional[str] = None
+    """Default runner UID for scorers. Omitted to inherit the agent default."""
+
+    mcp_servers: Optional[Dict[str, McpServerConfig]] = None
+    """Scorer-default MCP servers.
+
+    Omitted to inherit the agent defaults; an empty object explicitly clears them.
+    """
+
+    secrets: Optional[List[ScorerDefaultsSecret]] = None
+    """Scorer-default secrets.
+
+    Omitted to inherit the agent defaults; an empty array explicitly clears them.
+    """
+
+
 class Scoring(BaseModel):
     default_model: Optional[str] = None
     """
@@ -342,6 +375,13 @@ class Factory(BaseModel):
 
     repositories: List[Repository]
     """Repositories scoped to the factory, independent of its default environment."""
+
+    scorer_defaults: ScorerDefaults
+    """Sparse execution defaults for scorers.
+
+    An omitted field inherits the corresponding agent default; an explicit empty
+    collection overrides the agent default with no values.
+    """
 
     scoring: Scoring
 

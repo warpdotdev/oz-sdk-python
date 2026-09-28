@@ -7,7 +7,19 @@ from typing_extensions import Literal
 from ..._models import BaseModel
 from .inbox_recipient import InboxRecipient
 
-__all__ = ["InboxItem"]
+__all__ = ["InboxItem", "Question"]
+
+
+class Question(BaseModel):
+    id: str
+
+    options: List[str]
+
+    question: str
+
+    type: Literal["single_select", "multi_select"]
+
+    recommended_option_index: Optional[int] = None
 
 
 class InboxItem(BaseModel):
@@ -56,6 +68,8 @@ class InboxItem(BaseModel):
 
     origin_link: Optional[str] = None
     """Server-derived link back to the task's origin, when present."""
+
+    questions: Optional[List[Question]] = None
 
     run_id: Optional[str] = None
     """

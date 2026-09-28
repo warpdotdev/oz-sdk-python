@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Union, Optional
+from typing import List, Union, Optional
 from datetime import datetime
 from typing_extensions import Literal, Annotated, TypeAlias
 
@@ -13,8 +13,10 @@ __all__ = [
     "PlanArtifactResponseData",
     "ScreenshotArtifactResponse",
     "ScreenshotArtifactResponseData",
+    "ScreenshotArtifactResponseSourceLinks",
     "FileArtifactResponse",
     "FileArtifactResponseData",
+    "FileArtifactResponseSourceLinks",
 ]
 
 
@@ -72,6 +74,22 @@ class ScreenshotArtifactResponseData(BaseModel):
     """Optional description of the screenshot"""
 
 
+class ScreenshotArtifactResponseSourceLinks(BaseModel):
+    """Links to the originating run and pull requests reported in its tree.
+
+    Destinations enforce their own access rules.
+    """
+
+    pull_request_urls: Optional[List[str]] = None
+    """Distinct pull requests reported by runs in the same tree."""
+
+    run_url: Optional[str] = None
+    """
+    Factory run page for the originating root run, when bound to a live Factory
+    task.
+    """
+
+
 class ScreenshotArtifactResponse(BaseModel):
     """Response for retrieving a screenshot artifact."""
 
@@ -86,6 +104,12 @@ class ScreenshotArtifactResponse(BaseModel):
 
     data: ScreenshotArtifactResponseData
     """Response data for a screenshot artifact, including a signed download URL."""
+
+    source_links: Optional[ScreenshotArtifactResponseSourceLinks] = None
+    """Links to the originating run and pull requests reported in its tree.
+
+    Destinations enforce their own access rules.
+    """
 
 
 class FileArtifactResponseData(BaseModel):
@@ -124,6 +148,22 @@ class FileArtifactResponseData(BaseModel):
     """
 
 
+class FileArtifactResponseSourceLinks(BaseModel):
+    """Links to the originating run and pull requests reported in its tree.
+
+    Destinations enforce their own access rules.
+    """
+
+    pull_request_urls: Optional[List[str]] = None
+    """Distinct pull requests reported by runs in the same tree."""
+
+    run_url: Optional[str] = None
+    """
+    Factory run page for the originating root run, when bound to a live Factory
+    task.
+    """
+
+
 class FileArtifactResponse(BaseModel):
     """Response for retrieving a file artifact."""
 
@@ -138,6 +178,12 @@ class FileArtifactResponse(BaseModel):
 
     data: FileArtifactResponseData
     """Response data for a file artifact, including a signed download URL."""
+
+    source_links: Optional[FileArtifactResponseSourceLinks] = None
+    """Links to the originating run and pull requests reported in its tree.
+
+    Destinations enforce their own access rules.
+    """
 
 
 AgentGetArtifactResponse: TypeAlias = Annotated[

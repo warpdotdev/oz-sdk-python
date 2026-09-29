@@ -7,7 +7,17 @@ from typing_extensions import Literal
 from ..._models import BaseModel
 from .inbox_recipient import InboxRecipient
 
-__all__ = ["InboxItem", "Question"]
+__all__ = ["InboxItem", "Artifact", "Question"]
+
+
+class Artifact(BaseModel):
+    """An inbox artifact link with an optional provider PR/MR title."""
+
+    url: str
+    """Artifact URL."""
+
+    title: Optional[str] = None
+    """Known provider PR/MR title, when available."""
 
 
 class Question(BaseModel):
@@ -56,6 +66,9 @@ class InboxItem(BaseModel):
     title: str
     """Notification headline."""
 
+    artifacts: Optional[List[Artifact]] = None
+    """Ordered artifact links with optional provider PR/MR titles."""
+
     description: Optional[str] = None
     """Notification body, when present."""
 
@@ -81,4 +94,4 @@ class InboxItem(BaseModel):
     """Legacy first artifact URL supplied by a review notification."""
 
     urls: Optional[List[str]] = None
-    """Canonical artifact URLs in a composite PR review request."""
+    """Legacy artifact URLs; prefer artifacts for links and titles."""

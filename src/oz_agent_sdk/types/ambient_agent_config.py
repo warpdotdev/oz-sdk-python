@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Union, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
@@ -177,6 +177,9 @@ class AmbientAgentConfig(BaseModel):
 
     environment_id: Optional[str] = None
     """UID of the environment to run the agent in"""
+
+    experimental: Optional[Dict[str, Union[str, float, bool, None]]] = None
+    """Internal per-Factory run configuration, populated only by the server."""
 
     harness: Optional[Harness] = None
     """

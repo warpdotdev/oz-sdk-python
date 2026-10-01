@@ -25,6 +25,7 @@ __all__ = [
     "ScorerDefaultsSecret",
     "Scoring",
     "Creator",
+    "SelfImprovement",
 ]
 
 
@@ -299,6 +300,30 @@ class Creator(BaseModel):
     """Creator's email, when available."""
 
 
+class SelfImprovement(BaseModel):
+    """Self-improvement settings from GitHub-managed Factory YAML.
+
+    Omitted when none are declared, in which case team admins are the reviewer pool.
+    """
+
+    reviewer_type: Literal["none", "admins", "team", "custom"]
+    """
+    Owning-team pool one eligible reviewer is randomly requested from for
+    self-improvement pull requests. `admins` requests a team admin or owner and is
+    the default when the Factory declares no self-improvement settings. `team`
+    requests any team member. `custom` requests a member listed in
+    `reviewer_emails`. `none` explicitly disables reviewer assignment.
+    """
+
+    reviewer_emails: Optional[List[str]] = None
+    """Owning-team member emails reviewers are chosen from.
+
+    Only allowed when `reviewer_type` is `custom`: a Factory YAML change that sets
+    emails with any other reviewer type fails validation, including the pull request
+    check.
+    """
+
+
 class Factory(BaseModel):
     """Public representation of a factory."""
 
@@ -396,3 +421,9 @@ class Factory(BaseModel):
 
     creator: Optional[Creator] = None
     """The user who created a factory, when resolvable."""
+
+    self_improvement: Optional[SelfImprovement] = None
+    """Self-improvement settings from GitHub-managed Factory YAML.
+
+    Omitted when none are declared, in which case team admins are the reviewer pool.
+    """

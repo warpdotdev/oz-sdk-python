@@ -8,6 +8,7 @@ RunSourceType: TypeAlias = Literal[
     "LINEAR",
     "API",
     "SLACK",
+    "TEAMS",
     "LOCAL",
     "SCHEDULED_AGENT",
     "WEB_APP",

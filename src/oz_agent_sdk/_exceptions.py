@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class OzAPIError(Exception):
+class WarpClientError(Exception):
     pass
 
 
-class APIError(OzAPIError):
+class APIError(WarpClientError):
     message: str
     request: httpx.Request
 

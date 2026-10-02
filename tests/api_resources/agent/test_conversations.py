@@ -8,7 +8,7 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk import WarpClient, AsyncWarpClient
 from oz_agent_sdk.types.agent import ConversationCheckRedirectResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -19,7 +19,7 @@ class TestConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_check_redirect(self, client: OzAPI) -> None:
+    def test_method_check_redirect(self, client: WarpClient) -> None:
         conversation = client.agent.conversations.check_redirect(
             "conversationId",
         )
@@ -27,7 +27,7 @@ class TestConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_check_redirect(self, client: OzAPI) -> None:
+    def test_raw_response_check_redirect(self, client: WarpClient) -> None:
         response = client.agent.conversations.with_raw_response.check_redirect(
             "conversationId",
         )
@@ -39,7 +39,7 @@ class TestConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_check_redirect(self, client: OzAPI) -> None:
+    def test_streaming_response_check_redirect(self, client: WarpClient) -> None:
         with client.agent.conversations.with_streaming_response.check_redirect(
             "conversationId",
         ) as response:
@@ -53,7 +53,7 @@ class TestConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_check_redirect(self, client: OzAPI) -> None:
+    def test_path_params_check_redirect(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             client.agent.conversations.with_raw_response.check_redirect(
                 "",
@@ -67,7 +67,7 @@ class TestAsyncConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_check_redirect(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_check_redirect(self, async_client: AsyncWarpClient) -> None:
         conversation = await async_client.agent.conversations.check_redirect(
             "conversationId",
         )
@@ -75,7 +75,7 @@ class TestAsyncConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_check_redirect(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_check_redirect(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.conversations.with_raw_response.check_redirect(
             "conversationId",
         )
@@ -87,7 +87,7 @@ class TestAsyncConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_check_redirect(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_check_redirect(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.conversations.with_streaming_response.check_redirect(
             "conversationId",
         ) as response:
@@ -101,7 +101,7 @@ class TestAsyncConversations:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_check_redirect(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_check_redirect(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `conversation_id` but received ''"):
             await async_client.agent.conversations.with_raw_response.check_redirect(
                 "",

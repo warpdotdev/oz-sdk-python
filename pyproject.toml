@@ -1,11 +1,11 @@
 [project]
 name = "oz-agent-sdk"
 version = "0.15.0"
-description = "The official Python library for the oz-api API"
+description = "The official Python library for the Warp API"
 dynamic = ["readme"]
 license = "Apache-2.0"
 authors = [
-{ name = "Oz API", email = "" },
+{ name = "Warp", email = "" },
 ]
 
 dependencies = [

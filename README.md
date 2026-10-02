@@ -1,9 +1,9 @@
-# Oz API Python API library
+# Warp Python API library
 
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/oz-agent-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/oz-agent-sdk/)
 
-The Oz API Python library provides convenient access to the Oz API REST API from any Python 3.9+
+The Warp Python library provides convenient access to the Warp REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -11,7 +11,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [docs.warp.dev](https://docs.warp.dev/reference/api-and-sdk/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -26,9 +26,9 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
-client = OzAPI(
+client = WarpClient(
     api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -103,14 +103,14 @@ so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncOzAPI` instead of `OzAPI` and use `await` with each API call:
+Simply import `AsyncWarpClient` instead of `WarpClient` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from oz_agent_sdk import AsyncOzAPI
+from oz_agent_sdk import AsyncWarpClient
 
-client = AsyncOzAPI(
+client = AsyncWarpClient(
     api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -144,11 +144,11 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 import os
 import asyncio
 from oz_agent_sdk import DefaultAioHttpClient
-from oz_agent_sdk import AsyncOzAPI
+from oz_agent_sdk import AsyncWarpClient
 
 
 async def main() -> None:
-    async with AsyncOzAPI(
+    async with AsyncWarpClient(
         api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
@@ -172,14 +172,14 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Pagination
 
-List methods in the Oz API API are paginated.
+List methods in the Warp API are paginated.
 
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
-client = OzAPI()
+client = WarpClient()
 
 all_runs = []
 # Automatically fetches more pages as needed.
@@ -193,9 +193,9 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from oz_agent_sdk import AsyncOzAPI
+from oz_agent_sdk import AsyncWarpClient
 
-client = AsyncOzAPI()
+client = AsyncWarpClient()
 
 
 async def main() -> None:
@@ -238,9 +238,9 @@ for run in first_page.runs:
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
-client = OzAPI()
+client = WarpClient()
 
 response = client.agent.run(
     config={},
@@ -259,9 +259,9 @@ All errors inherit from `oz_agent_sdk.APIError`.
 
 ```python
 import oz_agent_sdk
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
-client = OzAPI()
+client = WarpClient()
 
 try:
     client.agent.run(
@@ -300,10 +300,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
 # Configure the default for all requests:
-client = OzAPI(
+client = WarpClient(
     # default is 2
     max_retries=0,
 )
@@ -320,16 +320,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
 # Configure the default for all requests:
-client = OzAPI(
+client = WarpClient(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = OzAPI(
+client = WarpClient(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -349,10 +349,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `OZ_API_LOG` to `info`.
+You can enable logging by setting the environment variable `WARP_LOG` to `info`.
 
 ```shell
-$ export OZ_API_LOG=info
+$ export WARP_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -374,9 +374,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
-client = OzAPI()
+client = WarpClient()
 response = client.agent.with_raw_response.run(
     prompt="Fix the bug in auth.go",
 )
@@ -452,10 +452,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from oz_agent_sdk import OzAPI, DefaultHttpxClient
+from oz_agent_sdk import WarpClient, DefaultHttpxClient
 
-client = OzAPI(
-    # Or use the `OZ_API_BASE_URL` env var
+client = WarpClient(
+    # Or use the `WARP_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -475,9 +475,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from oz_agent_sdk import OzAPI
+from oz_agent_sdk import WarpClient
 
-with OzAPI() as client:
+with WarpClient() as client:
   # make requests here
   ...
 

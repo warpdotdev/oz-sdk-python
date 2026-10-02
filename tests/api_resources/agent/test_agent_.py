@@ -8,7 +8,7 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk import WarpClient, AsyncWarpClient
 from oz_agent_sdk.types.agent import (
     AgentResponse,
     ListAgentIdentitiesResponse,
@@ -22,7 +22,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create(self, client: OzAPI) -> None:
+    def test_method_create(self, client: WarpClient) -> None:
         agent = client.agent.agent.create(
             name="name",
         )
@@ -30,7 +30,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_with_all_params(self, client: OzAPI) -> None:
+    def test_method_create_with_all_params(self, client: WarpClient) -> None:
         agent = client.agent.agent.create(
             name="name",
             agent_type="FOREMAN",
@@ -88,7 +88,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create(self, client: OzAPI) -> None:
+    def test_raw_response_create(self, client: WarpClient) -> None:
         response = client.agent.agent.with_raw_response.create(
             name="name",
         )
@@ -100,7 +100,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_create(self, client: OzAPI) -> None:
+    def test_streaming_response_create(self, client: WarpClient) -> None:
         with client.agent.agent.with_streaming_response.create(
             name="name",
         ) as response:
@@ -114,7 +114,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_update(self, client: OzAPI) -> None:
+    def test_method_update(self, client: WarpClient) -> None:
         agent = client.agent.agent.update(
             uid="uid",
         )
@@ -122,7 +122,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_update_with_all_params(self, client: OzAPI) -> None:
+    def test_method_update_with_all_params(self, client: WarpClient) -> None:
         agent = client.agent.agent.update(
             uid="uid",
             agent_type="FOREMAN",
@@ -178,7 +178,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_update(self, client: OzAPI) -> None:
+    def test_raw_response_update(self, client: WarpClient) -> None:
         response = client.agent.agent.with_raw_response.update(
             uid="uid",
         )
@@ -190,7 +190,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_update(self, client: OzAPI) -> None:
+    def test_streaming_response_update(self, client: WarpClient) -> None:
         with client.agent.agent.with_streaming_response.update(
             uid="uid",
         ) as response:
@@ -204,7 +204,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_update(self, client: OzAPI) -> None:
+    def test_path_params_update(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
             client.agent.agent.with_raw_response.update(
                 uid="",
@@ -212,13 +212,13 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list(self, client: OzAPI) -> None:
+    def test_method_list(self, client: WarpClient) -> None:
         agent = client.agent.agent.list()
         assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: OzAPI) -> None:
+    def test_method_list_with_all_params(self, client: WarpClient) -> None:
         agent = client.agent.agent.list(
             factory_uid="factory_uid",
             team_uid="X-Warp-Team-Uid",
@@ -227,7 +227,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: OzAPI) -> None:
+    def test_raw_response_list(self, client: WarpClient) -> None:
         response = client.agent.agent.with_raw_response.list()
 
         assert response.is_closed is True
@@ -237,7 +237,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: OzAPI) -> None:
+    def test_streaming_response_list(self, client: WarpClient) -> None:
         with client.agent.agent.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -249,7 +249,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_delete(self, client: OzAPI) -> None:
+    def test_method_delete(self, client: WarpClient) -> None:
         agent = client.agent.agent.delete(
             "uid",
         )
@@ -257,7 +257,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_delete(self, client: OzAPI) -> None:
+    def test_raw_response_delete(self, client: WarpClient) -> None:
         response = client.agent.agent.with_raw_response.delete(
             "uid",
         )
@@ -269,7 +269,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_delete(self, client: OzAPI) -> None:
+    def test_streaming_response_delete(self, client: WarpClient) -> None:
         with client.agent.agent.with_streaming_response.delete(
             "uid",
         ) as response:
@@ -283,7 +283,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_delete(self, client: OzAPI) -> None:
+    def test_path_params_delete(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
             client.agent.agent.with_raw_response.delete(
                 "",
@@ -291,7 +291,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get(self, client: OzAPI) -> None:
+    def test_method_get(self, client: WarpClient) -> None:
         agent = client.agent.agent.get(
             "uid",
         )
@@ -299,7 +299,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_get(self, client: OzAPI) -> None:
+    def test_raw_response_get(self, client: WarpClient) -> None:
         response = client.agent.agent.with_raw_response.get(
             "uid",
         )
@@ -311,7 +311,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_get(self, client: OzAPI) -> None:
+    def test_streaming_response_get(self, client: WarpClient) -> None:
         with client.agent.agent.with_streaming_response.get(
             "uid",
         ) as response:
@@ -325,7 +325,7 @@ class TestAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_get(self, client: OzAPI) -> None:
+    def test_path_params_get(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
             client.agent.agent.with_raw_response.get(
                 "",
@@ -339,7 +339,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_create(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.create(
             name="name",
         )
@@ -347,7 +347,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.create(
             name="name",
             agent_type="FOREMAN",
@@ -405,7 +405,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.agent.with_raw_response.create(
             name="name",
         )
@@ -417,7 +417,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.agent.with_streaming_response.create(
             name="name",
         ) as response:
@@ -431,7 +431,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_update(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.update(
             uid="uid",
         )
@@ -439,7 +439,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_update_with_all_params(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.update(
             uid="uid",
             agent_type="FOREMAN",
@@ -495,7 +495,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_update(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.agent.with_raw_response.update(
             uid="uid",
         )
@@ -507,7 +507,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_update(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.agent.with_streaming_response.update(
             uid="uid",
         ) as response:
@@ -521,7 +521,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_update(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_update(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
             await async_client.agent.agent.with_raw_response.update(
                 uid="",
@@ -529,13 +529,13 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_list(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.list()
         assert_matches_type(ListAgentIdentitiesResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.list(
             factory_uid="factory_uid",
             team_uid="X-Warp-Team-Uid",
@@ -544,7 +544,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.agent.with_raw_response.list()
 
         assert response.is_closed is True
@@ -554,7 +554,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.agent.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -566,7 +566,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_delete(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_delete(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.delete(
             "uid",
         )
@@ -574,7 +574,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_delete(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_delete(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.agent.with_raw_response.delete(
             "uid",
         )
@@ -586,7 +586,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_delete(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_delete(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.agent.with_streaming_response.delete(
             "uid",
         ) as response:
@@ -600,7 +600,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_delete(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_delete(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
             await async_client.agent.agent.with_raw_response.delete(
                 "",
@@ -608,7 +608,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_get(self, async_client: AsyncWarpClient) -> None:
         agent = await async_client.agent.agent.get(
             "uid",
         )
@@ -616,7 +616,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_get(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_get(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.agent.with_raw_response.get(
             "uid",
         )
@@ -628,7 +628,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_get(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_get(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.agent.with_streaming_response.get(
             "uid",
         ) as response:
@@ -642,7 +642,7 @@ class TestAsyncAgent:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_get(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_get(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
             await async_client.agent.agent.with_raw_response.get(
                 "",

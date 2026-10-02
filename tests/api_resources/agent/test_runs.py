@@ -8,7 +8,7 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk import WarpClient, AsyncWarpClient
 from oz_agent_sdk._utils import parse_datetime
 from oz_agent_sdk.pagination import SyncRunsCursorPage, AsyncRunsCursorPage
 from oz_agent_sdk.types.agent import (
@@ -25,7 +25,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: OzAPI) -> None:
+    def test_method_retrieve(self, client: WarpClient) -> None:
         run = client.agent.runs.retrieve(
             "runId",
         )
@@ -33,7 +33,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: OzAPI) -> None:
+    def test_raw_response_retrieve(self, client: WarpClient) -> None:
         response = client.agent.runs.with_raw_response.retrieve(
             "runId",
         )
@@ -45,7 +45,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: OzAPI) -> None:
+    def test_streaming_response_retrieve(self, client: WarpClient) -> None:
         with client.agent.runs.with_streaming_response.retrieve(
             "runId",
         ) as response:
@@ -59,7 +59,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_retrieve(self, client: OzAPI) -> None:
+    def test_path_params_retrieve(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.agent.runs.with_raw_response.retrieve(
                 "",
@@ -67,13 +67,13 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list(self, client: OzAPI) -> None:
+    def test_method_list(self, client: WarpClient) -> None:
         run = client.agent.runs.list()
         assert_matches_type(SyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: OzAPI) -> None:
+    def test_method_list_with_all_params(self, client: WarpClient) -> None:
         run = client.agent.runs.list(
             ancestor_run_id="ancestor_run_id",
             artifact_type="PLAN",
@@ -107,7 +107,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: OzAPI) -> None:
+    def test_raw_response_list(self, client: WarpClient) -> None:
         response = client.agent.runs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -117,7 +117,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: OzAPI) -> None:
+    def test_streaming_response_list(self, client: WarpClient) -> None:
         with client.agent.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -129,7 +129,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_cancel(self, client: OzAPI) -> None:
+    def test_method_cancel(self, client: WarpClient) -> None:
         run = client.agent.runs.cancel(
             "runId",
         )
@@ -137,7 +137,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_cancel(self, client: OzAPI) -> None:
+    def test_raw_response_cancel(self, client: WarpClient) -> None:
         response = client.agent.runs.with_raw_response.cancel(
             "runId",
         )
@@ -149,7 +149,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_cancel(self, client: OzAPI) -> None:
+    def test_streaming_response_cancel(self, client: WarpClient) -> None:
         with client.agent.runs.with_streaming_response.cancel(
             "runId",
         ) as response:
@@ -163,7 +163,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_cancel(self, client: OzAPI) -> None:
+    def test_path_params_cancel(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.agent.runs.with_raw_response.cancel(
                 "",
@@ -171,7 +171,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list_handoff_attachments(self, client: OzAPI) -> None:
+    def test_method_list_handoff_attachments(self, client: WarpClient) -> None:
         run = client.agent.runs.list_handoff_attachments(
             "runId",
         )
@@ -179,7 +179,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_list_handoff_attachments(self, client: OzAPI) -> None:
+    def test_raw_response_list_handoff_attachments(self, client: WarpClient) -> None:
         response = client.agent.runs.with_raw_response.list_handoff_attachments(
             "runId",
         )
@@ -191,7 +191,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_list_handoff_attachments(self, client: OzAPI) -> None:
+    def test_streaming_response_list_handoff_attachments(self, client: WarpClient) -> None:
         with client.agent.runs.with_streaming_response.list_handoff_attachments(
             "runId",
         ) as response:
@@ -205,7 +205,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_list_handoff_attachments(self, client: OzAPI) -> None:
+    def test_path_params_list_handoff_attachments(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.agent.runs.with_raw_response.list_handoff_attachments(
                 "",
@@ -213,7 +213,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_submit_followup(self, client: OzAPI) -> None:
+    def test_method_submit_followup(self, client: WarpClient) -> None:
         run = client.agent.runs.submit_followup(
             run_id="runId",
         )
@@ -221,7 +221,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_submit_followup_with_all_params(self, client: OzAPI) -> None:
+    def test_method_submit_followup_with_all_params(self, client: WarpClient) -> None:
         run = client.agent.runs.submit_followup(
             run_id="runId",
             attachments=[
@@ -237,7 +237,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_submit_followup(self, client: OzAPI) -> None:
+    def test_raw_response_submit_followup(self, client: WarpClient) -> None:
         response = client.agent.runs.with_raw_response.submit_followup(
             run_id="runId",
         )
@@ -249,7 +249,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_submit_followup(self, client: OzAPI) -> None:
+    def test_streaming_response_submit_followup(self, client: WarpClient) -> None:
         with client.agent.runs.with_streaming_response.submit_followup(
             run_id="runId",
         ) as response:
@@ -263,7 +263,7 @@ class TestRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_submit_followup(self, client: OzAPI) -> None:
+    def test_path_params_submit_followup(self, client: WarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             client.agent.runs.with_raw_response.submit_followup(
                 run_id="",
@@ -277,7 +277,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_retrieve(self, async_client: AsyncWarpClient) -> None:
         run = await async_client.agent.runs.retrieve(
             "runId",
         )
@@ -285,7 +285,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.runs.with_raw_response.retrieve(
             "runId",
         )
@@ -297,7 +297,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.runs.with_streaming_response.retrieve(
             "runId",
         ) as response:
@@ -311,7 +311,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_retrieve(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_retrieve(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.retrieve(
                 "",
@@ -319,13 +319,13 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_list(self, async_client: AsyncWarpClient) -> None:
         run = await async_client.agent.runs.list()
         assert_matches_type(AsyncRunsCursorPage[RunItem], run, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWarpClient) -> None:
         run = await async_client.agent.runs.list(
             ancestor_run_id="ancestor_run_id",
             artifact_type="PLAN",
@@ -359,7 +359,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.runs.with_raw_response.list()
 
         assert response.is_closed is True
@@ -369,7 +369,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.runs.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -381,7 +381,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_cancel(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_cancel(self, async_client: AsyncWarpClient) -> None:
         run = await async_client.agent.runs.cancel(
             "runId",
         )
@@ -389,7 +389,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_cancel(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_cancel(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.runs.with_raw_response.cancel(
             "runId",
         )
@@ -401,7 +401,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_cancel(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_cancel(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.runs.with_streaming_response.cancel(
             "runId",
         ) as response:
@@ -415,7 +415,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_cancel(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_cancel(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.cancel(
                 "",
@@ -423,7 +423,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_list_handoff_attachments(self, async_client: AsyncWarpClient) -> None:
         run = await async_client.agent.runs.list_handoff_attachments(
             "runId",
         )
@@ -431,7 +431,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_list_handoff_attachments(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.runs.with_raw_response.list_handoff_attachments(
             "runId",
         )
@@ -443,7 +443,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_list_handoff_attachments(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.runs.with_streaming_response.list_handoff_attachments(
             "runId",
         ) as response:
@@ -457,7 +457,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_list_handoff_attachments(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_list_handoff_attachments(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.list_handoff_attachments(
                 "",
@@ -465,7 +465,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_submit_followup(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_submit_followup(self, async_client: AsyncWarpClient) -> None:
         run = await async_client.agent.runs.submit_followup(
             run_id="runId",
         )
@@ -473,7 +473,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_submit_followup_with_all_params(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_submit_followup_with_all_params(self, async_client: AsyncWarpClient) -> None:
         run = await async_client.agent.runs.submit_followup(
             run_id="runId",
             attachments=[
@@ -489,7 +489,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_submit_followup(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_submit_followup(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.agent.runs.with_raw_response.submit_followup(
             run_id="runId",
         )
@@ -501,7 +501,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_submit_followup(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_submit_followup(self, async_client: AsyncWarpClient) -> None:
         async with async_client.agent.runs.with_streaming_response.submit_followup(
             run_id="runId",
         ) as response:
@@ -515,7 +515,7 @@ class TestAsyncRuns:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_submit_followup(self, async_client: AsyncOzAPI) -> None:
+    async def test_path_params_submit_followup(self, async_client: AsyncWarpClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
             await async_client.agent.runs.with_raw_response.submit_followup(
                 run_id="",

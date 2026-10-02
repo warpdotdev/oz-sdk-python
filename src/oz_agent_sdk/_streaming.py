@@ -12,7 +12,7 @@ import httpx
 from ._utils import extract_type_var_from_base
 
 if TYPE_CHECKING:
-    from ._client import OzAPI, AsyncOzAPI
+    from ._client import WarpClient, AsyncWarpClient
     from ._models import FinalRequestOptions
 
 
@@ -31,7 +31,7 @@ class Stream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: OzAPI,
+        client: WarpClient,
         options: Optional[FinalRequestOptions] = None,
     ) -> None:
         self.response = response
@@ -96,7 +96,7 @@ class AsyncStream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: AsyncOzAPI,
+        client: AsyncWarpClient,
         options: Optional[FinalRequestOptions] = None,
     ) -> None:
         self.response = response

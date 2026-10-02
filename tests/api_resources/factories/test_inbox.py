@@ -8,7 +8,7 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from oz_agent_sdk import OzAPI, AsyncOzAPI
+from oz_agent_sdk import WarpClient, AsyncWarpClient
 from oz_agent_sdk.pagination import SyncFactoryInboxCursorPage, AsyncFactoryInboxCursorPage
 from oz_agent_sdk.types.factories import (
     InboxItem,
@@ -24,13 +24,13 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list(self, client: OzAPI) -> None:
+    def test_method_list(self, client: WarpClient) -> None:
         inbox = client.factories.inbox.list()
         assert_matches_type(SyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_list_with_all_params(self, client: OzAPI) -> None:
+    def test_method_list_with_all_params(self, client: WarpClient) -> None:
         inbox = client.factories.inbox.list(
             cursor="cursor",
             factory_uid="factory_uid",
@@ -43,7 +43,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_list(self, client: OzAPI) -> None:
+    def test_raw_response_list(self, client: WarpClient) -> None:
         response = client.factories.inbox.with_raw_response.list()
 
         assert response.is_closed is True
@@ -53,7 +53,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_list(self, client: OzAPI) -> None:
+    def test_streaming_response_list(self, client: WarpClient) -> None:
         with client.factories.inbox.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -65,7 +65,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_mark_read(self, client: OzAPI) -> None:
+    def test_method_mark_read(self, client: WarpClient) -> None:
         inbox = client.factories.inbox.mark_read(
             notification_uids=["string"],
         )
@@ -73,7 +73,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_mark_read(self, client: OzAPI) -> None:
+    def test_raw_response_mark_read(self, client: WarpClient) -> None:
         response = client.factories.inbox.with_raw_response.mark_read(
             notification_uids=["string"],
         )
@@ -85,7 +85,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_mark_read(self, client: OzAPI) -> None:
+    def test_streaming_response_mark_read(self, client: WarpClient) -> None:
         with client.factories.inbox.with_streaming_response.mark_read(
             notification_uids=["string"],
         ) as response:
@@ -99,7 +99,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_mark_unread(self, client: OzAPI) -> None:
+    def test_method_mark_unread(self, client: WarpClient) -> None:
         inbox = client.factories.inbox.mark_unread(
             notification_uids=["string"],
         )
@@ -107,7 +107,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_mark_unread(self, client: OzAPI) -> None:
+    def test_raw_response_mark_unread(self, client: WarpClient) -> None:
         response = client.factories.inbox.with_raw_response.mark_unread(
             notification_uids=["string"],
         )
@@ -119,7 +119,7 @@ class TestInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_mark_unread(self, client: OzAPI) -> None:
+    def test_streaming_response_mark_unread(self, client: WarpClient) -> None:
         with client.factories.inbox.with_streaming_response.mark_unread(
             notification_uids=["string"],
         ) as response:
@@ -139,13 +139,13 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_list(self, async_client: AsyncWarpClient) -> None:
         inbox = await async_client.factories.inbox.list()
         assert_matches_type(AsyncFactoryInboxCursorPage[InboxItem], inbox, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_list_with_all_params(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_list_with_all_params(self, async_client: AsyncWarpClient) -> None:
         inbox = await async_client.factories.inbox.list(
             cursor="cursor",
             factory_uid="factory_uid",
@@ -158,7 +158,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_list(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.factories.inbox.with_raw_response.list()
 
         assert response.is_closed is True
@@ -168,7 +168,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncWarpClient) -> None:
         async with async_client.factories.inbox.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -180,7 +180,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_mark_read(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_mark_read(self, async_client: AsyncWarpClient) -> None:
         inbox = await async_client.factories.inbox.mark_read(
             notification_uids=["string"],
         )
@@ -188,7 +188,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_mark_read(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_mark_read(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.factories.inbox.with_raw_response.mark_read(
             notification_uids=["string"],
         )
@@ -200,7 +200,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_mark_read(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_mark_read(self, async_client: AsyncWarpClient) -> None:
         async with async_client.factories.inbox.with_streaming_response.mark_read(
             notification_uids=["string"],
         ) as response:
@@ -214,7 +214,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_mark_unread(self, async_client: AsyncOzAPI) -> None:
+    async def test_method_mark_unread(self, async_client: AsyncWarpClient) -> None:
         inbox = await async_client.factories.inbox.mark_unread(
             notification_uids=["string"],
         )
@@ -222,7 +222,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_mark_unread(self, async_client: AsyncOzAPI) -> None:
+    async def test_raw_response_mark_unread(self, async_client: AsyncWarpClient) -> None:
         response = await async_client.factories.inbox.with_raw_response.mark_unread(
             notification_uids=["string"],
         )
@@ -234,7 +234,7 @@ class TestAsyncInbox:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_mark_unread(self, async_client: AsyncOzAPI) -> None:
+    async def test_streaming_response_mark_unread(self, async_client: AsyncWarpClient) -> None:
         async with async_client.factories.inbox.with_streaming_response.mark_unread(
             notification_uids=["string"],
         ) as response:

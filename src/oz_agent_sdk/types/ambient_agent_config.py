@@ -35,7 +35,10 @@ class Harness(BaseModel):
 
     "claude-haiku-4-5"). Only applies when type is a harness other than `oz`; the
     top-level config model_id targets the built-in Warp harness instead. When
-    omitted or empty, the harness uses its own default model.
+    omitted or empty, the harness uses its own default model. For an individual
+    Warp-managed Factory Claude Code agent, send an explicit empty string to use the
+    environment's model. Omitting model_id when replacing that agent's harness is
+    invalid.
     """
 
     reasoning_level: Optional[str] = None

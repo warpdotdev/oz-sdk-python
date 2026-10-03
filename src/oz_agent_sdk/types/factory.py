@@ -318,6 +318,14 @@ class SelfImprovement(BaseModel):
     `reviewer_emails`. `none` explicitly disables reviewer assignment.
     """
 
+    failed_run_threshold: Optional[int] = None
+    """
+    Per-agent count of distinct scored-failing source runs required for scheduled
+    self-improvement. Must be between 1 and 50: one self-improvement run can triage
+    at most 50 failure findings. Omitted to use the server default. The age-based
+    flush and manual dispatch are unchanged.
+    """
+
     reviewer_emails: Optional[List[str]] = None
     """Owning-team member emails reviewers are chosen from.
 

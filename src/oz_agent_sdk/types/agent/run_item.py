@@ -424,8 +424,22 @@ class RunItem(BaseModel):
     created_at: datetime
     """Timestamp when the run was created (RFC3339)"""
 
+    finished_at: Optional[datetime] = None
+    """Timestamp when the run last reached a terminal state (RFC3339).
+
+    Null while the run is still active, and for terminal runs with no recorded
+    finish time (runs executed locally, and runs that finished before finish times
+    were recorded).
+    """
+
     prompt: str
     """The prompt/instruction for the agent"""
+
+    root_run_id: str
+    """UUID of the top-level run of this run's orchestration tree.
+
+    Equals `run_id` for a top-level run.
+    """
 
     run_id: str
     """Unique identifier for the run"""
@@ -489,6 +503,12 @@ class RunItem(BaseModel):
     """
 
     executor: Optional[UserProfile] = None
+
+    factory_uid: Optional[str] = None
+    """UID of the factory whose agent executed the run.
+
+    Absent for runs not executed by a factory agent.
+    """
 
     is_run_type_cancellable: Optional[bool] = None
     """Whether the run's type is eligible for cancellation via the API.

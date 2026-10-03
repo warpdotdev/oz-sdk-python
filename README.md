@@ -228,7 +228,7 @@ first_page = await client.agent.runs.list()
 
 print(f"next page cursor: {first_page.page_info.next_cursor}")  # => "next page cursor: ..."
 for run in first_page.runs:
-    print(run.run_id)
+    print(run.root_run_id)
 
 # Remove `await` for non-async usage.
 ```

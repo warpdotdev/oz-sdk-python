@@ -286,18 +286,18 @@ class RequestUsage(BaseModel):
     """Credits consumed by compute resources for the run"""
 
     compute_cost_usd: Optional[float] = None
-    """compute_cost in US dollars, converted at the owning team's current credit price.
+    """What the run's hosted compute was billed at, in US dollars.
 
-    An approximate cost, not a billed amount.
+    Runs that predate billed-amount tracking fall back to an estimated cost.
     """
 
     inference_cost: Optional[float] = None
     """Credits consumed by LLM inference for the run"""
 
     inference_cost_usd: Optional[float] = None
-    """
-    inference_cost in US dollars, converted at the owning team's current credit
-    price. An approximate cost, not a billed amount.
+    """What the run's LLM inference was billed at, in US dollars.
+
+    Runs that predate billed-amount tracking fall back to an estimated cost.
     """
 
     api_model_token_usage: Optional[List[RequestUsageModelTokenUsage]] = FieldInfo(
@@ -315,10 +315,9 @@ class RequestUsage(BaseModel):
     """Credits consumed by platform usage for the run"""
 
     platform_cost_usd: Optional[float] = None
-    """platform_cost in US dollars, converted at the owning team's current credit
-    price.
+    """What the run's platform usage was billed at, in US dollars.
 
-    An approximate cost, not a billed amount.
+    Runs that predate billed-amount tracking fall back to an estimated cost.
     """
 
     total_tokens: Optional[int] = None

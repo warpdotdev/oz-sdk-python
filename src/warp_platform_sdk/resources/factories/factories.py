@@ -12,15 +12,23 @@ from .runs import (
     RunsResourceWithStreamingResponse,
     AsyncRunsResourceWithStreamingResponse,
 )
-from .inbox import (
-    InboxResource,
-    AsyncInboxResource,
-    InboxResourceWithRawResponse,
-    AsyncInboxResourceWithRawResponse,
-    InboxResourceWithStreamingResponse,
-    AsyncInboxResourceWithStreamingResponse,
+from .tasks import (
+    TasksResource,
+    AsyncTasksResource,
+    TasksResourceWithRawResponse,
+    AsyncTasksResourceWithRawResponse,
+    TasksResourceWithStreamingResponse,
+    AsyncTasksResourceWithStreamingResponse,
 )
 from ...types import factory_list_params
+from .scorers import (
+    ScorersResource,
+    AsyncScorersResource,
+    ScorersResourceWithRawResponse,
+    AsyncScorersResourceWithRawResponse,
+    ScorersResourceWithStreamingResponse,
+    AsyncScorersResourceWithStreamingResponse,
+)
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, strip_not_given
 from ..._compat import cached_property
@@ -31,9 +39,25 @@ from ..._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from .files.files import (
+    FilesResource,
+    AsyncFilesResource,
+    FilesResourceWithRawResponse,
+    AsyncFilesResourceWithRawResponse,
+    FilesResourceWithStreamingResponse,
+    AsyncFilesResourceWithStreamingResponse,
+)
 from ...pagination import SyncFactoriesCursorPage, AsyncFactoriesCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.factory import Factory
+from .benchmarks.benchmarks import (
+    BenchmarksResource,
+    AsyncBenchmarksResource,
+    BenchmarksResourceWithRawResponse,
+    AsyncBenchmarksResourceWithRawResponse,
+    BenchmarksResourceWithStreamingResponse,
+    AsyncBenchmarksResourceWithStreamingResponse,
+)
 
 __all__ = ["FactoriesResource", "AsyncFactoriesResource"]
 
@@ -42,14 +66,27 @@ class FactoriesResource(SyncAPIResource):
     """Operations for creating and managing factories"""
 
     @cached_property
-    def inbox(self) -> InboxResource:
-        """Operations for creating and managing factories"""
-        return InboxResource(self._client)
-
-    @cached_property
     def runs(self) -> RunsResource:
         """Operations for creating and managing factories"""
         return RunsResource(self._client)
+
+    @cached_property
+    def tasks(self) -> TasksResource:
+        """Operations for creating and managing factories"""
+        return TasksResource(self._client)
+
+    @cached_property
+    def scorers(self) -> ScorersResource:
+        return ScorersResource(self._client)
+
+    @cached_property
+    def benchmarks(self) -> BenchmarksResource:
+        return BenchmarksResource(self._client)
+
+    @cached_property
+    def files(self) -> FilesResource:
+        """Operations for creating and managing factories"""
+        return FilesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> FactoriesResourceWithRawResponse:
@@ -76,7 +113,7 @@ class FactoriesResource(SyncAPIResource):
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         search: str | Omit = omit,
-        query_team_uid: str | Omit = omit,
+        filter_team_uid: str | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -99,7 +136,7 @@ class FactoriesResource(SyncAPIResource):
 
           search: Case-insensitive substring search over the factory name and alias.
 
-          query_team_uid: Optional team UID to filter factories by ownership. Takes precedence over the
+          filter_team_uid: Optional team UID to filter factories by ownership. Takes precedence over the
               X-Warp-Team-Uid header.
 
           extra_headers: Send extra headers
@@ -124,7 +161,7 @@ class FactoriesResource(SyncAPIResource):
                         "cursor": cursor,
                         "limit": limit,
                         "search": search,
-                        "query_team_uid": query_team_uid,
+                        "filter_team_uid": filter_team_uid,
                     },
                     factory_list_params.FactoryListParams,
                 ),
@@ -144,7 +181,7 @@ class FactoriesResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Factory:
         """
-        Get a factory by its public UID.
+        Get a factory by its UID.
 
         Args:
           extra_headers: Send extra headers
@@ -170,14 +207,27 @@ class AsyncFactoriesResource(AsyncAPIResource):
     """Operations for creating and managing factories"""
 
     @cached_property
-    def inbox(self) -> AsyncInboxResource:
-        """Operations for creating and managing factories"""
-        return AsyncInboxResource(self._client)
-
-    @cached_property
     def runs(self) -> AsyncRunsResource:
         """Operations for creating and managing factories"""
         return AsyncRunsResource(self._client)
+
+    @cached_property
+    def tasks(self) -> AsyncTasksResource:
+        """Operations for creating and managing factories"""
+        return AsyncTasksResource(self._client)
+
+    @cached_property
+    def scorers(self) -> AsyncScorersResource:
+        return AsyncScorersResource(self._client)
+
+    @cached_property
+    def benchmarks(self) -> AsyncBenchmarksResource:
+        return AsyncBenchmarksResource(self._client)
+
+    @cached_property
+    def files(self) -> AsyncFilesResource:
+        """Operations for creating and managing factories"""
+        return AsyncFilesResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncFactoriesResourceWithRawResponse:
@@ -204,7 +254,7 @@ class AsyncFactoriesResource(AsyncAPIResource):
         cursor: str | Omit = omit,
         limit: int | Omit = omit,
         search: str | Omit = omit,
-        query_team_uid: str | Omit = omit,
+        filter_team_uid: str | Omit = omit,
         team_uid: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -227,7 +277,7 @@ class AsyncFactoriesResource(AsyncAPIResource):
 
           search: Case-insensitive substring search over the factory name and alias.
 
-          query_team_uid: Optional team UID to filter factories by ownership. Takes precedence over the
+          filter_team_uid: Optional team UID to filter factories by ownership. Takes precedence over the
               X-Warp-Team-Uid header.
 
           extra_headers: Send extra headers
@@ -252,7 +302,7 @@ class AsyncFactoriesResource(AsyncAPIResource):
                         "cursor": cursor,
                         "limit": limit,
                         "search": search,
-                        "query_team_uid": query_team_uid,
+                        "filter_team_uid": filter_team_uid,
                     },
                     factory_list_params.FactoryListParams,
                 ),
@@ -272,7 +322,7 @@ class AsyncFactoriesResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Factory:
         """
-        Get a factory by its public UID.
+        Get a factory by its UID.
 
         Args:
           extra_headers: Send extra headers
@@ -306,14 +356,27 @@ class FactoriesResourceWithRawResponse:
         )
 
     @cached_property
-    def inbox(self) -> InboxResourceWithRawResponse:
-        """Operations for creating and managing factories"""
-        return InboxResourceWithRawResponse(self._factories.inbox)
-
-    @cached_property
     def runs(self) -> RunsResourceWithRawResponse:
         """Operations for creating and managing factories"""
         return RunsResourceWithRawResponse(self._factories.runs)
+
+    @cached_property
+    def tasks(self) -> TasksResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        return TasksResourceWithRawResponse(self._factories.tasks)
+
+    @cached_property
+    def scorers(self) -> ScorersResourceWithRawResponse:
+        return ScorersResourceWithRawResponse(self._factories.scorers)
+
+    @cached_property
+    def benchmarks(self) -> BenchmarksResourceWithRawResponse:
+        return BenchmarksResourceWithRawResponse(self._factories.benchmarks)
+
+    @cached_property
+    def files(self) -> FilesResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        return FilesResourceWithRawResponse(self._factories.files)
 
 
 class AsyncFactoriesResourceWithRawResponse:
@@ -328,14 +391,27 @@ class AsyncFactoriesResourceWithRawResponse:
         )
 
     @cached_property
-    def inbox(self) -> AsyncInboxResourceWithRawResponse:
-        """Operations for creating and managing factories"""
-        return AsyncInboxResourceWithRawResponse(self._factories.inbox)
-
-    @cached_property
     def runs(self) -> AsyncRunsResourceWithRawResponse:
         """Operations for creating and managing factories"""
         return AsyncRunsResourceWithRawResponse(self._factories.runs)
+
+    @cached_property
+    def tasks(self) -> AsyncTasksResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        return AsyncTasksResourceWithRawResponse(self._factories.tasks)
+
+    @cached_property
+    def scorers(self) -> AsyncScorersResourceWithRawResponse:
+        return AsyncScorersResourceWithRawResponse(self._factories.scorers)
+
+    @cached_property
+    def benchmarks(self) -> AsyncBenchmarksResourceWithRawResponse:
+        return AsyncBenchmarksResourceWithRawResponse(self._factories.benchmarks)
+
+    @cached_property
+    def files(self) -> AsyncFilesResourceWithRawResponse:
+        """Operations for creating and managing factories"""
+        return AsyncFilesResourceWithRawResponse(self._factories.files)
 
 
 class FactoriesResourceWithStreamingResponse:
@@ -350,14 +426,27 @@ class FactoriesResourceWithStreamingResponse:
         )
 
     @cached_property
-    def inbox(self) -> InboxResourceWithStreamingResponse:
-        """Operations for creating and managing factories"""
-        return InboxResourceWithStreamingResponse(self._factories.inbox)
-
-    @cached_property
     def runs(self) -> RunsResourceWithStreamingResponse:
         """Operations for creating and managing factories"""
         return RunsResourceWithStreamingResponse(self._factories.runs)
+
+    @cached_property
+    def tasks(self) -> TasksResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        return TasksResourceWithStreamingResponse(self._factories.tasks)
+
+    @cached_property
+    def scorers(self) -> ScorersResourceWithStreamingResponse:
+        return ScorersResourceWithStreamingResponse(self._factories.scorers)
+
+    @cached_property
+    def benchmarks(self) -> BenchmarksResourceWithStreamingResponse:
+        return BenchmarksResourceWithStreamingResponse(self._factories.benchmarks)
+
+    @cached_property
+    def files(self) -> FilesResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        return FilesResourceWithStreamingResponse(self._factories.files)
 
 
 class AsyncFactoriesResourceWithStreamingResponse:
@@ -372,11 +461,24 @@ class AsyncFactoriesResourceWithStreamingResponse:
         )
 
     @cached_property
-    def inbox(self) -> AsyncInboxResourceWithStreamingResponse:
-        """Operations for creating and managing factories"""
-        return AsyncInboxResourceWithStreamingResponse(self._factories.inbox)
-
-    @cached_property
     def runs(self) -> AsyncRunsResourceWithStreamingResponse:
         """Operations for creating and managing factories"""
         return AsyncRunsResourceWithStreamingResponse(self._factories.runs)
+
+    @cached_property
+    def tasks(self) -> AsyncTasksResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        return AsyncTasksResourceWithStreamingResponse(self._factories.tasks)
+
+    @cached_property
+    def scorers(self) -> AsyncScorersResourceWithStreamingResponse:
+        return AsyncScorersResourceWithStreamingResponse(self._factories.scorers)
+
+    @cached_property
+    def benchmarks(self) -> AsyncBenchmarksResourceWithStreamingResponse:
+        return AsyncBenchmarksResourceWithStreamingResponse(self._factories.benchmarks)
+
+    @cached_property
+    def files(self) -> AsyncFilesResourceWithStreamingResponse:
+        """Operations for creating and managing factories"""
+        return AsyncFilesResourceWithStreamingResponse(self._factories.files)

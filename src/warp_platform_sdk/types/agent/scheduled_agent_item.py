@@ -6,8 +6,8 @@ from datetime import datetime
 from ..scope import Scope
 from ..._models import BaseModel
 from ..user_profile import UserProfile
-from ..ambient_agent_config import AmbientAgentConfig
-from ..cloud_environment_config import CloudEnvironmentConfig
+from ..environment_config import EnvironmentConfig
+from ..agent_config_snapshot import AgentConfigSnapshot
 from .scheduled_agent_history_item import ScheduledAgentHistoryItem
 
 __all__ = ["ScheduledAgentItem"]
@@ -38,7 +38,7 @@ class ScheduledAgentItem(BaseModel):
     updated_at: datetime
     """Timestamp when the schedule was last updated (RFC3339)"""
 
-    agent_config: Optional[AmbientAgentConfig] = None
+    agent_config: Optional[AgentConfigSnapshot] = None
     """Configuration for a cloud agent run"""
 
     agent_uid: Optional[str] = None
@@ -46,7 +46,7 @@ class ScheduledAgentItem(BaseModel):
 
     created_by: Optional[UserProfile] = None
 
-    environment: Optional[CloudEnvironmentConfig] = None
+    environment: Optional[EnvironmentConfig] = None
     """Configuration for a cloud environment used by scheduled agents"""
 
     history: Optional[ScheduledAgentHistoryItem] = None

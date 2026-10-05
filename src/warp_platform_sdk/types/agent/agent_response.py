@@ -4,167 +4,15 @@ from typing import Dict, List, Optional
 from datetime import datetime
 from typing_extensions import Literal
 
-from pydantic import Field as FieldInfo
-
+from ..harness import Harness
 from ..._models import BaseModel
+from ..secret_ref import SecretRef
+from .memory_response import MemoryResponse
 from ..mcp_server_config import McpServerConfig
+from ..harness_auth_secrets import HarnessAuthSecrets
+from ..inference_providers_config import InferenceProvidersConfig
 
-__all__ = [
-    "AgentResponse",
-    "Memory",
-    "MemoryAttachedStore",
-    "MemoryAutoMemory",
-    "MemoryAutoMemoryStore",
-    "Secret",
-    "Harness",
-    "HarnessAuthSecrets",
-    "InferenceProviders",
-    "InferenceProvidersAws",
-]
-
-
-class MemoryAttachedStore(BaseModel):
-    """Reference to a memory store to attach to an agent."""
-
-    access: Literal["read_write", "read_only"]
-    """Access level for the store."""
-
-    instructions: str
-    """Instructions for how the agent should use this memory store. Must not be empty."""
-
-    uid: str
-    """UID of the memory store."""
-
-
-class MemoryAutoMemoryStore(BaseModel):
-    """Memory store attached to an agent."""
-
-    access: Literal["read_write", "read_only"]
-    """Access level for the store."""
-
-    instructions: str
-    """Instructions for how the agent should use this memory store."""
-
-    owner_type: Literal["user", "service_account", "team"]
-    """Public owner type."""
-
-    owner_uid: str
-    """Public UID of the user, service account, or team that owns the memory store."""
-
-    uid: str
-    """UID of the memory store."""
-
-    description: Optional[str] = None
-    """Optional description for the memory store."""
-
-
-class MemoryAutoMemory(BaseModel):
-    """Auto-memory state for an agent."""
-
-    enabled: bool
-    """Whether this agent has an agent-owned memory store."""
-
-    store: Optional[MemoryAutoMemoryStore] = None
-    """Memory store attached to an agent."""
-
-
-class Memory(BaseModel):
-    """Memory settings for an agent."""
-
-    attached_stores: List[MemoryAttachedStore]
-    """Team memory stores attached to the agent."""
-
-    auto_memory: MemoryAutoMemory
-    """Auto-memory state for an agent."""
-
-
-class Secret(BaseModel):
-    """Reference to a managed secret by name."""
-
-    name: str
-    """Name of the managed secret."""
-
-
-class Harness(BaseModel):
-    """
-    Specifies which execution harness to use for the agent run.
-    Default (nil/empty) uses Warp's built-in harness.
-    When stored as a named agent's default (create/update agent identity),
-    this field replaces the deprecated base_harness/base_model pair: a
-    harness other than `oz` here requires the agent's base_model to be
-    empty, since the two describe mutually exclusive default models.
-    """
-
-    api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
-    """Model to use with a third-party harness (e.g.
-
-    "claude-haiku-4-5"). Only applies when type is a harness other than `oz`; the
-    top-level config model_id targets the built-in Warp harness instead. When
-    omitted or empty, the harness uses its own default model. For an individual
-    Warp-managed Factory Claude Code agent, send an explicit empty string to use the
-    environment's model. Omitting model_id when replacing that agent's harness is
-    invalid.
-    """
-
-    reasoning_level: Optional[str] = None
-    """Reasoning effort for harnesses that support it (e.g.
-
-    Codex). Only applies when type is a harness other than `oz`. Ignored by
-    harnesses that do not support reasoning levels.
-    """
-
-    type: Optional[Literal["oz", "claude", "gemini", "codex"]] = None
-    """The harness type identifier.
-
-    - oz: Warp's built-in harness (default)
-    - claude: Claude Code harness
-    - gemini: Gemini CLI harness
-    - codex: Codex CLI harness
-    """
-
-
-class HarnessAuthSecrets(BaseModel):
-    """
-    Authentication secrets for third-party harnesses.
-    Only the secret for the harness specified gets injected into the environment.
-    """
-
-    claude_auth_secret_name: Optional[str] = None
-    """
-    Name of a managed secret for Claude Code harness authentication. The secret must
-    exist within the caller's personal or team scope. Only applicable when harness
-    type is "claude".
-    """
-
-    codex_auth_secret_name: Optional[str] = None
-    """
-    Name of a managed secret for Codex harness authentication. The secret must exist
-    within the caller's personal or team scope. Only applicable when harness type is
-    "codex".
-    """
-
-
-class InferenceProvidersAws(BaseModel):
-    """
-    Configures AWS Bedrock as the LLM inference provider for this
-    agent or run.
-    """
-
-    disabled: Optional[bool] = None
-    """If true, opt out of Bedrock at this layer."""
-
-    region: Optional[str] = None
-    """AWS region used for STS when assuming the Bedrock inference role."""
-
-    role_arn: Optional[str] = None
-    """IAM role ARN to assume when calling Bedrock."""
-
-
-class InferenceProviders(BaseModel):
-    """Inference provider settings used for LLM calls."""
-
-    aws: Optional[InferenceProvidersAws] = None
-    """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
+__all__ = ["AgentResponse"]
 
 
 class AgentResponse(BaseModel):
@@ -187,13 +35,13 @@ class AgentResponse(BaseModel):
     5. System defaults
     """
 
-    memory: Memory
+    memory: MemoryResponse
     """Memory settings for an agent."""
 
     name: str
     """Name of the agent"""
 
-    secrets: List[Secret]
+    secrets: List[SecretRef]
     """Secrets that this agent may access by default."""
 
     skills: List[str]
@@ -283,7 +131,7 @@ class AgentResponse(BaseModel):
     harness specified gets injected into the environment.
     """
 
-    inference_providers: Optional[InferenceProviders] = None
+    inference_providers: Optional[InferenceProvidersConfig] = None
     """Inference provider settings used for LLM calls."""
 
     mcp_servers: Optional[Dict[str, McpServerConfig]] = None

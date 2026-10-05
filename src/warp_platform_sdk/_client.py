@@ -36,7 +36,8 @@ from ._base_client import (
 )
 
 if TYPE_CHECKING:
-    from .resources import agent, factories
+    from .resources import agent, factories, networking
+    from .resources.networking import NetworkingResource, AsyncNetworkingResource
     from .resources.agent.agent import AgentResource, AsyncAgentResource
     from .resources.factories.factories import FactoriesResource, AsyncFactoriesResource
 
@@ -122,6 +123,13 @@ class WarpClient(SyncAPIClient):
         from .resources.agent import AgentResource
 
         return AgentResource(self)
+
+    @cached_property
+    def networking(self) -> NetworkingResource:
+        """Networking information for Warp-hosted agents"""
+        from .resources.networking import NetworkingResource
+
+        return NetworkingResource(self)
 
     @cached_property
     def factories(self) -> FactoriesResource:
@@ -322,6 +330,13 @@ class AsyncWarpClient(AsyncAPIClient):
         return AsyncAgentResource(self)
 
     @cached_property
+    def networking(self) -> AsyncNetworkingResource:
+        """Networking information for Warp-hosted agents"""
+        from .resources.networking import AsyncNetworkingResource
+
+        return AsyncNetworkingResource(self)
+
+    @cached_property
     def factories(self) -> AsyncFactoriesResource:
         """Operations for creating and managing factories"""
         from .resources.factories import AsyncFactoriesResource
@@ -462,6 +477,13 @@ class WarpClientWithRawResponse:
         return AgentResourceWithRawResponse(self._client.agent)
 
     @cached_property
+    def networking(self) -> networking.NetworkingResourceWithRawResponse:
+        """Networking information for Warp-hosted agents"""
+        from .resources.networking import NetworkingResourceWithRawResponse
+
+        return NetworkingResourceWithRawResponse(self._client.networking)
+
+    @cached_property
     def factories(self) -> factories.FactoriesResourceWithRawResponse:
         """Operations for creating and managing factories"""
         from .resources.factories import FactoriesResourceWithRawResponse
@@ -481,6 +503,13 @@ class AsyncWarpClientWithRawResponse:
         from .resources.agent import AsyncAgentResourceWithRawResponse
 
         return AsyncAgentResourceWithRawResponse(self._client.agent)
+
+    @cached_property
+    def networking(self) -> networking.AsyncNetworkingResourceWithRawResponse:
+        """Networking information for Warp-hosted agents"""
+        from .resources.networking import AsyncNetworkingResourceWithRawResponse
+
+        return AsyncNetworkingResourceWithRawResponse(self._client.networking)
 
     @cached_property
     def factories(self) -> factories.AsyncFactoriesResourceWithRawResponse:
@@ -504,6 +533,13 @@ class WarpClientWithStreamedResponse:
         return AgentResourceWithStreamingResponse(self._client.agent)
 
     @cached_property
+    def networking(self) -> networking.NetworkingResourceWithStreamingResponse:
+        """Networking information for Warp-hosted agents"""
+        from .resources.networking import NetworkingResourceWithStreamingResponse
+
+        return NetworkingResourceWithStreamingResponse(self._client.networking)
+
+    @cached_property
     def factories(self) -> factories.FactoriesResourceWithStreamingResponse:
         """Operations for creating and managing factories"""
         from .resources.factories import FactoriesResourceWithStreamingResponse
@@ -523,6 +559,13 @@ class AsyncWarpClientWithStreamedResponse:
         from .resources.agent import AsyncAgentResourceWithStreamingResponse
 
         return AsyncAgentResourceWithStreamingResponse(self._client.agent)
+
+    @cached_property
+    def networking(self) -> networking.AsyncNetworkingResourceWithStreamingResponse:
+        """Networking information for Warp-hosted agents"""
+        from .resources.networking import AsyncNetworkingResourceWithStreamingResponse
+
+        return AsyncNetworkingResourceWithStreamingResponse(self._client.networking)
 
     @cached_property
     def factories(self) -> factories.AsyncFactoriesResourceWithStreamingResponse:

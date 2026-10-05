@@ -8,7 +8,7 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 from .._types import Base64FileInput
 from .._utils import PropertyInfo
 from .._models import set_pydantic_config
-from .ambient_agent_config_param import AmbientAgentConfigParam
+from .agent_config_snapshot_param import AgentConfigSnapshotParam
 
 __all__ = ["AgentRunParams", "Attachment"]
 
@@ -26,7 +26,7 @@ class AgentRunParams(TypedDict, total=False):
     uploaded to cloud storage and made available to the agent.
     """
 
-    config: AmbientAgentConfigParam
+    config: AgentConfigSnapshotParam
     """Configuration for a cloud agent run"""
 
     conversation_id: str

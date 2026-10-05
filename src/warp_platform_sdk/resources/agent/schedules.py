@@ -20,7 +20,7 @@ from ..._response import (
 from ...types.agent import schedule_create_params, schedule_update_params
 from ..._base_client import make_request_options
 from ...types.agent.scheduled_agent_item import ScheduledAgentItem
-from ...types.ambient_agent_config_param import AmbientAgentConfigParam
+from ...types.agent_config_snapshot_param import AgentConfigSnapshotParam
 from ...types.agent.schedule_list_response import ScheduleListResponse
 from ...types.agent.schedule_delete_response import ScheduleDeleteResponse
 
@@ -54,7 +54,7 @@ class SchedulesResource(SyncAPIResource):
         *,
         cron_schedule: str,
         name: str,
-        agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_config: AgentConfigSnapshotParam | Omit = omit,
         agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
@@ -176,7 +176,7 @@ class SchedulesResource(SyncAPIResource):
         cron_schedule: str,
         enabled: bool,
         name: str,
-        agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_config: AgentConfigSnapshotParam | Omit = omit,
         agent_uid: str | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,
@@ -415,7 +415,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         *,
         cron_schedule: str,
         name: str,
-        agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_config: AgentConfigSnapshotParam | Omit = omit,
         agent_uid: str | Omit = omit,
         enabled: bool | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
@@ -537,7 +537,7 @@ class AsyncSchedulesResource(AsyncAPIResource):
         cron_schedule: str,
         enabled: bool,
         name: str,
-        agent_config: AmbientAgentConfigParam | Omit = omit,
+        agent_config: AgentConfigSnapshotParam | Omit = omit,
         agent_uid: str | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
         mode: Literal["normal", "plan", "orchestrate"] | Omit = omit,

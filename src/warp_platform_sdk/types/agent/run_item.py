@@ -13,7 +13,7 @@ from ..error_code import ErrorCode
 from ..user_profile import UserProfile
 from .artifact_item import ArtifactItem
 from .run_source_type import RunSourceType
-from ..ambient_agent_config import AmbientAgentConfig
+from ..agent_config_snapshot import AgentConfigSnapshot
 
 __all__ = [
     "RunItem",
@@ -469,7 +469,7 @@ class RunItem(BaseModel):
     updated_at: datetime
     """Timestamp when the run was last updated (RFC3339)"""
 
-    agent_config: Optional[AmbientAgentConfig] = None
+    agent_config: Optional[AgentConfigSnapshot] = None
     """Configuration for a cloud agent run"""
 
     agent_skill: Optional[AgentSkill] = None

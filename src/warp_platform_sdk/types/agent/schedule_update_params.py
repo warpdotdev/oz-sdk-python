@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict
 from typing_extensions import Literal, Required, TypedDict
 
-from ..ambient_agent_config_param import AmbientAgentConfigParam
+from ..agent_config_snapshot_param import AgentConfigSnapshotParam
 
 __all__ = ["ScheduleUpdateParams"]
 
@@ -20,7 +20,7 @@ class ScheduleUpdateParams(TypedDict, total=False):
     name: Required[str]
     """Human-readable name for the schedule"""
 
-    agent_config: AmbientAgentConfigParam
+    agent_config: AgentConfigSnapshotParam
     """Configuration for a cloud agent run"""
 
     agent_uid: str

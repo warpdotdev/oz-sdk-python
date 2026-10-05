@@ -6,15 +6,15 @@ from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
+from .harness import Harness
 from .._models import BaseModel
+from .secret_ref import SecretRef
 from .mcp_server_config import McpServerConfig
+from .harness_auth_secrets import HarnessAuthSecrets
 
 __all__ = [
     "Factory",
     "AgentDefaults",
-    "AgentDefaultsSecret",
-    "AgentDefaultsHarness",
-    "AgentDefaultsHarnessAuthSecrets",
     "Integration",
     "IntegrationJira",
     "IntegrationLinear",
@@ -22,77 +22,10 @@ __all__ = [
     "IntegrationSlack",
     "Repository",
     "ScorerDefaults",
-    "ScorerDefaultsSecret",
     "Scoring",
     "Creator",
     "SelfImprovement",
 ]
-
-
-class AgentDefaultsSecret(BaseModel):
-    """Reference to a managed secret by name."""
-
-    name: str
-    """Name of the managed secret."""
-
-
-class AgentDefaultsHarness(BaseModel):
-    """
-    Specifies which execution harness to use for the agent run.
-    Default (nil/empty) uses Warp's built-in harness.
-    When stored as a named agent's default (create/update agent identity),
-    this field replaces the deprecated base_harness/base_model pair: a
-    harness other than `oz` here requires the agent's base_model to be
-    empty, since the two describe mutually exclusive default models.
-    """
-
-    api_model_id: Optional[str] = FieldInfo(alias="model_id", default=None)
-    """Model to use with a third-party harness (e.g.
-
-    "claude-haiku-4-5"). Only applies when type is a harness other than `oz`; the
-    top-level config model_id targets the built-in Warp harness instead. When
-    omitted or empty, the harness uses its own default model. For an individual
-    Warp-managed Factory Claude Code agent, send an explicit empty string to use the
-    environment's model. Omitting model_id when replacing that agent's harness is
-    invalid.
-    """
-
-    reasoning_level: Optional[str] = None
-    """Reasoning effort for harnesses that support it (e.g.
-
-    Codex). Only applies when type is a harness other than `oz`. Ignored by
-    harnesses that do not support reasoning levels.
-    """
-
-    type: Optional[Literal["oz", "claude", "gemini", "codex"]] = None
-    """The harness type identifier.
-
-    - oz: Warp's built-in harness (default)
-    - claude: Claude Code harness
-    - gemini: Gemini CLI harness
-    - codex: Codex CLI harness
-    """
-
-
-class AgentDefaultsHarnessAuthSecrets(BaseModel):
-    """
-    Authentication secrets for third-party harnesses.
-    Only the secret for the harness specified gets injected into the environment.
-    """
-
-    claude_auth_secret_name: Optional[str] = None
-    """
-    Name of a managed secret for Claude Code harness authentication. The secret must
-    exist within the caller's personal or team scope. Only applicable when harness
-    type is "claude".
-    """
-
-    codex_auth_secret_name: Optional[str] = None
-    """
-    Name of a managed secret for Codex harness authentication. The secret must exist
-    within the caller's personal or team scope. Only applicable when harness type is
-    "codex".
-    """
 
 
 class AgentDefaults(BaseModel):
@@ -113,7 +46,7 @@ class AgentDefaults(BaseModel):
     Only warp_id (managed MCP) entries are representable for a Warp-managed factory.
     """
 
-    secrets: List[AgentDefaultsSecret]
+    secrets: List[SecretRef]
     """Secrets attached to the factory's named agents by default."""
 
     worker_host: str
@@ -122,7 +55,7 @@ class AgentDefaults(BaseModel):
     Empty when unset, in which case the workspace default applies.
     """
 
-    harness: Optional[AgentDefaultsHarness] = None
+    harness: Optional[Harness] = None
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
     uses Warp's built-in harness. When stored as a named agent's default
@@ -132,7 +65,7 @@ class AgentDefaults(BaseModel):
     default models.
     """
 
-    harness_auth_secrets: Optional[AgentDefaultsHarnessAuthSecrets] = None
+    harness_auth_secrets: Optional[HarnessAuthSecrets] = None
     """
     Authentication secrets for third-party harnesses. Only the secret for the
     harness specified gets injected into the environment.
@@ -253,13 +186,6 @@ class Repository(BaseModel):
     """
 
 
-class ScorerDefaultsSecret(BaseModel):
-    """Reference to a managed secret by name."""
-
-    name: str
-    """Name of the managed secret."""
-
-
 class ScorerDefaults(BaseModel):
     """Sparse execution defaults for scorers.
 
@@ -277,7 +203,7 @@ class ScorerDefaults(BaseModel):
     Omitted to inherit the agent defaults; an empty object explicitly clears them.
     """
 
-    secrets: Optional[List[ScorerDefaultsSecret]] = None
+    secrets: Optional[List[SecretRef]] = None
     """Scorer-default secrets.
 
     Omitted to inherit the agent defaults; an empty array explicitly clears them.

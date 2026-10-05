@@ -17,6 +17,7 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.factories import run_create_params
 from ...types.factories.run_create_response import RunCreateResponse
+from ...types.factories.run_list_scores_response import RunListScoresResponse
 
 __all__ = ["RunsResource", "AsyncRunsResource"]
 
@@ -59,9 +60,9 @@ class RunsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunCreateResponse:
         """
-        Dispatch a run to a factory by its UID, using prompt as the run's prompt and an
-        optional title, ticket_ref, and ticket_url. Returns the created run; its factory
-        task is created asynchronously and can be resolved afterwards with GET
+        Dispatch a run to a factory, using prompt as the run's prompt and an optional
+        title, ticket_ref, and ticket_url. Returns the created run; its factory task is
+        created asynchronously and can be resolved afterwards with GET
         /factory/{uid}/task-by-run.
 
         Args:
@@ -105,6 +106,41 @@ class RunsResource(SyncAPIResource):
             cast_to=RunCreateResponse,
         )
 
+    def list_scores(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunListScoresResponse:
+        """
+        List the current live attempt for each evaluation that has attempted the given
+        run, most recent attempt first. Excludes a deleted evaluation's data. Requires
+        only view access to the run, since reading scores is part of viewing the run.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        return self._get(
+            path_template("/factory/runs/{run_id}/scores", run_id=run_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RunListScoresResponse,
+        )
+
 
 class AsyncRunsResource(AsyncAPIResource):
     """Operations for creating and managing factories"""
@@ -144,9 +180,9 @@ class AsyncRunsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> RunCreateResponse:
         """
-        Dispatch a run to a factory by its UID, using prompt as the run's prompt and an
-        optional title, ticket_ref, and ticket_url. Returns the created run; its factory
-        task is created asynchronously and can be resolved afterwards with GET
+        Dispatch a run to a factory, using prompt as the run's prompt and an optional
+        title, ticket_ref, and ticket_url. Returns the created run; its factory task is
+        created asynchronously and can be resolved afterwards with GET
         /factory/{uid}/task-by-run.
 
         Args:
@@ -190,6 +226,41 @@ class AsyncRunsResource(AsyncAPIResource):
             cast_to=RunCreateResponse,
         )
 
+    async def list_scores(
+        self,
+        run_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> RunListScoresResponse:
+        """
+        List the current live attempt for each evaluation that has attempted the given
+        run, most recent attempt first. Excludes a deleted evaluation's data. Requires
+        only view access to the run, since reading scores is part of viewing the run.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not run_id:
+            raise ValueError(f"Expected a non-empty value for `run_id` but received {run_id!r}")
+        return await self._get(
+            path_template("/factory/runs/{run_id}/scores", run_id=run_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=RunListScoresResponse,
+        )
+
 
 class RunsResourceWithRawResponse:
     def __init__(self, runs: RunsResource) -> None:
@@ -197,6 +268,9 @@ class RunsResourceWithRawResponse:
 
         self.create = to_raw_response_wrapper(
             runs.create,
+        )
+        self.list_scores = to_raw_response_wrapper(
+            runs.list_scores,
         )
 
 
@@ -207,6 +281,9 @@ class AsyncRunsResourceWithRawResponse:
         self.create = async_to_raw_response_wrapper(
             runs.create,
         )
+        self.list_scores = async_to_raw_response_wrapper(
+            runs.list_scores,
+        )
 
 
 class RunsResourceWithStreamingResponse:
@@ -216,6 +293,9 @@ class RunsResourceWithStreamingResponse:
         self.create = to_streamed_response_wrapper(
             runs.create,
         )
+        self.list_scores = to_streamed_response_wrapper(
+            runs.list_scores,
+        )
 
 
 class AsyncRunsResourceWithStreamingResponse:
@@ -224,4 +304,7 @@ class AsyncRunsResourceWithStreamingResponse:
 
         self.create = async_to_streamed_response_wrapper(
             runs.create,
+        )
+        self.list_scores = async_to_streamed_response_wrapper(
+            runs.list_scores,
         )

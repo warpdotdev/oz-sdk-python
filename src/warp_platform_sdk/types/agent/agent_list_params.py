@@ -13,8 +13,7 @@ class AgentListParams(TypedDict, total=False):
     factory_uid: str
     """Optional UID of a Factory to filter by.
 
-    When provided, only agents linked to that factory (and owned by the caller's
-    team) are returned. Ignored unless the factory API is enabled.
+    When provided, only agents linked to that factory are returned.
     """
 
     team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]

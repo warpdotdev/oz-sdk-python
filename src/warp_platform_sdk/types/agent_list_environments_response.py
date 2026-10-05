@@ -3,11 +3,11 @@
 from typing import List
 
 from .._models import BaseModel
-from .cloud_environment import CloudEnvironment
+from .environment import Environment
 
 __all__ = ["AgentListEnvironmentsResponse"]
 
 
 class AgentListEnvironmentsResponse(BaseModel):
-    environments: List[CloudEnvironment]
+    environments: List[Environment]
     """List of accessible cloud environments"""

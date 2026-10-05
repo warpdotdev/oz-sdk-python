@@ -7,19 +7,14 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from ..._types import SequenceNotStr
 from ..._utils import PropertyInfo
+from ..harness_param import HarnessParam
+from ..secret_ref_param import SecretRefParam
+from ..memory_store_ref_param import MemoryStoreRefParam
 from ..mcp_server_config_param import McpServerConfigParam
+from ..harness_auth_secrets_param import HarnessAuthSecretsParam
+from ..inference_providers_config_param import InferenceProvidersConfigParam
 
-__all__ = [
-    "AgentCreateParams",
-    "Harness",
-    "HarnessAuthSecrets",
-    "InferenceProviders",
-    "InferenceProvidersAws",
-    "Memory",
-    "MemoryAttachedStore",
-    "MemoryAutoMemory",
-    "Secret",
-]
+__all__ = ["AgentCreateParams", "Memory", "MemoryAutoMemory"]
 
 
 class AgentCreateParams(TypedDict, total=False):
@@ -78,7 +73,7 @@ class AgentCreateParams(TypedDict, total=False):
     When omitted, the agent is not linked to any factory.
     """
 
-    harness: Harness
+    harness: HarnessParam
     """
     Specifies which execution harness to use for the agent run. Default (nil/empty)
     uses Warp's built-in harness. When stored as a named agent's default
@@ -88,13 +83,13 @@ class AgentCreateParams(TypedDict, total=False):
     default models.
     """
 
-    harness_auth_secrets: HarnessAuthSecrets
+    harness_auth_secrets: HarnessAuthSecretsParam
     """
     Authentication secrets for third-party harnesses. Only the secret for the
     harness specified gets injected into the environment.
     """
 
-    inference_providers: InferenceProviders
+    inference_providers: InferenceProvidersConfigParam
     """Inference provider settings used for LLM calls."""
 
     mcp_servers: Dict[str, McpServerConfigParam]
@@ -116,7 +111,7 @@ class AgentCreateParams(TypedDict, total=False):
     prompt: Optional[str]
     """Optional base prompt for this agent"""
 
-    secrets: Iterable[Secret]
+    secrets: Iterable[SecretRefParam]
     """
     Optional list of secrets associated with the agent. Duplicate names within a
     single request are rejected. Each entry is unioned into the run-time secret
@@ -148,101 +143,6 @@ class AgentCreateParams(TypedDict, total=False):
     team_uid: Annotated[str, PropertyInfo(alias="X-Warp-Team-Uid")]
 
 
-class Harness(TypedDict, total=False):
-    """
-    Specifies which execution harness to use for the agent run.
-    Default (nil/empty) uses Warp's built-in harness.
-    When stored as a named agent's default (create/update agent identity),
-    this field replaces the deprecated base_harness/base_model pair: a
-    harness other than `oz` here requires the agent's base_model to be
-    empty, since the two describe mutually exclusive default models.
-    """
-
-    model_id: str
-    """Model to use with a third-party harness (e.g.
-
-    "claude-haiku-4-5"). Only applies when type is a harness other than `oz`; the
-    top-level config model_id targets the built-in Warp harness instead. When
-    omitted or empty, the harness uses its own default model. For an individual
-    Warp-managed Factory Claude Code agent, send an explicit empty string to use the
-    environment's model. Omitting model_id when replacing that agent's harness is
-    invalid.
-    """
-
-    reasoning_level: str
-    """Reasoning effort for harnesses that support it (e.g.
-
-    Codex). Only applies when type is a harness other than `oz`. Ignored by
-    harnesses that do not support reasoning levels.
-    """
-
-    type: Literal["oz", "claude", "gemini", "codex"]
-    """The harness type identifier.
-
-    - oz: Warp's built-in harness (default)
-    - claude: Claude Code harness
-    - gemini: Gemini CLI harness
-    - codex: Codex CLI harness
-    """
-
-
-class HarnessAuthSecrets(TypedDict, total=False):
-    """
-    Authentication secrets for third-party harnesses.
-    Only the secret for the harness specified gets injected into the environment.
-    """
-
-    claude_auth_secret_name: str
-    """
-    Name of a managed secret for Claude Code harness authentication. The secret must
-    exist within the caller's personal or team scope. Only applicable when harness
-    type is "claude".
-    """
-
-    codex_auth_secret_name: str
-    """
-    Name of a managed secret for Codex harness authentication. The secret must exist
-    within the caller's personal or team scope. Only applicable when harness type is
-    "codex".
-    """
-
-
-class InferenceProvidersAws(TypedDict, total=False):
-    """
-    Configures AWS Bedrock as the LLM inference provider for this
-    agent or run.
-    """
-
-    disabled: bool
-    """If true, opt out of Bedrock at this layer."""
-
-    region: str
-    """AWS region used for STS when assuming the Bedrock inference role."""
-
-    role_arn: str
-    """IAM role ARN to assume when calling Bedrock."""
-
-
-class InferenceProviders(TypedDict, total=False):
-    """Inference provider settings used for LLM calls."""
-
-    aws: InferenceProvidersAws
-    """Configures AWS Bedrock as the LLM inference provider for this agent or run."""
-
-
-class MemoryAttachedStore(TypedDict, total=False):
-    """Reference to a memory store to attach to an agent."""
-
-    access: Required[Literal["read_write", "read_only"]]
-    """Access level for the store."""
-
-    instructions: Required[str]
-    """Instructions for how the agent should use this memory store. Must not be empty."""
-
-    uid: Required[str]
-    """UID of the memory store."""
-
-
 class MemoryAutoMemory(TypedDict, total=False):
     """Auto-memory settings for creating an agent."""
 
@@ -256,7 +156,7 @@ class MemoryAutoMemory(TypedDict, total=False):
 class Memory(TypedDict, total=False):
     """Memory settings for creating an agent."""
 
-    attached_stores: Iterable[MemoryAttachedStore]
+    attached_stores: Iterable[MemoryStoreRefParam]
     """
     Existing team memory stores to attach to the agent. Duplicate UIDs within a
     single request are rejected.
@@ -264,10 +164,3 @@ class Memory(TypedDict, total=False):
 
     auto_memory: MemoryAutoMemory
     """Auto-memory settings for creating an agent."""
-
-
-class Secret(TypedDict, total=False):
-    """Reference to a managed secret by name."""
-
-    name: Required[str]
-    """Name of the managed secret."""

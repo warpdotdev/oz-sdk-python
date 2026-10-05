@@ -19,8 +19,12 @@ from ..._response import (
 )
 from ...types.agent import agent_list_params, agent_create_params, agent_update_params
 from ..._base_client import make_request_options
+from ...types.harness_param import HarnessParam
+from ...types.secret_ref_param import SecretRefParam
 from ...types.agent.agent_response import AgentResponse
 from ...types.mcp_server_config_param import McpServerConfigParam
+from ...types.harness_auth_secrets_param import HarnessAuthSecretsParam
+from ...types.inference_providers_config_param import InferenceProvidersConfigParam
 from ...types.agent.list_agent_identities_response import ListAgentIdentitiesResponse
 
 __all__ = ["AgentResource", "AsyncAgentResource"]
@@ -61,14 +65,14 @@ class AgentResource(SyncAPIResource):
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         factory_uid: Optional[str] | Omit = omit,
-        harness: agent_create_params.Harness | Omit = omit,
-        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
-        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+        harness: HarnessParam | Omit = omit,
+        harness_auth_secrets: HarnessAuthSecretsParam | Omit = omit,
+        inference_providers: InferenceProvidersConfigParam | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: agent_create_params.Memory | Omit = omit,
         on_behalf_of_enabled: bool | Omit = omit,
         prompt: Optional[str] | Omit = omit,
-        secrets: Iterable[agent_create_params.Secret] | Omit = omit,
+        secrets: Iterable[SecretRefParam] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
         team_uid: str | Omit = omit,
@@ -79,10 +83,10 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Create a new agent for the caller's team.
+        """Create a new agent in the caller's active team.
 
-        Agents can be used as the execution
-        principal for team-owned runs.
+        Agents act autonomously with
+        their own permissions, configuration, and identity.
 
         Args:
           name: A name for the agent
@@ -215,15 +219,15 @@ class AgentResource(SyncAPIResource):
         default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
-        harness: Optional[agent_update_params.Harness] | Omit = omit,
-        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
-        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+        harness: Optional[HarnessParam] | Omit = omit,
+        harness_auth_secrets: Optional[HarnessAuthSecretsParam] | Omit = omit,
+        inference_providers: Optional[InferenceProvidersConfigParam] | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: Optional[agent_update_params.Memory] | Omit = omit,
         name: str | Omit = omit,
         on_behalf_of_enabled: Optional[bool] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
-        secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
+        secrets: Optional[Iterable[SecretRefParam]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -358,15 +362,12 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListAgentIdentitiesResponse:
-        """List all agents for the caller's team.
-
-        Each agent includes an `available` flag
-        indicating whether it is within the team's plan limit and may be used for runs.
+        """
+        List all agents on the caller's team.
 
         Args:
           factory_uid: Optional UID of a Factory to filter by. When provided, only agents linked to
-              that factory (and owned by the caller's team) are returned. Ignored unless the
-              factory API is enabled.
+              that factory are returned.
 
           extra_headers: Send extra headers
 
@@ -435,11 +436,8 @@ class AgentResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Retrieve a single agent by its unique identifier.
-
-        The response includes an
-        `available` flag indicating whether the agent is within the team's plan limit
-        and may be used for runs.
+        """
+        Retrieve a single agent by its unique identifier.
 
         Args:
           extra_headers: Send extra headers
@@ -496,14 +494,14 @@ class AsyncAgentResource(AsyncAPIResource):
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
         factory_uid: Optional[str] | Omit = omit,
-        harness: agent_create_params.Harness | Omit = omit,
-        harness_auth_secrets: agent_create_params.HarnessAuthSecrets | Omit = omit,
-        inference_providers: agent_create_params.InferenceProviders | Omit = omit,
+        harness: HarnessParam | Omit = omit,
+        harness_auth_secrets: HarnessAuthSecretsParam | Omit = omit,
+        inference_providers: InferenceProvidersConfigParam | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: agent_create_params.Memory | Omit = omit,
         on_behalf_of_enabled: bool | Omit = omit,
         prompt: Optional[str] | Omit = omit,
-        secrets: Iterable[agent_create_params.Secret] | Omit = omit,
+        secrets: Iterable[SecretRefParam] | Omit = omit,
         skills: SequenceNotStr[str] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
         team_uid: str | Omit = omit,
@@ -514,10 +512,10 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Create a new agent for the caller's team.
+        """Create a new agent in the caller's active team.
 
-        Agents can be used as the execution
-        principal for team-owned runs.
+        Agents act autonomously with
+        their own permissions, configuration, and identity.
 
         Args:
           name: A name for the agent
@@ -650,15 +648,15 @@ class AsyncAgentResource(AsyncAPIResource):
         default_runner_uid: Optional[str] | Omit = omit,
         description: Optional[str] | Omit = omit,
         environment_id: Optional[str] | Omit = omit,
-        harness: Optional[agent_update_params.Harness] | Omit = omit,
-        harness_auth_secrets: Optional[agent_update_params.HarnessAuthSecrets] | Omit = omit,
-        inference_providers: Optional[agent_update_params.InferenceProviders] | Omit = omit,
+        harness: Optional[HarnessParam] | Omit = omit,
+        harness_auth_secrets: Optional[HarnessAuthSecretsParam] | Omit = omit,
+        inference_providers: Optional[InferenceProvidersConfigParam] | Omit = omit,
         mcp_servers: Dict[str, McpServerConfigParam] | Omit = omit,
         memory: Optional[agent_update_params.Memory] | Omit = omit,
         name: str | Omit = omit,
         on_behalf_of_enabled: Optional[bool] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
-        secrets: Optional[Iterable[agent_update_params.Secret]] | Omit = omit,
+        secrets: Optional[Iterable[SecretRefParam]] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -793,15 +791,12 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ListAgentIdentitiesResponse:
-        """List all agents for the caller's team.
-
-        Each agent includes an `available` flag
-        indicating whether it is within the team's plan limit and may be used for runs.
+        """
+        List all agents on the caller's team.
 
         Args:
           factory_uid: Optional UID of a Factory to filter by. When provided, only agents linked to
-              that factory (and owned by the caller's team) are returned. Ignored unless the
-              factory API is enabled.
+              that factory are returned.
 
           extra_headers: Send extra headers
 
@@ -870,11 +865,8 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentResponse:
-        """Retrieve a single agent by its unique identifier.
-
-        The response includes an
-        `available` flag indicating whether the agent is within the team's plan limit
-        and may be used for runs.
+        """
+        Retrieve a single agent by its unique identifier.
 
         Args:
           extra_headers: Send extra headers

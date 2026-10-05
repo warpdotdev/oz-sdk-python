@@ -1,0 +1,900 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+import os
+from typing import Any, cast
+
+import pytest
+
+from tests.utils import assert_matches_type
+from warp_platform_sdk import WarpClient, AsyncWarpClient
+from warp_platform_sdk._utils import parse_datetime
+from warp_platform_sdk.pagination import SyncFactoryTasksCursorPage, AsyncFactoryTasksCursorPage
+from warp_platform_sdk.types.factories import (
+    Task,
+)
+
+base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
+
+
+class TestTasks:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create(self, client: WarpClient) -> None:
+        task = client.factories.tasks.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: WarpClient) -> None:
+        task = client.factories.tasks.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+            description="description",
+            stage="TRIAGE",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_create(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.create(
+                uid="",
+                conversation_id="conversation_id",
+                title="title",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update(self, client: WarpClient) -> None:
+        task = client.factories.tasks.update(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_update_with_all_params(self, client: WarpClient) -> None:
+        task = client.factories.tasks.update(
+            task_uid="task_uid",
+            uid="uid",
+            description="description",
+            stage="TRIAGE",
+            title="title",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_update(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.update(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_update(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.update(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_update(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.update(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            client.factories.tasks.with_raw_response.update(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list(self, client: WarpClient) -> None:
+        task = client.factories.tasks.list(
+            uid="uid",
+        )
+        assert_matches_type(SyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_with_all_params(self, client: WarpClient) -> None:
+        task = client.factories.tasks.list(
+            uid="uid",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_by=["string"],
+            cursor="cursor",
+            full_list=True,
+            include_current_run=True,
+            limit=1,
+            q="q",
+            sort_by="created_at",
+            sort_order="asc",
+            stage=["TRIAGE"],
+            updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(SyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.list(
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(SyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.list(
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(SyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_list(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.list(
+                uid="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_delete(self, client: WarpClient) -> None:
+        task = client.factories.tasks.delete(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert task is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_delete(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.delete(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert task is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_delete(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.delete(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert task is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_delete(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.delete(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            client.factories.tasks.with_raw_response.delete(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_cancel(self, client: WarpClient) -> None:
+        task = client.factories.tasks.cancel(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_cancel(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.cancel(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_cancel(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.cancel(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_cancel(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.cancel(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            client.factories.tasks.with_raw_response.cancel(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get(self, client: WarpClient) -> None:
+        task = client.factories.tasks.get(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.get(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.get(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_get(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.get(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            client.factories.tasks.with_raw_response.get(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_by_conversation(self, client: WarpClient) -> None:
+        task = client.factories.tasks.get_by_conversation(
+            uid="uid",
+            conversation_id="conversation_id",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get_by_conversation(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.get_by_conversation(
+            uid="uid",
+            conversation_id="conversation_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get_by_conversation(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.get_by_conversation(
+            uid="uid",
+            conversation_id="conversation_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_get_by_conversation(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.get_by_conversation(
+                uid="",
+                conversation_id="conversation_id",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_by_run(self, client: WarpClient) -> None:
+        task = client.factories.tasks.get_by_run(
+            uid="uid",
+            run_id="run_id",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get_by_run(self, client: WarpClient) -> None:
+        response = client.factories.tasks.with_raw_response.get_by_run(
+            uid="uid",
+            run_id="run_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get_by_run(self, client: WarpClient) -> None:
+        with client.factories.tasks.with_streaming_response.get_by_run(
+            uid="uid",
+            run_id="run_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_get_by_run(self, client: WarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            client.factories.tasks.with_raw_response.get_by_run(
+                uid="",
+                run_id="run_id",
+            )
+
+
+class TestAsyncTasks:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_create_with_all_params(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+            description="description",
+            stage="TRIAGE",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_create(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_create(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.create(
+            uid="uid",
+            conversation_id="conversation_id",
+            title="title",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_create(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.create(
+                uid="",
+                conversation_id="conversation_id",
+                title="title",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.update(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_update_with_all_params(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.update(
+            task_uid="task_uid",
+            uid="uid",
+            description="description",
+            stage="TRIAGE",
+            title="title",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_update(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.update(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_update(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.update(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_update(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.update(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.update(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.list(
+            uid="uid",
+        )
+        assert_matches_type(AsyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_with_all_params(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.list(
+            uid="uid",
+            created_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_before=parse_datetime("2019-12-27T18:11:19.117Z"),
+            created_by=["string"],
+            cursor="cursor",
+            full_list=True,
+            include_current_run=True,
+            limit=1,
+            q="q",
+            sort_by="created_at",
+            sort_order="asc",
+            stage=["TRIAGE"],
+            updated_after=parse_datetime("2019-12-27T18:11:19.117Z"),
+        )
+        assert_matches_type(AsyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.list(
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(AsyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.list(
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(AsyncFactoryTasksCursorPage[Task], task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_list(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.list(
+                uid="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_delete(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.delete(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert task is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_delete(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.delete(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert task is None
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_delete(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.delete(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert task is None
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_delete(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.delete(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.delete(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_cancel(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.cancel(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_cancel(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.cancel(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_cancel(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.cancel(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_cancel(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.cancel(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.cancel(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.get(
+            task_uid="task_uid",
+            uid="uid",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.get(
+            task_uid="task_uid",
+            uid="uid",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.get(
+            task_uid="task_uid",
+            uid="uid",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_get(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.get(
+                task_uid="task_uid",
+                uid="",
+            )
+
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `task_uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.get(
+                task_uid="",
+                uid="uid",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_by_conversation(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.get_by_conversation(
+            uid="uid",
+            conversation_id="conversation_id",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get_by_conversation(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.get_by_conversation(
+            uid="uid",
+            conversation_id="conversation_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_by_conversation(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.get_by_conversation(
+            uid="uid",
+            conversation_id="conversation_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_get_by_conversation(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.get_by_conversation(
+                uid="",
+                conversation_id="conversation_id",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_by_run(self, async_client: AsyncWarpClient) -> None:
+        task = await async_client.factories.tasks.get_by_run(
+            uid="uid",
+            run_id="run_id",
+        )
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get_by_run(self, async_client: AsyncWarpClient) -> None:
+        response = await async_client.factories.tasks.with_raw_response.get_by_run(
+            uid="uid",
+            run_id="run_id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        task = await response.parse()
+        assert_matches_type(Task, task, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_by_run(self, async_client: AsyncWarpClient) -> None:
+        async with async_client.factories.tasks.with_streaming_response.get_by_run(
+            uid="uid",
+            run_id="run_id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            task = await response.parse()
+            assert_matches_type(Task, task, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_get_by_run(self, async_client: AsyncWarpClient) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `uid` but received ''"):
+            await async_client.factories.tasks.with_raw_response.get_by_run(
+                uid="",
+                run_id="run_id",
+            )

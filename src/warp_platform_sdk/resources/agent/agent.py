@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Any, Dict, Iterable, cast
 from typing_extensions import Literal
 
@@ -16,7 +17,12 @@ from .runs import (
     RunsResourceWithStreamingResponse,
     AsyncRunsResourceWithStreamingResponse,
 )
-from ...types import agent_run_params, agent_list_params, agent_list_environments_params
+from ...types import (
+    agent_run_params,
+    agent_list_params,
+    agent_list_environments_params,
+    agent_get_run_by_external_reference_params,
+)
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, strip_not_given, async_maybe_transform
 from .sessions import (
@@ -38,10 +44,18 @@ from .schedules import (
 )
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
+    BinaryAPIResponse,
+    AsyncBinaryAPIResponse,
+    StreamedBinaryAPIResponse,
+    AsyncStreamedBinaryAPIResponse,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
+    to_custom_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_custom_streamed_response_wrapper,
+    async_to_custom_raw_response_wrapper,
+    async_to_custom_streamed_response_wrapper,
 )
 from .conversations import (
     ConversationsResource,
@@ -54,9 +68,11 @@ from .conversations import (
 from ..._base_client import make_request_options
 from ...types.agent_run_response import AgentRunResponse
 from ...types.agent_list_response import AgentListResponse
-from ...types.ambient_agent_config_param import AmbientAgentConfigParam
+from ...types.agent_list_models_response import AgentListModelsResponse
+from ...types.agent_config_snapshot_param import AgentConfigSnapshotParam
 from ...types.agent_get_artifact_response import AgentGetArtifactResponse
 from ...types.agent_list_environments_response import AgentListEnvironmentsResponse
+from ...types.agent_get_run_by_external_reference_response import AgentGetRunByExternalReferenceResponse
 
 __all__ = ["AgentResource", "AsyncAgentResource"]
 
@@ -108,6 +124,7 @@ class AgentResource(SyncAPIResource):
         """
         return AgentResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     def list(
         self,
         *,
@@ -172,6 +189,43 @@ class AgentResource(SyncAPIResource):
             cast_to=AgentListResponse,
         )
 
+    def download_artifact(
+        self,
+        artifact_uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> BinaryAPIResponse:
+        """Redirect to a temporary signed download URL for a downloadable artifact.
+
+        Public
+        artifacts can be downloaded without authentication; private artifacts require
+        the caller to be authenticated and authorized.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not artifact_uid:
+            raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return self._get(
+            path_template("/agent/artifacts/{artifact_uid}/download", artifact_uid=artifact_uid),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=BinaryAPIResponse,
+        )
+
     def get_artifact(
         self,
         artifact_uid: str,
@@ -211,6 +265,48 @@ class AgentResource(SyncAPIResource):
                     Any, AgentGetArtifactResponse
                 ),  # Union types cannot be passed in as arguments in the type system
             ),
+        )
+
+    def get_run_by_external_reference(
+        self,
+        *,
+        url: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentGetRunByExternalReferenceResponse:
+        """
+        Reverse-looks up the agent run that created an external reference with the given
+        URL. The URL is matched against the canonical locator stored when the artifact
+        was reported. Returns 404 when no matching run exists or when the caller lacks
+        access.
+
+        Args:
+          url: The canonical URL of the external reference artifact to look up.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/agent/run-by-external-reference",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"url": url}, agent_get_run_by_external_reference_params.AgentGetRunByExternalReferenceParams
+                ),
+            ),
+            cast_to=AgentGetRunByExternalReferenceResponse,
         )
 
     def list_environments(
@@ -258,12 +354,36 @@ class AgentResource(SyncAPIResource):
             cast_to=AgentListEnvironmentsResponse,
         )
 
+    def list_models(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentListModelsResponse:
+        """
+        Retrieve the list of LLM models available to the authenticated user for agent
+        runs. The response includes which model is the default, as well as per-model
+        metadata such as provider, cost, and whether the model is currently disabled
+        (and why).
+        """
+        return self._get(
+            "/agent/models",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentListModelsResponse,
+        )
+
     def run(
         self,
         *,
         agent_identity_uid: str | Omit = omit,
         attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
-        config: AmbientAgentConfigParam | Omit = omit,
+        config: AgentConfigSnapshotParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
@@ -426,6 +546,7 @@ class AsyncAgentResource(AsyncAPIResource):
         """
         return AsyncAgentResourceWithStreamingResponse(self)
 
+    @typing_extensions.deprecated("deprecated")
     async def list(
         self,
         *,
@@ -490,6 +611,43 @@ class AsyncAgentResource(AsyncAPIResource):
             cast_to=AgentListResponse,
         )
 
+    async def download_artifact(
+        self,
+        artifact_uid: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AsyncBinaryAPIResponse:
+        """Redirect to a temporary signed download URL for a downloadable artifact.
+
+        Public
+        artifacts can be downloaded without authentication; private artifacts require
+        the caller to be authenticated and authorized.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not artifact_uid:
+            raise ValueError(f"Expected a non-empty value for `artifact_uid` but received {artifact_uid!r}")
+        extra_headers = {"Accept": "application/octet-stream", **(extra_headers or {})}
+        return await self._get(
+            path_template("/agent/artifacts/{artifact_uid}/download", artifact_uid=artifact_uid),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AsyncBinaryAPIResponse,
+        )
+
     async def get_artifact(
         self,
         artifact_uid: str,
@@ -529,6 +687,48 @@ class AsyncAgentResource(AsyncAPIResource):
                     Any, AgentGetArtifactResponse
                 ),  # Union types cannot be passed in as arguments in the type system
             ),
+        )
+
+    async def get_run_by_external_reference(
+        self,
+        *,
+        url: str,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentGetRunByExternalReferenceResponse:
+        """
+        Reverse-looks up the agent run that created an external reference with the given
+        URL. The URL is matched against the canonical locator stored when the artifact
+        was reported. Returns 404 when no matching run exists or when the caller lacks
+        access.
+
+        Args:
+          url: The canonical URL of the external reference artifact to look up.
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/agent/run-by-external-reference",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"url": url}, agent_get_run_by_external_reference_params.AgentGetRunByExternalReferenceParams
+                ),
+            ),
+            cast_to=AgentGetRunByExternalReferenceResponse,
         )
 
     async def list_environments(
@@ -578,12 +778,36 @@ class AsyncAgentResource(AsyncAPIResource):
             cast_to=AgentListEnvironmentsResponse,
         )
 
+    async def list_models(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AgentListModelsResponse:
+        """
+        Retrieve the list of LLM models available to the authenticated user for agent
+        runs. The response includes which model is the default, as well as per-model
+        metadata such as provider, cost, and whether the model is currently disabled
+        (and why).
+        """
+        return await self._get(
+            "/agent/models",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AgentListModelsResponse,
+        )
+
     async def run(
         self,
         *,
         agent_identity_uid: str | Omit = omit,
         attachments: Iterable[agent_run_params.Attachment] | Omit = omit,
-        config: AmbientAgentConfigParam | Omit = omit,
+        config: AgentConfigSnapshotParam | Omit = omit,
         conversation_id: str | Omit = omit,
         interactive: bool | Omit = omit,
         metadata: Dict[str, str] | Omit = omit,
@@ -703,14 +927,26 @@ class AgentResourceWithRawResponse:
     def __init__(self, agent: AgentResource) -> None:
         self._agent = agent
 
-        self.list = to_raw_response_wrapper(
-            agent.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                agent.list,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.download_artifact = to_custom_raw_response_wrapper(
+            agent.download_artifact,
+            BinaryAPIResponse,
         )
         self.get_artifact = to_raw_response_wrapper(
             agent.get_artifact,
         )
+        self.get_run_by_external_reference = to_raw_response_wrapper(
+            agent.get_run_by_external_reference,
+        )
         self.list_environments = to_raw_response_wrapper(
             agent.list_environments,
+        )
+        self.list_models = to_raw_response_wrapper(
+            agent.list_models,
         )
         self.run = to_raw_response_wrapper(
             agent.run,
@@ -746,14 +982,26 @@ class AsyncAgentResourceWithRawResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
         self._agent = agent
 
-        self.list = async_to_raw_response_wrapper(
-            agent.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                agent.list,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.download_artifact = async_to_custom_raw_response_wrapper(
+            agent.download_artifact,
+            AsyncBinaryAPIResponse,
         )
         self.get_artifact = async_to_raw_response_wrapper(
             agent.get_artifact,
         )
+        self.get_run_by_external_reference = async_to_raw_response_wrapper(
+            agent.get_run_by_external_reference,
+        )
         self.list_environments = async_to_raw_response_wrapper(
             agent.list_environments,
+        )
+        self.list_models = async_to_raw_response_wrapper(
+            agent.list_models,
         )
         self.run = async_to_raw_response_wrapper(
             agent.run,
@@ -789,14 +1037,26 @@ class AgentResourceWithStreamingResponse:
     def __init__(self, agent: AgentResource) -> None:
         self._agent = agent
 
-        self.list = to_streamed_response_wrapper(
-            agent.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                agent.list,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.download_artifact = to_custom_streamed_response_wrapper(
+            agent.download_artifact,
+            StreamedBinaryAPIResponse,
         )
         self.get_artifact = to_streamed_response_wrapper(
             agent.get_artifact,
         )
+        self.get_run_by_external_reference = to_streamed_response_wrapper(
+            agent.get_run_by_external_reference,
+        )
         self.list_environments = to_streamed_response_wrapper(
             agent.list_environments,
+        )
+        self.list_models = to_streamed_response_wrapper(
+            agent.list_models,
         )
         self.run = to_streamed_response_wrapper(
             agent.run,
@@ -832,14 +1092,26 @@ class AsyncAgentResourceWithStreamingResponse:
     def __init__(self, agent: AsyncAgentResource) -> None:
         self._agent = agent
 
-        self.list = async_to_streamed_response_wrapper(
-            agent.list,
+        self.list = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                agent.list,  # pyright: ignore[reportDeprecated],
+            )
+        )
+        self.download_artifact = async_to_custom_streamed_response_wrapper(
+            agent.download_artifact,
+            AsyncStreamedBinaryAPIResponse,
         )
         self.get_artifact = async_to_streamed_response_wrapper(
             agent.get_artifact,
         )
+        self.get_run_by_external_reference = async_to_streamed_response_wrapper(
+            agent.get_run_by_external_reference,
+        )
         self.list_environments = async_to_streamed_response_wrapper(
             agent.list_environments,
+        )
+        self.list_models = async_to_streamed_response_wrapper(
+            agent.list_models,
         )
         self.run = async_to_streamed_response_wrapper(
             agent.run,

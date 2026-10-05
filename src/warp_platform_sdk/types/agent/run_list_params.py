@@ -78,7 +78,7 @@ class RunListParams(TypedDict, total=False):
     metadata: Dict[str, str]
     """Filter by exact metadata key/value pairs using object notation (e.g.
 
-    `metadata[ticket_id]=VIS-238`), combining multiple pairs with AND semantics, up
+    `metadata[ticket_id]=ACME-238`), combining multiple pairs with AND semantics, up
     to 5 per request. Returns `feature_not_available` when metadata filtering is not
     enabled.
     """

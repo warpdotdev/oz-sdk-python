@@ -4,20 +4,29 @@ Types:
 
 ```python
 from warp_platform_sdk.types import (
+    AgentConfigSnapshot,
     AgentSkill,
-    AmbientAgentConfig,
+    AwsInferenceProviderConfig,
     AwsProviderConfig,
-    CloudEnvironment,
-    CloudEnvironmentConfig,
+    Environment,
+    EnvironmentConfig,
     Error,
     ErrorCode,
     GcpProviderConfig,
+    Harness,
+    HarnessAuthSecrets,
+    InferenceProvidersConfig,
     McpServerConfig,
+    MemoryStoreRef,
     Scope,
+    SecretRef,
+    SessionSharingConfig,
     UserProfile,
     AgentListResponse,
     AgentGetArtifactResponse,
+    AgentGetRunByExternalReferenceResponse,
     AgentListEnvironmentsResponse,
+    AgentListModelsResponse,
     AgentRunResponse,
 )
 ```
@@ -25,8 +34,11 @@ from warp_platform_sdk.types import (
 Methods:
 
 - <code title="get /agent">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent_list_response.py">AgentListResponse</a></code>
+- <code title="get /agent/artifacts/{artifactUid}/download">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">download_artifact</a>(artifact_uid) -> BinaryAPIResponse</code>
 - <code title="get /agent/artifacts/{artifactUid}">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">get_artifact</a>(artifact_uid) -> <a href="./src/warp_platform_sdk/types/agent_get_artifact_response.py">AgentGetArtifactResponse</a></code>
+- <code title="get /agent/run-by-external-reference">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">get_run_by_external_reference</a>(\*\*<a href="src/warp_platform_sdk/types/agent_get_run_by_external_reference_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent_get_run_by_external_reference_response.py">AgentGetRunByExternalReferenceResponse</a></code>
 - <code title="get /agent/environments">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">list_environments</a>(\*\*<a href="src/warp_platform_sdk/types/agent_list_environments_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent_list_environments_response.py">AgentListEnvironmentsResponse</a></code>
+- <code title="get /agent/models">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">list_models</a>() -> <a href="./src/warp_platform_sdk/types/agent_list_models_response.py">AgentListModelsResponse</a></code>
 - <code title="post /agent/runs">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/warp_platform_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
 
 ## Runs
@@ -36,10 +48,14 @@ Types:
 ```python
 from warp_platform_sdk.types.agent import (
     ArtifactItem,
+    ConversationStep,
     RunItem,
     RunSourceType,
     RunState,
     RunCancelResponse,
+    RunGetConversationResponse,
+    RunGetHarnessUsageResponse,
+    RunGetTimelineResponse,
     RunListHandoffAttachmentsResponse,
     RunSubmitFollowupResponse,
 )
@@ -50,6 +66,11 @@ Methods:
 - <code title="get /agent/runs/{runId}">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">retrieve</a>(run_id) -> <a href="./src/warp_platform_sdk/types/agent/run_item.py">RunItem</a></code>
 - <code title="get /agent/runs">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/agent/run_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/run_item.py">SyncRunsCursorPage[RunItem]</a></code>
 - <code title="post /agent/runs/{runId}/cancel">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">cancel</a>(run_id) -> str</code>
+- <code title="get /agent/runs/{runId}/conversation">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">get_conversation</a>(run_id) -> <a href="./src/warp_platform_sdk/types/agent/run_get_conversation_response.py">RunGetConversationResponse</a></code>
+- <code title="get /agent/runs/{runId}/harness-usage">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">get_harness_usage</a>(run_id) -> <a href="./src/warp_platform_sdk/types/agent/run_get_harness_usage_response.py">RunGetHarnessUsageResponse</a></code>
+- <code title="get /agent/runs/{runId}/timeline">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">get_timeline</a>(run_id) -> <a href="./src/warp_platform_sdk/types/agent/run_get_timeline_response.py">RunGetTimelineResponse</a></code>
+- <code title="get /agent/runs/{runId}/transcript">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">get_transcript</a>(run_id) -> BinaryAPIResponse</code>
+- <code title="post /agent/runs/{runId}/interrupt">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">interrupt</a>(run_id) -> object</code>
 - <code title="get /agent/runs/{runId}/handoff/attachments">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">list_handoff_attachments</a>(run_id) -> <a href="./src/warp_platform_sdk/types/agent/run_list_handoff_attachments_response.py">RunListHandoffAttachmentsResponse</a></code>
 - <code title="post /agent/runs/{runId}/followups">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">submit_followup</a>(run_id, \*\*<a href="src/warp_platform_sdk/types/agent/run_submit_followup_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/run_submit_followup_response.py">RunSubmitFollowupResponse</a></code>
 
@@ -83,8 +104,11 @@ Types:
 ```python
 from warp_platform_sdk.types.agent import (
     AgentResponse,
+    AutoMemoryResponse,
     CreateAgentRequest,
     ListAgentIdentitiesResponse,
+    MemoryResponse,
+    MemoryStoreAttachmentResponse,
     UpdateAgentRequest,
 )
 ```
@@ -114,12 +138,34 @@ Methods:
 Types:
 
 ```python
-from warp_platform_sdk.types.agent import ConversationCheckRedirectResponse
+from warp_platform_sdk.types.agent import (
+    ConversationRetrieveResponse,
+    ConversationCheckRedirectResponse,
+    ConversationInterruptResponse,
+    ConversationSubmitFollowupResponse,
+)
 ```
 
 Methods:
 
+- <code title="get /agent/conversations/{conversation_id}">client.agent.conversations.<a href="./src/warp_platform_sdk/resources/agent/conversations.py">retrieve</a>(conversation_id) -> <a href="./src/warp_platform_sdk/types/agent/conversation_retrieve_response.py">ConversationRetrieveResponse</a></code>
 - <code title="get /agent/conversations/{conversationId}/redirect">client.agent.conversations.<a href="./src/warp_platform_sdk/resources/agent/conversations.py">check_redirect</a>(conversation_id) -> <a href="./src/warp_platform_sdk/types/agent/conversation_check_redirect_response.py">ConversationCheckRedirectResponse</a></code>
+- <code title="get /agent/conversations/{conversation_id}/screenshots/{screenshot_uid}/download">client.agent.conversations.<a href="./src/warp_platform_sdk/resources/agent/conversations.py">download_screenshot</a>(screenshot_uid, \*, conversation_id) -> BinaryAPIResponse</code>
+- <code title="get /agent/conversations/{conversation_id}/transcript">client.agent.conversations.<a href="./src/warp_platform_sdk/resources/agent/conversations.py">get_transcript</a>(conversation_id) -> BinaryAPIResponse</code>
+- <code title="post /agent/conversations/{conversation_id}/interrupt">client.agent.conversations.<a href="./src/warp_platform_sdk/resources/agent/conversations.py">interrupt</a>(conversation_id) -> <a href="./src/warp_platform_sdk/types/agent/conversation_interrupt_response.py">ConversationInterruptResponse</a></code>
+- <code title="post /agent/conversations/{conversation_id}/followups">client.agent.conversations.<a href="./src/warp_platform_sdk/resources/agent/conversations.py">submit_followup</a>(conversation_id, \*\*<a href="src/warp_platform_sdk/types/agent/conversation_submit_followup_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/conversation_submit_followup_response.py">ConversationSubmitFollowupResponse</a></code>
+
+# Networking
+
+Types:
+
+```python
+from warp_platform_sdk.types import NetworkingGetEgressRangesResponse
+```
+
+Methods:
+
+- <code title="get /networking/egress-ranges">client.networking.<a href="./src/warp_platform_sdk/resources/networking.py">get_egress_ranges</a>() -> <a href="./src/warp_platform_sdk/types/networking_get_egress_ranges_response.py">NetworkingGetEgressRangesResponse</a></code>
 
 # Factories
 
@@ -134,34 +180,124 @@ Methods:
 - <code title="get /factory">client.factories.<a href="./src/warp_platform_sdk/resources/factories/factories.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/factory_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factory.py">SyncFactoriesCursorPage[Factory]</a></code>
 - <code title="get /factory/{uid}">client.factories.<a href="./src/warp_platform_sdk/resources/factories/factories.py">get</a>(uid) -> <a href="./src/warp_platform_sdk/types/factory.py">Factory</a></code>
 
-## Inbox
-
-Types:
-
-```python
-from warp_platform_sdk.types.factories import (
-    InboxItem,
-    InboxRecipient,
-    InboxScope,
-    InboxMarkReadResponse,
-    InboxMarkUnreadResponse,
-)
-```
-
-Methods:
-
-- <code title="get /factory-inbox">client.factories.inbox.<a href="./src/warp_platform_sdk/resources/factories/inbox.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/factories/inbox_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/inbox_item.py">SyncFactoryInboxCursorPage[InboxItem]</a></code>
-- <code title="post /factory-inbox/notifications/read">client.factories.inbox.<a href="./src/warp_platform_sdk/resources/factories/inbox.py">mark_read</a>(\*\*<a href="src/warp_platform_sdk/types/factories/inbox_mark_read_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/inbox_mark_read_response.py">InboxMarkReadResponse</a></code>
-- <code title="post /factory-inbox/notifications/unread">client.factories.inbox.<a href="./src/warp_platform_sdk/resources/factories/inbox.py">mark_unread</a>(\*\*<a href="src/warp_platform_sdk/types/factories/inbox_mark_unread_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/inbox_mark_unread_response.py">InboxMarkUnreadResponse</a></code>
-
 ## Runs
 
 Types:
 
 ```python
-from warp_platform_sdk.types.factories import RunCreateResponse
+from warp_platform_sdk.types.factories import RunCreateResponse, RunListScoresResponse
 ```
 
 Methods:
 
 - <code title="post /factory/{uid}/runs">client.factories.runs.<a href="./src/warp_platform_sdk/resources/factories/runs.py">create</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/run_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/run_create_response.py">RunCreateResponse</a></code>
+- <code title="get /factory/runs/{run_id}/scores">client.factories.runs.<a href="./src/warp_platform_sdk/resources/factories/runs.py">list_scores</a>(run_id) -> <a href="./src/warp_platform_sdk/types/factories/run_list_scores_response.py">RunListScoresResponse</a></code>
+
+## Tasks
+
+Types:
+
+```python
+from warp_platform_sdk.types.factories import Task
+```
+
+Methods:
+
+- <code title="post /factory/{uid}/tasks">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">create</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/task_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
+- <code title="patch /factory/{uid}/tasks/{task_uid}">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">update</a>(task_uid, \*, uid, \*\*<a href="src/warp_platform_sdk/types/factories/task_update_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
+- <code title="get /factory/{uid}/tasks">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">list</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/task_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/task.py">SyncFactoryTasksCursorPage[Task]</a></code>
+- <code title="delete /factory/{uid}/tasks/{task_uid}">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">delete</a>(task_uid, \*, uid) -> None</code>
+- <code title="post /factory/{uid}/tasks/{task_uid}/cancel">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">cancel</a>(task_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
+- <code title="get /factory/{uid}/tasks/{task_uid}">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">get</a>(task_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
+- <code title="get /factory/{uid}/task-by-conversation">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">get_by_conversation</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/task_get_by_conversation_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
+- <code title="get /factory/{uid}/task-by-run">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">get_by_run</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/task_get_by_run_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
+
+## Scorers
+
+Types:
+
+```python
+from warp_platform_sdk.types.factories import (
+    ScorerCreateResponse,
+    ScorerListResponse,
+    ScorerListResultReasonsResponse,
+    ScorerListResultsResponse,
+)
+```
+
+Methods:
+
+- <code title="post /factory/scorers">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">create</a>(\*\*<a href="src/warp_platform_sdk/types/factories/scorer_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_create_response.py">ScorerCreateResponse</a></code>
+- <code title="get /factory/scorers">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/factories/scorer_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_list_response.py">ScorerListResponse</a></code>
+- <code title="get /factory/scorers/{scorer_id}/results/reasons">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">list_result_reasons</a>(scorer_id, \*\*<a href="src/warp_platform_sdk/types/factories/scorer_list_result_reasons_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_list_result_reasons_response.py">ScorerListResultReasonsResponse</a></code>
+- <code title="get /factory/scorers/{scorer_id}/results">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">list_results</a>(scorer_id, \*\*<a href="src/warp_platform_sdk/types/factories/scorer_list_results_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_list_results_response.py">SyncScorerResultsCursorPage[ScorerListResultsResponse]</a></code>
+
+## Benchmarks
+
+### Suites
+
+Types:
+
+```python
+from warp_platform_sdk.types.factories.benchmarks import (
+    SuiteCreateResponse,
+    SuiteListResponse,
+    SuiteGetResponse,
+    SuiteLaunchRunResponse,
+)
+```
+
+Methods:
+
+- <code title="post /factory/{uid}/benchmarks/suites">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">create</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/suite_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_create_response.py">SuiteCreateResponse</a></code>
+- <code title="get /factory/{uid}/benchmarks/suites">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">list</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/suite_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_list_response.py">SyncBenchmarkSuitesCursorPage[SuiteListResponse]</a></code>
+- <code title="get /factory/{uid}/benchmarks/suites/{suite_uid}">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">get</a>(suite_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_get_response.py">SuiteGetResponse</a></code>
+- <code title="post /factory/{uid}/benchmarks/suites/{suite_uid}/runs">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">launch_run</a>(suite_uid, \*, uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/suite_launch_run_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_launch_run_response.py">SuiteLaunchRunResponse</a></code>
+
+### Runs
+
+Types:
+
+```python
+from warp_platform_sdk.types.factories.benchmarks import (
+    RunListResponse,
+    RunGetResponse,
+    RunGetResultsResponse,
+)
+```
+
+Methods:
+
+- <code title="get /factory/{uid}/benchmarks/runs">client.factories.benchmarks.runs.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/runs.py">list</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/run_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/run_list_response.py">SyncRunsCursorPage[RunListResponse]</a></code>
+- <code title="get /factory/{uid}/benchmarks/runs/{run_uid}">client.factories.benchmarks.runs.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/runs.py">get</a>(run_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/run_get_response.py">RunGetResponse</a></code>
+- <code title="get /factory/{uid}/benchmarks/runs/{run_uid}/results">client.factories.benchmarks.runs.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/runs.py">get_results</a>(run_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/run_get_results_response.py">RunGetResultsResponse</a></code>
+
+## Files
+
+Types:
+
+```python
+from warp_platform_sdk.types.factories import FileValidateResponse
+```
+
+Methods:
+
+- <code title="post /factory-files/validate">client.factories.files.<a href="./src/warp_platform_sdk/resources/factories/files/files.py">validate</a>(\*\*<a href="src/warp_platform_sdk/types/factories/file_validate_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/file_validate_response.py">FileValidateResponse</a></code>
+
+### Schemas
+
+Types:
+
+```python
+from warp_platform_sdk.types.factories.files import (
+    SchemaRetrieveResponse,
+    SchemaListResponse,
+    SchemaGetDocumentResponse,
+)
+```
+
+Methods:
+
+- <code title="get /factory-files/schemas/{schema_version}">client.factories.files.schemas.<a href="./src/warp_platform_sdk/resources/factories/files/schemas.py">retrieve</a>(schema_version) -> <a href="./src/warp_platform_sdk/types/factories/files/schema_retrieve_response.py">SchemaRetrieveResponse</a></code>
+- <code title="get /factory-files/schemas">client.factories.files.schemas.<a href="./src/warp_platform_sdk/resources/factories/files/schemas.py">list</a>() -> <a href="./src/warp_platform_sdk/types/factories/files/schema_list_response.py">SchemaListResponse</a></code>
+- <code title="get /factory-files/schemas/{schema_version}/{document}">client.factories.files.schemas.<a href="./src/warp_platform_sdk/resources/factories/files/schemas.py">get_document</a>(document, \*, schema_version) -> <a href="./src/warp_platform_sdk/types/factories/files/schema_get_document_response.py">SchemaGetDocumentResponse</a></code>

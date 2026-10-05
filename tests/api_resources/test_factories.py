@@ -31,7 +31,7 @@ class TestFactories:
             cursor="cursor",
             limit=1,
             search="search",
-            query_team_uid="team_uid",
+            filter_team_uid="team_uid",
             team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(SyncFactoriesCursorPage[Factory], factory, path=["response"])
@@ -119,7 +119,7 @@ class TestAsyncFactories:
             cursor="cursor",
             limit=1,
             search="search",
-            query_team_uid="team_uid",
+            filter_team_uid="team_uid",
             team_uid="X-Warp-Team-Uid",
         )
         assert_matches_type(AsyncFactoriesCursorPage[Factory], factory, path=["response"])

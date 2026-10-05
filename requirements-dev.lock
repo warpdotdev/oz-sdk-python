@@ -3,7 +3,7 @@
 -e .
 annotated-types==0.7.0
     # via pydantic
-anyio==4.12.1
+anyio==4.15.1
     # via
     #   httpx
     #   warp-platform-sdk
@@ -79,7 +79,7 @@ tomli==2.4.0 ; python_full_version < '3.11'
     # via
     #   mypy
     #   pytest
-typing-extensions==4.15.0
+typing-extensions==4.16.0
     # via
     #   anyio
     #   exceptiongroup

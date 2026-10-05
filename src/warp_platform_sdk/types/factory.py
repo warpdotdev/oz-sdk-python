@@ -73,30 +73,29 @@ class AgentDefaults(BaseModel):
 
 
 class IntegrationJira(BaseModel):
-    """Persisted Jira discovery scope.
-
-    Present only when type is jira and
-    the factory declares selected projects.
+    """
+    Jira project keys from earlier integration selections, when present.
+    Issue discovery follows enabled agent-session automations instead.
     """
 
     project_keys: List[str]
     """
-    Jira project keys (for example APP, not the numeric project ID) that scope issue
-    discovery and routing to the Factory FOREMAN agent.
+    Jira project keys (for example APP, not the numeric project ID) for the one-time
+    agent-session automation seed. Discovery follows enabled seated automation
+    filters afterward.
     """
 
 
 class IntegrationLinear(BaseModel):
-    """Persisted Linear discovery scope.
-
-    Present only when type is linear
-    and the factory declares selected teams.
+    """
+    Linear team IDs from earlier integration selections, when present.
+    Issue discovery follows enabled agent-session automations instead.
     """
 
     team_ids: List[str]
     """
-    Linear team IDs that scope issue discovery and routing to the Factory FOREMAN
-    agent.
+    Linear team IDs for the one-time agent-session automation seed. Discovery
+    follows enabled seated automation filters afterward.
     """
 
 
@@ -143,15 +142,15 @@ class Integration(BaseModel):
     """
 
     jira: Optional[IntegrationJira] = None
-    """Persisted Jira discovery scope.
-
-    Present only when type is jira and the factory declares selected projects.
+    """
+    Jira project keys from earlier integration selections, when present. Issue
+    discovery follows enabled agent-session automations instead.
     """
 
     linear: Optional[IntegrationLinear] = None
-    """Persisted Linear discovery scope.
-
-    Present only when type is linear and the factory declares selected teams.
+    """
+    Linear team IDs from earlier integration selections, when present. Issue
+    discovery follows enabled agent-session automations instead.
     """
 
     microsoft_teams: Optional[IntegrationMicrosoftTeams] = FieldInfo(alias="microsoft-teams", default=None)

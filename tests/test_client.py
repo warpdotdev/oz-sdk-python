@@ -19,12 +19,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from oz_agent_sdk import WarpClient, AsyncWarpClient, APIResponseValidationError
-from oz_agent_sdk._types import Omit
-from oz_agent_sdk._utils import asyncify
-from oz_agent_sdk._models import BaseModel, FinalRequestOptions
-from oz_agent_sdk._exceptions import APIStatusError, APITimeoutError, WarpClientError, APIResponseValidationError
-from oz_agent_sdk._base_client import (
+from warp_platform_sdk import WarpClient, AsyncWarpClient, APIResponseValidationError
+from warp_platform_sdk._types import Omit
+from warp_platform_sdk._utils import asyncify
+from warp_platform_sdk._models import BaseModel, FinalRequestOptions
+from warp_platform_sdk._exceptions import APIStatusError, APITimeoutError, WarpClientError, APIResponseValidationError
+from warp_platform_sdk._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -286,10 +286,10 @@ class TestWarpClient:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "oz_agent_sdk/_legacy_response.py",
-                        "oz_agent_sdk/_response.py",
+                        "warp_platform_sdk/_legacy_response.py",
+                        "warp_platform_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "oz_agent_sdk/_compat.py",
+                        "warp_platform_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -880,7 +880,7 @@ class TestWarpClient:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: WarpClient) -> None:
         respx_mock.post("/agent/runs").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -890,7 +890,7 @@ class TestWarpClient:
 
         assert _get_open_connections(client) == 0
 
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: WarpClient) -> None:
         respx_mock.post("/agent/runs").mock(return_value=httpx.Response(500))
@@ -900,7 +900,7 @@ class TestWarpClient:
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -931,7 +931,7 @@ class TestWarpClient:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: WarpClient, failures_before_success: int, respx_mock: MockRouter
@@ -954,7 +954,7 @@ class TestWarpClient:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: WarpClient, failures_before_success: int, respx_mock: MockRouter
@@ -1207,10 +1207,10 @@ class TestAsyncWarpClient:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "oz_agent_sdk/_legacy_response.py",
-                        "oz_agent_sdk/_response.py",
+                        "warp_platform_sdk/_legacy_response.py",
+                        "warp_platform_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "oz_agent_sdk/_compat.py",
+                        "warp_platform_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1812,7 +1812,7 @@ class TestAsyncWarpClient:
         calculated = async_client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncWarpClient
@@ -1824,7 +1824,7 @@ class TestAsyncWarpClient:
 
         assert _get_open_connections(async_client) == 0
 
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncWarpClient
@@ -1836,7 +1836,7 @@ class TestAsyncWarpClient:
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
@@ -1867,7 +1867,7 @@ class TestAsyncWarpClient:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_omit_retry_count_header(
         self, async_client: AsyncWarpClient, failures_before_success: int, respx_mock: MockRouter
@@ -1890,7 +1890,7 @@ class TestAsyncWarpClient:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("oz_agent_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("warp_platform_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_overwrite_retry_count_header(
         self, async_client: AsyncWarpClient, failures_before_success: int, respx_mock: MockRouter

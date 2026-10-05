@@ -8,9 +8,9 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from oz_agent_sdk import WarpClient, AsyncWarpClient
-from oz_agent_sdk.pagination import SyncFactoryInboxCursorPage, AsyncFactoryInboxCursorPage
-from oz_agent_sdk.types.factories import (
+from warp_platform_sdk import WarpClient, AsyncWarpClient
+from warp_platform_sdk.pagination import SyncFactoryInboxCursorPage, AsyncFactoryInboxCursorPage
+from warp_platform_sdk.types.factories import (
     InboxItem,
     InboxMarkReadResponse,
     InboxMarkUnreadResponse,

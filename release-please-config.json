@@ -6,7 +6,7 @@
   "include-v-in-tag": true,
   "include-component-in-tag": false,
   "versioning": "prerelease",
-  "prerelease": true,
+  "prerelease": false,
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": false,
   "pull-request-header": "Automated Release PR",
@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/warp_platform_sdk/_version.py"
+    "src/oz_agent_sdk/_version.py"
   ]
 }

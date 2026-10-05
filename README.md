@@ -1,9 +1,9 @@
 # Warp Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/oz-agent-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/oz-agent-sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/warp-platform-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/warp-platform-sdk/)
 
-The Warp Python library provides convenient access to the Warp REST API from any Python 3.9+
+The Warp Python library provides convenient access to the Warp REST API from any Python 3.10+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -17,7 +17,7 @@ The REST API documentation can be found on [docs.warp.dev](https://docs.warp.dev
 
 ```sh
 # install from PyPI
-pip install oz-agent-sdk
+pip install warp-platform-sdk
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 client = WarpClient(
     api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
@@ -43,7 +43,7 @@ print(response.run_id)
 You can configure the agent with a custom environment and other settings using the `config` parameter:
 
 ```python
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 client = WarpClient()
 
@@ -108,7 +108,7 @@ Simply import `AsyncWarpClient` instead of `WarpClient` and use `await` with eac
 ```python
 import os
 import asyncio
-from oz_agent_sdk import AsyncWarpClient
+from warp_platform_sdk import AsyncWarpClient
 
 client = AsyncWarpClient(
     api_key=os.environ.get("WARP_API_KEY"),  # This is the default and can be omitted
@@ -135,7 +135,7 @@ You can enable this by installing `aiohttp`:
 
 ```sh
 # install from PyPI
-pip install oz-agent-sdk[aiohttp]
+pip install warp-platform-sdk[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -143,8 +143,8 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 ```python
 import os
 import asyncio
-from oz_agent_sdk import DefaultAioHttpClient
-from oz_agent_sdk import AsyncWarpClient
+from warp_platform_sdk import DefaultAioHttpClient
+from warp_platform_sdk import AsyncWarpClient
 
 
 async def main() -> None:
@@ -177,7 +177,7 @@ List methods in the Warp API are paginated.
 This library provides auto-paginating iterators with each list response, so you do not have to request successive pages manually:
 
 ```python
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 client = WarpClient()
 
@@ -193,7 +193,7 @@ Or, asynchronously:
 
 ```python
 import asyncio
-from oz_agent_sdk import AsyncWarpClient
+from warp_platform_sdk import AsyncWarpClient
 
 client = AsyncWarpClient()
 
@@ -238,7 +238,7 @@ for run in first_page.runs:
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 client = WarpClient()
 
@@ -250,16 +250,16 @@ print(response.config)
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `oz_agent_sdk.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `warp_platform_sdk.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `oz_agent_sdk.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `warp_platform_sdk.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `oz_agent_sdk.APIError`.
+All errors inherit from `warp_platform_sdk.APIError`.
 
 ```python
-import oz_agent_sdk
-from oz_agent_sdk import WarpClient
+import warp_platform_sdk
+from warp_platform_sdk import WarpClient
 
 client = WarpClient()
 
@@ -267,12 +267,12 @@ try:
     client.agent.run(
         prompt="Fix the bug in auth.go",
     )
-except oz_agent_sdk.APIConnectionError as e:
+except warp_platform_sdk.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except oz_agent_sdk.RateLimitError as e:
+except warp_platform_sdk.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except oz_agent_sdk.APIStatusError as e:
+except warp_platform_sdk.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -300,7 +300,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 # Configure the default for all requests:
 client = WarpClient(
@@ -320,7 +320,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 # Configure the default for all requests:
 client = WarpClient(
@@ -374,7 +374,7 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 client = WarpClient()
 response = client.agent.with_raw_response.run(
@@ -386,9 +386,9 @@ agent = response.parse()  # get the object that `agent.run()` would have returne
 print(agent.run_id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/warpdotdev/oz-sdk-python/tree/main/src/oz_agent_sdk/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/warpdotdev/oz-sdk-python/tree/main/src/warp_platform_sdk/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/warpdotdev/oz-sdk-python/tree/main/src/oz_agent_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/warpdotdev/oz-sdk-python/tree/main/src/warp_platform_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -452,7 +452,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from oz_agent_sdk import WarpClient, DefaultHttpxClient
+from warp_platform_sdk import WarpClient, DefaultHttpxClient
 
 client = WarpClient(
     # Or use the `WARP_BASE_URL` env var
@@ -475,7 +475,7 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from oz_agent_sdk import WarpClient
+from warp_platform_sdk import WarpClient
 
 with WarpClient() as client:
   # make requests here
@@ -503,13 +503,13 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import oz_agent_sdk
-print(oz_agent_sdk.__version__)
+import warp_platform_sdk
+print(warp_platform_sdk.__version__)
 ```
 
 ## Requirements
 
-Python 3.9 or higher.
+Python 3.10 or higher.
 
 ## Contributing
 

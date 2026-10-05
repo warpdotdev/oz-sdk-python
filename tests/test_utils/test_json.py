@@ -5,8 +5,8 @@ from typing import Union
 
 import pydantic
 
-from oz_agent_sdk import _compat
-from oz_agent_sdk._utils._json import openapi_dumps
+from warp_platform_sdk import _compat
+from warp_platform_sdk._utils._json import openapi_dumps
 
 
 class TestOpenapiDumps:

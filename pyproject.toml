@@ -1,5 +1,5 @@
 [project]
-name = "oz-agent-sdk"
+name = "warp-platform-sdk"
 version = "0.15.0"
 description = "The official Python library for the Warp API"
 dynamic = ["readme"]
@@ -100,7 +100,7 @@ include = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/oz_agent_sdk"]
+packages = ["src/warp_platform_sdk"]
 
 [tool.hatch.build.targets.sdist]
 # Basically everything except hidden files/directories (such as .github, .devcontainers, .python-version, etc)
@@ -168,7 +168,7 @@ show_error_codes = true
 #
 # We also exclude our `tests` as mypy doesn't always infer
 # types correctly and Pyright will still catch any type errors.
-exclude = ["src/oz_agent_sdk/_files.py", "_dev/.*.py", "tests/.*"]
+exclude = ["src/warp_platform_sdk/_files.py", "_dev/.*.py", "tests/.*"]
 
 strict_equality = true
 implicit_reexport = true
@@ -260,7 +260,7 @@ length-sort = true
 length-sort-straight = true
 combine-as-imports = true
 extra-standard-library = ["typing_extensions"]
-known-first-party = ["oz_agent_sdk", "tests"]
+known-first-party = ["warp_platform_sdk", "tests"]
 
 [tool.ruff.lint.per-file-ignores]
 "bin/**.py" = ["T201", "T203"]

@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from oz_agent_sdk._types import FileTypes, ArrayFormat
-from oz_agent_sdk._utils import extract_files
+from warp_platform_sdk._types import FileTypes, ArrayFormat
+from warp_platform_sdk._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:

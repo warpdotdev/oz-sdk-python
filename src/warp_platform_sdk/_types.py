@@ -104,7 +104,7 @@ HttpxRequestFiles = Union[Mapping[str, HttpxFileTypes], Sequence[Tuple[str, Http
 # This unfortunately means that you will either have
 # to import this type and pass it explicitly:
 #
-# from oz_agent_sdk import NoneType
+# from warp_platform_sdk import NoneType
 # client.get('/foo', cast_to=NoneType)
 #
 # or build it yourself:

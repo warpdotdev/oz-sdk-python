@@ -5,8 +5,8 @@ from typing import Iterator, AsyncIterator
 import httpx
 import pytest
 
-from oz_agent_sdk import WarpClient, AsyncWarpClient
-from oz_agent_sdk._streaming import Stream, AsyncStream, ServerSentEvent
+from warp_platform_sdk import WarpClient, AsyncWarpClient
+from warp_platform_sdk._streaming import Stream, AsyncStream, ServerSentEvent
 
 
 @pytest.mark.asyncio

@@ -8,9 +8,9 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from oz_agent_sdk import WarpClient, AsyncWarpClient
-from oz_agent_sdk.types import Factory
-from oz_agent_sdk.pagination import SyncFactoriesCursorPage, AsyncFactoriesCursorPage
+from warp_platform_sdk import WarpClient, AsyncWarpClient
+from warp_platform_sdk.types import Factory
+from warp_platform_sdk.pagination import SyncFactoriesCursorPage, AsyncFactoriesCursorPage
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

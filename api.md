@@ -3,7 +3,7 @@
 Types:
 
 ```python
-from oz_agent_sdk.types import (
+from warp_platform_sdk.types import (
     AgentSkill,
     AmbientAgentConfig,
     AwsProviderConfig,
@@ -24,17 +24,17 @@ from oz_agent_sdk.types import (
 
 Methods:
 
-- <code title="get /agent">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_response.py">AgentListResponse</a></code>
-- <code title="get /agent/artifacts/{artifactUid}">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">get_artifact</a>(artifact_uid) -> <a href="./src/oz_agent_sdk/types/agent_get_artifact_response.py">AgentGetArtifactResponse</a></code>
-- <code title="get /agent/environments">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">list_environments</a>(\*\*<a href="src/oz_agent_sdk/types/agent_list_environments_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_list_environments_response.py">AgentListEnvironmentsResponse</a></code>
-- <code title="post /agent/runs">client.agent.<a href="./src/oz_agent_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/oz_agent_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
+- <code title="get /agent">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent_list_response.py">AgentListResponse</a></code>
+- <code title="get /agent/artifacts/{artifactUid}">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">get_artifact</a>(artifact_uid) -> <a href="./src/warp_platform_sdk/types/agent_get_artifact_response.py">AgentGetArtifactResponse</a></code>
+- <code title="get /agent/environments">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">list_environments</a>(\*\*<a href="src/warp_platform_sdk/types/agent_list_environments_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent_list_environments_response.py">AgentListEnvironmentsResponse</a></code>
+- <code title="post /agent/runs">client.agent.<a href="./src/warp_platform_sdk/resources/agent/agent.py">run</a>(\*\*<a href="src/warp_platform_sdk/types/agent_run_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent_run_response.py">AgentRunResponse</a></code>
 
 ## Runs
 
 Types:
 
 ```python
-from oz_agent_sdk.types.agent import (
+from warp_platform_sdk.types.agent import (
     ArtifactItem,
     RunItem,
     RunSourceType,
@@ -47,18 +47,18 @@ from oz_agent_sdk.types.agent import (
 
 Methods:
 
-- <code title="get /agent/runs/{runId}">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">retrieve</a>(run_id) -> <a href="./src/oz_agent_sdk/types/agent/run_item.py">RunItem</a></code>
-- <code title="get /agent/runs">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent/run_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/run_item.py">SyncRunsCursorPage[RunItem]</a></code>
-- <code title="post /agent/runs/{runId}/cancel">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">cancel</a>(run_id) -> str</code>
-- <code title="get /agent/runs/{runId}/handoff/attachments">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">list_handoff_attachments</a>(run_id) -> <a href="./src/oz_agent_sdk/types/agent/run_list_handoff_attachments_response.py">RunListHandoffAttachmentsResponse</a></code>
-- <code title="post /agent/runs/{runId}/followups">client.agent.runs.<a href="./src/oz_agent_sdk/resources/agent/runs.py">submit_followup</a>(run_id, \*\*<a href="src/oz_agent_sdk/types/agent/run_submit_followup_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/run_submit_followup_response.py">RunSubmitFollowupResponse</a></code>
+- <code title="get /agent/runs/{runId}">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">retrieve</a>(run_id) -> <a href="./src/warp_platform_sdk/types/agent/run_item.py">RunItem</a></code>
+- <code title="get /agent/runs">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/agent/run_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/run_item.py">SyncRunsCursorPage[RunItem]</a></code>
+- <code title="post /agent/runs/{runId}/cancel">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">cancel</a>(run_id) -> str</code>
+- <code title="get /agent/runs/{runId}/handoff/attachments">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">list_handoff_attachments</a>(run_id) -> <a href="./src/warp_platform_sdk/types/agent/run_list_handoff_attachments_response.py">RunListHandoffAttachmentsResponse</a></code>
+- <code title="post /agent/runs/{runId}/followups">client.agent.runs.<a href="./src/warp_platform_sdk/resources/agent/runs.py">submit_followup</a>(run_id, \*\*<a href="src/warp_platform_sdk/types/agent/run_submit_followup_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/run_submit_followup_response.py">RunSubmitFollowupResponse</a></code>
 
 ## Schedules
 
 Types:
 
 ```python
-from oz_agent_sdk.types.agent import (
+from warp_platform_sdk.types.agent import (
     ScheduledAgentHistoryItem,
     ScheduledAgentItem,
     ScheduleListResponse,
@@ -68,20 +68,20 @@ from oz_agent_sdk.types.agent import (
 
 Methods:
 
-- <code title="post /agent/schedules">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">create</a>(\*\*<a href="src/oz_agent_sdk/types/agent/schedule_create_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
-- <code title="get /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">retrieve</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
-- <code title="put /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">update</a>(schedule_id, \*\*<a href="src/oz_agent_sdk/types/agent/schedule_update_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
-- <code title="get /agent/schedules">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">list</a>() -> <a href="./src/oz_agent_sdk/types/agent/schedule_list_response.py">ScheduleListResponse</a></code>
-- <code title="delete /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">delete</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/schedule_delete_response.py">ScheduleDeleteResponse</a></code>
-- <code title="post /agent/schedules/{scheduleId}/pause">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">pause</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
-- <code title="post /agent/schedules/{scheduleId}/resume">client.agent.schedules.<a href="./src/oz_agent_sdk/resources/agent/schedules.py">resume</a>(schedule_id) -> <a href="./src/oz_agent_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
+- <code title="post /agent/schedules">client.agent.schedules.<a href="./src/warp_platform_sdk/resources/agent/schedules.py">create</a>(\*\*<a href="src/warp_platform_sdk/types/agent/schedule_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
+- <code title="get /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/warp_platform_sdk/resources/agent/schedules.py">retrieve</a>(schedule_id) -> <a href="./src/warp_platform_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
+- <code title="put /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/warp_platform_sdk/resources/agent/schedules.py">update</a>(schedule_id, \*\*<a href="src/warp_platform_sdk/types/agent/schedule_update_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
+- <code title="get /agent/schedules">client.agent.schedules.<a href="./src/warp_platform_sdk/resources/agent/schedules.py">list</a>() -> <a href="./src/warp_platform_sdk/types/agent/schedule_list_response.py">ScheduleListResponse</a></code>
+- <code title="delete /agent/schedules/{scheduleId}">client.agent.schedules.<a href="./src/warp_platform_sdk/resources/agent/schedules.py">delete</a>(schedule_id) -> <a href="./src/warp_platform_sdk/types/agent/schedule_delete_response.py">ScheduleDeleteResponse</a></code>
+- <code title="post /agent/schedules/{scheduleId}/pause">client.agent.schedules.<a href="./src/warp_platform_sdk/resources/agent/schedules.py">pause</a>(schedule_id) -> <a href="./src/warp_platform_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
+- <code title="post /agent/schedules/{scheduleId}/resume">client.agent.schedules.<a href="./src/warp_platform_sdk/resources/agent/schedules.py">resume</a>(schedule_id) -> <a href="./src/warp_platform_sdk/types/agent/scheduled_agent_item.py">ScheduledAgentItem</a></code>
 
 ## Agent
 
 Types:
 
 ```python
-from oz_agent_sdk.types.agent import (
+from warp_platform_sdk.types.agent import (
     AgentResponse,
     CreateAgentRequest,
     ListAgentIdentitiesResponse,
@@ -91,55 +91,55 @@ from oz_agent_sdk.types.agent import (
 
 Methods:
 
-- <code title="post /agent/identities">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">create</a>(\*\*<a href="src/oz_agent_sdk/types/agent/agent_create_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
-- <code title="put /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">update</a>(uid, \*\*<a href="src/oz_agent_sdk/types/agent/agent_update_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
-- <code title="get /agent/identities">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/agent/agent_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/agent/list_agent_identities_response.py">ListAgentIdentitiesResponse</a></code>
-- <code title="delete /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">delete</a>(uid) -> None</code>
-- <code title="get /agent/identities/{uid}">client.agent.agent.<a href="./src/oz_agent_sdk/resources/agent/agent_.py">get</a>(uid) -> <a href="./src/oz_agent_sdk/types/agent/agent_response.py">AgentResponse</a></code>
+- <code title="post /agent/identities">client.agent.agent.<a href="./src/warp_platform_sdk/resources/agent/agent_.py">create</a>(\*\*<a href="src/warp_platform_sdk/types/agent/agent_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/agent_response.py">AgentResponse</a></code>
+- <code title="put /agent/identities/{uid}">client.agent.agent.<a href="./src/warp_platform_sdk/resources/agent/agent_.py">update</a>(uid, \*\*<a href="src/warp_platform_sdk/types/agent/agent_update_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/agent_response.py">AgentResponse</a></code>
+- <code title="get /agent/identities">client.agent.agent.<a href="./src/warp_platform_sdk/resources/agent/agent_.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/agent/agent_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/agent/list_agent_identities_response.py">ListAgentIdentitiesResponse</a></code>
+- <code title="delete /agent/identities/{uid}">client.agent.agent.<a href="./src/warp_platform_sdk/resources/agent/agent_.py">delete</a>(uid) -> None</code>
+- <code title="get /agent/identities/{uid}">client.agent.agent.<a href="./src/warp_platform_sdk/resources/agent/agent_.py">get</a>(uid) -> <a href="./src/warp_platform_sdk/types/agent/agent_response.py">AgentResponse</a></code>
 
 ## Sessions
 
 Types:
 
 ```python
-from oz_agent_sdk.types.agent import SessionCheckRedirectResponse
+from warp_platform_sdk.types.agent import SessionCheckRedirectResponse
 ```
 
 Methods:
 
-- <code title="get /agent/sessions/{sessionUuid}/redirect">client.agent.sessions.<a href="./src/oz_agent_sdk/resources/agent/sessions.py">check_redirect</a>(session_uuid) -> <a href="./src/oz_agent_sdk/types/agent/session_check_redirect_response.py">SessionCheckRedirectResponse</a></code>
+- <code title="get /agent/sessions/{sessionUuid}/redirect">client.agent.sessions.<a href="./src/warp_platform_sdk/resources/agent/sessions.py">check_redirect</a>(session_uuid) -> <a href="./src/warp_platform_sdk/types/agent/session_check_redirect_response.py">SessionCheckRedirectResponse</a></code>
 
 ## Conversations
 
 Types:
 
 ```python
-from oz_agent_sdk.types.agent import ConversationCheckRedirectResponse
+from warp_platform_sdk.types.agent import ConversationCheckRedirectResponse
 ```
 
 Methods:
 
-- <code title="get /agent/conversations/{conversationId}/redirect">client.agent.conversations.<a href="./src/oz_agent_sdk/resources/agent/conversations.py">check_redirect</a>(conversation_id) -> <a href="./src/oz_agent_sdk/types/agent/conversation_check_redirect_response.py">ConversationCheckRedirectResponse</a></code>
+- <code title="get /agent/conversations/{conversationId}/redirect">client.agent.conversations.<a href="./src/warp_platform_sdk/resources/agent/conversations.py">check_redirect</a>(conversation_id) -> <a href="./src/warp_platform_sdk/types/agent/conversation_check_redirect_response.py">ConversationCheckRedirectResponse</a></code>
 
 # Factories
 
 Types:
 
 ```python
-from oz_agent_sdk.types import Factory
+from warp_platform_sdk.types import Factory
 ```
 
 Methods:
 
-- <code title="get /factory">client.factories.<a href="./src/oz_agent_sdk/resources/factories/factories.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/factory_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factory.py">SyncFactoriesCursorPage[Factory]</a></code>
-- <code title="get /factory/{uid}">client.factories.<a href="./src/oz_agent_sdk/resources/factories/factories.py">get</a>(uid) -> <a href="./src/oz_agent_sdk/types/factory.py">Factory</a></code>
+- <code title="get /factory">client.factories.<a href="./src/warp_platform_sdk/resources/factories/factories.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/factory_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factory.py">SyncFactoriesCursorPage[Factory]</a></code>
+- <code title="get /factory/{uid}">client.factories.<a href="./src/warp_platform_sdk/resources/factories/factories.py">get</a>(uid) -> <a href="./src/warp_platform_sdk/types/factory.py">Factory</a></code>
 
 ## Inbox
 
 Types:
 
 ```python
-from oz_agent_sdk.types.factories import (
+from warp_platform_sdk.types.factories import (
     InboxItem,
     InboxRecipient,
     InboxScope,
@@ -150,18 +150,18 @@ from oz_agent_sdk.types.factories import (
 
 Methods:
 
-- <code title="get /factory-inbox">client.factories.inbox.<a href="./src/oz_agent_sdk/resources/factories/inbox.py">list</a>(\*\*<a href="src/oz_agent_sdk/types/factories/inbox_list_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/inbox_item.py">SyncFactoryInboxCursorPage[InboxItem]</a></code>
-- <code title="post /factory-inbox/notifications/read">client.factories.inbox.<a href="./src/oz_agent_sdk/resources/factories/inbox.py">mark_read</a>(\*\*<a href="src/oz_agent_sdk/types/factories/inbox_mark_read_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/inbox_mark_read_response.py">InboxMarkReadResponse</a></code>
-- <code title="post /factory-inbox/notifications/unread">client.factories.inbox.<a href="./src/oz_agent_sdk/resources/factories/inbox.py">mark_unread</a>(\*\*<a href="src/oz_agent_sdk/types/factories/inbox_mark_unread_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/inbox_mark_unread_response.py">InboxMarkUnreadResponse</a></code>
+- <code title="get /factory-inbox">client.factories.inbox.<a href="./src/warp_platform_sdk/resources/factories/inbox.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/factories/inbox_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/inbox_item.py">SyncFactoryInboxCursorPage[InboxItem]</a></code>
+- <code title="post /factory-inbox/notifications/read">client.factories.inbox.<a href="./src/warp_platform_sdk/resources/factories/inbox.py">mark_read</a>(\*\*<a href="src/warp_platform_sdk/types/factories/inbox_mark_read_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/inbox_mark_read_response.py">InboxMarkReadResponse</a></code>
+- <code title="post /factory-inbox/notifications/unread">client.factories.inbox.<a href="./src/warp_platform_sdk/resources/factories/inbox.py">mark_unread</a>(\*\*<a href="src/warp_platform_sdk/types/factories/inbox_mark_unread_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/inbox_mark_unread_response.py">InboxMarkUnreadResponse</a></code>
 
 ## Runs
 
 Types:
 
 ```python
-from oz_agent_sdk.types.factories import RunCreateResponse
+from warp_platform_sdk.types.factories import RunCreateResponse
 ```
 
 Methods:
 
-- <code title="post /factory/{uid}/runs">client.factories.runs.<a href="./src/oz_agent_sdk/resources/factories/runs.py">create</a>(uid, \*\*<a href="src/oz_agent_sdk/types/factories/run_create_params.py">params</a>) -> <a href="./src/oz_agent_sdk/types/factories/run_create_response.py">RunCreateResponse</a></code>
+- <code title="post /factory/{uid}/runs">client.factories.runs.<a href="./src/warp_platform_sdk/resources/factories/runs.py">create</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/run_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/run_create_response.py">RunCreateResponse</a></code>

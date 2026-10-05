@@ -91,12 +91,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# oz_agent_sdk._exceptions.NotFoundError -> oz_agent_sdk.NotFoundError
+# warp_platform_sdk._exceptions.NotFoundError -> warp_platform_sdk.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "oz_agent_sdk"
+            __locals[__name].__module__ = "warp_platform_sdk"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass

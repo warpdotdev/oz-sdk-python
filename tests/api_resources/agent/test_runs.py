@@ -8,10 +8,10 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from oz_agent_sdk import WarpClient, AsyncWarpClient
-from oz_agent_sdk._utils import parse_datetime
-from oz_agent_sdk.pagination import SyncRunsCursorPage, AsyncRunsCursorPage
-from oz_agent_sdk.types.agent import (
+from warp_platform_sdk import WarpClient, AsyncWarpClient
+from warp_platform_sdk._utils import parse_datetime
+from warp_platform_sdk.pagination import SyncRunsCursorPage, AsyncRunsCursorPage
+from warp_platform_sdk.types.agent import (
     RunItem,
     RunSubmitFollowupResponse,
     RunListHandoffAttachmentsResponse,

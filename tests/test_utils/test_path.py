@@ -4,7 +4,7 @@ from typing import Any
 
 import pytest
 
-from oz_agent_sdk._utils._path import path_template
+from warp_platform_sdk._utils._path import path_template
 
 
 @pytest.mark.parametrize(

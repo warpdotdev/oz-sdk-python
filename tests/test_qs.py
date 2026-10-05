@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from oz_agent_sdk._qs import Querystring, stringify
+from warp_platform_sdk._qs import Querystring, stringify
 
 
 def test_empty() -> None:

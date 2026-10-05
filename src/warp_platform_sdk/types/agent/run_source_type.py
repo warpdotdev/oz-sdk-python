@@ -7,6 +7,7 @@ __all__ = ["RunSourceType"]
 RunSourceType: TypeAlias = Literal[
     "LINEAR",
     "API",
+    "MCP",
     "SLACK",
     "TEAMS",
     "LOCAL",

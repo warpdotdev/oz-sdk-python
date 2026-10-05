@@ -1,5 +1,76 @@
 # Changelog
 
+## [1.0.0-alpha1](https://github.com/warpdotdev/oz-sdk-python/compare/v0.15.0...v1.0.0-alpha1) (2026-10-05)
+
+
+### Features
+
+* add Azure DevOps Factory support via a general Azure Entra connection ([5fcbb9a](https://github.com/warpdotdev/oz-sdk-python/commit/5fcbb9a6e6f19d27f3200c42d7718811b3003ca0))
+* **api:** [APP-5847] Add run quick filters ([fd1bd61](https://github.com/warpdotdev/oz-sdk-python/commit/fd1bd614032fcabf225906c34b90d15fcd73eb08))
+* **api:** [APP-5882] Show only Factory runs on global Runs page ([e385588](https://github.com/warpdotdev/oz-sdk-python/commit/e3855883d94701c0a0a414b36be82eab0fb7cc8b))
+* **api:** [APP-5982] Show video artifact thumbnails ([74702cd](https://github.com/warpdotdev/oz-sdk-python/commit/74702cda7de09e2486c3f314303f4e92adbb6624))
+* **api:** [APP-6045] Add run usage metadata to trace responses ([81ebca9](https://github.com/warpdotdev/oz-sdk-python/commit/81ebca9f949eee36b564325ced9df48b5d53eef6))
+* **api:** [APP-6076] Persist Factory Inbox read state per recipient ([60abc82](https://github.com/warpdotdev/oz-sdk-python/commit/60abc8241e220fb9a6c0c1ae8fe4d5a6a1e3d22c))
+* **api:** [Chat] Fix initial start full prompt ([662f4a9](https://github.com/warpdotdev/oz-sdk-python/commit/662f4a92ae8d5858e8950aa0b2c1b3bb41bc35d9))
+* **api:** [QUALITY-2127] Add factory scorer defaults settings ([ab981a5](https://github.com/warpdotdev/oz-sdk-python/commit/ab981a59b6e02f40d61bdb30f10411134797eb23))
+* **api:** [REMOTE-3251] Add per-Factory experimental configuration and run snapshots ([6b34205](https://github.com/warpdotdev/oz-sdk-python/commit/6b342050541eb2277af9e5fad3bef4d4db13bf9b))
+* **api:** [REMOTE-3361] Add factory, root run, and finish time to the public run list ([48685fc](https://github.com/warpdotdev/oz-sdk-python/commit/48685fcc31e7891a35c272a3efa4bae2c8ca4094))
+* **api:** Add BENCHMARK_TRIAL as a filterable Benchmark run source ([698ba7a](https://github.com/warpdotdev/oz-sdk-python/commit/698ba7adabf2c2bbe52d06c3216634785647831d))
+* **api:** Add Factory Agent and Automation idle timeout configuration ([2b632da](https://github.com/warpdotdev/oz-sdk-python/commit/2b632dac7ed6d76b68724e075fc3901bf33fc482))
+* **api:** Add MAA stream platform error codes ([3240259](https://github.com/warpdotdev/oz-sdk-python/commit/3240259ec19d3c2981dc453d8aea33aa02609503))
+* **api:** Add Microsoft Teams Factory access contracts ([08e525f](https://github.com/warpdotdev/oz-sdk-python/commit/08e525f98ac7e42c044b0bb91e0285ad8110fc2f))
+* **api:** Add Microsoft Teams Factory activation surfaces ([edf7814](https://github.com/warpdotdev/oz-sdk-python/commit/edf7814e51adaa061f3d075c7201a52239ed0b9a))
+* **api:** Add per-factory Slack auto-respond toggle for thread replies ([8893c9b](https://github.com/warpdotdev/oz-sdk-python/commit/8893c9ba5965dad064fa975d02ccb2f31b0559b7))
+* **api:** Add token totals and inference cost breakdown to REST RequestUsage ([bd77fc7](https://github.com/warpdotdev/oz-sdk-python/commit/bd77fc7b48544908f3d797e2203ab760ad6e2024))
+* **api:** Align global runs list with designs ([25b420f](https://github.com/warpdotdev/oz-sdk-python/commit/25b420f97dbbff865c6164ad8f19424ebee71b3a))
+* **api:** APP-5973 Color Factory PR artifacts by live status ([e9d02d1](https://github.com/warpdotdev/oz-sdk-python/commit/e9d02d19ad375577e42a4174d7d9979aeb65d2eb))
+* **api:** APP-6068: Add flagged structured Factory questions to server and MCP ([87f575a](https://github.com/warpdotdev/oz-sdk-python/commit/87f575ae5eb2bb4ad8444476eb39f1759fca58bf))
+* **api:** Chore: display all models used during auto ([fd686d1](https://github.com/warpdotdev/oz-sdk-python/commit/fd686d153cfaeb4ec749d1d6678fad52a50e6673))
+* **api:** Clarify Factory secrets management UI ([7deb770](https://github.com/warpdotdev/oz-sdk-python/commit/7deb77004c2681ba361eff75d024c1e6258c147a))
+* **api:** Configure per-factory self-improvement failed-run thresholds ([146a319](https://github.com/warpdotdev/oz-sdk-python/commit/146a3197c511c5809225c193e84cc1c2925ed5a2))
+* **api:** Configure self-improvement PR reviewer assignment ([a7f5357](https://github.com/warpdotdev/oz-sdk-python/commit/a7f53571d9b4d187de76370e5b96e82d4a424edd))
+* **api:** Conversation steering: follow-ups with attachments, interrupt, conversation-keyed aliases ([73f863f](https://github.com/warpdotdev/oz-sdk-python/commit/73f863f82ffcd4f3c189b61a37682cafeb40dc81))
+* **api:** Create benchmark tasks from runs via Factory foreman ([628e9f8](https://github.com/warpdotdev/oz-sdk-python/commit/628e9f864e1904ef00bdbf21ffc9696011a921ee))
+* **api:** Enable Factory Slack auto-respond by default ([d548f3d](https://github.com/warpdotdev/oz-sdk-python/commit/d548f3d74d707cb62deb76c086d30ee217a0bac4))
+* **api:** Expose Factory Inbox listing API and MCP tool ([897c813](https://github.com/warpdotdev/oz-sdk-python/commit/897c813b4633c8ba4faaa04c076006754f938acc))
+* **api:** expose secret allowlists in public schemas ([b73e438](https://github.com/warpdotdev/oz-sdk-python/commit/b73e4380e5f524904bf1caac19e453e4fedd0a35))
+* **api:** Factory Webhooks: address dogfooding feedback (secret picker, automations callout, detail pane, webhook run badge) ([8862b08](https://github.com/warpdotdev/oz-sdk-python/commit/8862b087ab5b98615f27ebb26069beb215501bd1))
+* **api:** Link Factory runs and PRs in responsive artifact headers ([2790bbd](https://github.com/warpdotdev/oz-sdk-python/commit/2790bbde96a8f90bcb284851bd611fb541e2c216))
+* **api:** Persist Teams Factory thread reply settings ([d73985c](https://github.com/warpdotdev/oz-sdk-python/commit/d73985cdb1bf89d0cd1dd328d4eb555b79a58ba2))
+* **api:** Preserve Claude environment-model write-through semantics ([684ad06](https://github.com/warpdotdev/oz-sdk-python/commit/684ad0672d3c458cdb48172b6bc17556a273fb8d))
+* **api:** Record customer-priced billed cents for conversation inference, platform, and compute usage ([48f86d5](https://github.com/warpdotdev/oz-sdk-python/commit/48f86d5944eb6abdf76e3b8bd5fcbeac9383d393))
+* **api:** REMOTE-2661: allow a debug agent in a retained setup-failure session (server) ([71b7ebc](https://github.com/warpdotdev/oz-sdk-python/commit/71b7ebcebef221b62916e3a44af11c5436f53a49))
+* **api:** REMOTE-2995: Audit OpenAPI descriptions for length, style, and Oz-&gt;Warp naming ([baeec6c](https://github.com/warpdotdev/oz-sdk-python/commit/baeec6c9caa195b23f6b3ab9738be87fa3e99dbf))
+* **api:** Resolve the caller's team from X-Warp-Team-Uid on the public API ([700951a](https://github.com/warpdotdev/oz-sdk-python/commit/700951af9582f504b9a4a9342054b2606aee7faf))
+* **api:** Show PR and MR titles on inbox review cards ([ba078cf](https://github.com/warpdotdev/oz-sdk-python/commit/ba078cf00c1d5c67e72fb06b9f33ca75a1b1e959))
+* **api:** Support run ID search in benchmark task picker ([a943f15](https://github.com/warpdotdev/oz-sdk-python/commit/a943f1500839120e7de24800b307a964a11d2971))
+* **api:** Team/project-scoped Linear and Jira starter-task discovery for Factory onboarding ([1cf582e](https://github.com/warpdotdev/oz-sdk-python/commit/1cf582e9116e93c507c43868c8d833796a71038e))
+* **code-forge:** collapse multi-forge stack onto develop ([41f0262](https://github.com/warpdotdev/oz-sdk-python/commit/41f0262cf45abef292f22e4f6214b4c498607bff))
+* **factory:** add Azure DevOps automation triggers ([57e74df](https://github.com/warpdotdev/oz-sdk-python/commit/57e74dfcdcd861f07aabdfb786538da2c31cbcbc))
+* **factory:** dispatch runs to a factory by UID and search factory listings ([c1dc64a](https://github.com/warpdotdev/oz-sdk-python/commit/c1dc64a165555ba364d780c0276004bee5f6b9d0))
+* **sdk:** generate Warp-branded TypeScript platform SDK ([dc29f39](https://github.com/warpdotdev/oz-sdk-python/commit/dc29f390ed40ae96fcd5ee0bd9257557458b1098))
+* **sdk:** prepare Python Warp platform package ([c6f41b8](https://github.com/warpdotdev/oz-sdk-python/commit/c6f41b8c373dc1f72e88c5e5d9a295f772ebdd39))
+
+
+### Bug Fixes
+
+* **deps:** pin anyio to resolve CVE-2026-63374 and CVE-2026-64847 ([0dd7164](https://github.com/warpdotdev/oz-sdk-python/commit/0dd71649caae780dbb5ed993c9f01b24f5d7fb6a))
+* **deps:** pin anyio to resolve CVE-2026-63374, CVE-2026-64847 ([3d9f40c](https://github.com/warpdotdev/oz-sdk-python/commit/3d9f40ce21cf028faf64feb41d6fa6b44358759b))
+* **deps:** pin anyio to resolve CVE-2026-63374, CVE-2026-64847 ([08a177f](https://github.com/warpdotdev/oz-sdk-python/commit/08a177f4ddbbdb656e2718aefe921369a1ee04fa))
+
+
+### Chores
+
+* **sdk:** prepare first Warp platform alpha and refresh lock ([666a232](https://github.com/warpdotdev/oz-sdk-python/commit/666a2323d81fe5447942cea30213396c4a2d96a1))
+* **sdk:** prepare Python prerelease scaffold for Warp package ([e5ba3f4](https://github.com/warpdotdev/oz-sdk-python/commit/e5ba3f4958328d803a15ed6c8f25b9f444715a3e))
+* **sdk:** prepare Python prerelease scaffold for Warp package ([#11](https://github.com/warpdotdev/oz-sdk-python/issues/11)) ([aba5772](https://github.com/warpdotdev/oz-sdk-python/commit/aba57725abb5d092870c283f33077a1752fa5a52))
+* **sdk:** retain Python prerelease configuration and remove obsolete module ([4531ab0](https://github.com/warpdotdev/oz-sdk-python/commit/4531ab0fc3317592a54cf8dc5e3df8d1666a262b))
+
+
+### Documentation
+
+* **sdk:** correct Python config example for WarpClient ([#10](https://github.com/warpdotdev/oz-sdk-python/issues/10)) ([33b9d93](https://github.com/warpdotdev/oz-sdk-python/commit/33b9d934e4e73f8236280d8552e452f9c292db30))
+
 ## [0.15.0](https://github.com/warpdotdev/oz-sdk-python/compare/v0.14.0...v0.15.0) (2026-08-20)
 
 

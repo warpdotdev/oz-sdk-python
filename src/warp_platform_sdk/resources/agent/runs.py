@@ -19,7 +19,7 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ...pagination import SyncRunsCursorPage, AsyncRunsCursorPage
-from ...types.agent import RunSourceType, run_list_params, run_submit_followup_params
+from ...types.agent import run_list_params, run_submit_followup_params
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.agent.run_item import RunItem
 from ...types.agent.run_state import RunState
@@ -111,7 +111,7 @@ class RunsResource(SyncAPIResource):
         skill_spec: str | Omit = omit,
         sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
         sort_order: Literal["asc", "desc"] | Omit = omit,
-        source: RunSourceType | Omit = omit,
+        source: List[RunSourceType] | Omit = omit,
         state: List[RunState] | Omit = omit,
         task_status: List[Literal["running", "failed", "blocked", "cancelled", "complete"]] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
@@ -193,7 +193,8 @@ class RunsResource(SyncAPIResource):
 
           sort_order: Sort direction
 
-          source: Filter by run source type
+          source: Filter by run source type. Can be specified multiple times to match any of the
+              given sources.
 
           state: Filter by run state. Can be specified multiple times to match any of the given
               states.
@@ -489,7 +490,7 @@ class AsyncRunsResource(AsyncAPIResource):
         skill_spec: str | Omit = omit,
         sort_by: Literal["updated_at", "created_at", "title", "agent"] | Omit = omit,
         sort_order: Literal["asc", "desc"] | Omit = omit,
-        source: RunSourceType | Omit = omit,
+        source: List[RunSourceType] | Omit = omit,
         state: List[RunState] | Omit = omit,
         task_status: List[Literal["running", "failed", "blocked", "cancelled", "complete"]] | Omit = omit,
         updated_after: Union[str, datetime] | Omit = omit,
@@ -571,7 +572,8 @@ class AsyncRunsResource(AsyncAPIResource):
 
           sort_order: Sort direction
 
-          source: Filter by run source type
+          source: Filter by run source type. Can be specified multiple times to match any of the
+              given sources.
 
           state: Filter by run state. Can be specified multiple times to match any of the given
               states.

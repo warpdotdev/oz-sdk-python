@@ -119,8 +119,11 @@ class RunListParams(TypedDict, total=False):
     sort_order: Literal["asc", "desc"]
     """Sort direction"""
 
-    source: RunSourceType
-    """Filter by run source type"""
+    source: List[RunSourceType]
+    """Filter by run source type.
+
+    Can be specified multiple times to match any of the given sources.
+    """
 
     state: List[RunState]
     """Filter by run state.

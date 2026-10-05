@@ -92,9 +92,8 @@ class RunListResponse(BaseModel):
     cost_usd: Optional[float] = None
     """
     Combined trial and scoring cost in US dollars: run_metrics.cost_usd plus
-    run_metrics.scoring_cost_usd, converted at the owning team's current credit
-    price. Matches the run detail page's Total cost. Not a billed amount. Null until
-    the run has produced at least one trial.
+    run_metrics.scoring_cost_usd, each what the runs were billed. Matches the run
+    detail page's Total cost. Null until the run has produced at least one trial.
     """
 
     creator: Optional[UserProfile] = None

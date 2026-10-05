@@ -71,9 +71,10 @@ class RunMetrics(BaseModel):
     compute_credits: str
 
     cost_usd: float
-    """Estimated trial-run spend at the owning team's current credit price.
-
-    Not a billed amount.
+    """
+    What the benchmark trial runs were billed, in US dollars, plus the estimated
+    provider spend of third-party-harness trials, which Warp does not bill. Runs
+    that predate billed-amount tracking fall back to an estimated cost.
     """
 
     elapsed_s: float
@@ -81,9 +82,9 @@ class RunMetrics(BaseModel):
     platform_credits: str
 
     scoring_cost_usd: float
-    """Estimated scoring and judge spend at the owning team's current credit price.
+    """What the distinct dispatched scoring and judge runs were billed, in US dollars.
 
-    Not a billed amount.
+    Runs that predate billed-amount tracking fall back to an estimated cost.
     """
 
     total_credits: str

@@ -119,7 +119,8 @@ class Trial(BaseModel):
 
     rep_index: int
 
-    state: str
+    state: Literal["pending", "running", "succeeded", "failed", "cancelled"]
+    """Lifecycle state of a benchmark trial."""
 
     suite_task_id: int
 

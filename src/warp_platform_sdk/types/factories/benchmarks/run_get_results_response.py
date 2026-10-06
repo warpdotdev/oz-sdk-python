@@ -13,6 +13,7 @@ __all__ = [
     "TrialProgress",
     "Trial",
     "TrialAttempt",
+    "TrialScoreWork",
 ]
 
 
@@ -101,7 +102,10 @@ class TrialProgress(BaseModel):
     """Logical (task, configuration, repetition) trial counts by lifecycle
     state.
 
-    A retry remains part of its original trial. completed is
+    pending counts trials whose current run has not started
+    executing, including a dispatched run still waiting in the queue or
+    for its sandbox to start; running counts trials whose current run is
+    executing. A retry remains part of its original trial. completed is
     succeeded + failed + cancelled.
     """
 
@@ -133,6 +137,12 @@ class TrialAttempt(BaseModel):
     """
 
 
+class TrialScoreWork(BaseModel):
+    scorer_id: int
+
+    state: Literal["awaiting_trial", "pending", "judging", "scored", "finished_unscored", "not_scoreable"]
+
+
 class Trial(BaseModel):
     configuration_id: int
 
@@ -142,7 +152,8 @@ class Trial(BaseModel):
 
     scores: List[object]
 
-    state: str
+    state: Literal["pending", "running", "succeeded", "failed", "cancelled"]
+    """Lifecycle state of a benchmark trial."""
 
     suite_task_id: int
     """Frozen internal storage coordinate retained for compatibility."""
@@ -154,6 +165,14 @@ class Trial(BaseModel):
     judge_runs: Optional[List[object]] = None
 
     run_id: Optional[str] = None
+
+    score_work: Optional[List[TrialScoreWork]] = None
+    """This trial's scoring state for each applicable classification scorer.
+
+    A scored row whose score does not count toward the results reports
+    finished_unscored. Present only when the benchmark in-progress UI feature is
+    enabled.
+    """
 
     task_title: Optional[str] = None
 
@@ -216,8 +235,10 @@ class RunGetResultsResponse(BaseModel):
     score_progress: Optional[object] = None
     """
     Score-work ledger row counts by lifecycle state, plus the derived received =
-    scored and expected = pending + judging + scored + finished_unscored (excludes
-    awaiting_trial and not_scoreable).
+    scored, expected = pending + judging + scored + finished_unscored (excludes
+    awaiting_trial and not_scoreable), total = every row, one per (trial, applicable
+    scorer) pair and fixed once scoring work is materialized, and settled = scored +
+    finished_unscored + not_scoreable.
     """
 
     scorers: Optional[List[object]] = None
@@ -230,8 +251,10 @@ class RunGetResultsResponse(BaseModel):
     trial_progress: Optional[TrialProgress] = None
     """Logical (task, configuration, repetition) trial counts by lifecycle state.
 
-    A retry remains part of its original trial. completed is succeeded + failed +
-    cancelled.
+    pending counts trials whose current run has not started executing, including a
+    dispatched run still waiting in the queue or for its sandbox to start; running
+    counts trials whose current run is executing. A retry remains part of its
+    original trial. completed is succeeded + failed + cancelled.
     """
 
     trials: Optional[List[Trial]] = None

@@ -9,7 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from warp_platform_sdk import WarpClient, AsyncWarpClient
-from warp_platform_sdk.types.factories import RunCreateResponse, RunListScoresResponse
+from warp_platform_sdk.types.factories import RunCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -75,48 +75,6 @@ class TestRuns:
                 prompt="prompt",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_list_scores(self, client: WarpClient) -> None:
-        run = client.factories.runs.list_scores(
-            "run_id",
-        )
-        assert_matches_type(RunListScoresResponse, run, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_list_scores(self, client: WarpClient) -> None:
-        response = client.factories.runs.with_raw_response.list_scores(
-            "run_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        run = response.parse()
-        assert_matches_type(RunListScoresResponse, run, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_list_scores(self, client: WarpClient) -> None:
-        with client.factories.runs.with_streaming_response.list_scores(
-            "run_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            run = response.parse()
-            assert_matches_type(RunListScoresResponse, run, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_list_scores(self, client: WarpClient) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            client.factories.runs.with_raw_response.list_scores(
-                "",
-            )
-
 
 class TestAsyncRuns:
     parametrize = pytest.mark.parametrize(
@@ -179,46 +137,4 @@ class TestAsyncRuns:
             await async_client.factories.runs.with_raw_response.create(
                 uid="",
                 prompt="prompt",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_list_scores(self, async_client: AsyncWarpClient) -> None:
-        run = await async_client.factories.runs.list_scores(
-            "run_id",
-        )
-        assert_matches_type(RunListScoresResponse, run, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_list_scores(self, async_client: AsyncWarpClient) -> None:
-        response = await async_client.factories.runs.with_raw_response.list_scores(
-            "run_id",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        run = await response.parse()
-        assert_matches_type(RunListScoresResponse, run, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_list_scores(self, async_client: AsyncWarpClient) -> None:
-        async with async_client.factories.runs.with_streaming_response.list_scores(
-            "run_id",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            run = await response.parse()
-            assert_matches_type(RunListScoresResponse, run, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_list_scores(self, async_client: AsyncWarpClient) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `run_id` but received ''"):
-            await async_client.factories.runs.with_raw_response.list_scores(
-                "",
             )

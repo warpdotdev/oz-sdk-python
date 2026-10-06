@@ -185,13 +185,12 @@ Methods:
 Types:
 
 ```python
-from warp_platform_sdk.types.factories import RunCreateResponse, RunListScoresResponse
+from warp_platform_sdk.types.factories import RunCreateResponse
 ```
 
 Methods:
 
 - <code title="post /factory/{uid}/runs">client.factories.runs.<a href="./src/warp_platform_sdk/resources/factories/runs.py">create</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/run_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/run_create_response.py">RunCreateResponse</a></code>
-- <code title="get /factory/runs/{run_id}/scores">client.factories.runs.<a href="./src/warp_platform_sdk/resources/factories/runs.py">list_scores</a>(run_id) -> <a href="./src/warp_platform_sdk/types/factories/run_list_scores_response.py">RunListScoresResponse</a></code>
 
 ## Tasks
 
@@ -211,66 +210,6 @@ Methods:
 - <code title="get /factory/{uid}/tasks/{task_uid}">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">get</a>(task_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
 - <code title="get /factory/{uid}/task-by-conversation">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">get_by_conversation</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/task_get_by_conversation_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
 - <code title="get /factory/{uid}/task-by-run">client.factories.tasks.<a href="./src/warp_platform_sdk/resources/factories/tasks.py">get_by_run</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/task_get_by_run_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/task.py">Task</a></code>
-
-## Scorers
-
-Types:
-
-```python
-from warp_platform_sdk.types.factories import (
-    ScorerCreateResponse,
-    ScorerListResponse,
-    ScorerListResultReasonsResponse,
-    ScorerListResultsResponse,
-)
-```
-
-Methods:
-
-- <code title="post /factory/scorers">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">create</a>(\*\*<a href="src/warp_platform_sdk/types/factories/scorer_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_create_response.py">ScorerCreateResponse</a></code>
-- <code title="get /factory/scorers">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">list</a>(\*\*<a href="src/warp_platform_sdk/types/factories/scorer_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_list_response.py">ScorerListResponse</a></code>
-- <code title="get /factory/scorers/{scorer_id}/results/reasons">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">list_result_reasons</a>(scorer_id, \*\*<a href="src/warp_platform_sdk/types/factories/scorer_list_result_reasons_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_list_result_reasons_response.py">ScorerListResultReasonsResponse</a></code>
-- <code title="get /factory/scorers/{scorer_id}/results">client.factories.scorers.<a href="./src/warp_platform_sdk/resources/factories/scorers.py">list_results</a>(scorer_id, \*\*<a href="src/warp_platform_sdk/types/factories/scorer_list_results_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/scorer_list_results_response.py">SyncScorerResultsCursorPage[ScorerListResultsResponse]</a></code>
-
-## Benchmarks
-
-### Suites
-
-Types:
-
-```python
-from warp_platform_sdk.types.factories.benchmarks import (
-    SuiteCreateResponse,
-    SuiteListResponse,
-    SuiteGetResponse,
-    SuiteLaunchRunResponse,
-)
-```
-
-Methods:
-
-- <code title="post /factory/{uid}/benchmarks/suites">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">create</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/suite_create_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_create_response.py">SuiteCreateResponse</a></code>
-- <code title="get /factory/{uid}/benchmarks/suites">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">list</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/suite_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_list_response.py">SyncBenchmarkSuitesCursorPage[SuiteListResponse]</a></code>
-- <code title="get /factory/{uid}/benchmarks/suites/{suite_uid}">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">get</a>(suite_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_get_response.py">SuiteGetResponse</a></code>
-- <code title="post /factory/{uid}/benchmarks/suites/{suite_uid}/runs">client.factories.benchmarks.suites.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/suites.py">launch_run</a>(suite_uid, \*, uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/suite_launch_run_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/suite_launch_run_response.py">SuiteLaunchRunResponse</a></code>
-
-### Runs
-
-Types:
-
-```python
-from warp_platform_sdk.types.factories.benchmarks import (
-    RunListResponse,
-    RunGetResponse,
-    RunGetResultsResponse,
-)
-```
-
-Methods:
-
-- <code title="get /factory/{uid}/benchmarks/runs">client.factories.benchmarks.runs.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/runs.py">list</a>(uid, \*\*<a href="src/warp_platform_sdk/types/factories/benchmarks/run_list_params.py">params</a>) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/run_list_response.py">SyncRunsCursorPage[RunListResponse]</a></code>
-- <code title="get /factory/{uid}/benchmarks/runs/{run_uid}">client.factories.benchmarks.runs.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/runs.py">get</a>(run_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/run_get_response.py">RunGetResponse</a></code>
-- <code title="get /factory/{uid}/benchmarks/runs/{run_uid}/results">client.factories.benchmarks.runs.<a href="./src/warp_platform_sdk/resources/factories/benchmarks/runs.py">get_results</a>(run_uid, \*, uid) -> <a href="./src/warp_platform_sdk/types/factories/benchmarks/run_get_results_response.py">RunGetResultsResponse</a></code>
 
 ## Files
 

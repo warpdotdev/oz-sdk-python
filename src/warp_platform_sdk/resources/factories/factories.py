@@ -21,14 +21,6 @@ from .tasks import (
     AsyncTasksResourceWithStreamingResponse,
 )
 from ...types import factory_list_params
-from .scorers import (
-    ScorersResource,
-    AsyncScorersResource,
-    ScorersResourceWithRawResponse,
-    AsyncScorersResourceWithRawResponse,
-    ScorersResourceWithStreamingResponse,
-    AsyncScorersResourceWithStreamingResponse,
-)
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import path_template, maybe_transform, strip_not_given
 from ..._compat import cached_property
@@ -50,14 +42,6 @@ from .files.files import (
 from ...pagination import SyncFactoriesCursorPage, AsyncFactoriesCursorPage
 from ..._base_client import AsyncPaginator, make_request_options
 from ...types.factory import Factory
-from .benchmarks.benchmarks import (
-    BenchmarksResource,
-    AsyncBenchmarksResource,
-    BenchmarksResourceWithRawResponse,
-    AsyncBenchmarksResourceWithRawResponse,
-    BenchmarksResourceWithStreamingResponse,
-    AsyncBenchmarksResourceWithStreamingResponse,
-)
 
 __all__ = ["FactoriesResource", "AsyncFactoriesResource"]
 
@@ -74,14 +58,6 @@ class FactoriesResource(SyncAPIResource):
     def tasks(self) -> TasksResource:
         """Operations for creating and managing factories"""
         return TasksResource(self._client)
-
-    @cached_property
-    def scorers(self) -> ScorersResource:
-        return ScorersResource(self._client)
-
-    @cached_property
-    def benchmarks(self) -> BenchmarksResource:
-        return BenchmarksResource(self._client)
 
     @cached_property
     def files(self) -> FilesResource:
@@ -215,14 +191,6 @@ class AsyncFactoriesResource(AsyncAPIResource):
     def tasks(self) -> AsyncTasksResource:
         """Operations for creating and managing factories"""
         return AsyncTasksResource(self._client)
-
-    @cached_property
-    def scorers(self) -> AsyncScorersResource:
-        return AsyncScorersResource(self._client)
-
-    @cached_property
-    def benchmarks(self) -> AsyncBenchmarksResource:
-        return AsyncBenchmarksResource(self._client)
 
     @cached_property
     def files(self) -> AsyncFilesResource:
@@ -366,14 +334,6 @@ class FactoriesResourceWithRawResponse:
         return TasksResourceWithRawResponse(self._factories.tasks)
 
     @cached_property
-    def scorers(self) -> ScorersResourceWithRawResponse:
-        return ScorersResourceWithRawResponse(self._factories.scorers)
-
-    @cached_property
-    def benchmarks(self) -> BenchmarksResourceWithRawResponse:
-        return BenchmarksResourceWithRawResponse(self._factories.benchmarks)
-
-    @cached_property
     def files(self) -> FilesResourceWithRawResponse:
         """Operations for creating and managing factories"""
         return FilesResourceWithRawResponse(self._factories.files)
@@ -399,14 +359,6 @@ class AsyncFactoriesResourceWithRawResponse:
     def tasks(self) -> AsyncTasksResourceWithRawResponse:
         """Operations for creating and managing factories"""
         return AsyncTasksResourceWithRawResponse(self._factories.tasks)
-
-    @cached_property
-    def scorers(self) -> AsyncScorersResourceWithRawResponse:
-        return AsyncScorersResourceWithRawResponse(self._factories.scorers)
-
-    @cached_property
-    def benchmarks(self) -> AsyncBenchmarksResourceWithRawResponse:
-        return AsyncBenchmarksResourceWithRawResponse(self._factories.benchmarks)
 
     @cached_property
     def files(self) -> AsyncFilesResourceWithRawResponse:
@@ -436,14 +388,6 @@ class FactoriesResourceWithStreamingResponse:
         return TasksResourceWithStreamingResponse(self._factories.tasks)
 
     @cached_property
-    def scorers(self) -> ScorersResourceWithStreamingResponse:
-        return ScorersResourceWithStreamingResponse(self._factories.scorers)
-
-    @cached_property
-    def benchmarks(self) -> BenchmarksResourceWithStreamingResponse:
-        return BenchmarksResourceWithStreamingResponse(self._factories.benchmarks)
-
-    @cached_property
     def files(self) -> FilesResourceWithStreamingResponse:
         """Operations for creating and managing factories"""
         return FilesResourceWithStreamingResponse(self._factories.files)
@@ -469,14 +413,6 @@ class AsyncFactoriesResourceWithStreamingResponse:
     def tasks(self) -> AsyncTasksResourceWithStreamingResponse:
         """Operations for creating and managing factories"""
         return AsyncTasksResourceWithStreamingResponse(self._factories.tasks)
-
-    @cached_property
-    def scorers(self) -> AsyncScorersResourceWithStreamingResponse:
-        return AsyncScorersResourceWithStreamingResponse(self._factories.scorers)
-
-    @cached_property
-    def benchmarks(self) -> AsyncBenchmarksResourceWithStreamingResponse:
-        return AsyncBenchmarksResourceWithStreamingResponse(self._factories.benchmarks)
 
     @cached_property
     def files(self) -> AsyncFilesResourceWithStreamingResponse:

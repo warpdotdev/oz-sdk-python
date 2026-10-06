@@ -24,14 +24,6 @@ from .tasks import (
     TasksResourceWithStreamingResponse,
     AsyncTasksResourceWithStreamingResponse,
 )
-from .scorers import (
-    ScorersResource,
-    AsyncScorersResource,
-    ScorersResourceWithRawResponse,
-    AsyncScorersResourceWithRawResponse,
-    ScorersResourceWithStreamingResponse,
-    AsyncScorersResourceWithStreamingResponse,
-)
 from .factories import (
     FactoriesResource,
     AsyncFactoriesResource,
@@ -39,14 +31,6 @@ from .factories import (
     AsyncFactoriesResourceWithRawResponse,
     FactoriesResourceWithStreamingResponse,
     AsyncFactoriesResourceWithStreamingResponse,
-)
-from .benchmarks import (
-    BenchmarksResource,
-    AsyncBenchmarksResource,
-    BenchmarksResourceWithRawResponse,
-    AsyncBenchmarksResourceWithRawResponse,
-    BenchmarksResourceWithStreamingResponse,
-    AsyncBenchmarksResourceWithStreamingResponse,
 )
 
 __all__ = [
@@ -62,18 +46,6 @@ __all__ = [
     "AsyncTasksResourceWithRawResponse",
     "TasksResourceWithStreamingResponse",
     "AsyncTasksResourceWithStreamingResponse",
-    "ScorersResource",
-    "AsyncScorersResource",
-    "ScorersResourceWithRawResponse",
-    "AsyncScorersResourceWithRawResponse",
-    "ScorersResourceWithStreamingResponse",
-    "AsyncScorersResourceWithStreamingResponse",
-    "BenchmarksResource",
-    "AsyncBenchmarksResource",
-    "BenchmarksResourceWithRawResponse",
-    "AsyncBenchmarksResourceWithRawResponse",
-    "BenchmarksResourceWithStreamingResponse",
-    "AsyncBenchmarksResourceWithStreamingResponse",
     "FilesResource",
     "AsyncFilesResource",
     "FilesResourceWithRawResponse",

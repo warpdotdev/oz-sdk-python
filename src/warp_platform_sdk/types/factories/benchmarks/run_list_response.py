@@ -20,8 +20,6 @@ class ConfigurationStat(BaseModel):
 
     pass_count: int
 
-    role: Literal["baseline", "candidate"]
-
     trial_count: int
     """Trials dispatched so far for this configuration specifically."""
 

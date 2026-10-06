@@ -236,7 +236,6 @@ class TestSuites:
             repetition_count=1,
             configurations=[
                 {
-                    "role": "baseline",
                     "agent_configs": [
                         {
                             "agent_uid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",
@@ -525,7 +524,6 @@ class TestAsyncSuites:
             repetition_count=1,
             configurations=[
                 {
-                    "role": "baseline",
                     "agent_configs": [
                         {
                             "agent_uid": "182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e",

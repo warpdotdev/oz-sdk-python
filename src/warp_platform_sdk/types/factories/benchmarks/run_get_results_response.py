@@ -47,8 +47,6 @@ class Configuration(BaseModel):
     trials.
     """
 
-    role: Literal["baseline", "candidate"]
-
     scoring: object
     """Pass/fail tally with the derived pass rate across all applicable scorers."""
 

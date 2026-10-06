@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Required, TypedDict
 
 from ...._types import SequenceNotStr
 
@@ -64,8 +64,6 @@ class ConfigurationAgentConfig(TypedDict, total=False):
 
 
 class Configuration(TypedDict, total=False):
-    role: Required[Literal["baseline", "candidate"]]
-
     agent_configs: Iterable[ConfigurationAgentConfig]
     """Optional per-named-Agent overrides keyed by stable Agent UID."""
 

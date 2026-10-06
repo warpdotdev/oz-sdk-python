@@ -2,7 +2,6 @@
 
 from typing import List, Optional
 from datetime import datetime
-from typing_extensions import Literal
 
 from ...._models import BaseModel
 from ...user_profile import UserProfile
@@ -23,8 +22,6 @@ class ConfigurationAgentConfig(BaseModel):
 
 
 class Configuration(BaseModel):
-    role: Literal["baseline", "candidate"]
-
     agent_configs: Optional[List[ConfigurationAgentConfig]] = None
     """Optional per-named-Agent overrides keyed by stable Agent UID."""
 

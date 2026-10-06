@@ -20,8 +20,6 @@ class ConfigurationStat(BaseModel):
 
     pass_count: int
 
-    role: Literal["baseline", "candidate"]
-
     trial_count: int
     """Trials dispatched so far for this configuration specifically."""
 
@@ -72,8 +70,6 @@ class Configuration(BaseModel):
 
     display_name: str
     """Optional name given to this configuration at launch. Empty when none was given."""
-
-    role: Literal["baseline", "candidate"]
 
     agent_configs: Optional[List[ConfigurationAgentConfig]] = None
     """Complete launch-time model/harness matrix keyed by stable Agent UID."""

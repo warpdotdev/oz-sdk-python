@@ -228,6 +228,7 @@ class AgentResource(SyncAPIResource):
         on_behalf_of_enabled: Optional[bool] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[SecretRefParam]] | Omit = omit,
+        secrets_append: Iterable[SecretRefParam] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -301,6 +302,14 @@ class AgentResource(SyncAPIResource):
           secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace. Duplicate names are rejected.
 
+          secrets_append: Adds team-owned raw-value secrets to this agent without removing or replacing
+              its existing ones. Secrets it already has and any duplicates are skipped, and an
+              empty array is a no-op. If any name is invalid, the whole request is rejected.
+              Send this field by itself. Including any other field returns 400, even if that
+              field is null, and null is not a valid value here. Appending requires edit and
+              privileged-config-edit access on the agent plus secret-attach access on its
+              Factory. Agents managed in external source files return 409.
+
           skills: Replacement list of skill specs. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace.
 
@@ -339,6 +348,7 @@ class AgentResource(SyncAPIResource):
                     "on_behalf_of_enabled": on_behalf_of_enabled,
                     "prompt": prompt,
                     "secrets": secrets,
+                    "secrets_append": secrets_append,
                     "skills": skills,
                     "worker_host": worker_host,
                 },
@@ -657,6 +667,7 @@ class AsyncAgentResource(AsyncAPIResource):
         on_behalf_of_enabled: Optional[bool] | Omit = omit,
         prompt: Optional[str] | Omit = omit,
         secrets: Optional[Iterable[SecretRefParam]] | Omit = omit,
+        secrets_append: Iterable[SecretRefParam] | Omit = omit,
         skills: Optional[SequenceNotStr[str]] | Omit = omit,
         worker_host: Optional[str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -730,6 +741,14 @@ class AsyncAgentResource(AsyncAPIResource):
           secrets: Replacement list of secrets. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace. Duplicate names are rejected.
 
+          secrets_append: Adds team-owned raw-value secrets to this agent without removing or replacing
+              its existing ones. Secrets it already has and any duplicates are skipped, and an
+              empty array is a no-op. If any name is invalid, the whole request is rejected.
+              Send this field by itself. Including any other field returns 400, even if that
+              field is null, and null is not a valid value here. Appending requires edit and
+              privileged-config-edit access on the agent plus secret-attach access on its
+              Factory. Agents managed in external source files return 409.
+
           skills: Replacement list of skill specs. Omit to leave unchanged, pass an empty array to
               clear, or pass a non-empty array to replace.
 
@@ -768,6 +787,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "on_behalf_of_enabled": on_behalf_of_enabled,
                     "prompt": prompt,
                     "secrets": secrets,
+                    "secrets_append": secrets_append,
                     "skills": skills,
                     "worker_host": worker_host,
                 },

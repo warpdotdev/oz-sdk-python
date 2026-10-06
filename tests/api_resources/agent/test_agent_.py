@@ -171,6 +171,7 @@ class TestAgent:
             on_behalf_of_enabled=True,
             prompt="prompt",
             secrets=[{"name": "name"}],
+            secrets_append=[{"name": "name"}],
             skills=["string"],
             worker_host="worker_host",
         )
@@ -488,6 +489,7 @@ class TestAsyncAgent:
             on_behalf_of_enabled=True,
             prompt="prompt",
             secrets=[{"name": "name"}],
+            secrets_append=[{"name": "name"}],
             skills=["string"],
             worker_host="worker_host",
         )

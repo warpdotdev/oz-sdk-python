@@ -122,6 +122,17 @@ class AgentUpdateParams(TypedDict, total=False):
     to replace. Duplicate names are rejected.
     """
 
+    secrets_append: Iterable[SecretRefParam]
+    """
+    Adds team-owned raw-value secrets to this agent without removing or replacing
+    its existing ones. Secrets it already has and any duplicates are skipped, and an
+    empty array is a no-op. If any name is invalid, the whole request is rejected.
+    Send this field by itself. Including any other field returns 400, even if that
+    field is null, and null is not a valid value here. Appending requires edit and
+    privileged-config-edit access on the agent plus secret-attach access on its
+    Factory. Agents managed in external source files return 409.
+    """
+
     skills: Optional[SequenceNotStr[str]]
     """Replacement list of skill specs.
 

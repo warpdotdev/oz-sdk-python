@@ -1,5 +1,31 @@
 # Changelog
 
+## [1.0.0](https://github.com/warpdotdev/oz-sdk-python/compare/v1.0.0-alpha1...v1.0.0) (2026-10-06)
+
+
+### Features
+
+* **api:** [Chat] Fix prompt and source for MCP tasks ([4021d36](https://github.com/warpdotdev/oz-sdk-python/commit/4021d36b229d80865f47241d029b21929eb6161b))
+* **api:** APP-6022: Assign new secrets to current Factory agents safely ([1fe7500](https://github.com/warpdotdev/oz-sdk-python/commit/1fe750073d9883b8c70b83486c7cd9848625c3de))
+* **api:** Factory Runs: multi-select sources and hide background runs by default ([db05d73](https://github.com/warpdotdev/oz-sdk-python/commit/db05d73215b4832d36e7be2ff36c603526da19b2))
+* **api:** Price run scoring and benchmark cost figures at billed cents ([fc7a0d5](https://github.com/warpdotdev/oz-sdk-python/commit/fc7a0d5076268f6ac1dce99db2299cc8dacf1777))
+* **api:** Remove baseline configuration roles from Factory benchmarks ([91ade11](https://github.com/warpdotdev/oz-sdk-python/commit/91ade111572c0cfb399c78ab6da566024327e6d4))
+* **api:** Save Factory automation edits with one declarative update ([a4d5a34](https://github.com/warpdotdev/oz-sdk-python/commit/a4d5a34b2fa398ea6329b163954bf26031e8893d))
+* **api:** Surface server errors when creating or editing a Factory runner ([3c9d075](https://github.com/warpdotdev/oz-sdk-python/commit/3c9d0759b615bc9f42de0953158f030dfb3b8c5e))
+* **api:** Use Factory automations to scope starter-task issues ([2d5d9da](https://github.com/warpdotdev/oz-sdk-python/commit/2d5d9da47da061a53181dc7a0642a0947b0bd138))
+
+
+### Bug Fixes
+
+* **api:** keep scorer and benchmark APIs internal ([6dff952](https://github.com/warpdotdev/oz-sdk-python/commit/6dff952aa75b504331f067a30d1f281343285f3c))
+
+
+### Chores
+
+* **ci:** refresh workflow actions to latest stable ([#12](https://github.com/warpdotdev/oz-sdk-python/issues/12)) ([1ad51b9](https://github.com/warpdotdev/oz-sdk-python/commit/1ad51b90e3cda488a7942b821c69d89be56a998d))
+* release 1.0.0 ([7bd6dad](https://github.com/warpdotdev/oz-sdk-python/commit/7bd6dadf035c1523da3170025ec55e22a96deb15))
+* **stlc:** seal custom-code tracking files ([9c853b9](https://github.com/warpdotdev/oz-sdk-python/commit/9c853b9b59ee1bb037914a9cc5c9167fa22eabd1))
+
 ## [1.0.0-alpha1](https://github.com/warpdotdev/oz-sdk-python/compare/v0.15.0...v1.0.0-alpha1) (2026-10-05)
 
 
